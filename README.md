@@ -17,3 +17,5 @@ cell中播放视频，全屏小屏切换自如。
         [wmPlayer setVideoURLStr:model.mp4_url];
 
 
+
+#欢迎加入iOS开发技术支持群，487599875
