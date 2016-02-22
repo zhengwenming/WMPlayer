@@ -8,7 +8,6 @@ cell中播放视频，全屏小屏切换自如。
 1.初始化
 
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:self.URLString];
-    wmPlayer.closeBtn.hidden = YES;
     [self.view addSubview:wmPlayer];
     [wmPlayer.player play];
     
@@ -18,7 +17,7 @@ cell中播放视频，全屏小屏切换自如。
 
 
 
-依赖库为Masonry，如果项目中有加入直接用WMPlayer；如果没加如Masonry，请加入Masonry库，然后使用WMPlayer。（demo中有Masonry的源码，直接拖进工程就可以的了）。
+依赖库为Masonry。
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
 
 #欢迎加入iOS开发技术支持群，479259423
