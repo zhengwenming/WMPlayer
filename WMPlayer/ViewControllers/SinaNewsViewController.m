@@ -52,7 +52,7 @@
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
     [self releaseWMPlayer];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
 }
 - (void)viewDidLoad {
@@ -204,6 +204,7 @@
     
     if (wmPlayer) {
         [wmPlayer removeFromSuperview];
+        [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
         [wmPlayer setVideoURLStr:model.mp4_url];
         [wmPlayer.player play];
         
@@ -252,20 +253,33 @@
     [self.navigationController pushViewController:detailVC animated:YES];
     
 }
+/**
+ *  释放WMPlayer
+ */
 -(void)releaseWMPlayer{
     [wmPlayer.player.currentItem cancelPendingSeeks];
     [wmPlayer.player.currentItem.asset cancelLoading];
-    
     [wmPlayer.player pause];
+    
+    //移除观察者
+    [wmPlayer.currentItem removeObserver:wmPlayer forKeyPath:@"status"];
+    
     [wmPlayer removeFromSuperview];
     [wmPlayer.playerLayer removeFromSuperlayer];
     [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
-    wmPlayer = nil;
     wmPlayer.player = nil;
     wmPlayer.currentItem = nil;
+    //释放定时器，否侧不会调用WMPlayer中的dealloc方法
+    [wmPlayer.autoDismissTimer invalidate];
+    wmPlayer.autoDismissTimer = nil;
+    [wmPlayer.durationTimer invalidate];
+    wmPlayer.durationTimer = nil;
+    
     
     wmPlayer.playOrPauseBtn = nil;
     wmPlayer.playerLayer = nil;
+    wmPlayer = nil;
+    
     currentIndexPath = nil;
 }
 -(void)dealloc{

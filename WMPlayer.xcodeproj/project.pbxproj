@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		707FD7371C7D5B13008B3597 /* MBProgressHUD+Show.m in Sources */ = {isa = PBXBuildFile; fileRef = 707FD7331C7D5B13008B3597 /* MBProgressHUD+Show.m */; };
+		707FD7381C7D5B13008B3597 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 707FD7341C7D5B13008B3597 /* MBProgressHUD.bundle */; };
+		707FD7391C7D5B13008B3597 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 707FD7361C7D5B13008B3597 /* MBProgressHUD.m */; };
 		70A0785E1C60A0C900F8C188 /* WMPlayer.gif in Resources */ = {isa = PBXBuildFile; fileRef = 70A0785D1C60A0C900F8C188 /* WMPlayer.gif */; };
 		70C8EC911C5F91C200B0DE61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8EC901C5F91C200B0DE61 /* main.m */; };
 		70C8EC941C5F91C200B0DE61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8EC931C5F91C200B0DE61 /* AppDelegate.m */; };
@@ -91,6 +94,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		707FD7321C7D5B13008B3597 /* MBProgressHUD+Show.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Show.h"; sourceTree = "<group>"; };
+		707FD7331C7D5B13008B3597 /* MBProgressHUD+Show.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Show.m"; sourceTree = "<group>"; };
+		707FD7341C7D5B13008B3597 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		707FD7351C7D5B13008B3597 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		707FD7361C7D5B13008B3597 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		70A0785D1C60A0C900F8C188 /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
 		70C8EC8C1C5F91C200B0DE61 /* WMPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WMPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C8EC901C5F91C200B0DE61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -250,6 +258,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		707FD7311C7D5B13008B3597 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				707FD7321C7D5B13008B3597 /* MBProgressHUD+Show.h */,
+				707FD7331C7D5B13008B3597 /* MBProgressHUD+Show.m */,
+				707FD7341C7D5B13008B3597 /* MBProgressHUD.bundle */,
+				707FD7351C7D5B13008B3597 /* MBProgressHUD.h */,
+				707FD7361C7D5B13008B3597 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			path = MBprogressHUD;
+			sourceTree = "<group>";
+		};
 		70C8EC831C5F91C200B0DE61 = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				70C8ECC91C5F92E900B0DE61 /* MJRefresh */,
+				707FD7311C7D5B13008B3597 /* MBProgressHUD */,
 				70C8ECF61C5F92E900B0DE61 /* SDWebImage */,
 			);
 			path = ThirdLib;
@@ -616,6 +638,7 @@
 				70C8EC9C1C5F91C200B0DE61 /* Assets.xcassets in Resources */,
 				70A0785E1C60A0C900F8C188 /* WMPlayer.gif in Resources */,
 				70C8ED811C5F92E900B0DE61 /* VideoCell.xib in Resources */,
+				707FD7381C7D5B13008B3597 /* MBProgressHUD.bundle in Resources */,
 				70C8ED4E1C5F92E900B0DE61 /* found_s@2x.png in Resources */,
 				70C8ED4F1C5F92E900B0DE61 /* logo.png in Resources */,
 				70C8ED4D1C5F92E900B0DE61 /* found@2x.png in Resources */,
@@ -675,6 +698,7 @@
 				70C8ED661C5F92E900B0DE61 /* MJRefreshBackGifFooter.m in Sources */,
 				70C8ED731C5F92E900B0DE61 /* SDWebImageCompat.m in Sources */,
 				70C8ED8D1C5F92E900B0DE61 /* MASConstraint.m in Sources */,
+				707FD7391C7D5B13008B3597 /* MBProgressHUD.m in Sources */,
 				70C8ED621C5F92E900B0DE61 /* MJRefreshHeader.m in Sources */,
 				70C8ED961C5F92E900B0DE61 /* WMPlayer.m in Sources */,
 				70C8ED651C5F92E900B0DE61 /* MJRefreshAutoStateFooter.m in Sources */,
@@ -688,6 +712,7 @@
 				70C8ED761C5F92E900B0DE61 /* SDWebImageDownloaderOperation.m in Sources */,
 				70C8ED8F1C5F92E900B0DE61 /* MASLayoutConstraint.m in Sources */,
 				70C8ED5E1C5F92E900B0DE61 /* MJRefreshAutoFooter.m in Sources */,
+				707FD7371C7D5B13008B3597 /* MBProgressHUD+Show.m in Sources */,
 				70C8ED771C5F92E900B0DE61 /* SDWebImageManager.m in Sources */,
 				70C8ED7F1C5F92E900B0DE61 /* RootTabBarController.m in Sources */,
 				70C8EC911C5F91C200B0DE61 /* main.m in Sources */,

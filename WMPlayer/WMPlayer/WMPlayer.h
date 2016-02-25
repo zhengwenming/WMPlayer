@@ -36,6 +36,12 @@
 @property(nonatomic,retain)UISlider *progressSlider;
 @property(nonatomic,retain)UISlider *volumeSlider;
 @property(nonatomic,copy) NSString *videoURLStr;
+
+/**
+ *  定时器
+ */
+@property (nonatomic, retain) NSTimer *durationTimer;
+@property (nonatomic, retain) NSTimer *autoDismissTimer;
 /**
  *  BOOL值判断当前的状态
  */

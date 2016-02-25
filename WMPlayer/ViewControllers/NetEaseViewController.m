@@ -19,6 +19,7 @@
     NSMutableArray *dataSource;
     WMPlayer *wmPlayer;
     NSIndexPath *currentIndexPath;
+    MBProgressHUD *hud;
 }
 
 @end
@@ -28,6 +29,9 @@
     self = [super init];
     if (self) {
         dataSource = [NSMutableArray array];
+        hud = [[MBProgressHUD alloc]initWithView:self.view];
+        hud.labelText = @"加载中...";
+       
     }
     return self;
 }
@@ -51,7 +55,7 @@
     VideoCell *currentCell = [self currentCell];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
     [wmPlayer removeFromSuperview];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 
 }
 -(void)fullScreenBtnClick:(NSNotification *)notice{
@@ -135,14 +139,14 @@
     }completion:^(BOOL finished) {
         wmPlayer.isFullscreen = NO;
         wmPlayer.fullScreenBtn.selected = NO;
-        [[UIApplication sharedApplication] setStatusBarHidden:NO animated:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         
     }];
     
 }
 -(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
 
-    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [wmPlayer removeFromSuperview];
     wmPlayer.transform = CGAffineTransformIdentity;
     if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft) {
@@ -178,7 +182,7 @@
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
     [self releaseWMPlayer];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
 }
 - (void)viewDidLoad {
@@ -205,21 +209,31 @@
     
 }
 -(void)loadData{
+    hud = [[MBProgressHUD alloc]initWithView:self.view];
+    hud.labelText = @"加载中...";
+    [hud show:YES];
+    [self.view addSubview:hud];
     SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[1];
-    
+
     [[DataManager shareManager] getVideoListWithURLString:[NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/0-10.html",sidModl.sid] ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
         dataSource =[NSMutableArray arrayWithArray:listArray];
         dispatch_async(dispatch_get_main_queue(), ^{
+            [hud removeFromSuperview];
             [self.table reloadData];
+            
             [self.table.mj_header endRefreshing];
         });
     } failed:^(NSError *error) {
+        [hud removeFromSuperview];
+
         [self.table.mj_header endRefreshing];
         
     }];
     
 }
 -(void)addMJRefresh{
+    [hud show:YES];
+    [self.view addSubview:hud];
     __unsafe_unretained UITableView *tableView = self.table;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -232,12 +246,13 @@
                     if (currentIndexPath.row>dataSource.count) {
                         [self releaseWMPlayer];
                     }
+                    [hud removeFromSuperview];
                     [tableView reloadData];
                     [tableView.mj_header endRefreshing];
                 });
             } failed:^(NSError *error) {
                 [self.table.mj_header endRefreshing];
-                
+                [hud removeFromSuperview];
             }];
         }else{
             return ;
@@ -259,10 +274,12 @@
         [[DataManager shareManager] getVideoListWithURLString:URLString ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
             [dataSource addObjectsFromArray:listArray];
             dispatch_async(dispatch_get_main_queue(), ^{
+                [hud removeFromSuperview];
                 [tableView reloadData];
                 [tableView.mj_header endRefreshing];
             });
         } failed:^(NSError *error) {
+            [hud removeFromSuperview];
             [tableView.mj_header endRefreshing];
             
         }];
@@ -327,6 +344,8 @@
     
     if (wmPlayer) {
         [wmPlayer removeFromSuperview];
+        [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
+
         [wmPlayer setVideoURLStr:model.mp4_url];
         [wmPlayer.player play];
         
@@ -366,20 +385,33 @@
     //    detailVC.URLString = model.mp4_url;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
+/**
+ *  释放WMPlayer
+ */
 -(void)releaseWMPlayer{
     [wmPlayer.player.currentItem cancelPendingSeeks];
     [wmPlayer.player.currentItem.asset cancelLoading];
-    
     [wmPlayer.player pause];
+
+    //移除观察者
+    [wmPlayer.currentItem removeObserver:wmPlayer forKeyPath:@"status"];
+
     [wmPlayer removeFromSuperview];
     [wmPlayer.playerLayer removeFromSuperlayer];
     [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
-    wmPlayer = nil;
     wmPlayer.player = nil;
     wmPlayer.currentItem = nil;
+    //释放定时器，否侧不会调用WMPlayer中的dealloc方法
+    [wmPlayer.autoDismissTimer invalidate];
+    wmPlayer.autoDismissTimer = nil;
+    [wmPlayer.durationTimer invalidate];
+    wmPlayer.durationTimer = nil;
+    
     
     wmPlayer.playOrPauseBtn = nil;
     wmPlayer.playerLayer = nil;
+    wmPlayer = nil;
+    
     currentIndexPath = nil;
 }
 -(void)dealloc{

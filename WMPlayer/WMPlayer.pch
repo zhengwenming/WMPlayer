@@ -13,6 +13,8 @@
 #import "DataManager.h"
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+Show.h"
 #import "AppDelegate.h"
 #import "WMPlayer.h"
 

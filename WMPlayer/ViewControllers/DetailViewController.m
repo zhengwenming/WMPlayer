@@ -156,10 +156,6 @@
     [wmPlayer.player play];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 -(void)releaseWMPlayer{
     [wmPlayer.player.currentItem cancelPendingSeeks];
     [wmPlayer.player.currentItem.asset cancelLoading];
@@ -180,5 +176,8 @@
     [self releaseWMPlayer];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"player deallco");
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 @end

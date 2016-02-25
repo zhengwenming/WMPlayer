@@ -26,8 +26,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @interface WMPlayer ()
 @property (nonatomic,assign)CGPoint firstPoint;
 @property (nonatomic,assign)CGPoint secondPoint;
-@property (nonatomic, retain) NSTimer *durationTimer;
-@property (nonatomic, retain) NSTimer *autoDismissTimer;
+
 @property (nonatomic, retain)NSDateFormatter *dateFormatter;
 
 @end
@@ -337,7 +336,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 - (void)moviePlayDidEnd:(NSNotification *)notification {
     __weak typeof(self) weakSelf = self;
-    [self.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+    [weakSelf.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
         [weakSelf.progressSlider setValue:0.0 animated:YES];
         weakSelf.playOrPauseBtn.selected = NO;
     }];
@@ -452,26 +451,28 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     __weak typeof(self) weakSelf = self;
     
     [weakSelf.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(interval, NSEC_PER_SEC)  queue:NULL /* If you pass NULL, the main queue is used. */ usingBlock:^(CMTime time){
-        [self syncScrubber];
+        [weakSelf syncScrubber];
     }];
     
 }
 - (void)syncScrubber{
+    __weak typeof(self) weakSelf = self;
+
     CMTime playerDuration = [self playerItemDuration];
     if (CMTIME_IS_INVALID(playerDuration)){
-        self.progressSlider.minimumValue = 0.0;
+        weakSelf.progressSlider.minimumValue = 0.0;
         return;
     }
     
     double duration = CMTimeGetSeconds(playerDuration);
     if (isfinite(duration)){
-        float minValue = [self.progressSlider minimumValue];
-        float maxValue = [self.progressSlider maximumValue];
-        double time = CMTimeGetSeconds([self.player currentTime]);
-        _timeLabel.text = [NSString stringWithFormat:@"%@/%@",[self convertTime:time],[self convertTime:duration]];
+        float minValue = [weakSelf.progressSlider minimumValue];
+        float maxValue = [weakSelf.progressSlider maximumValue];
+        double time = CMTimeGetSeconds([weakSelf.player currentTime]);
+        weakSelf.timeLabel.text = [NSString stringWithFormat:@"%@/%@",[weakSelf convertTime:time],[weakSelf convertTime:duration]];
         
 //        NSLog(@"时间 :: %f",(maxValue - minValue) * time / duration + minValue);
-        [self.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
+        [weakSelf.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
     }
 }
 
@@ -525,6 +526,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.firstPoint = self.secondPoint = CGPointZero;
 }
 -(void)dealloc{
+    NSLog(@"WMPlayer dealloc");
     [self.player pause];
     self.autoDismissTimer = nil;
     self.durationTimer = nil;
