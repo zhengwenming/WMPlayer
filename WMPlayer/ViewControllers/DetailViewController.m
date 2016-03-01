@@ -40,6 +40,7 @@
      ];
 }
 -(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
     [wmPlayer removeFromSuperview];
     wmPlayer.transform = CGAffineTransformIdentity;

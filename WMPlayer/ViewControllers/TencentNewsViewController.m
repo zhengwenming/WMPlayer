@@ -163,7 +163,7 @@
 }
 
 -(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
-    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [wmPlayer removeFromSuperview];
     wmPlayer.transform = CGAffineTransformIdentity;
@@ -354,8 +354,13 @@
 -(void)startPlayVideo:(UIButton *)sender{
     currentIndexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
     NSLog(@"currentIndexPath.row = %ld",currentIndexPath.row);
-    
-    self.currentCell = (VideoCell *)sender.superview.superview;
+    if ([UIDevice currentDevice].systemVersion.floatValue>=8||[UIDevice currentDevice].systemVersion.floatValue<7) {
+        self.currentCell = (VideoCell *)sender.superview.superview;
+
+    }else{//ios7系统 UITableViewCell上多了一个层级UITableViewCellScrollView
+        self.currentCell = (VideoCell *)sender.superview.superview.subviews;
+
+    }
     VideoModel *model = [dataSource objectAtIndex:sender.tag];
     isSmallScreen = NO;
 

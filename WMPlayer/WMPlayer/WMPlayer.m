@@ -38,7 +38,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 
 -(AVPlayerItem *)getPlayItemWithURLString:(NSString *)urlString{
-    if ([urlString containsString:@"http"]) {
+    if ([urlString rangeOfString:@"http"].location!=NSNotFound) {
         AVPlayerItem *playerItem=[AVPlayerItem playerItemWithURL:[NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         return playerItem;
     }else{
