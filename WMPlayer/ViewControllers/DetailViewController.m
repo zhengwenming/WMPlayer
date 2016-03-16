@@ -25,10 +25,21 @@
     self = [super init];
     if (self) {
         //注册播放完成通知
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:@"fullScreenBtnClickNotice" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:WMPlayerFullScreenButtonClickedNotification object:nil];
 
     }
     return self;
+}
+-(BOOL)prefersStatusBarHidden{
+    if (wmPlayer) {
+        if (wmPlayer.isFullscreen) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }else{
+        return NO;
+    }
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -41,7 +52,6 @@
 }
 -(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
     [wmPlayer removeFromSuperview];
     wmPlayer.transform = CGAffineTransformIdentity;
     if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft) {
@@ -66,7 +76,6 @@
         
     }];
     [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
-    wmPlayer.isFullscreen = YES;
     wmPlayer.fullScreenBtn.selected = YES;
     [wmPlayer bringSubviewToFront:wmPlayer.bottomView];
     
@@ -93,14 +102,16 @@
         
     }completion:^(BOOL finished) {
         wmPlayer.isFullscreen = NO;
+        [self setNeedsStatusBarAppearanceUpdate];
         wmPlayer.fullScreenBtn.selected = NO;
-        [[UIApplication sharedApplication] setStatusBarHidden:NO animated:NO];
         
     }];
 }
 -(void)fullScreenBtnClick:(NSNotification *)notice{
     UIButton *fullScreenBtn = (UIButton *)[notice object];
     if (fullScreenBtn.isSelected) {//全屏显示
+        wmPlayer.isFullscreen = YES;
+        [self setNeedsStatusBarAppearanceUpdate];
         [self toFullScreenWithInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
     }else{
         [self toNormal];
@@ -131,6 +142,9 @@
         case UIInterfaceOrientationLandscapeLeft:{
             NSLog(@"第2个旋转方向---电池栏在左");
             if (wmPlayer.isFullscreen == NO) {
+                wmPlayer.isFullscreen = YES;
+                [self setNeedsStatusBarAppearanceUpdate];
+
                 [self toFullScreenWithInterfaceOrientation:interfaceOrientation];
             }
         }
@@ -138,6 +152,9 @@
         case UIInterfaceOrientationLandscapeRight:{
             NSLog(@"第1个旋转方向---电池栏在右");
             if (wmPlayer.isFullscreen == NO) {
+                wmPlayer.isFullscreen = YES;
+                [self setNeedsStatusBarAppearanceUpdate];
+
                 [self toFullScreenWithInterfaceOrientation:interfaceOrientation];
             }
         }
@@ -154,7 +171,7 @@
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:self.URLString];
     wmPlayer.closeBtn.hidden = YES;
     [self.view addSubview:wmPlayer];
-    [wmPlayer.player play];
+    [wmPlayer play];
 }
 
 -(void)releaseWMPlayer{

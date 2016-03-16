@@ -13,7 +13,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TencentNewsViewController : UIViewController
+@interface TencentNewsViewController : BaseViewController
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
 @end

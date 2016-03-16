@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NetEaseViewController : UIViewController
+@interface NetEaseViewController : BaseViewController
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
 @end

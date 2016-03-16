@@ -8,7 +8,6 @@
 //
 
 #import "NetEaseViewController.h"
-#import "SecondViewController.h"
 #import "SidModel.h"
 #import "VideoCell.h"
 #import "VideoModel.h"
@@ -19,7 +18,6 @@
     NSMutableArray *dataSource;
     WMPlayer *wmPlayer;
     NSIndexPath *currentIndexPath;
-    MBProgressHUD *hud;
 }
 
 @end
@@ -29,11 +27,19 @@
     self = [super init];
     if (self) {
         dataSource = [NSMutableArray array];
-        hud = [[MBProgressHUD alloc]initWithView:self.view];
-        hud.labelText = @"加载中...";
-       
     }
     return self;
+}
+-(BOOL)prefersStatusBarHidden{
+    if (wmPlayer) {
+        if (wmPlayer.isFullscreen) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }else{
+        return NO;
+    }
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -55,7 +61,7 @@
     VideoCell *currentCell = [self currentCell];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
     [wmPlayer removeFromSuperview];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self setNeedsStatusBarAppearanceUpdate];
 
 }
 -(void)fullScreenBtnClick:(NSNotification *)notice{
@@ -79,16 +85,18 @@
             break;
         case UIInterfaceOrientationPortrait:{
             NSLog(@"第0个旋转方向---电池栏在上");
-
             if (wmPlayer.isFullscreen) {
                 [self toCell];
             }
-            
         }
             break;
         case UIInterfaceOrientationLandscapeLeft:{
             NSLog(@"第2个旋转方向---电池栏在左");
             if (wmPlayer.fullScreenBtn.selected == NO) {
+                wmPlayer.isFullscreen = YES;
+                
+                [self setNeedsStatusBarAppearanceUpdate];
+
                 [self toFullScreenWithInterfaceOrientation:interfaceOrientation];
             }
             
@@ -97,6 +105,10 @@
         case UIInterfaceOrientationLandscapeRight:{
             NSLog(@"第1个旋转方向---电池栏在右");
             if (wmPlayer.fullScreenBtn.selected == NO) {
+                wmPlayer.isFullscreen = YES;
+                
+                [self setNeedsStatusBarAppearanceUpdate];
+
                 [self toFullScreenWithInterfaceOrientation:interfaceOrientation];
             }
             
@@ -127,19 +139,18 @@
         }];
         
         [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            
             make.left.equalTo(wmPlayer).with.offset(5);
             make.height.mas_equalTo(30);
             make.width.mas_equalTo(30);
             make.top.equalTo(wmPlayer).with.offset(5);
-            
         }];
         
         
     }completion:^(BOOL finished) {
         wmPlayer.isFullscreen = NO;
+
+        [self setNeedsStatusBarAppearanceUpdate];
         wmPlayer.fullScreenBtn.selected = NO;
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         
     }];
     
@@ -147,7 +158,6 @@
 -(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [wmPlayer removeFromSuperview];
     wmPlayer.transform = CGAffineTransformIdentity;
     if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft) {
@@ -183,15 +193,15 @@
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
     [self releaseWMPlayer];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    
+    [self setNeedsStatusBarAppearanceUpdate];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     //注册播放完成通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoDidFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     //注册播放完成通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:@"fullScreenBtnClickNotice" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:WMPlayerFullScreenButtonClickedNotification object:nil];
     
     
     [self.table registerNib:[UINib nibWithNibName:@"VideoCell" bundle:nil] forCellReuseIdentifier:@"VideoCell"];
@@ -199,7 +209,7 @@
     //关闭通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(closeTheVideo:)
-                                                 name:@"closeTheVideo"
+                                                 name:WMPlayerClosedNotification
                                                object:nil
      ];
     [self addMJRefresh];
@@ -210,59 +220,50 @@
     
 }
 -(void)loadData{
-    hud = [[MBProgressHUD alloc]initWithView:self.view];
-    hud.labelText = @"加载中...";
-    [hud show:YES];
-    [self.view addSubview:hud];
+    [self addHudWithMessage:@"加载中..."];
     SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[1];
 
     [[DataManager shareManager] getVideoListWithURLString:[NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/0-10.html",sidModl.sid] ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
         dataSource =[NSMutableArray arrayWithArray:listArray];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [hud removeFromSuperview];
+            [self removeHud];
             [self.table reloadData];
             
             [self.table.mj_header endRefreshing];
         });
     } failed:^(NSError *error) {
-        [hud removeFromSuperview];
-
+        [self removeHud];
         [self.table.mj_header endRefreshing];
         
     }];
     
 }
 -(void)addMJRefresh{
-    [hud show:YES];
-    [self.view addSubview:hud];
+    WS(weakSelf)
     __unsafe_unretained UITableView *tableView = self.table;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         if ([AppDelegate shareAppDelegate].sidArray.count>1) {
             SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[1];
-            
+            [weakSelf addHudWithMessage:@"加载中..."];
             [[DataManager shareManager] getVideoListWithURLString:[NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/0-10.html",sidModl.sid] ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
                 dataSource =[NSMutableArray arrayWithArray:listArray];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (currentIndexPath.row>dataSource.count) {
-                        [self releaseWMPlayer];
+                        [weakSelf releaseWMPlayer];
                     }
-                    [hud removeFromSuperview];
+                    [weakSelf removeHud];
                     [tableView reloadData];
                     [tableView.mj_header endRefreshing];
                 });
             } failed:^(NSError *error) {
-                [self.table.mj_header endRefreshing];
-                [hud removeFromSuperview];
+                [weakSelf.table.mj_header endRefreshing];
+                [weakSelf removeHud];
             }];
         }else{
             return ;
         }
-        
-     
-        
     }];
-    
     
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
@@ -271,16 +272,17 @@
         SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[1];
         
         NSString *URLString = [NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/%ld-10.html",sidModl.sid,dataSource.count - dataSource.count%10];
-        
+        [weakSelf addHudWithMessage:@"加载中..."];
+
         [[DataManager shareManager] getVideoListWithURLString:URLString ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
             [dataSource addObjectsFromArray:listArray];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [hud removeFromSuperview];
+                [weakSelf removeHud];
                 [tableView reloadData];
                 [tableView.mj_header endRefreshing];
             });
         } failed:^(NSError *error) {
-            [hud removeFromSuperview];
+            [weakSelf removeHud];
             [tableView.mj_header endRefreshing];
             
         }];
@@ -309,7 +311,7 @@
    
     
     if (wmPlayer&&wmPlayer.superview) {
-        if (indexPath==currentIndexPath) {
+        if (indexPath.row==currentIndexPath.row) {
             [cell.playBtn.superview sendSubviewToBack:cell.playBtn];
         }else{
             [cell.playBtn.superview bringSubviewToFront:cell.playBtn];
@@ -319,7 +321,6 @@
             
             if ([[UIApplication sharedApplication].keyWindow.subviews containsObject:wmPlayer]) {
                 wmPlayer.hidden = NO;
-                
             }else{
                 wmPlayer.hidden = YES;
             }
@@ -327,7 +328,7 @@
             if ([cell.backgroundIV.subviews containsObject:wmPlayer]) {
                 [cell.backgroundIV addSubview:wmPlayer];
                 
-                [wmPlayer.player play];
+                [wmPlayer play];
                 wmPlayer.playOrPauseBtn.selected = NO;
                 wmPlayer.hidden = NO;
             }
@@ -357,11 +358,11 @@
         [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
 
         [wmPlayer setVideoURLStr:model.mp4_url];
-        [wmPlayer.player play];
+        [wmPlayer play];
         
     }else{
         wmPlayer = [[WMPlayer alloc]initWithFrame:cell.backgroundIV.bounds videoURLStr:model.mp4_url];
-        [wmPlayer.player play];
+        [wmPlayer play];
         
     }
     [cell.backgroundIV addSubview:wmPlayer];
@@ -401,7 +402,7 @@
 -(void)releaseWMPlayer{
     [wmPlayer.player.currentItem cancelPendingSeeks];
     [wmPlayer.player.currentItem.asset cancelLoading];
-    [wmPlayer.player pause];
+    [wmPlayer pause];
 
     //移除观察者
     [wmPlayer.currentItem removeObserver:wmPlayer forKeyPath:@"status"];

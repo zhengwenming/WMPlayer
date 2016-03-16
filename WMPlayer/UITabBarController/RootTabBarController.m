@@ -13,17 +13,12 @@
 #import "BaseNavigationController.h"
 
 @interface RootTabBarController (){
-    NSTimer *timer;
-    NSInteger count;
 }
 
 @end
 
 @implementation RootTabBarController
--(void)autoUploadWifiData{
-    count++;
-    NSLog(@"count = %ld",count);
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

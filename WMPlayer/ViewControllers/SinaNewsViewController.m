@@ -12,7 +12,6 @@
  */
 
 #import "SinaNewsViewController.h"
-#import "SecondViewController.h"
 #import "SidModel.h"
 #import "VideoCell.h"
 #import "VideoModel.h"
@@ -60,14 +59,14 @@
     //注册播放完成通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoDidFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     //注册播放完成通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:@"fullScreenBtnClickNotice" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:WMPlayerFullScreenButtonClickedNotification object:nil];
     
     
     [self.table registerNib:[UINib nibWithNibName:@"VideoCell" bundle:nil] forCellReuseIdentifier:@"VideoCell"];
     //关闭通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(closeTheVideo:)
-                                                 name:@"closeTheVideo"
+                                                 name:WMPlayerClosedNotification
                                                object:nil
      ];
     [self addMJRefresh];
@@ -79,40 +78,48 @@
 }
 -(void)loadData{
 
-    
+    WS(weakSelf)
     if ([AppDelegate shareAppDelegate].sidArray.count>2) {
         SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[2];
+        [weakSelf addHudWithMessage:@"加载中..."];
         [[DataManager shareManager] getVideoListWithURLString:[NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/0-10.html",sidModl.sid] ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
+            
             dataSource =[NSMutableArray arrayWithArray:listArray];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.table reloadData];
-                [self.table.mj_header endRefreshing];
+                [weakSelf.table reloadData];
+                [weakSelf removeHud];
+                [weakSelf.table.mj_header endRefreshing];
             });
         } failed:^(NSError *error) {
-            [self.table.mj_header endRefreshing];
+            [weakSelf removeHud];
+            [weakSelf.table.mj_header endRefreshing];
             
         }];
     }
 }
 -(void)addMJRefresh{
+    WS(weakSelf)
+
     __unsafe_unretained UITableView *tableView = self.table;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         if ([AppDelegate shareAppDelegate].sidArray.count>2) {
             SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[2];
-            
-            
+            [weakSelf addHudWithMessage:@"加载中..."];
+
             [[DataManager shareManager] getVideoListWithURLString:[NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/0-10.html",sidModl.sid] ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
                 dataSource =[NSMutableArray arrayWithArray:listArray];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (currentIndexPath.row>dataSource.count) {
-                        [self releaseWMPlayer];
+                        [weakSelf releaseWMPlayer];
                     }
                     [tableView reloadData];
-                    
+                    [weakSelf removeHud];
                     [tableView.mj_header endRefreshing];
                 });
             } failed:^(NSError *error) {
+                [weakSelf removeHud];
+
                 [self.table.mj_header endRefreshing];
                 
             }];
@@ -127,7 +134,8 @@
     // 上拉刷新
     tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
        SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[2];
-        
+        [weakSelf addHudWithMessage:@"加载中..."];
+
         NSString *URLString = [NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/%ld-10.html",sidModl.sid,dataSource.count - dataSource.count%10];
         
         
@@ -136,9 +144,13 @@
             [dataSource addObjectsFromArray:listArray];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [tableView reloadData];
+                [weakSelf removeHud];
+
                 [tableView.mj_header endRefreshing];
             });
         } failed:^(NSError *error) {
+            [weakSelf removeHud];
+
             [tableView.mj_header endRefreshing];
 
         }];
@@ -167,7 +179,7 @@
     
     
     if (wmPlayer&&wmPlayer.superview) {
-        if (indexPath==currentIndexPath) {
+        if (indexPath.row==currentIndexPath.row) {
             [cell.playBtn.superview sendSubviewToBack:cell.playBtn];
         }else{
             [cell.playBtn.superview bringSubviewToFront:cell.playBtn];
@@ -185,7 +197,7 @@
             if ([cell.backgroundIV.subviews containsObject:wmPlayer]) {
                 [cell.backgroundIV addSubview:wmPlayer];
                 
-                [wmPlayer.player play];
+                [wmPlayer play];
                 wmPlayer.playOrPauseBtn.selected = NO;
                 wmPlayer.hidden = NO;
             }
@@ -211,7 +223,7 @@
         [wmPlayer removeFromSuperview];
         [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
         [wmPlayer setVideoURLStr:model.mp4_url];
-        [wmPlayer.player play];
+        [wmPlayer play];
         
     }else{
         wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds videoURLStr:model.mp4_url];

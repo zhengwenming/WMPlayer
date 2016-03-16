@@ -26,9 +26,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @interface WMPlayer ()
 @property (nonatomic,assign)CGPoint firstPoint;
 @property (nonatomic,assign)CGPoint secondPoint;
-
 @property (nonatomic, retain)NSDateFormatter *dateFormatter;
-
 @end
 
 
@@ -235,11 +233,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)fullScreenAction:(UIButton *)sender{
     sender.selected = !sender.selected;
     //用通知的形式把点击全屏的时间发送到app的任何地方，方便处理其他逻辑
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"fullScreenBtnClickNotice" object:sender];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerFullScreenButtonClickedNotification object:sender];
 }
 -(void)colseTheVideo:(UIButton *)sender{
     [self.player pause];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"closeTheVideo" object:sender];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerClosedNotification object:sender];
 }
 - (double)duration{
     AVPlayerItem *playerItem = self.player.currentItem;
@@ -276,6 +274,19 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     //    CMTime time = [self.player currentTime];
 }
+-(void)play{
+    if (self.player.rate !=1.f) {
+        if ([self currentTime] == [self duration]){
+            [self setCurrentTime:0.f];
+        }
+        [self.player play];
+    }
+}
+-(void)pause{
+    if (self.player.rate !=0.f) {
+        [self.player pause];
+    }
+}
 #pragma mark
 #pragma mark - 单击手势方法
 - (void)handleSingleTap{
@@ -305,6 +316,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.player pause];
     }
 }
+
+/**
+ *  重写videoURLStr的setter方法，处理自己的逻辑，
+ */
+#pragma mark
 #pragma mark - 设置播放的视频
 - (void)setVideoURLStr:(NSString *)videoURLStr
 {
@@ -404,7 +420,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (self.currentTime == self.duration&&self.player.rate==.0f) {
         self.playOrPauseBtn.selected = YES;
         //播放完成后的通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"finishedPlay" object:self.durationTimer];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerFinishedPlayNotification object:self.durationTimer];
         [self.durationTimer invalidate];
         self.durationTimer = nil;
     }

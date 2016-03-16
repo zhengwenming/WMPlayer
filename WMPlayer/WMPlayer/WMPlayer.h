@@ -11,6 +11,21 @@
    Copyright © 2016年 郑文明. All rights reserved.
  */
 
+/**
+ *  全屏按钮被点击的通知
+ */
+#define WMPlayerFullScreenButtonClickedNotification @"WMPlayerFullScreenButtonClickedNotification"
+/**
+ *  关闭播放器的通知
+ */
+#define WMPlayerClosedNotification @"WMPlayerClosedNotification"
+/**
+ *  播放完成的通知
+ */
+#define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
+
+
+
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
 
@@ -63,7 +78,9 @@
  */
 @property(nonatomic,retain)UIButton *closeBtn;
 
-/* playItem */
+/**
+ *  当前播放的item
+ */
 @property (nonatomic, retain) AVPlayerItem *currentItem;
 /**
  *  初始化WMPlayer的方法
@@ -74,5 +91,7 @@
  *  @return id类型，实际上就是WMPlayer的一个对象
  */
 - (id)initWithFrame:(CGRect)frame videoURLStr:(NSString *)videoURLStr;
+-(void)play;
+-(void)pause;
 @end
 
