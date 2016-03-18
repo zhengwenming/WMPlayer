@@ -249,7 +249,7 @@
             CGRect rectInSuperview = [self.table convertRect:rectInTableView toView:[self.table superview]];
             NSLog(@"rectInSuperview = %@",NSStringFromCGRect(rectInSuperview));
    
-            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>self.view.frame.size.height-kNavbarHeight-kTabBarHeight) {//往上拖动
+            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>kScreenHeight-kNavbarHeight-kTabBarHeight) {//往上拖动
                 [self releaseWMPlayer];
                 [self.currentCell.playBtn.superview bringSubviewToFront:self.currentCell.playBtn];
             }

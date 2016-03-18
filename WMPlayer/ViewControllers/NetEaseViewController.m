@@ -120,7 +120,8 @@
 }
 
 -(void)toCell{
-    VideoCell *currentCell = [self currentCell];
+    
+    VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     
     [wmPlayer removeFromSuperview];
     NSLog(@"row = %ld",currentIndexPath.row);
@@ -165,17 +166,17 @@
     }else if(interfaceOrientation==UIInterfaceOrientationLandscapeRight){
         wmPlayer.transform = CGAffineTransformMakeRotation(M_PI_2);
     }
-    wmPlayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    wmPlayer.playerLayer.frame =  CGRectMake(0,0, self.view.frame.size.height,self.view.frame.size.width);
+    wmPlayer.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    wmPlayer.playerLayer.frame =  CGRectMake(0,0, kScreenHeight,kScreenWidth);
     
     [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(40);
-        make.top.mas_equalTo(self.view.frame.size.width-40);
-        make.width.mas_equalTo(self.view.frame.size.height);
+        make.top.mas_equalTo(kScreenWidth-40);
+        make.width.mas_equalTo(kScreenHeight);
     }];
     
     [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(wmPlayer).with.offset((-self.view.frame.size.height/2));
+        make.right.equalTo(wmPlayer).with.offset((-kScreenHeight/2));
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(30);
         make.top.equalTo(wmPlayer).with.offset(5);
