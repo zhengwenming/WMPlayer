@@ -23,8 +23,14 @@
  *  播放完成的通知
  */
 #define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
-
-
+/**
+ *  单击播放器view的通知
+ */
+#define WMPlayerSingleTapNotification @"WMPlayerSingleTapNotification"
+/**
+ *  双击播放器view的通知
+ */
+#define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
 
 #import <UIKit/UIKit.h>
 #import "Masonry.h"

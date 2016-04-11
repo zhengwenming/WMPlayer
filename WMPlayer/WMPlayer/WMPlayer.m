@@ -325,6 +325,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark
 #pragma mark - 单击手势方法
 - (void)handleSingleTap{
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerSingleTapNotification object:nil];
+
     [UIView animateWithDuration:0.5 animations:^{
         if (self.bottomView.alpha == 0.0) {
             self.bottomView.alpha = 1.0;
@@ -342,7 +344,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark
 #pragma mark - 双击手势方法
 - (void)handleDoubleTap{
-//    self.playOrPauseBtn.selected = !self.playOrPauseBtn.selected;
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerDoubleTapNotification object:nil];
     if (self.player.rate != 1.f) {
         if ([self currentTime] == self.duration)
             [self setCurrentTime:0.f];
