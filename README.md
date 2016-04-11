@@ -6,12 +6,18 @@ cell中播放视频，全屏小屏切换自如。
 
 #用法，继承UIVIew，初始化传frame和URLString，调用play方法播放
 1.初始化
-
-    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:self.URLString];
+播放网络视频
+    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:@"http://admin.weixin.ihk.cn/ihkwx_upload/test.mp4"];
     [self.view addSubview:wmPlayer];
-    [wmPlayer.player play];
+    [wmPlayer play];
+
+播放本地视频
+    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:[[NSBundle mainBundle] pathForResource:@"动画片" ofType:"mp4"]];
+    [self.view addSubview:wmPlayer];
+    [wmPlayer play]; 
     
-2.切换视频
+    
+2.切换视频（播放另一个视频）
 
         [wmPlayer setVideoURLStr:model.mp4_url];
         
