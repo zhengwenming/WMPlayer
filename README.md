@@ -14,7 +14,28 @@ cell中播放视频，全屏小屏切换自如。
 2.切换视频
 
         [wmPlayer setVideoURLStr:model.mp4_url];
-
+        
+补充：wmplayer的几乎所以事件都提供了接口（以通知的形式提供给开发者），开发者如果有自己的逻辑需要处理，可以自行添加通知事件。以下都是通知的名称。用就添加，不用可以忽略。
+/**
+ *  全屏按钮被点击的通知
+ */
+#define WMPlayerFullScreenButtonClickedNotification @"WMPlayerFullScreenButtonClickedNotification"
+/**
+ *  关闭播放器的通知
+ */
+#define WMPlayerClosedNotification @"WMPlayerClosedNotification"
+/**
+ *  播放完成的通知
+ */
+#define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
+/**
+ *  单击播放器view的通知
+ */
+#define WMPlayerSingleTapNotification @"WMPlayerSingleTapNotification"
+/**
+ *  双击播放器view的通知
+ */
+#define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
 
 
 依赖库为Masonry。
