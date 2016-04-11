@@ -51,6 +51,9 @@
 @property(nonatomic,retain)UISlider *progressSlider;
 @property(nonatomic,retain)UISlider *volumeSlider;
 @property(nonatomic,copy) NSString *videoURLStr;
+/** 亮度的进度条 */
+@property (nonatomic, retain) UISlider *lightSlider;
+
 
 /**
  *  定时器
