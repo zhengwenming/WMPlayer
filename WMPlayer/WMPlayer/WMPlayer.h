@@ -35,6 +35,16 @@
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
 
+
+// 播放器的几种状态
+typedef NS_ENUM(NSInteger, WMPlayerState) {
+    WMPlayerStateFailed,     // 播放失败
+    WMPlayerStateBuffering,  // 缓冲中
+    WMPlayerStatePlaying,    // 播放中
+    WMPlayerStateStopped,    // 停止播放
+    WMPlayerStatePause       // 暂停播放
+};
+
 @import MediaPlayer;
 @import AVFoundation;
 
@@ -50,6 +60,10 @@
  *playerLayer,可以修改frame
  */
 @property (nonatomic,retain ) AVPlayerLayer  *playerLayer;
+
+/** 播放器的几种状态 */
+@property (nonatomic, assign) WMPlayerState   state;
+
 /**
  *  底部操作工具栏
  */
@@ -91,6 +105,11 @@
  *  当前播放的item
  */
 @property (nonatomic, retain) AVPlayerItem   *currentItem;
+
+/**
+ *  BOOL值判断当前的播放状态
+ */
+@property (nonatomic,assign ) BOOL            isPlaying;
 /**
  *  初始化WMPlayer的方法
  *

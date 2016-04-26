@@ -240,7 +240,7 @@
 {
     if (wmPlayer)
     {
-        [wmPlayer pause];
+        [wmPlayer play];
     }
 }
 

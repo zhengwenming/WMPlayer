@@ -85,8 +85,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.playOrPauseBtn.showsTouchWhenHighlighted = YES;
         [self.playOrPauseBtn addTarget:self action:@selector(PlayOrPause:) forControlEvents:UIControlEventTouchUpInside];
-        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"pause")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"pause")] forState:UIControlStateNormal];
-        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"play")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"play")] forState:UIControlStateSelected];
+        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"play")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"play")] forState:UIControlStateNormal];
+        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"pause")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"pause")] forState:UIControlStateSelected];
+        self.playOrPauseBtn.selected = YES;
         [self.bottomView addSubview:self.playOrPauseBtn];
         //autoLayout _playOrPauseBtn
         [self.playOrPauseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -310,16 +311,26 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.durationTimer = [NSTimer timerWithTimeInterval:0.2 target:self selector:@selector(finishedPlay:) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSDefaultRunLoopMode];
     }
-//    sender.selected = !sender.selected;
-    if (self.player.rate != 1.f) {
+    sender.selected = !sender.selected;
+    if (sender.selected)
+    {
         if ([self currentTime] == [self duration])
             [self setCurrentTime:0.f];
         [self.player play];
-        sender.selected = NO;
-    } else {
-        [self.player pause];
-        sender.selected = YES;
     }
+    else
+    {
+        [self.player pause];
+    }
+//    if (self.player.rate != 1.f) {
+//        if ([self currentTime] == [self duration])
+//            [self setCurrentTime:0.f];
+//        [self.player play];
+//        sender.selected = YES;
+//    } else {
+//        [self.player pause];
+//        sender.selected = NO;
+//    }
     
     //    CMTime time = [self.player currentTime];
 }
