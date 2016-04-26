@@ -45,52 +45,52 @@
 /**
  *  播放器player
  */
-@property(nonatomic,retain)AVPlayer *player;
+@property (nonatomic,retain ) AVPlayer       *player;
 /**
  *playerLayer,可以修改frame
  */
-@property(nonatomic,retain)AVPlayerLayer *playerLayer;
+@property (nonatomic,retain ) AVPlayerLayer  *playerLayer;
 /**
  *  底部操作工具栏
  */
-@property(nonatomic,retain)UIView *bottomView;
-@property(nonatomic,retain)UISlider *progressSlider;
-@property(nonatomic,retain)UISlider *volumeSlider;
-@property(nonatomic,copy) NSString *videoURLStr;
+@property (nonatomic,retain ) UIView         *bottomView;
+@property (nonatomic,retain ) UISlider       *progressSlider;
+@property (nonatomic,retain ) UISlider       *volumeSlider;
+@property (nonatomic,copy   ) NSString       *videoURLStr;
 /** 亮度的进度条 */
-@property (nonatomic, retain) UISlider *lightSlider;
+@property (nonatomic, retain) UISlider       *lightSlider;
 
 
 /**
  *  定时器
  */
-@property (nonatomic, retain) NSTimer *durationTimer;
-@property (nonatomic, retain) NSTimer *autoDismissTimer;
+@property (nonatomic, retain) NSTimer        *durationTimer;
+@property (nonatomic, retain) NSTimer        *autoDismissTimer;
 /**
  *  BOOL值判断当前的状态
  */
-@property(nonatomic,assign)BOOL isFullscreen;
+@property (nonatomic,assign ) BOOL            isFullscreen;
 /**
  *  显示播放时间的UILabel
  */
-@property(nonatomic,retain)UILabel *timeLabel;
+@property (nonatomic,retain ) UILabel        *timeLabel;
 /**
  *  控制全屏的按钮
  */
-@property(nonatomic,retain)UIButton *fullScreenBtn;
+@property (nonatomic,retain ) UIButton       *fullScreenBtn;
 /**
  *  播放暂停按钮
  */
-@property(nonatomic,retain)UIButton *playOrPauseBtn;
+@property (nonatomic,retain ) UIButton       *playOrPauseBtn;
 /**
  *  关闭按钮
  */
-@property(nonatomic,retain)UIButton *closeBtn;
+@property (nonatomic,retain ) UIButton       *closeBtn;
 
 /**
  *  当前播放的item
  */
-@property (nonatomic, retain) AVPlayerItem *currentItem;
+@property (nonatomic, retain) AVPlayerItem   *currentItem;
 /**
  *  初始化WMPlayer的方法
  *
@@ -100,7 +100,8 @@
  *  @return id类型，实际上就是WMPlayer的一个对象
  */
 - (id)initWithFrame:(CGRect)frame videoURLStr:(NSString *)videoURLStr;
--(void)play;
--(void)pause;
+- (void)play;
+- (void)pause;
+
 @end
 
