@@ -5,13 +5,13 @@
  @header WMPlayer.m
  
  @abstract  作者Github地址：https://github.com/zhengwenming
-            作者CSDN博客地址:http://blog.csdn.net/wenmingzheng
+ 作者CSDN博客地址:http://blog.csdn.net/wenmingzheng
  
  @author   Created by zhengwenming on  16/1/24
  
  @version 1.00 16/1/24 Creation(版本信息)
  
-   Copyright © 2016年 郑文明. All rights reserved.
+ Copyright © 2016年 郑文明. All rights reserved.
  */
 
 #import "WMPlayer.h"
@@ -26,14 +26,12 @@ static void *PlayViewCMTimeValue = &PlayViewCMTimeValue;
 static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContext;
 
 @interface WMPlayer () <UIGestureRecognizerDelegate>
-
-@property (nonatomic,assign ) CGPoint                  firstPoint;
-@property (nonatomic,assign ) CGPoint                  secondPoint;
-@property (nonatomic, retain) NSDateFormatter         *dateFormatter;
+@property (nonatomic,assign)CGPoint firstPoint;
+@property (nonatomic,assign)CGPoint secondPoint;
+@property (nonatomic, retain)NSDateFormatter *dateFormatter;
 //视频进度条的单击事件
-@property (nonatomic, strong) UITapGestureRecognizer  *tap;
-@property (nonatomic, assign) CGPoint                  originalPoint;
-
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, assign) CGPoint originalPoint;
 @end
 
 
@@ -42,8 +40,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
 }
 
-- (AVPlayerItem *)getPlayItemWithURLString:(NSString *)urlString
-{
+-(AVPlayerItem *)getPlayItemWithURLString:(NSString *)urlString{
     if ([urlString rangeOfString:@"http"].location!=NSNotFound) {
         AVPlayerItem *playerItem=[AVPlayerItem playerItemWithURL:[NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         return playerItem;
@@ -54,8 +51,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     
 }
-- (instancetype)initWithFrame:(CGRect)frame videoURLStr:(NSString *)videoURLStr
-{
+- (instancetype)initWithFrame:(CGRect)frame videoURLStr:(NSString *)videoURLStr{
     self = [super init];
     if (self) {
         self.frame = frame;
@@ -66,7 +62,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         //AVPlayerLayer
         self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
         self.playerLayer.frame = self.layer.bounds;
-//        self.playerLayer.videoGravity = AVLayerVideoGravityResize;
+        //        self.playerLayer.videoGravity = AVLayerVideoGravityResize;
         [self.layer addSublayer:_playerLayer];
         
         //bottomView
@@ -85,9 +81,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.playOrPauseBtn.showsTouchWhenHighlighted = YES;
         [self.playOrPauseBtn addTarget:self action:@selector(PlayOrPause:) forControlEvents:UIControlEventTouchUpInside];
-        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"play")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"play")] forState:UIControlStateNormal];
-        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"pause")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"pause")] forState:UIControlStateSelected];
-        self.playOrPauseBtn.selected = YES;
+        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"pause")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"pause")] forState:UIControlStateNormal];
+        [self.playOrPauseBtn setImage:[UIImage imageNamed:WMVideoSrcName(@"play")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"play")] forState:UIControlStateSelected];
         [self.bottomView addSubview:self.playOrPauseBtn];
         //autoLayout _playOrPauseBtn
         [self.playOrPauseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,7 +102,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.lightSlider.value = [UIScreen mainScreen].brightness;
         [self.lightSlider addTarget:self action:@selector(updateLightValue:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.lightSlider];
-
+        
         
         
         MPVolumeView *volumeView = [[MPVolumeView alloc]init];
@@ -127,7 +122,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         systemSlider.autoresizesSubviews = NO;
         systemSlider.autoresizingMask = UIViewAutoresizingNone;
         [self addSubview:systemSlider];
-//        systemSlider.hidden = YES;
+        //        systemSlider.hidden = YES;
         
         
         
@@ -219,7 +214,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             
             make.left.equalTo(self.bottomView).with.offset(5);
             make.height.mas_equalTo(30);
-            make.top.equalTo(self).with.offset(10);
+            make.top.equalTo(self).with.offset(5);
             make.width.mas_equalTo(30);
             
             
@@ -238,11 +233,20 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         doubleTap.numberOfTapsRequired = 2; // 双击
         [self addGestureRecognizer:doubleTap];
         
-
+        
         [self.currentItem addObserver:self
-                          forKeyPath:@"status"
-                             options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                             context:PlayViewStatusObservationContext];
+                           forKeyPath:@"status"
+                              options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                              context:PlayViewStatusObservationContext];
+        
+        
+        
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appwillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        
+        
         [self initTimer];
         
         
@@ -250,9 +254,32 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     return self;
 }
 
-//视频进度条的点击事件
-- (void)actionTapGesture:(UITapGestureRecognizer *)sender
+
+- (void)appDidEnterBackground:(NSNotification*)note
 {
+//    [self PlayOrPause:self.playOrPauseBtn];
+
+    NSLog(@"appDidEnterBackground");
+}
+
+- (void)appWillEnterForeground:(NSNotification*)note
+{
+//    [self PlayOrPause:self.playOrPauseBtn];
+
+    NSLog(@"appWillEnterForeground");
+}
+- (void)appwillResignActive:(NSNotification *)note
+{
+    //    [self PlayOrPause:self.playOrPauseBtn];
+    NSLog(@"appwillResignActive");
+}
+- (void)appBecomeActive:(NSNotification *)note
+{
+    [self.player pause];
+    self.playOrPauseBtn.selected = YES;
+}
+//视频进度条的点击事件
+- (void)actionTapGesture:(UITapGestureRecognizer *)sender {
     
     CGPoint touchPoint = [sender locationInView:self.progressSlider];
     CGFloat value = (self.progressSlider.maximumValue - self.progressSlider.minimumValue) * (touchPoint.x / self.progressSlider.frame.size.width );
@@ -260,30 +287,25 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.player seekToTime:CMTimeMakeWithSeconds(self.progressSlider.value, 1)];
 }
 
-- (void)updateSystemVolumeValue:(UISlider *)slider
-{
+- (void)updateSystemVolumeValue:(UISlider *)slider{
     systemSlider.value = slider.value;
 }
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.playerLayer.frame = self.bounds;
 }
-
 #pragma mark
 #pragma mark - fullScreenAction
-- (void)fullScreenAction:(UIButton *)sender
-{
+-(void)fullScreenAction:(UIButton *)sender{
     sender.selected = !sender.selected;
     //用通知的形式把点击全屏的时间发送到app的任何地方，方便处理其他逻辑
     [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerFullScreenButtonClickedNotification object:sender];
 }
-- (void)colseTheVideo:(UIButton *)sender
-{
+-(void)colseTheVideo:(UIButton *)sender{
     [self.player pause];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerClosedNotification object:sender];
 }
-- (double)duration
-{
+- (double)duration{
     AVPlayerItem *playerItem = self.player.currentItem;
     if (playerItem.status == AVPlayerItemStatusReadyToPlay){
         return CMTimeGetSeconds([[playerItem asset] duration]);
@@ -293,87 +315,61 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
 }
 
-- (double)currentTime
-{
+- (double)currentTime{
     return CMTimeGetSeconds([[self player] currentTime]);
 }
 
-- (void)setCurrentTime:(double)time
-{
+- (void)setCurrentTime:(double)time{
     [[self player] seekToTime:CMTimeMakeWithSeconds(time, 1)];
 }
-
 #pragma mark
 #pragma mark - PlayOrPause
-- (void)PlayOrPause:(UIButton *)sender
-{
+- (void)PlayOrPause:(UIButton *)sender{
     if (self.durationTimer==nil) {
         self.durationTimer = [NSTimer timerWithTimeInterval:0.2 target:self selector:@selector(finishedPlay:) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSDefaultRunLoopMode];
     }
-    sender.selected = !sender.selected;
-    if (sender.selected)
-    {
+    
+    if (self.player.rate != 1.f) {
         if ([self currentTime] == [self duration])
             [self setCurrentTime:0.f];
+        sender.selected = NO;
         [self.player play];
-    }
-    else
-    {
+    } else {
+        sender.selected = YES;
         [self.player pause];
     }
-//    if (self.player.rate != 1.f) {
-//        if ([self currentTime] == [self duration])
-//            [self setCurrentTime:0.f];
-//        [self.player play];
-//        sender.selected = YES;
-//    } else {
-//        [self.player pause];
-//        sender.selected = NO;
-//    }
     
     //    CMTime time = [self.player currentTime];
 }
-- (void)play
-{
-    if (self.player.rate !=1.f) {
-        if ([self currentTime] == [self duration]){
-            [self setCurrentTime:0.f];
-        }
-        [self.player play];
-    }
+-(void)play{
+    [self PlayOrPause:self.playOrPauseBtn];
 }
-- (void)pause
-{
-    if (self.player.rate !=0.f) {
-        [self.player pause];
-    }
+-(void)pause{
+    [self PlayOrPause:self.playOrPauseBtn];
 }
 #pragma mark
 #pragma mark - 单击手势方法
-- (void)handleSingleTap
-{
+- (void)handleSingleTap{
     [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerSingleTapNotification object:nil];
-
+    
     [UIView animateWithDuration:0.5 animations:^{
         if (self.bottomView.alpha == 0.0) {
             self.bottomView.alpha = 1.0;
             self.closeBtn.alpha = 1.0;
-
+            
         }else{
             self.bottomView.alpha = 0.0;
             self.closeBtn.alpha = 0.0;
-
+            
         }
     } completion:^(BOOL finish){
         
     }];
 }
-
 #pragma mark
 #pragma mark - 双击手势方法
-- (void)handleDoubleTap
-{
+- (void)handleDoubleTap{
     [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerDoubleTapNotification object:nil];
     if (self.player.rate != 1.f) {
         if ([self currentTime] == self.duration)
@@ -398,29 +394,29 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (self.currentItem) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_currentItem];
         [self.currentItem removeObserver:self forKeyPath:@"status"];
-
-//        [self.player.currentItem removeObserver:self forKeyPath:@"status"];
+        
+        //        [self.player.currentItem removeObserver:self forKeyPath:@"status"];
     }
     
-        self.currentItem = [self getPlayItemWithURLString:videoURLStr];
+    self.currentItem = [self getPlayItemWithURLString:videoURLStr];
     
-      
-        
-        
-        [self.currentItem addObserver:self
-                           forKeyPath:@"status"
-                              options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                              context:PlayViewStatusObservationContext];
-        
+    
+    
+    
+    [self.currentItem addObserver:self
+                       forKeyPath:@"status"
+                          options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                          context:PlayViewStatusObservationContext];
+    
     [self.player replaceCurrentItemWithPlayerItem:self.currentItem];
     
     
     // 添加视频播放结束通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_currentItem];
+
     
 }
-- (void)moviePlayDidEnd:(NSNotification *)notification
-{
+- (void)moviePlayDidEnd:(NSNotification *)notification {
     __weak typeof(self) weakSelf = self;
     [weakSelf.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
         [weakSelf.progressSlider setValue:0.0 animated:YES];
@@ -428,13 +424,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
 }
 #pragma mark - 播放进度
-- (void)updateProgress:(UISlider *)slider
-{
+- (void)updateProgress:(UISlider *)slider{
     [self.player seekToTime:CMTimeMakeWithSeconds(slider.value, 1)];
+    
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     /* AVPlayerItem "status" property value observer. */
     if (context == PlayViewStatusObservationContext)
     {
@@ -485,11 +480,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     
 }
-
 #pragma mark
 #pragma mark finishedPlay
-- (void)finishedPlay:(NSTimer *)timer
-{
+- (void)finishedPlay:(NSTimer *)timer{
     if (self.currentTime == self.duration&&self.player.rate==.0f) {
         self.playOrPauseBtn.selected = YES;
         //播放完成后的通知
@@ -498,11 +491,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.durationTimer = nil;
     }
 }
-
 #pragma mark
 #pragma mark autoDismissBottomView
--(void)autoDismissBottomView:(NSTimer *)timer
-{
+-(void)autoDismissBottomView:(NSTimer *)timer{
+    
     if (self.player.rate==.0f&&self.currentTime != self.duration) {//暂停状态
         //        if (self.bottomView.alpha == 0.0) {
         //
@@ -514,17 +506,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [UIView animateWithDuration:0.5 animations:^{
                 self.bottomView.alpha = 0.0;
                 self.closeBtn.alpha = 0.0;
-
+                
             } completion:^(BOOL finish){
                 
             }];
         }
     }
 }
-
 #pragma  maik - 定时器
-- (void)initTimer
-{
+-(void)initTimer{
     double interval = .1f;
     
     CMTime playerDuration = [self playerItemDuration];
@@ -538,7 +528,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         CGFloat width = CGRectGetWidth([self.progressSlider bounds]);
         interval = 0.5f * duration / width;
     }
-    NSLog(@"interva === %f",interval);
     
     __weak typeof(self) weakSelf = self;
     
@@ -547,11 +536,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
     
 }
-
-- (void)syncScrubber
-{
+- (void)syncScrubber{
     __weak typeof(self) weakSelf = self;
-
+    
     CMTime playerDuration = [self playerItemDuration];
     if (CMTIME_IS_INVALID(playerDuration)){
         weakSelf.progressSlider.minimumValue = 0.0;
@@ -565,24 +552,21 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         double time = CMTimeGetSeconds([weakSelf.player currentTime]);
         weakSelf.timeLabel.text = [NSString stringWithFormat:@"%@/%@",[weakSelf convertTime:time],[weakSelf convertTime:duration]];
         
-//        NSLog(@"时间 :: %f",(maxValue - minValue) * time / duration + minValue);
+        //        NSLog(@"时间 :: %f",(maxValue - minValue) * time / duration + minValue);
         [weakSelf.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
     }
 }
 
-- (CMTime)playerItemDuration
-{
+- (CMTime)playerItemDuration{
     AVPlayerItem *playerItem = [self.player currentItem];
-//    NSLog(@"%ld",playerItem.status);
+    //    NSLog(@"%ld",playerItem.status);
     if (playerItem.status == AVPlayerItemStatusReadyToPlay){
         return([playerItem duration]);
     }
     
     return(kCMTimeInvalid);
 }
-
-- (NSString *)convertTime:(CGFloat)second
-{
+- (NSString *)convertTime:(CGFloat)second{
     NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
     if (second/3600 >= 1) {
         [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
@@ -593,16 +577,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     return newTime;
 }
 
-- (NSDateFormatter *)dateFormatter
-{
+- (NSDateFormatter *)dateFormatter {
     if (!_dateFormatter) {
         _dateFormatter = [[NSDateFormatter alloc] init];
     }
     return _dateFormatter;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     for(UITouch *touch in event.allTouches) {
         self.firstPoint = [touch locationInView:self];
         
@@ -612,12 +594,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.originalPoint = self.firstPoint;
     
     
-//    UISlider *volumeSlider = (UISlider *)[self viewWithTag:1000];
-//    volumeSlider.value = systemSlider.value;
+    //    UISlider *volumeSlider = (UISlider *)[self viewWithTag:1000];
+    //    volumeSlider.value = systemSlider.value;
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     for(UITouch *touch in event.allTouches) {
         self.secondPoint = [touch locationInView:self];
     }
@@ -677,23 +658,22 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     
     
-//    systemSlider.value += (self.firstPoint.y - self.secondPoint.y)/500.0;
-//    UISlider *volumeSlider = (UISlider *)[self viewWithTag:1000];
-//    volumeSlider.value = systemSlider.value;
-//    self.firstPoint = self.secondPoint;
+    //    systemSlider.value += (self.firstPoint.y - self.secondPoint.y)/500.0;
+    //    UISlider *volumeSlider = (UISlider *)[self viewWithTag:1000];
+    //    volumeSlider.value = systemSlider.value;
+    //    self.firstPoint = self.secondPoint;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     self.firstPoint = self.secondPoint = CGPointZero;
 }
-- (void)dealloc
-{
+-(void)dealloc{
     NSLog(@"WMPlayer dealloc");
     [self.player pause];
     self.autoDismissTimer = nil;
     self.durationTimer = nil;
     self.player = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.currentItem removeObserver:self forKeyPath:@"status"];
 }
 @end

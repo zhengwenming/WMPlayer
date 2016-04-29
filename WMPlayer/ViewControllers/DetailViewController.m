@@ -1,7 +1,3 @@
-
-
-
-
 //
 //  DetailViewController.m
 //  WMVideoPlayer
@@ -20,39 +16,17 @@
 @end
 
 @implementation DetailViewController
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        //注册播放完成通知
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:WMPlayerFullScreenButtonClickedNotification object:nil];
-
+-(BOOL)prefersStatusBarHidden{
+    if (wmPlayer) {
+        if (wmPlayer.isFullscreen) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }else{
+        return NO;
     }
-    return self;
 }
-
-//-(BOOL)prefersStatusBarHidden{
-//    if (wmPlayer) {
-//        if (wmPlayer.isFullscreen) {
-//            return YES;
-//        }else{
-//            return NO;
-//        }
-//    }else{
-//        return NO;
-//    }
-//}
-
-//- (void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    //旋转屏幕通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(onDeviceOrientationChange)
-//                                                 name:UIDeviceOrientationDidChangeNotification
-//                                               object:nil
-//     ];
-//}
 
 - (void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation
 {
@@ -171,103 +145,24 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
     //旋转屏幕通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onDeviceOrientationChange)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil
      ];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appwillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-}
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    if (wmPlayer)
-    {
-        [wmPlayer pause];
-    }
 }
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    //UIStatusBarStyleDefault = 0 黑色文字，浅色背景时使用
-    //UIStatusBarStyleLightContent = 1 白色文字，深色背景时使用
-    return UIStatusBarStyleLightContent;
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES; // 返回NO表示要显示，返回YES将hiden
-}
-
-- (void)appwillResignActive:(NSNotification *)note
-{
-    if (wmPlayer)
-    {
-        [wmPlayer pause];
-    }
-    NSLog(@"appwillResignActive");
-}
-
-- (void)appDidEnterBackground:(NSNotification*)note
-{
-    if (wmPlayer)
-    {
-        [wmPlayer pause];
-    }
-    NSLog(@"appDidEnterBackground");
-}
-
-- (void)appWillEnterForeground:(NSNotification*)note
-{
-    if (wmPlayer)
-    {
-        [wmPlayer pause];
-    }
-    NSLog(@"appWillEnterForeground");
-}
-
-- (void)appBecomeActive:(NSNotification *)note
-{
-    if (wmPlayer)
-    {
-        [wmPlayer play];
-    }
-}
-
-- (void)backButtonAction
-{
-    [wmPlayer pause];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)viewDidLoad
 {
-//    [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor whiteColor];
-//    playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*3/4);
-//    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:self.URLString];
-//    wmPlayer.closeBtn.hidden = NO;
-//    [self.view addSubview:wmPlayer];
-//    [wmPlayer play];
+    //注册播放完成通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:WMPlayerFullScreenButtonClickedNotification object:nil];
     
+    [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*3/4);
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:self.URLString];
     wmPlayer.closeBtn.hidden = NO;
-    [wmPlayer.closeBtn setImage:[UIImage imageNamed:@"WMPlayer.bundle/ba_back"] ?: [UIImage imageNamed:@"WMPlayer.bundle/ba_back"] forState:UIControlStateNormal];
-    wmPlayer.closeBtn.backgroundColor = [UIColor lightGrayColor];
-    wmPlayer.closeBtn.alpha = 0.65f;
-    [wmPlayer.closeBtn addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:wmPlayer];
     [wmPlayer play];
 }

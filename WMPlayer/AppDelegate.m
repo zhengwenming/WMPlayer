@@ -23,7 +23,6 @@
                                                  success:^(NSArray *sidArray, NSArray *videoArray) {
                                                      self.sidArray =[NSArray arrayWithArray:sidArray];
                                                      self.videoArray = [NSArray arrayWithArray:videoArray];
-                                                     NSLog(@"sidArray = %@",sidArray);
                                                  }
                                                   failed:^(NSError *error) {
                                                       

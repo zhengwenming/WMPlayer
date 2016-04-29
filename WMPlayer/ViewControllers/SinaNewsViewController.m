@@ -198,7 +198,6 @@
                 [cell.backgroundIV addSubview:wmPlayer];
                 
                 [wmPlayer play];
-                wmPlayer.playOrPauseBtn.selected = NO;
                 wmPlayer.hidden = NO;
             }
             
@@ -227,7 +226,6 @@
         
     }else{
         wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds videoURLStr:model.mp4_url];
-        [wmPlayer.player play];
         
     }
     [self.currentCell.backgroundIV addSubview:wmPlayer];

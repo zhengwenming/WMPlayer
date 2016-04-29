@@ -344,7 +344,6 @@
             
             if ([[UIApplication sharedApplication].keyWindow.subviews containsObject:wmPlayer]) {
                 wmPlayer.hidden = NO;
-                
             }else{
                 wmPlayer.hidden = YES;
                 [cell.playBtn.superview bringSubviewToFront:cell.playBtn];
@@ -354,7 +353,6 @@
                 [cell.backgroundIV addSubview:wmPlayer];
                 
                 [wmPlayer play];
-                wmPlayer.playOrPauseBtn.selected = NO;
                 wmPlayer.hidden = NO;
             }
             
@@ -383,10 +381,8 @@
         [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
         [wmPlayer setVideoURLStr:model.mp4_url];
         [wmPlayer play];
-
     }else{
         wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds videoURLStr:model.mp4_url];
-        [wmPlayer play];
 
     }
     [self.currentCell.backgroundIV addSubview:wmPlayer];
