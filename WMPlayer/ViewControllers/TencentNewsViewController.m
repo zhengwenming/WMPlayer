@@ -340,7 +340,7 @@
             [cell.playBtn.superview bringSubviewToFront:cell.playBtn];
         }
         NSArray *indexpaths = [tableView indexPathsForVisibleRows];
-        if (![indexpaths containsObject:currentIndexPath]) {//复用
+        if (![indexpaths containsObject:currentIndexPath]&&currentIndexPath!=nil) {//复用
             
             if ([[UIApplication sharedApplication].keyWindow.subviews containsObject:wmPlayer]) {
                 wmPlayer.hidden = NO;
@@ -373,9 +373,12 @@
     }
     VideoModel *model = [dataSource objectAtIndex:sender.tag];
     
-    isSmallScreen = NO;
-
-   
+//    isSmallScreen = NO;
+    if (isSmallScreen) {
+        [self releaseWMPlayer];
+       isSmallScreen = NO;
+        
+    }
     if (wmPlayer) {
         [wmPlayer removeFromSuperview];
         [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
@@ -459,8 +462,6 @@
     wmPlayer.playOrPauseBtn = nil;
     wmPlayer.playerLayer = nil;
     wmPlayer = nil;
-    
-    currentIndexPath = nil;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

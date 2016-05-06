@@ -332,11 +332,8 @@
                 [wmPlayer play];
                 wmPlayer.hidden = NO;
             }
-            
         }
     }
-    
-    
     return cell;
 }
 -(void)startPlayVideo:(UIButton *)sender{
