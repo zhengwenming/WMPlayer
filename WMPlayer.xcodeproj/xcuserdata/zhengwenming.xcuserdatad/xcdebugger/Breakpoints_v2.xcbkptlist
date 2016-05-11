@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "483622245.624322"
+            timestampString = "484657431.911367"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "423"
-            endingLineNumber = "423"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
             landmarkName = "-moviePlayDidEnd:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "483621999.012595"
+            timestampString = "484656929.06299"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "-appBecomeActive:"
             landmarkType = "5">
          </BreakpointContent>

@@ -32,6 +32,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //视频进度条的单击事件
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, assign) CGPoint originalPoint;
+@property (nonatomic, assign) BOOL isDragingSlider;//是否点击了按钮的响应事件
+
 @end
 
 
@@ -100,7 +102,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.lightSlider.maximumValue = 1;
         //        进度条的值等于当前系统亮度的值,范围都是0~1
         self.lightSlider.value = [UIScreen mainScreen].brightness;
-        [self.lightSlider addTarget:self action:@selector(updateLightValue:) forControlEvents:UIControlEventValueChanged];
+//        [self.lightSlider addTarget:self action:@selector(updateLightValue:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.lightSlider];
         
         
@@ -142,6 +144,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.progressSlider setThumbImage:[UIImage imageNamed:WMVideoSrcName(@"dot")] ?: [UIImage imageNamed:WMVideoFrameworkSrcName(@"dot")]  forState:UIControlStateNormal];
         self.progressSlider.minimumTrackTintColor = [UIColor greenColor];
         self.progressSlider.value = 0.0;//指定初始值
+        //进度条的拖拽事件
+        [self.progressSlider addTarget:self action:@selector(stratDragSlide:)  forControlEvents:UIControlEventValueChanged];
+        //进度条的点击事件
         [self.progressSlider addTarget:self action:@selector(updateProgress:) forControlEvents:UIControlEventTouchUpInside];
         
         //给进度条添加单击手势
@@ -150,7 +155,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.progressSlider addGestureRecognizer:self.tap];
         [self.bottomView addSubview:self.progressSlider];
         
-        [self.bottomView addSubview:self.progressSlider];
         
         //autoLayout slider
         [self.progressSlider mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -352,7 +356,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark - 单击手势方法
 - (void)handleSingleTap{
     [[NSNotificationCenter defaultCenter] postNotificationName:WMPlayerSingleTapNotification object:nil];
-    
+    [self.autoDismissTimer invalidate];
+    self.autoDismissTimer = nil;
+    self.autoDismissTimer = [NSTimer timerWithTimeInterval:5.0 target:self selector:@selector(autoDismissBottomView:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.autoDismissTimer forMode:NSDefaultRunLoopMode];
     [UIView animateWithDuration:0.5 animations:^{
         if (self.bottomView.alpha == 0.0) {
             self.bottomView.alpha = 1.0;
@@ -390,19 +397,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 - (void)setVideoURLStr:(NSString *)videoURLStr
 {
     _videoURLStr = videoURLStr;
-    
     if (self.currentItem) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_currentItem];
         [self.currentItem removeObserver:self forKeyPath:@"status"];
-        
         //        [self.player.currentItem removeObserver:self forKeyPath:@"status"];
     }
     
     self.currentItem = [self getPlayItemWithURLString:videoURLStr];
-    
-    
-    
-    
     [self.currentItem addObserver:self
                        forKeyPath:@"status"
                           options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
@@ -410,10 +411,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     [self.player replaceCurrentItemWithPlayerItem:self.currentItem];
     
-    
     // 添加视频播放结束通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_currentItem];
-
     
 }
 - (void)moviePlayDidEnd:(NSNotification *)notification {
@@ -423,8 +422,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         weakSelf.playOrPauseBtn.selected = NO;
     }];
 }
+
+
+#pragma mark--开始点击sidle
+- (void)stratDragSlide:(UISlider *)slider{
+    self.isDragingSlider = YES;
+}
+
 #pragma mark - 播放进度
 - (void)updateProgress:(UISlider *)slider{
+    self.isDragingSlider = NO;
     [self.player seekToTime:CMTimeMakeWithSeconds(slider.value, 1)];
     
 }
@@ -553,7 +560,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         weakSelf.timeLabel.text = [NSString stringWithFormat:@"%@/%@",[weakSelf convertTime:time],[weakSelf convertTime:duration]];
         
         //        NSLog(@"时间 :: %f",(maxValue - minValue) * time / duration + minValue);
-        [weakSelf.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
+        if (self.isDragingSlider==YES) {//拖拽slider中，不更新slider的值
+            
+        }else if(self.isDragingSlider==NO){
+            [weakSelf.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
+        }
     }
 }
 
