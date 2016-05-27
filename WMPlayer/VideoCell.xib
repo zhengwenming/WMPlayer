@@ -32,7 +32,7 @@
                         </constraints>
                         <state key="normal" image="video_play_btn_bg.png"/>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playcount.png" translatesAutoresizingMaskIntoConstraints="NO" id="lji-oA-ZVu">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time.png" translatesAutoresizingMaskIntoConstraints="NO" id="lji-oA-ZVu">
                         <rect key="frame" x="8" y="248" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="1Nc-wi-OKe"/>
@@ -58,7 +58,7 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cor-Ow-SC1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playcount.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cor-Ow-SC1">
                         <rect key="frame" x="89" y="248" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="23m-8A-xbS"/>
