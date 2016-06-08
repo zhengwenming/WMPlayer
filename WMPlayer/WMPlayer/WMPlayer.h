@@ -70,7 +70,8 @@ typedef NS_ENUM(NSInteger, WMPlayerState) {
 @property (nonatomic,retain ) UIView         *bottomView;
 @property (nonatomic,retain ) UISlider       *progressSlider;
 @property (nonatomic,retain ) UISlider       *volumeSlider;
-@property (nonatomic,copy   ) NSString       *videoURLStr;
+
+
 /** 亮度的进度条 */
 @property (nonatomic, retain) UISlider       *lightSlider;
 
@@ -109,18 +110,24 @@ typedef NS_ENUM(NSInteger, WMPlayerState) {
 /**
  *  BOOL值判断当前的播放状态
  */
-@property (nonatomic,assign ) BOOL            isPlaying;
+//@property (nonatomic,assign ) BOOL            isPlaying;
 /**
- *  初始化WMPlayer的方法
- *
- *  @param frame       frame
- *  @param videoURLStr URL字符串，包括网络的和本地的URL
- *
- *  @return id类型，实际上就是WMPlayer的一个对象
+ *  设置播放的USRLString，可以是本地的路径也可以是http的网络路径
  */
-- (id)initWithFrame:(CGRect)frame videoURLStr:(NSString *)videoURLStr;
+@property (nonatomic,copy   ) NSString       *URLString;
+
 - (void)play;
 - (void)pause;
-
+/**
+ *  跳到time处播放
+ *  @param time time这个时刻，这个时间点
+ */
+- (void)seekToTimeToPlay:(double)time;
+/**
+ *  获取正在播放的时间点
+ *
+ *  @return double的一个时间点
+ */
+- (double)currentTime;
 @end
 

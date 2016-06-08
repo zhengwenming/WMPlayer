@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7069A23F1D07E5330071AB7C /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7069A23E1D07E5330071AB7C /* TestViewController.m */; };
+		7069A2441D07E6060071AB7C /* tab_icon05_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2401D07E6060071AB7C /* tab_icon05_on@2x.png */; };
+		7069A2451D07E6060071AB7C /* tab_icon05_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2411D07E6060071AB7C /* tab_icon05_on@3x.png */; };
+		7069A2461D07E6060071AB7C /* tab_icon05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2421D07E6060071AB7C /* tab_icon05@2x.png */; };
+		7069A2471D07E6060071AB7C /* tab_icon05@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2431D07E6060071AB7C /* tab_icon05@3x.png */; };
+		7069A24A1D07E7A60071AB7C /* PersonCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7069A2491D07E7A60071AB7C /* PersonCenterViewController.m */; };
 		707DB8B81C979A3B005EB252 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 707DB8A21C979A3B005EB252 /* MASCompositeConstraint.m */; };
 		707DB8B91C979A3B005EB252 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 707DB8A51C979A3B005EB252 /* MASConstraint.m */; };
 		707DB8BA1C979A3B005EB252 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 707DB8A71C979A3B005EB252 /* MASConstraintMaker.m */; };
@@ -93,6 +99,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7069A23D1D07E5330071AB7C /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		7069A23E1D07E5330071AB7C /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		7069A2401D07E6060071AB7C /* tab_icon05_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05_on@2x.png"; sourceTree = "<group>"; };
+		7069A2411D07E6060071AB7C /* tab_icon05_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05_on@3x.png"; sourceTree = "<group>"; };
+		7069A2421D07E6060071AB7C /* tab_icon05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05@2x.png"; sourceTree = "<group>"; };
+		7069A2431D07E6060071AB7C /* tab_icon05@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05@3x.png"; sourceTree = "<group>"; };
+		7069A2481D07E7A60071AB7C /* PersonCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCenterViewController.h; sourceTree = "<group>"; };
+		7069A2491D07E7A60071AB7C /* PersonCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCenterViewController.m; sourceTree = "<group>"; };
 		707DB8A11C979A3B005EB252 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		707DB8A21C979A3B005EB252 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		707DB8A31C979A3B005EB252 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -376,6 +390,10 @@
 				70C8ECBC1C5F92E900B0DE61 /* playcount.png */,
 				70C8ECBD1C5F92E900B0DE61 /* share@2x.png */,
 				70C8ECBE1C5F92E900B0DE61 /* share_s@2x.png */,
+				7069A2401D07E6060071AB7C /* tab_icon05_on@2x.png */,
+				7069A2411D07E6060071AB7C /* tab_icon05_on@3x.png */,
+				7069A2421D07E6060071AB7C /* tab_icon05@2x.png */,
+				7069A2431D07E6060071AB7C /* tab_icon05@3x.png */,
 				70C8ECBF1C5F92E900B0DE61 /* time.png */,
 				70C8ECC01C5F92E900B0DE61 /* video_play_btn_bg@2x.png */,
 			);
@@ -547,6 +565,10 @@
 				70C8ED241C5F92E900B0DE61 /* SinaNewsViewController.h */,
 				70C8ED251C5F92E900B0DE61 /* SinaNewsViewController.m */,
 				70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */,
+				7069A2481D07E7A60071AB7C /* PersonCenterViewController.h */,
+				7069A2491D07E7A60071AB7C /* PersonCenterViewController.m */,
+				7069A23D1D07E5330071AB7C /* TestViewController.h */,
+				7069A23E1D07E5330071AB7C /* TestViewController.m */,
 				70C8ED1D1C5F92E900B0DE61 /* DetailViewController.h */,
 				70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */,
 			);
@@ -621,6 +643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70C8ED551C5F92E900B0DE61 /* share_s@2x.png in Resources */,
+				7069A2471D07E6060071AB7C /* tab_icon05@3x.png in Resources */,
 				70C8ED4B1C5F92E900B0DE61 /* clear@2x.png in Resources */,
 				70C8ED571C5F92E900B0DE61 /* video_play_btn_bg@2x.png in Resources */,
 				70C8ED4C1C5F92E900B0DE61 /* close@2x.png in Resources */,
@@ -628,6 +651,7 @@
 				70C8ECAB1C5F92A700B0DE61 /* navigator_btn_back@2x.png in Resources */,
 				70C8EC9F1C5F91C200B0DE61 /* LaunchScreen.storyboard in Resources */,
 				70C8ED511C5F92E900B0DE61 /* message_s@2x.png in Resources */,
+				7069A2441D07E6060071AB7C /* tab_icon05_on@2x.png in Resources */,
 				70C8ED541C5F92E900B0DE61 /* share@2x.png in Resources */,
 				70C8ED561C5F92E900B0DE61 /* time.png in Resources */,
 				70C8EC9C1C5F91C200B0DE61 /* Assets.xcassets in Resources */,
@@ -640,11 +664,13 @@
 				70C8ED6C1C5F92E900B0DE61 /* MJRefresh.bundle in Resources */,
 				70C8ED501C5F92E900B0DE61 /* message@2x.png in Resources */,
 				70C8ED8A1C5F92E900B0DE61 /* TencentNewsViewController.xib in Resources */,
+				7069A2461D07E6060071AB7C /* tab_icon05@2x.png in Resources */,
 				70C8EC9A1C5F91C200B0DE61 /* Main.storyboard in Resources */,
 				70C8ED521C5F92E900B0DE61 /* play.png in Resources */,
 				70C8ECAA1C5F92A700B0DE61 /* navigator_btn_back.png in Resources */,
 				70C8ED531C5F92E900B0DE61 /* playcount.png in Resources */,
 				70C8ED951C5F92E900B0DE61 /* WMPlayer.bundle in Resources */,
+				7069A2451D07E6060071AB7C /* tab_icon05_on@3x.png in Resources */,
 				70C8ED851C5F92E900B0DE61 /* NetEaseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -664,6 +690,7 @@
 				70C8ED701C5F92E900B0DE61 /* UIView+MJExtension.m in Sources */,
 				70C8ED671C5F92E900B0DE61 /* MJRefreshBackNormalFooter.m in Sources */,
 				70C8ED791C5F92E900B0DE61 /* UIButton+WebCache.m in Sources */,
+				7069A24A1D07E7A60071AB7C /* PersonCenterViewController.m in Sources */,
 				70C8ED6D1C5F92E900B0DE61 /* MJRefreshConst.m in Sources */,
 				70C8ED7B1C5F92E900B0DE61 /* UIImage+MultiFormat.m in Sources */,
 				70C8ED601C5F92E900B0DE61 /* MJRefreshComponent.m in Sources */,
@@ -678,6 +705,7 @@
 				707DB8C31C98276D005EB252 /* BaseViewController.m in Sources */,
 				70C8EC941C5F91C200B0DE61 /* AppDelegate.m in Sources */,
 				707DB8C01C979A3B005EB252 /* View+MASAdditions.m in Sources */,
+				7069A23F1D07E5330071AB7C /* TestViewController.m in Sources */,
 				70C8ED7D1C5F92E900B0DE61 /* UIImageView+WebCache.m in Sources */,
 				70C8ED711C5F92E900B0DE61 /* NSData+ImageContentType.m in Sources */,
 				707DB8BA1C979A3B005EB252 /* MASConstraintMaker.m in Sources */,

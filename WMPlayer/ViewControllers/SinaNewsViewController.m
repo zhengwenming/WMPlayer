@@ -221,12 +221,12 @@
     if (wmPlayer) {
         [wmPlayer removeFromSuperview];
         [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
-        [wmPlayer setVideoURLStr:model.mp4_url];
+        [wmPlayer setURLString:model.mp4_url];
         [wmPlayer play];
         
     }else{
-        wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds videoURLStr:model.mp4_url];
-        
+        wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds];
+        wmPlayer.URLString = model.mp4_url;
     }
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];

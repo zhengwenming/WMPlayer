@@ -161,10 +161,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*3/4);
-    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame videoURLStr:self.URLString];
+    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
+    wmPlayer.URLString = self.URLString;
+
     wmPlayer.closeBtn.hidden = NO;
     [self.view addSubview:wmPlayer];
-    [wmPlayer play];
+    [wmPlayer player];
 }
 
 - (void)releaseWMPlayer
