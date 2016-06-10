@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7069A23F1D07E5330071AB7C /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7069A23E1D07E5330071AB7C /* TestViewController.m */; };
+		700A61E91D0A7D0B00B0D86F /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700A61E71D0A7D0B00B0D86F /* TestViewController.m */; };
+		700A61EA1D0A7D0B00B0D86F /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700A61E81D0A7D0B00B0D86F /* TestViewController.xib */; };
 		7069A2441D07E6060071AB7C /* tab_icon05_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2401D07E6060071AB7C /* tab_icon05_on@2x.png */; };
 		7069A2451D07E6060071AB7C /* tab_icon05_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2411D07E6060071AB7C /* tab_icon05_on@3x.png */; };
 		7069A2461D07E6060071AB7C /* tab_icon05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2421D07E6060071AB7C /* tab_icon05@2x.png */; };
@@ -99,8 +100,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7069A23D1D07E5330071AB7C /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		7069A23E1D07E5330071AB7C /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		700A61E61D0A7D0B00B0D86F /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		700A61E71D0A7D0B00B0D86F /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		700A61E81D0A7D0B00B0D86F /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
 		7069A2401D07E6060071AB7C /* tab_icon05_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05_on@2x.png"; sourceTree = "<group>"; };
 		7069A2411D07E6060071AB7C /* tab_icon05_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05_on@3x.png"; sourceTree = "<group>"; };
 		7069A2421D07E6060071AB7C /* tab_icon05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05@2x.png"; sourceTree = "<group>"; };
@@ -567,8 +569,9 @@
 				70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */,
 				7069A2481D07E7A60071AB7C /* PersonCenterViewController.h */,
 				7069A2491D07E7A60071AB7C /* PersonCenterViewController.m */,
-				7069A23D1D07E5330071AB7C /* TestViewController.h */,
-				7069A23E1D07E5330071AB7C /* TestViewController.m */,
+				700A61E61D0A7D0B00B0D86F /* TestViewController.h */,
+				700A61E71D0A7D0B00B0D86F /* TestViewController.m */,
+				700A61E81D0A7D0B00B0D86F /* TestViewController.xib */,
 				70C8ED1D1C5F92E900B0DE61 /* DetailViewController.h */,
 				70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */,
 			);
@@ -649,6 +652,7 @@
 				70C8ED4C1C5F92E900B0DE61 /* close@2x.png in Resources */,
 				70C8ED881C5F92E900B0DE61 /* SinaNewsViewController.xib in Resources */,
 				70C8ECAB1C5F92A700B0DE61 /* navigator_btn_back@2x.png in Resources */,
+				700A61EA1D0A7D0B00B0D86F /* TestViewController.xib in Resources */,
 				70C8EC9F1C5F91C200B0DE61 /* LaunchScreen.storyboard in Resources */,
 				70C8ED511C5F92E900B0DE61 /* message_s@2x.png in Resources */,
 				7069A2441D07E6060071AB7C /* tab_icon05_on@2x.png in Resources */,
@@ -705,7 +709,6 @@
 				707DB8C31C98276D005EB252 /* BaseViewController.m in Sources */,
 				70C8EC941C5F91C200B0DE61 /* AppDelegate.m in Sources */,
 				707DB8C01C979A3B005EB252 /* View+MASAdditions.m in Sources */,
-				7069A23F1D07E5330071AB7C /* TestViewController.m in Sources */,
 				70C8ED7D1C5F92E900B0DE61 /* UIImageView+WebCache.m in Sources */,
 				70C8ED711C5F92E900B0DE61 /* NSData+ImageContentType.m in Sources */,
 				707DB8BA1C979A3B005EB252 /* MASConstraintMaker.m in Sources */,
@@ -732,6 +735,7 @@
 				70C8ED871C5F92E900B0DE61 /* SinaNewsViewController.m in Sources */,
 				70C8ED491C5F92E900B0DE61 /* SidModel.m in Sources */,
 				70C8ED761C5F92E900B0DE61 /* SDWebImageDownloaderOperation.m in Sources */,
+				700A61E91D0A7D0B00B0D86F /* TestViewController.m in Sources */,
 				70C8ED5E1C5F92E900B0DE61 /* MJRefreshAutoFooter.m in Sources */,
 				707FD7371C7D5B13008B3597 /* MBProgressHUD+Show.m in Sources */,
 				70C8ED771C5F92E900B0DE61 /* SDWebImageManager.m in Sources */,
@@ -852,7 +856,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wenming.WMPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -865,7 +869,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wenming.WMPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

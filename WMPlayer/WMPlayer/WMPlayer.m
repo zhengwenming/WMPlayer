@@ -33,6 +33,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, assign) CGPoint originalPoint;
 @property (nonatomic, assign) BOOL isDragingSlider;//是否点击了按钮的响应事件
+/**
+ *  显示播放时间的UILabel
+ */
+@property (nonatomic,retain ) UILabel        *timeLabel;
+/**
+ * 亮度的进度条 
+ */
+@property (nonatomic, retain) UISlider       *lightSlider;
+@property (nonatomic,retain ) UISlider       *progressSlider;
+@property (nonatomic,retain ) UISlider       *volumeSlider;
 
 @end
 
@@ -685,7 +695,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }else{//左右滑动,调节视频的播放进度
         //视频进度不需要除以600是因为self.progressSlider没设置最大值,它的最大值随着视频大小而变化
         //要注意的是,视频的一秒时长相当于progressSlider.value的1,视频有多少秒,progressSlider的最大值就是多少
-        self.progressSlider.value -= (self.firstPoint.x - self.secondPoint.x);
+        self.progressSlider.value -= (self.firstPoint.x - self.secondPoint.x)/10;
         [self.player seekToTime:CMTimeMakeWithSeconds(self.progressSlider.value, 1)];
         //滑动太快可能会停止播放,所以这里自动继续播放
         [self.player play];

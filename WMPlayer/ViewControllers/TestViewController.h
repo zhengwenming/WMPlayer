@@ -2,7 +2,7 @@
 //  TestViewController.h
 //  WMPlayer
 //
-//  Created by 郑文明 on 16/6/8.
+//  Created by zhengwenming on 16/6/10.
 //  Copyright © 2016年 郑文明. All rights reserved.
 //
 

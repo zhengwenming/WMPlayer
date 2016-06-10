@@ -68,13 +68,6 @@ typedef NS_ENUM(NSInteger, WMPlayerState) {
  *  底部操作工具栏
  */
 @property (nonatomic,retain ) UIView         *bottomView;
-@property (nonatomic,retain ) UISlider       *progressSlider;
-@property (nonatomic,retain ) UISlider       *volumeSlider;
-
-
-/** 亮度的进度条 */
-@property (nonatomic, retain) UISlider       *lightSlider;
-
 
 /**
  *  定时器
@@ -85,10 +78,7 @@ typedef NS_ENUM(NSInteger, WMPlayerState) {
  *  BOOL值判断当前的状态
  */
 @property (nonatomic,assign ) BOOL            isFullscreen;
-/**
- *  显示播放时间的UILabel
- */
-@property (nonatomic,retain ) UILabel        *timeLabel;
+
 /**
  *  控制全屏的按钮
  */

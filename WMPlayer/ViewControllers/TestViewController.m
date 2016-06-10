@@ -2,9 +2,10 @@
 //  TestViewController.m
 //  WMPlayer
 //
-//  Created by 郑文明 on 16/6/8.
+//  Created by zhengwenming on 16/6/10.
 //  Copyright © 2016年 郑文明. All rights reserved.
 //
+
 
 #import "TestViewController.h"
 
@@ -13,22 +14,19 @@
 #define kHistoryTime @"HistoryTime"
 
 @interface TestViewController ()
-@property(nonatomic,strong)WMPlayer *wmPlayer;
+@property (weak, nonatomic) IBOutlet WMPlayer *wmPlayer;
 @end
 
 @implementation TestViewController
+
 - (void)viewDidLoad
 {
-    
+    self.navigationItem.title = @"XIB加载WMPlayer";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    CGRect  playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*3/4);
-    self.wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
-//    [self.wmPlayer setURLString:@"http://admin.weixin.ihk.cn/ihkwx_upload/test.mp4"];
+    //[self.wmPlayer setURLString:@"http://admin.weixin.ihk.cn/ihkwx_upload/test.mp4"];
     [self.wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-
-    
-    self.wmPlayer.closeBtn.hidden = NO;
+    self.wmPlayer.closeBtn.hidden = YES;
     [self.view addSubview:self.wmPlayer];
     if ([TheUserDefaults doubleForKey:kHistoryTime]) {//如果有存上次播放的时间点记录，直接跳到上次纪录时间点播放
         double time = [TheUserDefaults doubleForKey:kHistoryTime];
@@ -56,10 +54,11 @@
 
 - (void)dealloc
 {
-    //
+    
     [TheUserDefaults setDouble:[self.wmPlayer currentTime] forKey:kHistoryTime];
     [self releaseWMPlayer];
     NSLog(@"TestViewController dealloc");
 }
 
 @end
+
