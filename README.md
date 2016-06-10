@@ -4,7 +4,7 @@ cell中播放视频，全屏小屏切换自如。
 
 ![image](https://github.com/zhengwenming/WMPlayer/blob/master/WMPlayer/Resource/WMPlayer.gif)   
 
-#用法，继承UIVIew，初始化传frame,然后调用URLString方法，最后调用play方法播放
+#用法，Usage
 1.初始化
 
 * 播放网络视频
@@ -50,7 +50,7 @@ cell中播放视频，全屏小屏切换自如。
 
 
  *  双击播放器的通知
- * define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
+* define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
 
 
 依赖库为Masonry。
