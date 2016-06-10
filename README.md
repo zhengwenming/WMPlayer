@@ -34,23 +34,23 @@ cell中播放视频，全屏小屏切换自如。
 
 
  *  全屏按钮被点击的通知
-#define WMPlayerFullScreenButtonClickedNotification @"WMPlayerFullScreenButtonClickedNotification"
+*define WMPlayerFullScreenButtonClickedNotification @"WMPlayerFullScreenButtonClickedNotification"
 
 
  *  关闭播放器的通知
-#define WMPlayerClosedNotification @"WMPlayerClosedNotification"
+*define WMPlayerClosedNotification @"WMPlayerClosedNotification"
 
 
  *  播放完成的通知
-#define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
+*define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
 
 
  *  单击播放器的通知
-#define WMPlayerSingleTapNotification @"WMPlayerSingleTapNotification"
+*define WMPlayerSingleTapNotification @"WMPlayerSingleTapNotification"
 
 
  *  双击播放器的通知
-#define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
+ *define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
 
 
 依赖库为Masonry。
