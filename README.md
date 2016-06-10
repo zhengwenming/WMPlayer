@@ -7,14 +7,14 @@ cell中播放视频，全屏小屏切换自如。
 #用法，继承UIVIew，初始化传frame,然后调用URLString方法，最后调用play方法播放
 1.初始化
 
-*播放网络视频
+* 播放网络视频
 
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     [wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
     [self.view addSubview:wmPlayer];
     [wmPlayer play];
 
-*播放本地视频
+* 播放本地视频
 
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     [wmPlayer setURLString:[[NSBundle mainBundle] pathForResource:@"动画片" ofType:"mp4"]];
@@ -34,23 +34,23 @@ cell中播放视频，全屏小屏切换自如。
 
 
  *  全屏按钮被点击的通知
-*define WMPlayerFullScreenButtonClickedNotification @"WMPlayerFullScreenButtonClickedNotification"
+* define WMPlayerFullScreenButtonClickedNotification @"WMPlayerFullScreenButtonClickedNotification"
 
 
  *  关闭播放器的通知
-*define WMPlayerClosedNotification @"WMPlayerClosedNotification"
+* define WMPlayerClosedNotification @"WMPlayerClosedNotification"
 
 
  *  播放完成的通知
-*define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
+* define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
 
 
  *  单击播放器的通知
-*define WMPlayerSingleTapNotification @"WMPlayerSingleTapNotification"
+* define WMPlayerSingleTapNotification @"WMPlayerSingleTapNotification"
 
 
  *  双击播放器的通知
- *define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
+ * define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
 
 
 依赖库为Masonry。
