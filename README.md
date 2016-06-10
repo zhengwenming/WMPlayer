@@ -7,14 +7,14 @@ cell中播放视频，全屏小屏切换自如。
 #用法，继承UIVIew，初始化传frame,然后调用URLString方法，最后调用play方法播放
 1.初始化
 
-1.1播放网络视频
+**播放网络视频
 
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     [wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
     [self.view addSubview:wmPlayer];
     [wmPlayer play];
 
-1.2播放本地视频
+**播放本地视频
 
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     [wmPlayer setURLString:[[NSBundle mainBundle] pathForResource:@"动画片" ofType:"mp4"]];
@@ -31,25 +31,30 @@ cell中播放视频，全屏小屏切换自如。
 补充：wmplayer为开发者提供了几乎所有事件的接口（以通知的形式提供给开发者），开发者如果有自己的逻辑需要处理，比如单击wmpalyer播放器的时候，就可以添加单击的通知WMPlayerSingleTapNotification。可以自行添加需要的通知事件。需要事件就添加通知，不需要这些事件就不需要注册通知。
 
 以下都是通知的名称：
-/**
+
+
  *  全屏按钮被点击的通知
- */
+ 
 #define WMPlayerFullScreenButtonClickedNotification @"WMPlayerFullScreenButtonClickedNotification"
-/**
+
+
  *  关闭播放器的通知
- */
+ 
 #define WMPlayerClosedNotification @"WMPlayerClosedNotification"
-/**
+
+
  *  播放完成的通知
- */
+ 
 #define WMPlayerFinishedPlayNotification @"WMPlayerFinishedPlayNotification"
-/**
+
+
  *  单击播放器的通知
- */
+ 
 #define WMPlayerSingleTapNotification @"WMPlayerSingleTapNotification"
-/**
+
+
  *  双击播放器的通知
- */
+ 
 #define WMPlayerDoubleTapNotification @"WMPlayerDoubleTapNotification"
 
 
