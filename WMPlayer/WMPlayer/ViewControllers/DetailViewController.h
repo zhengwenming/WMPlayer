@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMPlayer.h"
 
 @interface DetailViewController : UIViewController
 @property (nonatomic, retain)NSString * URLString;
-
 @end

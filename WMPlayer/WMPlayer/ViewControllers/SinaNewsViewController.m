@@ -18,7 +18,7 @@
 #import "WMPlayer.h"
 #import "DetailViewController.h"
 
-@interface SinaNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>{
+@interface SinaNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate>{
     NSMutableArray *dataSource;
     WMPlayer *wmPlayer;
     NSIndexPath *currentIndexPath;
@@ -29,8 +29,6 @@
 @end
 
 @implementation SinaNewsViewController
-
-
 - (instancetype)init
 {
     self = [super init];
@@ -39,45 +37,48 @@
     }
     return self;
 }
--(void)videoDidFinished:(NSNotification *)notice{
-    VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
-    [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
-    [wmPlayer removeFromSuperview];
-}
--(void)fullScreenBtnClick:(NSNotification *)notice{
-    
-}
--(void)closeTheVideo:(NSNotification *)obj{
+///播放器事件
+-(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
+    NSLog(@"didClickedCloseButton");
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
     [self releaseWMPlayer];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+-(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
     
+}
+-(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
+    NSLog(@"didSingleTaped");
+}
+-(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
+    NSLog(@"didDoubleTaped");
+}
+
+///播放状态
+-(void)wmplayerFailedPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
+    NSLog(@"wmplayerDidFailedPlay");
+}
+-(void)wmplayerReadyToPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
+    NSLog(@"wmplayerDidReadyToPlay");
+}
+-(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
+    NSLog(@"wmplayerDidFinishedPlay");
+    VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
+    [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
+    [wmPlayer removeFromSuperview];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //注册播放完成通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoDidFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-    //注册播放完成通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnClick:) name:WMPlayerFullScreenButtonClickedNotification object:nil];
-    
-    
     [self.table registerNib:[UINib nibWithNibName:@"VideoCell" bundle:nil] forCellReuseIdentifier:@"VideoCell"];
-    //关闭通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(closeTheVideo:)
-                                                 name:WMPlayerClosedNotification
-                                               object:nil
-     ];
     [self addMJRefresh];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
-    
 }
 -(void)loadData{
-
     WS(weakSelf)
     if ([AppDelegate shareAppDelegate].sidArray.count>2) {
         SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[2];
@@ -137,8 +138,6 @@
         [weakSelf addHudWithMessage:@"加载中..."];
 
         NSString *URLString = [NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/%ld-10.html",sidModl.sid,dataSource.count - dataSource.count%10];
-        
-        
         
         [[DataManager shareManager] getVideoListWithURLString:URLString ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
             [dataSource addObjectsFromArray:listArray];
@@ -219,13 +218,16 @@
     VideoModel *model = [dataSource objectAtIndex:sender.tag];
     
     if (wmPlayer) {
-        [wmPlayer removeFromSuperview];
-        [wmPlayer.player replaceCurrentItemWithPlayerItem:nil];
-        [wmPlayer setURLString:model.mp4_url];
-        [wmPlayer play];
+        [self releaseWMPlayer];
+        wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds];
+        wmPlayer.delegate = self;
+        wmPlayer.closeBtnStyle = CloseBtnStyleClose;
+        wmPlayer.URLString = model.mp4_url;
         
     }else{
         wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds];
+        wmPlayer.delegate = self;
+        wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         wmPlayer.URLString = model.mp4_url;
     }
     [self.currentCell.backgroundIV addSubview:wmPlayer];
@@ -274,10 +276,8 @@
 -(void)releaseWMPlayer{
     [wmPlayer.player.currentItem cancelPendingSeeks];
     [wmPlayer.player.currentItem.asset cancelLoading];
-    [wmPlayer.player pause];
+    [wmPlayer pause];
     
-    //移除观察者
-    [wmPlayer.currentItem removeObserver:wmPlayer forKeyPath:@"status"];
     
     [wmPlayer removeFromSuperview];
     [wmPlayer.playerLayer removeFromSuperlayer];
@@ -287,15 +287,11 @@
     //释放定时器，否侧不会调用WMPlayer中的dealloc方法
     [wmPlayer.autoDismissTimer invalidate];
     wmPlayer.autoDismissTimer = nil;
-    [wmPlayer.durationTimer invalidate];
-    wmPlayer.durationTimer = nil;
     
     
     wmPlayer.playOrPauseBtn = nil;
     wmPlayer.playerLayer = nil;
     wmPlayer = nil;
-    
-    currentIndexPath = nil;
 }
 -(void)dealloc{
     NSLog(@"%@ dealloc",[self class]);

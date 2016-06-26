@@ -16,10 +16,10 @@
 
     UIButton *palyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     palyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    palyBtn.backgroundColor = [UIColor cyanColor];
-    [palyBtn setTitle:@"记录播放" forState:UIControlStateNormal];
-    [palyBtn setTitle:@"记录播放" forState:UIControlStateSelected];
-    [palyBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    palyBtn.backgroundColor = [UIColor redColor];
+    [palyBtn setTitle:@"记忆播放" forState:UIControlStateNormal];
+    [palyBtn setTitle:@"记忆播放" forState:UIControlStateSelected];
+    [palyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     palyBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [palyBtn setImage:[UIImage imageNamed:@"commentBtn"] forState:UIControlStateNormal];
     [palyBtn setImage:[UIImage imageNamed:@"commentBtn"] forState:UIControlStateSelected];
@@ -32,6 +32,6 @@
     }];
 }
 -(void)testSeekToPlay:(UIButton *)sender{
-    [self.navigationController pushViewController:[TestViewController new] animated:YES];
+    [self.navigationController pushViewController:[[TestViewController alloc] init] animated:YES];
 }
 @end
