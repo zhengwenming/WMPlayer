@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
  */
 @property (nonatomic, assign) WMPlayerState   state;
 /**
- ＊  播放器状态
+ ＊  播放器左上角按钮的类型
  */
 @property (nonatomic, assign) CloseBtnStyle   closeBtnStyle;
 /**
@@ -104,7 +104,6 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
  *  BOOL值判断当前的状态
  */
 @property (nonatomic,assign ) BOOL            isFullscreen;
-
 /**
  *  控制全屏的按钮
  */
@@ -114,10 +113,13 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
  */
 @property (nonatomic,retain ) UIButton       *playOrPauseBtn;
 /**
- *  关闭按钮
+ *  左上角关闭按钮
  */
 @property (nonatomic,retain ) UIButton       *closeBtn;
-
+/**
+ *  显示加载失败的UILabel
+ */
+@property (nonatomic,strong) UILabel        *loadFailedLabel;
 /**
  *  当前播放的item
  */
@@ -131,7 +133,7 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
  */
 //@property (nonatomic,assign ) BOOL            isPlaying;
 /**
- *  设置播放的USRLString，可以是本地的路径也可以是http的网络路径
+ *  设置播放视频的USRLString，可以是本地的路径也可以是http的网络路径
  */
 @property (nonatomic,copy) NSString       *URLString;
 /**
@@ -150,12 +152,20 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
  */
 - (void)pause;
 
-
 /**
  *  获取正在播放的时间点
  *
  *  @return double的一个时间点
  */
 - (double)currentTime;
+
+/**
+ * 重置播放器
+ */
+- (void )resetWMPlayer;
+/**
+ * 版本号
+ */
+- (NSString *)version;
 @end
 

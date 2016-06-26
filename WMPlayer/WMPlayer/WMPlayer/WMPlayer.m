@@ -6,7 +6,7 @@
  
  @author   Created by zhengwenming on  16/1/24
  
- @version 1.00 16/1/24 Creation(版本信息)
+ @version 2.0.0 16/1/24 Creation(版本信息)
  
  Copyright © 2016年 郑文明. All rights reserved.
  */
@@ -37,12 +37,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 /**
  *  显示播放时间的UILabel
  */
-@property (nonatomic,strong) UILabel        *timeLabel;
+@property (nonatomic,strong) UILabel        *leftTimeLabel;
+@property (nonatomic,strong) UILabel        *rightTimeLabel;
 
-/**
- *  显示播放时间的UILabel
- */
-@property (nonatomic,strong) UILabel        *loadFailedLabel;
+
 
 /**
  * 亮度的进度条 
@@ -258,20 +256,41 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
     
     
-    //timeLabel
-    self.timeLabel = [[UILabel alloc]init];
-    self.timeLabel.textAlignment = NSTextAlignmentRight;
-    self.timeLabel.textColor = [UIColor whiteColor];
-    self.timeLabel.backgroundColor = [UIColor clearColor];
-    self.timeLabel.font = [UIFont systemFontOfSize:11];
-    [self.bottomView addSubview:self.timeLabel];
+    
+    
+    
+    //leftTimeLabel
+    self.leftTimeLabel = [[UILabel alloc]init];
+    self.leftTimeLabel.textAlignment = NSTextAlignmentLeft;
+    self.leftTimeLabel.textColor = [UIColor whiteColor];
+    self.leftTimeLabel.backgroundColor = [UIColor clearColor];
+    self.leftTimeLabel.font = [UIFont systemFontOfSize:11];
+    [self.bottomView addSubview:self.leftTimeLabel];
     //autoLayout timeLabel
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bottomView).with.offset(45);
         make.right.equalTo(self.bottomView).with.offset(-45);
         make.height.mas_equalTo(20);
         make.bottom.equalTo(self.bottomView).with.offset(0);
     }];
+    
+    
+    
+    //rightTimeLabel
+    self.rightTimeLabel = [[UILabel alloc]init];
+    self.rightTimeLabel.textAlignment = NSTextAlignmentRight;
+    self.rightTimeLabel.textColor = [UIColor whiteColor];
+    self.rightTimeLabel.backgroundColor = [UIColor clearColor];
+    self.rightTimeLabel.font = [UIFont systemFontOfSize:11];
+    [self.bottomView addSubview:self.rightTimeLabel];
+    //autoLayout timeLabel
+    [self.rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bottomView).with.offset(45);
+        make.right.equalTo(self.bottomView).with.offset(-45);
+        make.height.mas_equalTo(20);
+        make.bottom.equalTo(self.bottomView).with.offset(0);
+    }];
+    
     
     //_closeBtn
     _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -324,7 +343,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(UILabel *)loadFailedLabel{
     if (_loadFailedLabel==nil) {
         _loadFailedLabel = [[UILabel alloc]init];
-        _loadFailedLabel.backgroundColor = [UIColor clearColor];
         _loadFailedLabel.textColor = [UIColor whiteColor];
         _loadFailedLabel.textAlignment = NSTextAlignmentCenter;
         _loadFailedLabel.text = @"视频加载失败";
@@ -567,6 +585,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     _URLString = URLString;
     //设置player的参数
     self.currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:URLString]];
+
     self.player = [AVPlayer playerWithPlayerItem:_currentItem];
     self.player.usesExternalPlaybackWhileExternalScreenIsActive=YES;
     //AVPlayerLayer
@@ -824,12 +843,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (isfinite(duration)){
         float minValue = [self.progressSlider minimumValue];
         float maxValue = [self.progressSlider maximumValue];
-        double time = CMTimeGetSeconds([self.player currentTime]);
-        self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",[self convertTime:time],[self convertTime:duration]];
+        double nowTime = CMTimeGetSeconds([self.player currentTime]);
+        double remainTime = duration-nowTime;
+        self.leftTimeLabel.text = [self convertTime:nowTime];
+        self.rightTimeLabel.text = [self convertTime:remainTime];
         if (self.isDragingSlider==YES) {//拖拽slider中，不更新slider的值
             
         }else if(self.isDragingSlider==NO){
-            [self.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
+            [self.progressSlider setValue:(maxValue - minValue) * nowTime / duration + minValue];
         }
     }
 }
@@ -972,7 +993,25 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     self.firstPoint = self.secondPoint = CGPointZero;
 }
+//重置播放器
+-(void )resetWMPlayer{
+    self.currentItem = nil;
+    self.seekTime = 0;
+    // 移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // 关闭定时器
+    [self.autoDismissTimer invalidate];
+    self.autoDismissTimer = nil;
+    // 暂停
+    [self.player pause];
+    // 移除原来的layer
+    [self.playerLayer removeFromSuperlayer];
+    // 替换PlayerItem为nil
+    [self.player replaceCurrentItemWithPlayerItem:nil];
+    // 把player置为nil
+    self.player = nil;
 
+}
 -(void)dealloc{
     
     NSLog(@"WMPlayer dealloc");
@@ -999,5 +1038,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     self.autoDismissTimer = nil;
     
+}
+- (NSString *)version{
+    return @"2.0.0";
 }
 @end

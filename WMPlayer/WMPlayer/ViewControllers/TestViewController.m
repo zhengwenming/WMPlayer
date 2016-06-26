@@ -64,6 +64,7 @@
 
 
 }
+
 - (void)releaseWMPlayer
 {
     [self.wmPlayer.player.currentItem cancelPendingSeeks];
@@ -94,6 +95,13 @@
     [self releaseWMPlayer];
   
 }
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.wmPlayer resetWMPlayer];
+    [super touchesBegan:touches withEvent:event];
+    [self.wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+    [self.wmPlayer play];
 
+    
+}
 @end
 

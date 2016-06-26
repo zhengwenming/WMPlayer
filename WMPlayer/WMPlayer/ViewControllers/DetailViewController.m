@@ -41,7 +41,8 @@
     }];
     [wmPlayer.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(40);
-        make.right.equalTo(wmPlayer).with.offset(0);
+        make.left.equalTo(wmPlayer).with.offset(0);
+        make.width.mas_equalTo(kScreenHeight);
     }];
     [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(wmPlayer.topView).with.offset(5);
@@ -55,6 +56,11 @@
         make.center.equalTo(wmPlayer.topView);
         make.top.equalTo(wmPlayer.topView).with.offset(0);
         
+    }];
+    [wmPlayer.loadFailedLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(kScreenHeight);
+        make.center.mas_equalTo(CGPointMake(kScreenWidth/2-36, -(kScreenWidth/2)+36));
+        make.height.equalTo(@30);
     }];
     [wmPlayer.loadingView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.center.mas_equalTo(CGPointMake(kScreenWidth/2-37, -(kScreenWidth/2-37)));
@@ -95,13 +101,17 @@
         }];
         
         
-        
-        
         [wmPlayer.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(wmPlayer.topView).with.offset(45);
             make.right.equalTo(wmPlayer.topView).with.offset(-45);
             make.center.equalTo(wmPlayer.topView);
             make.top.equalTo(wmPlayer.topView).with.offset(0);
+        }];
+        
+        [wmPlayer.loadFailedLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(wmPlayer);
+            make.width.equalTo(wmPlayer);
+            make.height.equalTo(@30);
         }];
         
     }completion:^(BOOL finished) {
@@ -217,6 +227,7 @@
     playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*(0.75));
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     wmPlayer.delegate = self;
+
     wmPlayer.URLString = self.URLString;
     wmPlayer.titleLabel.text = self.title;
     wmPlayer.closeBtn.hidden = NO;
