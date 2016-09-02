@@ -60,6 +60,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     UISlider *systemSlider;
     UITapGestureRecognizer* singleTap;
 }
+
+@synthesize isPlaying;
+
 /**
  *  alloc init的初始化方法
  */
@@ -496,6 +499,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)pause{
     [self PlayOrPause:self.playOrPauseBtn];
 }
+
+- (BOOL)isPlaying {
+    if (_player && _player.rate != 0) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark
 #pragma mark - 单击手势方法
 - (void)handleSingleTap:(UITapGestureRecognizer *)sender{
