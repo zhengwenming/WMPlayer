@@ -131,7 +131,7 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
 /**
  *  BOOL值判断当前的播放状态
  */
-//@property (nonatomic,assign ) BOOL            isPlaying;
+@property (nonatomic,assign ) BOOL            isPlaying;
 /**
  *  设置播放视频的USRLString，可以是本地的路径也可以是http的网络路径
  */
