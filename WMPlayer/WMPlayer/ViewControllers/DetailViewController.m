@@ -23,7 +23,6 @@
 
 - (void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation
 {
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [wmPlayer removeFromSuperview];
     wmPlayer.transform = CGAffineTransformIdentity;
     if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft) {
@@ -65,7 +64,7 @@
     [wmPlayer.loadingView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.center.mas_equalTo(CGPointMake(kScreenWidth/2-37, -(kScreenWidth/2-37)));
     }];
-    [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
+    [self.view addSubview:wmPlayer];
     wmPlayer.fullScreenBtn.selected = YES;
     [wmPlayer bringSubviewToFront:wmPlayer.bottomView];
     
@@ -237,8 +236,9 @@
 
 - (void)releaseWMPlayer
 {
-    [wmPlayer.player.currentItem cancelPendingSeeks];
-    [wmPlayer.player.currentItem.asset cancelLoading];
+    //堵塞主线程
+//    [wmPlayer.player.currentItem cancelPendingSeeks];
+//    [wmPlayer.player.currentItem.asset cancelLoading];
     [wmPlayer pause];
     [wmPlayer removeFromSuperview];
     [wmPlayer.playerLayer removeFromSuperlayer];

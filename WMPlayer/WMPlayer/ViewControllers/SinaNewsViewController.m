@@ -274,8 +274,9 @@
  *  释放WMPlayer
  */
 -(void)releaseWMPlayer{
-    [wmPlayer.player.currentItem cancelPendingSeeks];
-    [wmPlayer.player.currentItem.asset cancelLoading];
+     //堵塞主线程
+//    [wmPlayer.player.currentItem cancelPendingSeeks];
+//    [wmPlayer.player.currentItem.asset cancelLoading];
     [wmPlayer pause];
     
     

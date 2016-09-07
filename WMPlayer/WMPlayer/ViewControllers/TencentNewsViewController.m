@@ -52,7 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-
+    self.navigationController.navigationBarHidden = NO;
     //旋转屏幕通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onDeviceOrientationChange)
@@ -505,8 +505,9 @@
  *  释放WMPlayer
  */
 -(void)releaseWMPlayer{
-    [wmPlayer.player.currentItem cancelPendingSeeks];
-    [wmPlayer.player.currentItem.asset cancelLoading];
+     //堵塞主线程
+//    [wmPlayer.player.currentItem cancelPendingSeeks];
+//    [wmPlayer.player.currentItem.asset cancelLoading];
     [wmPlayer pause];
 
     

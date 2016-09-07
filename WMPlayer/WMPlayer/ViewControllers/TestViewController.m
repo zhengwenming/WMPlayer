@@ -67,8 +67,9 @@
 
 - (void)releaseWMPlayer
 {
-    [self.wmPlayer.player.currentItem cancelPendingSeeks];
-    [self.wmPlayer.player.currentItem.asset cancelLoading];
+     //堵塞主线程
+//    [self.wmPlayer.player.currentItem cancelPendingSeeks];
+//    [self.wmPlayer.player.currentItem.asset cancelLoading];
     [self.wmPlayer pause];
     
     
