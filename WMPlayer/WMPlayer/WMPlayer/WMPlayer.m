@@ -205,7 +205,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.progressSlider.minimumTrackTintColor = [UIColor greenColor];
     self.progressSlider.maximumTrackTintColor = [UIColor clearColor];
 
-    
     self.progressSlider.value = 0.0;//指定初始值
     //进度条的拖拽事件
     [self.progressSlider addTarget:self action:@selector(stratDragSlide:)  forControlEvents:UIControlEventValueChanged];
@@ -226,7 +225,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.center.equalTo(self.bottomView);
     }];
     
-    
+   
     self.loadingProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     self.loadingProgress.progressTintColor = [UIColor clearColor];
     self.loadingProgress.trackTintColor    = [UIColor lightGrayColor];
@@ -236,7 +235,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.loadingProgress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.progressSlider);
         make.right.equalTo(self.progressSlider);
-        make.center.equalTo(self.progressSlider).with.offset(0.7);
+        make.center.equalTo(self.progressSlider);
+        make.height.mas_equalTo(1.5);
     }];
     
     [self.bottomView sendSubviewToBack:self.loadingProgress];
@@ -674,6 +674,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark--开始点击sidle
 - (void)stratDragSlide:(UISlider *)slider{
     self.isDragingSlider = YES;
+    self.isDragingSlider = NO;
+
 }
 #pragma mark
 #pragma mark - 播放进度

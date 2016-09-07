@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488655558.290595"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "770"
-            endingLineNumber = "770"
+            startingLineNumber = "773"
+            endingLineNumber = "773"
             landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488655558.290595"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "747"
-            endingLineNumber = "747"
+            startingLineNumber = "750"
+            endingLineNumber = "750"
             landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
             landmarkType = "5">
          </BreakpointContent>
@@ -362,12 +362,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488655558.290595"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864"
-            landmarkName = "-seekToTimeToPlay:"
+            startingLineNumber = "867"
+            endingLineNumber = "867"
+            landmarkName = "-syncScrubber"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488649613.2157"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "-actionTapGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -650,11 +650,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488653209.10203"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "586"
-            endingLineNumber = "586"
+            startingLineNumber = "587"
+            endingLineNumber = "587"
+            landmarkName = "-setCurrentItem:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WMPlayer/WMPlayer/WMPlayer.m"
+            timestampString = "494925007.41993"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "598"
+            endingLineNumber = "598"
             landmarkName = "-setURLString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -666,12 +682,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488655558.290595"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "597"
-            endingLineNumber = "597"
-            landmarkName = "-setURLString:"
+            startingLineNumber = "593"
+            endingLineNumber = "593"
+            landmarkName = "@implementation WMPlayer"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WMPlayer/WMPlayer/WMPlayer.m"
+            timestampString = "494925007.41993"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "552"
+            endingLineNumber = "552"
+            landmarkName = "-handleDoubleTap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -682,12 +714,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488655558.290595"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "592"
-            endingLineNumber = "592"
-            landmarkName = "-setURLString:"
+            startingLineNumber = "556"
+            endingLineNumber = "556"
+            landmarkName = "-handleDoubleTap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -698,11 +730,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488653283.421762"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
             landmarkName = "-setCurrentItem:"
             landmarkType = "5">
          </BreakpointContent>
@@ -714,11 +746,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488653285.538594"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "555"
-            endingLineNumber = "555"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "-setCurrentItem:"
             landmarkType = "5">
          </BreakpointContent>
@@ -730,43 +762,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488653287.390412"
+            timestampString = "494925007.41993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
-            landmarkName = "-setCurrentItem:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488653290.336535"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "564"
-            endingLineNumber = "564"
-            landmarkName = "-setCurrentItem:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WMPlayer/WMPlayer/WMPlayer.m"
-            timestampString = "488653292.891477"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "576"
-            endingLineNumber = "576"
+            startingLineNumber = "577"
+            endingLineNumber = "577"
             landmarkName = "-setCurrentItem:"
             landmarkType = "5">
          </BreakpointContent>
