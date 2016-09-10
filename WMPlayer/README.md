@@ -10,17 +10,25 @@ cell中播放视频，全屏小屏切换自如。
 * 播放网络视频
 
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
+    
     [wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+    
     [self.view addSubview:wmPlayer];
+    
     [wmPlayer play];
 
 * 播放本地视频
 
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
+    
      NSURL *URL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"4k" ofType:@"mp4"]];
+     
     NSString *urlstring = [URL absoluteString];
+    
     [self.wmPlayer setURLString:urlstring];
+    
     [self.view addSubview:wmPlayer];
+    
     [wmPlayer play]; 
     
 
