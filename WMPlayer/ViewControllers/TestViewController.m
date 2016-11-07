@@ -53,7 +53,7 @@
     }
     [self.wmPlayer setURLString:@"http://admin.weixin.ihk.cn/ihkwx_upload/test.mp4"];
 
-    
+
     self.wmPlayer.delegate = self;
 //    [self.wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
     self.wmPlayer.closeBtn.hidden = YES;
@@ -97,10 +97,11 @@
   
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.wmPlayer resetWMPlayer];
     [super touchesBegan:touches withEvent:event];
-    [self.wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-    [self.wmPlayer play];
+    
+//    [self.wmPlayer resetWMPlayer];
+//    [self.wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+//    [self.wmPlayer play];
 
     
 }

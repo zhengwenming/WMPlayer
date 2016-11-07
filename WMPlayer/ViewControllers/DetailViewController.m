@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "WMPlayer.h"
+#import "WMLightView.h"
 
 @interface DetailViewController ()<WMPlayerDelegate>{
     WMPlayer  *wmPlayer;
@@ -33,15 +34,36 @@
     wmPlayer.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     wmPlayer.playerLayer.frame =  CGRectMake(0,0, kScreenHeight,kScreenWidth);
     
-    [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(40);
-        make.top.mas_equalTo(kScreenWidth-40);
+    [wmPlayer.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(kScreenHeight);
+        make.height.mas_equalTo(kScreenWidth);
+        make.left.equalTo(wmPlayer).with.offset(0);
+        make.top.equalTo(wmPlayer).with.offset(0);
+    }];
+    
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+        wmPlayer.effectView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
+    }else{
+        wmPlayer.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
+    }
+    NSLog(@"%@",wmPlayer.FF_View);
+    [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(wmPlayer).with.offset(kScreenHeight/2-120/2);
+        make.top.equalTo(wmPlayer).with.offset(kScreenWidth/2-60/2);
+        make.height.mas_equalTo(60);
+        make.width.mas_equalTo(120);
+    }];
+    [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(kScreenHeight);
+        make.height.mas_equalTo(40);
+        make.bottom.equalTo(wmPlayer.contentView).with.offset(0);
+
     }];
     [wmPlayer.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(40);
-        make.left.equalTo(wmPlayer).with.offset(0);
         make.width.mas_equalTo(kScreenHeight);
+        make.height.mas_equalTo(40);
+        make.top.equalTo(wmPlayer.contentView).with.offset(0);
+
     }];
     [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(wmPlayer.topView).with.offset(5);
@@ -57,25 +79,59 @@
         
     }];
     [wmPlayer.loadFailedLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(kScreenHeight);
-        make.center.mas_equalTo(CGPointMake(kScreenWidth/2-36, -(kScreenWidth/2)+36));
+        make.left.equalTo(wmPlayer).with.offset(0);
+        make.top.equalTo(wmPlayer).with.offset(kScreenWidth/2-30/2);
         make.height.equalTo(@30);
+        make.width.mas_equalTo(kScreenHeight);
     }];
+    
     [wmPlayer.loadingView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(CGPointMake(kScreenWidth/2-37, -(kScreenWidth/2-37)));
+        make.left.equalTo(wmPlayer).with.offset(kScreenHeight/2-22/2);
+        make.top.equalTo(wmPlayer).with.offset(kScreenWidth/2-22/2);
+        make.height.mas_equalTo(22);
+        make.width.mas_equalTo(22);
     }];
     [self.view addSubview:wmPlayer];
     wmPlayer.fullScreenBtn.selected = YES;
+    wmPlayer.isFullscreen = YES;
     [wmPlayer bringSubviewToFront:wmPlayer.bottomView];
-    
+    wmPlayer.FF_View.hidden = YES;
+
 }
 -(void)toNormal{
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.5f animations:^{
         wmPlayer.transform = CGAffineTransformIdentity;
+        wmPlayer.isFullscreen = NO;
         wmPlayer.frame =CGRectMake(playerFrame.origin.x, playerFrame.origin.y, playerFrame.size.width, playerFrame.size.height);
         wmPlayer.playerLayer.frame =  wmPlayer.bounds;
         [self.view addSubview:wmPlayer];
+        
+        [wmPlayer.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.edges.equalTo(wmPlayer).with.offset(0);
+            make.width.mas_equalTo(kScreenWidth);
+            make.height.mas_equalTo(playerFrame.size.height);
+            
+        }];
+        
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+            wmPlayer.effectView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
+        }else{
+            wmPlayer.lightView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
+        }
+        NSLog(@"%@",wmPlayer.FF_View);
+
+        [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.center.mas_equalTo(CGPointMake(kScreenWidth/2-180, wmPlayer.frame.size.height/2-144));
+            make.height.mas_equalTo(60);
+            make.width.mas_equalTo(120);            
+            
+        }];
+        
+
+        
+        
         [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(wmPlayer).with.offset(0);
             make.right.equalTo(wmPlayer).with.offset(0);
@@ -113,19 +169,24 @@
             make.height.equalTo(@30);
         }];
         
+        
     }completion:^(BOOL finished) {
         wmPlayer.isFullscreen = NO;
         [self setNeedsStatusBarAppearanceUpdate];
         wmPlayer.fullScreenBtn.selected = NO;
-        
+        wmPlayer.FF_View.hidden = YES;
     }];
 }
 
 ///播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
     NSLog(@"clickedCloseButton");
-    [self releaseWMPlayer];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (wmplayer.isFullscreen) {
+        [self toNormal];
+    }else{
+        [self releaseWMPlayer];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     
 }
 ///播放暂停
@@ -140,6 +201,8 @@
         [self toFullScreenWithInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
     }else{
         [self toNormal];
+        wmPlayer.isFullscreen = NO;
+
     }
 }
 ///单击播放器
@@ -155,10 +218,11 @@
     NSLog(@"wmplayerDidFailedPlay");
 }
 -(void)wmplayerReadyToPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
-    NSLog(@"wmplayerDidReadyToPlay");
+//    NSLog(@"wmplayerDidReadyToPlay");
 }
 -(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
     NSLog(@"wmplayerDidFinishedPlay");
+
 }
 /**
  *  旋转屏幕通知
@@ -226,7 +290,6 @@
     playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*(0.75));
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     wmPlayer.delegate = self;
-
     wmPlayer.URLString = self.URLString;
     wmPlayer.titleLabel.text = self.title;
     wmPlayer.closeBtn.hidden = NO;
@@ -260,6 +323,9 @@
     [self releaseWMPlayer];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"DetailViewController deallco");
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
 }
 - (void)didReceiveMemoryWarning
 {

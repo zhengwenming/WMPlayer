@@ -12,6 +12,9 @@
  */
 
 #import "Masonry.h"
+#import "WMLightView.h"
+#import "FastForwardView.h"
+
 @import MediaPlayer;
 @import AVFoundation;
 @import UIKit;
@@ -19,16 +22,29 @@
 typedef NS_ENUM(NSInteger, WMPlayerState) {
     WMPlayerStateFailed,        // 播放失败
     WMPlayerStateBuffering,     // 缓冲中
-    WMPlayerStatusReadyToPlay,  //将要播放
     WMPlayerStatePlaying,       // 播放中
     WMPlayerStateStopped,        //暂停播放
-    WMPlayerStateFinished       //播放完毕
+    WMPlayerStateFinished,        //暂停播放
+
+    WMPlayerStatePause,       // 暂停播放
 };
 // 枚举值，包含播放器左上角的关闭按钮的类型
 typedef NS_ENUM(NSInteger, CloseBtnStyle){
     CloseBtnStylePop, //pop箭头<-
     CloseBtnStyleClose  //关闭（X）
 };
+
+//手势操作的类型
+typedef NS_ENUM(NSUInteger,WMControlType) {
+    progressControl,//视频进度调节操作
+    voiceControl,//声音调节操作
+    lightControl,//屏幕亮度调节操作
+    noneControl//无任何操作
+} ;
+
+
+
+
 
 
 @class WMPlayer;
@@ -78,11 +94,11 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
 /**
  *  底部操作工具栏
  */
-@property (nonatomic,retain ) UIView         *bottomView;
+@property (nonatomic,retain ) UIImageView         *bottomView;
 /**
  *  顶部操作工具栏
  */
-@property (nonatomic,retain ) UIView         *topView;
+@property (nonatomic,retain ) UIImageView         *topView;
 
 /**
  *  显示播放视频的title
@@ -119,7 +135,22 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
 /**
  *  显示加载失败的UILabel
  */
+
 @property (nonatomic,strong) UILabel        *loadFailedLabel;
+
+/**
+ *  显示调节亮度的UIView
+ */
+@property (nonatomic, strong) WMLightView * lightView;
+
+/**
+ *  /给显示亮度的view添加毛玻璃效果
+ */
+@property (nonatomic, strong) UIVisualEffectView * effectView;
+/**
+ *  wmPlayer内部一个UIView，所有的控件统一管理在此view中
+ */
+@property (nonatomic,strong) UIView        *contentView;
 /**
  *  当前播放的item
  */
@@ -128,20 +159,28 @@ typedef NS_ENUM(NSInteger, CloseBtnStyle){
  *  菊花（加载框）
  */
 @property (nonatomic,strong) UIActivityIndicatorView *loadingView;
-/**
- *  BOOL值判断当前的播放状态
- */
-@property (nonatomic,assign ) BOOL            isPlaying;
+
 /**
  *  设置播放视频的USRLString，可以是本地的路径也可以是http的网络路径
  */
 @property (nonatomic,copy) NSString       *URLString;
+
+//这个用来显示滑动屏幕时的时间
+@property (nonatomic,strong) FastForwardView * FF_View;
 /**
  *  跳到time处播放
  *  @param seekTime这个时刻，这个时间点
  */
-
 @property (nonatomic, assign) double  seekTime;
+
+/** 播放前占位图片，不设置就显示默认占位图（需要在设置视频URL之前设置） */
+@property (nonatomic, copy  ) UIImage              *placeholderImage ;
+
+
+
+///---------------------------------------------------
+
+
 /**
  *  播放
  */
