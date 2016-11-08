@@ -701,7 +701,17 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
 }
 
-
+-(void)setCloseBtnStyle:(CloseBtnStyle)closeBtnStyle{
+    _closeBtnStyle = closeBtnStyle;
+    if (closeBtnStyle==CloseBtnStylePop) {
+        [_closeBtn setImage:WMPlayerImage(@"play_back.png") forState:UIControlStateNormal];
+        [_closeBtn setImage:WMPlayerImage(@"play_back.png") forState:UIControlStateSelected];
+        
+    }else{
+        [_closeBtn setImage:WMPlayerImage(@"close") forState:UIControlStateNormal];
+        [_closeBtn setImage:WMPlayerImage(@"close") forState:UIControlStateSelected];
+    }
+}
 /**
  *  设置播放的状态
  *  @param state WMPlayerState

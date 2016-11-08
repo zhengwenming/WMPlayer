@@ -64,6 +64,7 @@
             wmPlayer.isFullscreen = NO;
             isHiddenStatusBar = NO;
             isInCell = YES;
+            wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         }else{
             [self releaseWMPlayer];
         }
@@ -76,10 +77,14 @@
 
         [self toOrientation:UIInterfaceOrientationPortrait];
         wmPlayer.isFullscreen = NO;
+        wmPlayer.closeBtnStyle = CloseBtnStyleClose;
+
     }else{//非全屏
         [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
         [self toOrientation:UIInterfaceOrientationLandscapeRight];
         wmPlayer.isFullscreen = YES;
+        wmPlayer.closeBtnStyle = CloseBtnStylePop;
+
     }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
@@ -134,6 +139,8 @@
                 wmPlayer.isFullscreen = NO;
                 isHiddenStatusBar = NO;
                 isInCell = YES;
+                wmPlayer.closeBtnStyle = CloseBtnStyleClose;
+
             }
         }
             break;
@@ -146,6 +153,7 @@
                 wmPlayer.isFullscreen = YES;
                 isInCell = NO;
                 isHiddenStatusBar = YES;
+                wmPlayer.closeBtnStyle = CloseBtnStylePop;
             }
            
         }
@@ -159,6 +167,7 @@
                 wmPlayer.isFullscreen = YES;
                 isInCell = NO;
                 isHiddenStatusBar = YES;
+                wmPlayer.closeBtnStyle = CloseBtnStylePop;
             }
             
         }
