@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : BaseViewController
 @property (nonatomic, retain)NSString * URLString;
 @end

@@ -13,4 +13,5 @@
 - (void)addHud;
 - (void)addHudWithMessage:(NSString*)message;
 - (void)removeHud;
+-(CGAffineTransform)getOrientation;
 @end

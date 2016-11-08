@@ -22,6 +22,9 @@
     NSMutableArray *dataSource;
     WMPlayer *wmPlayer;
     NSIndexPath *currentIndexPath;
+    BOOL isHiddenStatusBar;//记录状态的隐藏显示
+    BOOL isInCell;//是否在cell中播放
+
 }
 
 @property(nonatomic,retain)VideoCell *currentCell;
@@ -29,6 +32,18 @@
 @end
 
 @implementation SinaNewsViewController
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+-(BOOL)prefersStatusBarHidden{
+    if (isInCell) {
+        return NO;
+    }
+    if (isHiddenStatusBar) {//隐藏
+        return YES;
+    }
+    return NO;
+}
 - (instancetype)init
 {
     self = [super init];
@@ -42,11 +57,30 @@
     NSLog(@"didClickedCloseButton");
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
-    [self releaseWMPlayer];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
+
+        if (wmplayer.isFullscreen) {
+            [self toOrientation:UIInterfaceOrientationPortrait];
+            wmPlayer.isFullscreen = NO;
+            isHiddenStatusBar = NO;
+            isInCell = YES;
+        }else{
+            [self releaseWMPlayer];
+        }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
-    
+    [wmplayer removeFromSuperview];
+    if (wmPlayer.isFullscreen==YES) {//全屏
+        VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
+        [currentCell.backgroundIV addSubview:wmPlayer];
+
+        [self toOrientation:UIInterfaceOrientationPortrait];
+        wmPlayer.isFullscreen = NO;
+    }else{//非全屏
+        [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
+        [self toOrientation:UIInterfaceOrientationLandscapeRight];
+        wmPlayer.isFullscreen = YES;
+    }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
     NSLog(@"didSingleTaped");
@@ -66,11 +100,131 @@
     NSLog(@"wmplayerDidFinishedPlay");
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
+    [self toOrientation:UIInterfaceOrientationPortrait];
     [wmPlayer removeFromSuperview];
+    
+}
+//操作栏隐藏或者显示都会调用此方法
+-(void)wmplayer:(WMPlayer *)wmplayer isHiddenTopAndBottomView:(BOOL)isHidden{
+    isHiddenStatusBar = isHidden;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+/**
+ *  旋转屏幕通知
+ */
+- (void)onDeviceOrientationChange:(NSNotification *)notification{
+    if (wmPlayer==nil||wmPlayer.superview==nil){
+        return;
+    }
+    
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
+    switch (interfaceOrientation) {
+        case UIInterfaceOrientationPortraitUpsideDown:{
+            NSLog(@"第3个旋转方向---电池栏在下");
+        }
+            break;
+        case UIInterfaceOrientationPortrait:{
+            NSLog(@"第0个旋转方向---电池栏在上");
+            if (wmPlayer.isFullscreen) {
+                [wmPlayer removeFromSuperview];
+                VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
+                [currentCell addSubview:wmPlayer];
+                [self toOrientation:UIInterfaceOrientationPortrait];
+                wmPlayer.isFullscreen = NO;
+                isHiddenStatusBar = NO;
+                isInCell = YES;
+            }
+        }
+            break;
+        case UIInterfaceOrientationLandscapeLeft:{
+            NSLog(@"第2个旋转方向---电池栏在左");
+            if (wmPlayer.isFullscreen==NO) {
+                [wmPlayer removeFromSuperview];
+                [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
+                [self toOrientation:UIInterfaceOrientationLandscapeLeft];
+                wmPlayer.isFullscreen = YES;
+                isInCell = NO;
+                isHiddenStatusBar = YES;
+            }
+           
+        }
+            break;
+        case UIInterfaceOrientationLandscapeRight:{
+            NSLog(@"第1个旋转方向---电池栏在右");
+            if (wmPlayer.isFullscreen==NO) {
+                [wmPlayer removeFromSuperview];
+                [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
+                [self toOrientation:UIInterfaceOrientationLandscapeRight];
+                wmPlayer.isFullscreen = YES;
+                isInCell = NO;
+                isHiddenStatusBar = YES;
+            }
+            
+        }
+            break;
+        default:
+            break;
+    }
+    [self setNeedsStatusBarAppearanceUpdate];
 
+}
+//点击进入,退出全屏,或者监测到屏幕旋转去调用的方法
+-(void)toOrientation:(UIInterfaceOrientation)orientation{
+    //获取到当前状态条的方向
+    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    //判断如果当前方向和要旋转的方向一致,那么不做任何操作
+    if (currentOrientation == orientation) {
+        return;
+    }
+    
+    //根据要旋转的方向,使用Masonry重新修改限制
+    if (orientation ==UIInterfaceOrientationPortrait) {//
+        VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
+        [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(currentCell.backgroundIV).with.offset(0);
+            make.left.equalTo(currentCell.backgroundIV).with.offset(0);
+            make.right.equalTo(currentCell.backgroundIV).with.offset(0);
+            make.height.equalTo(@(currentCell.backgroundIV.frame.size.height));
+        }];
+    }else{
+        //这个地方加判断是为了从全屏的一侧,直接到全屏的另一侧不用修改限制,否则会出错;
+        //        if (currentOrientation ==UIInterfaceOrientationPortrait) {
+        [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@(kScreenHeight));
+            make.height.equalTo(@(kScreenWidth));
+            make.center.equalTo(wmPlayer.superview);
+        }];
+        //        }
+    }
+    //iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
+    //也就是说在实现这个方法的时候-(BOOL)shouldAutorotate返回值要为NO
+    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:NO];
+    //获取旋转状态条需要的时间:
+    [UIView beginAnimations:nil context:nil];
+    //更改了状态条的方向,但是设备方向UIInterfaceOrientation还是正方向的,这就要设置给你播放视频的视图的方向设置旋转
+    //给你的播放视频的view视图设置旋转
+    wmPlayer.transform = CGAffineTransformIdentity;
+    wmPlayer.transform = [self getOrientation];
+    [UIView setAnimationDuration:1.0];
+    //开始旋转
+    [UIView commitAnimations];
+
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //获取设备旋转方向的通知,即使关闭了自动旋转,一样可以监测到设备的旋转方向
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    //旋转屏幕通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onDeviceOrientationChange:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil
+     ];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isInCell = YES;
     [self.table registerNib:[UINib nibWithNibName:@"VideoCell" bundle:nil] forCellReuseIdentifier:@"VideoCell"];
     [self addMJRefresh];
 }
@@ -213,26 +367,32 @@
         
     }else{//ios7系统 UITableViewCell上多了一个层级UITableViewCellScrollView
         self.currentCell = (VideoCell *)sender.superview.superview.subviews;
-        
     }
     VideoModel *model = [dataSource objectAtIndex:sender.tag];
     
     if (wmPlayer) {
         [self releaseWMPlayer];
-        wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds];
+        wmPlayer = [[WMPlayer alloc]init];
         wmPlayer.delegate = self;
         wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         wmPlayer.URLString = model.mp4_url;
-        
+        wmPlayer.titleLabel.text = model.title;
     }else{
-        wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds];
+        wmPlayer = [[WMPlayer alloc]init];
         wmPlayer.delegate = self;
         wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         wmPlayer.URLString = model.mp4_url;
+        wmPlayer.titleLabel.text = model.title;
     }
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];
     [self.currentCell.playBtn.superview sendSubviewToBack:self.currentCell.playBtn];
+    [wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.currentCell.backgroundIV).with.offset(0);
+        make.left.equalTo(self.currentCell.backgroundIV).with.offset(0);
+        make.right.equalTo(self.currentCell.backgroundIV).with.offset(0);
+        make.height.equalTo(@(self.currentCell.backgroundIV.frame.size.height));
+    }];
     [self.table reloadData];
 
 }
@@ -289,7 +449,6 @@
     [wmPlayer.autoDismissTimer invalidate];
     wmPlayer.autoDismissTimer = nil;
     
-    
     wmPlayer.playOrPauseBtn = nil;
     wmPlayer.playerLayer = nil;
     wmPlayer = nil;
@@ -299,10 +458,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [self releaseWMPlayer];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
 }
 
 @end

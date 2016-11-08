@@ -95,8 +95,6 @@
 		70C8ED811C5F92E900B0DE61 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED191C5F92E900B0DE61 /* VideoCell.xib */; };
 		70C8ED821C5F92E900B0DE61 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED1C1C5F92E900B0DE61 /* BaseNavigationController.m */; };
 		70C8ED831C5F92E900B0DE61 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */; };
-		70C8ED841C5F92E900B0DE61 /* NetEaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED201C5F92E900B0DE61 /* NetEaseViewController.m */; };
-		70C8ED851C5F92E900B0DE61 /* NetEaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED211C5F92E900B0DE61 /* NetEaseViewController.xib */; };
 		70C8ED871C5F92E900B0DE61 /* SinaNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED251C5F92E900B0DE61 /* SinaNewsViewController.m */; };
 		70C8ED881C5F92E900B0DE61 /* SinaNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */; };
 		70C8ED891C5F92E900B0DE61 /* TencentNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED281C5F92E900B0DE61 /* TencentNewsViewController.m */; };
@@ -259,9 +257,6 @@
 		70C8ED1C1C5F92E900B0DE61 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		70C8ED1D1C5F92E900B0DE61 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		70C8ED1F1C5F92E900B0DE61 /* NetEaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetEaseViewController.h; sourceTree = "<group>"; };
-		70C8ED201C5F92E900B0DE61 /* NetEaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetEaseViewController.m; sourceTree = "<group>"; };
-		70C8ED211C5F92E900B0DE61 /* NetEaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetEaseViewController.xib; sourceTree = "<group>"; };
 		70C8ED241C5F92E900B0DE61 /* SinaNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaNewsViewController.h; sourceTree = "<group>"; };
 		70C8ED251C5F92E900B0DE61 /* SinaNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaNewsViewController.m; sourceTree = "<group>"; };
 		70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinaNewsViewController.xib; sourceTree = "<group>"; };
@@ -595,9 +590,6 @@
 				70C8ED271C5F92E900B0DE61 /* TencentNewsViewController.h */,
 				70C8ED281C5F92E900B0DE61 /* TencentNewsViewController.m */,
 				70C8ED291C5F92E900B0DE61 /* TencentNewsViewController.xib */,
-				70C8ED1F1C5F92E900B0DE61 /* NetEaseViewController.h */,
-				70C8ED201C5F92E900B0DE61 /* NetEaseViewController.m */,
-				70C8ED211C5F92E900B0DE61 /* NetEaseViewController.xib */,
 				70C8ED241C5F92E900B0DE61 /* SinaNewsViewController.h */,
 				70C8ED251C5F92E900B0DE61 /* SinaNewsViewController.m */,
 				70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */,
@@ -643,7 +635,7 @@
 				TargetAttributes = {
 					70C8EC8B1C5F91C200B0DE61 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = WR5828Y35T;
+						DevelopmentTeam = XJVZHH6395;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -707,7 +699,6 @@
 				70C8ECAA1C5F92A700B0DE61 /* navigator_btn_back.png in Resources */,
 				70C8ED531C5F92E900B0DE61 /* playcount.png in Resources */,
 				7069A2451D07E6060071AB7C /* tab_icon05_on@3x.png in Resources */,
-				70C8ED851C5F92E900B0DE61 /* NetEaseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,7 +727,6 @@
 				70C8ED631C5F92E900B0DE61 /* MJRefreshAutoGifFooter.m in Sources */,
 				70C8ED5F1C5F92E900B0DE61 /* MJRefreshBackFooter.m in Sources */,
 				70C8ED891C5F92E900B0DE61 /* TencentNewsViewController.m in Sources */,
-				70C8ED841C5F92E900B0DE61 /* NetEaseViewController.m in Sources */,
 				70C8ED801C5F92E900B0DE61 /* VideoCell.m in Sources */,
 				704E00A11DC3A823009D1B88 /* WMPlayer.m in Sources */,
 				707DB8C31C98276D005EB252 /* BaseViewController.m in Sources */,
@@ -890,7 +880,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WR5828Y35T;
+				DEVELOPMENT_TEAM = XJVZHH6395;
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -907,7 +897,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WR5828Y35T;
+				DEVELOPMENT_TEAM = XJVZHH6395;
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

@@ -25,7 +25,6 @@ typedef NS_ENUM(NSInteger, WMPlayerState) {
     WMPlayerStatePlaying,       // 播放中
     WMPlayerStateStopped,        //暂停播放
     WMPlayerStateFinished,        //暂停播放
-
     WMPlayerStatePause,       // 暂停播放
 };
 // 枚举值，包含播放器左上角的关闭按钮的类型
@@ -61,7 +60,8 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap;
 //双击WMPlayer的代理方法
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap;
-
+//WMPlayer的的操作栏隐藏和显示
+-(void)wmplayer:(WMPlayer *)wmplayer isHiddenTopAndBottomView:(BOOL )isHidden;
 ///播放状态
 //播放失败的代理方法
 -(void)wmplayerFailedPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state;
@@ -99,6 +99,10 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  *  顶部操作工具栏
  */
 @property (nonatomic,retain ) UIImageView         *topView;
+/**
+ *  是否使用手势控制音量
+ */
+@property (nonatomic,assign) BOOL  enableVolumeGesture;
 
 /**
  *  显示播放视频的title

@@ -73,8 +73,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 
 
 
-///亮度的进度条
-@property (nonatomic,strong) UISlider       *lightSlider;
+
 ///进度滑块
 @property (nonatomic,strong) UISlider       *progressSlider;
 ///声音滑块
@@ -87,7 +86,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 
 
 @implementation WMPlayer{
-    UISlider *systemSlider;
     UITapGestureRecognizer* singleTap;
 }
 
@@ -136,39 +134,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 //亮度调节的view
 -(void)creatLight_View{
-    if (iOS8) {
-        UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        _effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
-        _effectView.alpha = 0.0;
-        _effectView.translatesAutoresizingMaskIntoConstraints = NO;
-        _effectView.contentView.layer.cornerRadius = 10.0;
-        _effectView.layer.masksToBounds = YES;
-        _effectView.layer.cornerRadius = 10.0;
-        self.lightView = [[NSBundle mainBundle] loadNibNamed:@"WMLightView" owner:self options:nil].lastObject;
-        self.lightView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.lightView.alpha = 0.0;
-        [_effectView.contentView addSubview:self.lightView];
-        
-        [self.contentView addSubview:_effectView];
-        [self.effectView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self.contentView);
-            make.width.equalTo(@(155));
-            make.height.equalTo(@(155));
-        }];
-        [self.lightView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.effectView);
-        }];
-    }else{
-        self.lightView = [[NSBundle mainBundle] loadNibNamed:@"WMLightView" owner:self options:nil].lastObject;
-        self.lightView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.lightView.alpha = 0.0;
-        [self.contentView addSubview:self.lightView];
-        [self.lightView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self.contentView);
-            make.width.equalTo(@(155));
-            make.height.equalTo(@(155));
-        }];
-    }
+    self.lightView = [[NSBundle mainBundle] loadNibNamed:@"WMLightView" owner:self options:nil].lastObject;
+    self.lightView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.lightView.alpha = 0.0;
+    [self.contentView addSubview:self.lightView];
+    [self.lightView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.contentView);
+        make.width.equalTo(@(155));
+        make.height.equalTo(@(155));
+    }];
 }
 /**
  *  初始化WMPlayer的控件，添加手势，添加通知，添加kvo等
@@ -187,8 +161,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //创建fastForwardView
     [self creatFF_View];
     [self creatLight_View];
+    //设置默认值
     self.seekTime = 0.00;
-
+    self.enableVolumeGesture = YES;
     
     
     //小菊花
@@ -212,7 +187,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(0);
         make.right.equalTo(self.contentView).with.offset(0);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(70);
         make.top.equalTo(self.contentView).with.offset(0);
     }];
     
@@ -229,7 +204,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).with.offset(0);
         make.right.equalTo(self.contentView).with.offset(0);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(50);
         make.bottom.equalTo(self.contentView).with.offset(0);
         
     }];
@@ -257,46 +232,17 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         
     }];
     self.playOrPauseBtn.selected = YES;//默认状态，即默认是不自动播放
-    //创建亮度的进度条
-    self.lightSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-    self.lightSlider.hidden = YES;
-    self.lightSlider.minimumValue = 0;
-    self.lightSlider.maximumValue = 1;
-    //        进度条的值等于当前系统亮度的值,范围都是0~1
-    self.lightSlider.value = [UIScreen mainScreen].brightness;
-    //        [self.lightSlider addTarget:self action:@selector(updateLightValue:) forControlEvents:UIControlEventValueChanged];
-    [self.contentView addSubview:self.lightSlider];
-    
     
     
     MPVolumeView *volumeView = [[MPVolumeView alloc]init];
-    [self.contentView addSubview:volumeView];
-    volumeView.frame = CGRectMake(-1000, -100, 100, 100);
-    [volumeView sizeToFit];
-    
-    
-    systemSlider = [[UISlider alloc]init];
-    systemSlider.backgroundColor = [UIColor clearColor];
     for (UIControl *view in volumeView.subviews) {
         if ([view.superclass isSubclassOfClass:[UISlider class]]) {
-            systemSlider = (UISlider *)view;
+            self.volumeSlider = (UISlider *)view;
         }
     }
-    systemSlider.autoresizesSubviews = NO;
-    systemSlider.autoresizingMask = UIViewAutoresizingNone;
-    [self.contentView addSubview:systemSlider];
-    //        systemSlider.hidden = YES;
     
     
     
-    self.volumeSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    self.volumeSlider.tag = 1000;
-    self.volumeSlider.hidden = YES;
-    self.volumeSlider.minimumValue = systemSlider.minimumValue;
-    self.volumeSlider.maximumValue = systemSlider.maximumValue;
-    self.volumeSlider.value = systemSlider.value;
-    [self.volumeSlider addTarget:self action:@selector(updateSystemVolumeValue:) forControlEvents:UIControlEventValueChanged];
-    [self.contentView addSubview:self.volumeSlider];
     
     
     //slider
@@ -405,8 +351,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.topView).with.offset(5);
         make.height.mas_equalTo(30);
-        make.top.equalTo(self.topView).with.offset(5);
         make.width.mas_equalTo(30);
+        make.top.equalTo(self.topView).with.offset(20);
         
     }];
     
@@ -544,9 +490,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
 }
 
-- (void)updateSystemVolumeValue:(UISlider *)slider{
-    systemSlider.value = slider.value;
-}
+
 #pragma mark
 #pragma mark - layoutSubviews
 -(void)layoutSubviews{
@@ -645,15 +589,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [[NSRunLoop currentRunLoop] addTimer:self.autoDismissTimer forMode:NSDefaultRunLoopMode];
     [UIView animateWithDuration:0.5 animations:^{
         if (self.bottomView.alpha == 0.0) {
-            self.bottomView.alpha = 1.0;
-            self.closeBtn.alpha = 1.0;
-            self.topView.alpha = 1.0;
-
+            [self showControlView];
         }else{
-            self.bottomView.alpha = 0.0;
-            self.closeBtn.alpha = 0.0;
-            self.topView.alpha = 0.0;
-
+            [self hiddenControlView];
         }
     } completion:^(BOOL finish){
         
@@ -667,14 +605,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     [self PlayOrPause:self.playOrPauseBtn];
 
-        [UIView animateWithDuration:0.5 animations:^{
-        self.bottomView.alpha = 1.0;
-        self.topView.alpha = 1.0;
-        self.closeBtn.alpha = 1.0;
-
-    } completion:^(BOOL finish){
-        
-    }];
+    [self showControlView];
 }
 /**
  *  重写playerItem的setter方法，处理自己的逻辑
@@ -823,14 +754,32 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [self pause];
         }
         }];
+    [self showControlView];
+}
+///显示操作栏view
+-(void)showControlView{
     [UIView animateWithDuration:0.5 animations:^{
         self.bottomView.alpha = 1.0;
         self.topView.alpha = 1.0;
+        if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:isHiddenTopAndBottomView:)]) {
+            [self.delegate wmplayer:self isHiddenTopAndBottomView:NO];
+        }
     } completion:^(BOOL finish){
         
     }];
 }
-
+///隐藏操作栏view
+-(void)hiddenControlView{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.bottomView.alpha = 0.0;
+        self.topView.alpha = 0.0;
+        if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:isHiddenTopAndBottomView:)]) {
+            [self.delegate wmplayer:self isHiddenTopAndBottomView:YES];
+        }
+    } completion:^(BOOL finish){
+        
+    }];
+}
 #pragma mark
 #pragma mark--开始拖曳sidle
 - (void)stratDragSlide:(UISlider *)slider{
@@ -977,20 +926,28 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark autoDismissBottomView
 -(void)autoDismissBottomView:(NSTimer *)timer{
     
-    if (self.player.rate==.0f&&self.currentTime != self.duration) {//暂停状态
-   
-    }else if(self.player.rate==1.0f){
+    
+    if (self.state==WMPlayerStatePlaying) {
         if (self.bottomView.alpha==1.0) {
-            [UIView animateWithDuration:0.5 animations:^{
-                self.bottomView.alpha = 0.0;
-                self.closeBtn.alpha = 0.0;
-                self.topView.alpha = 0.0;
+            
+            [self hiddenControlView];
 
-            } completion:^(BOOL finish){
-                
-            }];
         }
     }
+//    if (self.player.rate==.0f&&self.currentTime != self.duration) {//暂停状态
+//   
+//    }else if(self.player.rate==1.0f){
+//        if (self.bottomView.alpha==1.0) {
+//            [UIView animateWithDuration:0.5 animations:^{
+//                self.bottomView.alpha = 0.0;
+//                self.closeBtn.alpha = 0.0;
+//                self.topView.alpha = 0.0;
+//
+//            } completion:^(BOOL finish){
+//                
+//            }];
+//        }
+//    }
 }
 #pragma  mark - 定时器
 -(void)initTimer{
@@ -1109,11 +1066,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     _touchBeginLightValue = [UIScreen mainScreen].brightness;
     //声音
     _touchBeginVoiceValue = _volumeSlider.value;
-
-    
-    self.volumeSlider.value = systemSlider.value;
-    //    UISlider *volumeSlider = (UISlider *)[self viewWithTag:1000];
-    //    volumeSlider.value = systemSlider.value;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -1157,20 +1109,26 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         float value = [self moveProgressControllWithTempPoint:tempPoint];
         [self timeValueChangingWithValue:value];
     }else if(_controlType == voiceControl){    //如果是音量手势
-        //根据触摸开始时的音量和触摸开始时的点去计算出现在滑动到的音量
-        float voiceValue = _touchBeginVoiceValue - ((tempPoint.y - _touchBeginPoint.y)/self.bounds.size.height);
-        //判断控制一下, 不能超出 0~1
-        if (voiceValue < 0) {
-            _volumeSlider.value = 0;
-        }else if(voiceValue > 1){
-            _volumeSlider.value = 1;
+        if (self.isFullscreen) {//全屏的时候才开启音量的手势调节
+            
+            if (self.enableVolumeGesture) {
+                //根据触摸开始时的音量和触摸开始时的点去计算出现在滑动到的音量
+                float voiceValue = _touchBeginVoiceValue - ((tempPoint.y - _touchBeginPoint.y)/self.bounds.size.height);
+                //判断控制一下, 不能超出 0~1
+                if (voiceValue < 0) {
+                    _volumeSlider.value = 0;
+                }else if(voiceValue > 1){
+                    _volumeSlider.value = 1;
+                }else{
+                    _volumeSlider.value = voiceValue;
+                }
+            }
         }else{
-            _volumeSlider.value = voiceValue;
+            return;
         }
     }else if(_controlType == lightControl){   //如果是亮度手势
         //显示音量控制的view
         [self hideTheLightViewWithHidden:NO];
-
         if (self.isFullscreen) {
             //根据触摸开始时的亮度, 和触摸开始时的点来计算出现在的亮度
             float tempLightValue = _touchBeginLightValue - ((tempPoint.y - _touchBeginPoint.y)/self.bounds.size.height);
@@ -1342,7 +1300,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     [self.player.currentItem cancelPendingSeeks];
     [self.player.currentItem.asset cancelLoading];
     [self.player pause];
-    
     [self.player removeTimeObserver:self.playbackTimeObserver];
     
     //移除观察者
@@ -1361,10 +1318,9 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     self.currentItem = nil;
     self.playOrPauseBtn = nil;
     self.playerLayer = nil;
-    
     self.autoDismissTimer = nil;
-    
 }
+
 - (NSString *)version{
     return @"3.0.0";
 }

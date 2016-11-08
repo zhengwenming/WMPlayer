@@ -9,7 +9,6 @@
 #import "RootTabBarController.h"
 #import "TencentNewsViewController.h"
 #import "SinaNewsViewController.h"
-#import "NetEaseViewController.h"
 #import "BaseNavigationController.h"
 
 #import "PersonCenterViewController.h"
@@ -41,24 +40,36 @@
 
     
     
-    NetEaseViewController *netEaseVC = [[NetEaseViewController alloc]init];
-    netEaseVC.title = @"网易";
-    BaseNavigationController *netEaseNav = [[BaseNavigationController alloc]initWithRootViewController:netEaseVC];
-    netEaseNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"网易" image:[UIImage imageNamed:@"share@2x.png"] selectedImage:[UIImage imageNamed:@"share_s@2x.png"]];
+//    NetEaseViewController *netEaseVC = [[NetEaseViewController alloc]init];
+//    netEaseVC.title = @"网易";
+//    BaseNavigationController *netEaseNav = [[BaseNavigationController alloc]initWithRootViewController:netEaseVC];
+//    netEaseNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"网易" image:[UIImage imageNamed:@"share@2x.png"] selectedImage:[UIImage imageNamed:@"share_s@2x.png"]];
     
     
     PersonCenterViewController *pcenterVC = [[PersonCenterViewController alloc]init];
     pcenterVC.title = @"我";
     BaseNavigationController *pcenterNav = [[BaseNavigationController alloc]initWithRootViewController:pcenterVC];
     pcenterNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"测试" image:[UIImage imageNamed:@"tab_icon05"] selectedImage:[UIImage imageNamed:@"tab_icon05_on"]];
-    self.viewControllers = @[tencentNav,sinaNav,netEaseNav,pcenterNav];
+    self.viewControllers = @[tencentNav,sinaNav,pcenterNav];
     
                              
                              
     self.tabBar.tintColor = [UIColor redColor];
     
 }
-
+-(BOOL)shouldAutorotate{
+    UINavigationController *nav = self.viewControllers[self.selectedIndex];
+    return [nav.topViewController shouldAutorotate];
+}
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+     UINavigationController *nav = self.viewControllers[self.selectedIndex];
+    return [nav.topViewController supportedInterfaceOrientations];
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    UINavigationController *nav = self.viewControllers[self.selectedIndex];
+    return [nav.topViewController preferredInterfaceOrientationForPresentation];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
