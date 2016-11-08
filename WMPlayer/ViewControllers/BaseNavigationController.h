@@ -14,5 +14,9 @@
 #import <UIKit/UIKit.h>
 
 @interface BaseNavigationController : UINavigationController
+@property (strong ,nonatomic) NSMutableArray *arrayScreenshot;
+#if kUseScreenShotGesture
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+#endif
 
 @end

@@ -102,24 +102,32 @@
     switch (interfaceOrientation) {
         case UIInterfaceOrientationPortraitUpsideDown:{
             NSLog(@"第3个旋转方向---电池栏在下");
+            wmPlayer.isFullscreen = NO;
+            self.enablePanGesture = YES;
+
         }
             break;
         case UIInterfaceOrientationPortrait:{
             NSLog(@"第0个旋转方向---电池栏在上");
             [self toOrientation:UIInterfaceOrientationPortrait];
             wmPlayer.isFullscreen = NO;
+            self.enablePanGesture = YES;
+
         }
             break;
         case UIInterfaceOrientationLandscapeLeft:{
             NSLog(@"第2个旋转方向---电池栏在左");
             [self toOrientation:UIInterfaceOrientationLandscapeLeft];
                 wmPlayer.isFullscreen = YES;
+            self.enablePanGesture = NO;
+
         }
             break;
         case UIInterfaceOrientationLandscapeRight:{
             NSLog(@"第1个旋转方向---电池栏在右");
             [self toOrientation:UIInterfaceOrientationLandscapeRight];
             wmPlayer.isFullscreen = YES;
+            self.enablePanGesture = NO;
 
         }
             break;
@@ -127,6 +135,7 @@
             break;
     }
 }
+
 //点击进入,退出全屏,或者监测到屏幕旋转去调用的方法
 -(void)toOrientation:(UIInterfaceOrientation)orientation{
     //获取到当前状态条的方向
@@ -146,13 +155,13 @@
         }];
     }else{
         //这个地方加判断是为了从全屏的一侧,直接到全屏的另一侧不用修改限制,否则会出错;
-//        if (currentOrientation ==UIInterfaceOrientationPortrait) {
+        if (currentOrientation ==UIInterfaceOrientationPortrait) {
             [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(@(kScreenHeight));
                 make.height.equalTo(@(kScreenWidth));
                 make.center.equalTo(wmPlayer.superview);
             }];
-//        }
+        }
     }
     //iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
     //也就是说在实现这个方法的时候-(BOOL)shouldAutorotate返回值要为NO
@@ -163,7 +172,7 @@
     //给你的播放视频的view视图设置旋转
     wmPlayer.transform = CGAffineTransformIdentity;
     wmPlayer.transform = [self getOrientation];
-    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDuration:2.0];
     //开始旋转
     [UIView commitAnimations];
 }
