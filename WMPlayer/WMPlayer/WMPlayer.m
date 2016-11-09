@@ -88,18 +88,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @implementation WMPlayer{
     UITapGestureRecognizer* singleTap;
 }
-
-
-/**
- *  alloc init的初始化方法
- */
-- (instancetype)init{
-    self = [super init];
-    if (self){
-        [self initWMPlayer];
-    }
-    return self;
-}
 /**
  *  storyboard、xib的初始化方法
  */
@@ -132,18 +120,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
 
 }
-//亮度调节的view
--(void)creatLight_View{
-    self.lightView = [[NSBundle mainBundle] loadNibNamed:@"WMLightView" owner:self options:nil].lastObject;
-    self.lightView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.lightView.alpha = 0.0;
-    [self.contentView addSubview:self.lightView];
-    [self.lightView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.contentView);
-        make.width.equalTo(@(155));
-        make.height.equalTo(@(155));
-    }];
-}
+
 /**
  *  初始化WMPlayer的控件，添加手势，添加通知，添加kvo等
  */
@@ -160,7 +137,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     //创建fastForwardView
     [self creatFF_View];
-    [self creatLight_View];
+    [[UIApplication sharedApplication].keyWindow addSubview:[WMLightView sharedLightView]];
     //设置默认值
     self.seekTime = 0.00;
     self.enableVolumeGesture = YES;
@@ -1151,7 +1128,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [UIScreen mainScreen].brightness = tempLightValue;
             //        实时改变现实亮度进度的view
             NSLog(@"亮度调节 = %f",tempLightValue);
-            [self.lightView changeLightViewWithValue:tempLightValue];
+            
+//            [self.lightView changeLightViewWithValue:tempLightValue];
 
         }else{
             
@@ -1259,7 +1237,7 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     if (self.isFullscreen) {//全屏才出亮度调节的view
         if (hidden) {
             [UIView animateWithDuration:1.0 delay:1.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-                self.lightView.alpha = 0.0;
+//                self.lightView.alpha = 0.0;
                 if (iOS8) {
                     self.effectView.alpha = 0.0;
                 }
@@ -1267,16 +1245,16 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
             
         }else{
             if (iOS8) {
-                self.lightView.alpha = 1.0;
+//                self.lightView.alpha = 1.0;
                 self.effectView.alpha = 1.0;
             }else{
-                self.lightView.alpha = 1.0;
+//                self.lightView.alpha = 1.0;
             }
         }
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
             self.effectView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
         }else{
-            self.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
+//            self.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
         }
     }else{
         return;
@@ -1304,7 +1282,11 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
 
 }
 -(void)dealloc{
-    
+    for (UIView *aLightView in [UIApplication sharedApplication].keyWindow.subviews) {
+        if ([aLightView isKindOfClass:[WMLightView class]]) {
+            [aLightView removeFromSuperview];
+        }
+    }
     NSLog(@"WMPlayer dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.player.currentItem cancelPendingSeeks];
@@ -1317,9 +1299,7 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     [_currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     [_currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     [_currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
-    
-    [self.lightView removeFromSuperview];
-    self.lightView = nil;
+
     [self.effectView removeFromSuperview];
     self.effectView = nil;
     [self.playerLayer removeFromSuperlayer];

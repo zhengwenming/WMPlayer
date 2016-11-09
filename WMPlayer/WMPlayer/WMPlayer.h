@@ -142,10 +142,6 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 
 @property (nonatomic,strong) UILabel        *loadFailedLabel;
 
-/**
- *  显示调节亮度的UIView
- */
-@property (nonatomic, strong) WMLightView * lightView;
 
 /**
  *  /给显示亮度的view添加毛玻璃效果

@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface WMLightView : UIView
-@property (weak, nonatomic) IBOutlet UIView *lightBackView;
-@property (weak, nonatomic) IBOutlet UIImageView *centerLightIV;
+@property (strong, nonatomic)  UIView *lightBackView;
+@property (strong, nonatomic)  UIImageView *centerLightIV;
 
 @property (nonatomic, strong) NSMutableArray * lightViewArr;
 
--(void)changeLightViewWithValue:(float)lightValue;
++ (instancetype)sharedLightView;
 @end

@@ -124,7 +124,7 @@
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
             wmPlayer.effectView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
         }else{
-            wmPlayer.lightView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
+//            wmPlayer.lightView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
         }
         
         [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -193,7 +193,7 @@
     if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
         wmPlayer.effectView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
     }else{
-        wmPlayer.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
+//        wmPlayer.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
     }
     [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(wmPlayer).with.offset(kScreenHeight/2-120/2);

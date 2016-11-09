@@ -69,7 +69,6 @@
             [self toOrientation:UIInterfaceOrientationLandscapeRight];
             wmPlayer.isFullscreen = YES;
             self.enablePanGesture = NO;
-
     }
 }
 ///单击播放器
@@ -109,8 +108,7 @@
         case UIInterfaceOrientationPortraitUpsideDown:{
             NSLog(@"第3个旋转方向---电池栏在下");
             wmPlayer.isFullscreen = NO;
-            self.enablePanGesture = YES;
-
+            self.enablePanGesture = NO;
         }
             break;
         case UIInterfaceOrientationPortrait:{
@@ -134,7 +132,6 @@
             [self toOrientation:UIInterfaceOrientationLandscapeRight];
             wmPlayer.isFullscreen = YES;
             self.enablePanGesture = NO;
-
         }
             break;
         default:
@@ -204,7 +201,9 @@
 {
     [super viewDidLoad];
     playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*(0.75));
-    wmPlayer = [[WMPlayer alloc]init];
+//    wmPlayer = [[WMPlayer alloc]init];
+    wmPlayer = [WMPlayer new];
+
       wmPlayer.delegate = self;
     wmPlayer.URLString = self.URLString;
     wmPlayer.titleLabel.text = self.title;
