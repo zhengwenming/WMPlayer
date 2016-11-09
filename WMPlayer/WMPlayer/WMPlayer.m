@@ -203,9 +203,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //autoLayout _playOrPauseBtn
     [self.playOrPauseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bottomView).with.offset(0);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(50);
         make.bottom.equalTo(self.bottomView).with.offset(0);
-        make.width.mas_equalTo(40);
+        make.width.mas_equalTo(50);
         
     }];
     self.playOrPauseBtn.selected = YES;//默认状态，即默认是不自动播放
@@ -276,9 +276,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //autoLayout fullScreenBtn
     [self.fullScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.bottomView).with.offset(0);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(50);
         make.bottom.equalTo(self.bottomView).with.offset(0);
-        make.width.mas_equalTo(40);
+        make.width.mas_equalTo(50);
         
     }];
     
@@ -322,6 +322,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //_closeBtn
     _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _closeBtn.showsTouchWhenHighlighted = YES;
+//    _closeBtn.backgroundColor = [UIColor redColor];
     [_closeBtn addTarget:self action:@selector(colseTheVideo:) forControlEvents:UIControlEventTouchUpInside];
        [self.topView addSubview:_closeBtn];
     //autoLayout _closeBtn
@@ -338,6 +339,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //    self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.backgroundColor = [UIColor clearColor];
+    self.titleLabel.numberOfLines = 1;
     self.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.topView addSubview:self.titleLabel];
     //autoLayout titleLabel
@@ -349,10 +351,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.top.equalTo(self.topView).with.offset(0);
 
     }];
-    
-    [self bringSubviewToFront:self.loadingView];
-    [self bringSubviewToFront:self.bottomView];
-    
     
     // 单击的 Recognizer
     singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
@@ -517,10 +515,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark
 #pragma mark - PlayOrPause
 - (void)PlayOrPause:(UIButton *)sender{
-    if (self.state ==WMPlayerStateStopped||self.state==WMPlayerStateFailed||self.state==WMPlayerStateFinished) {
+    if (self.state ==WMPlayerStateStopped||self.state==WMPlayerStateFailed) {
         [self play];
     } else if(self.state ==WMPlayerStatePlaying){
         [self pause];
+    }else if(self.state ==WMPlayerStateFinished){
+        NSLog(@"ggggg");
+        self.state = WMPlayerStatePlaying;
+        [self.player play];
+        self.playOrPauseBtn.selected = NO;
     }
     if ([self.delegate respondsToSelector:@selector(wmplayer:clickedPlayOrPauseButton:)]) {
         [self.delegate wmplayer:self clickedPlayOrPauseButton:sender];
@@ -538,9 +541,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             self.state = WMPlayerStatePlaying;
             [self.player play];
             self.playOrPauseBtn.selected = NO;
-            
-        } if (self.state==WMPlayerStateFinished) {
-
+        }else if(self.state ==WMPlayerStateFinished){
+            NSLog(@"fffff");
         }
     }
 }
@@ -704,12 +706,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.loadingView stopAnimating];//
     }else if(state == WMPlayerStatePause){
         //here
-
         [self.loadingView stopAnimating];//
     }
     else{
         //here
-
         [self.loadingView stopAnimating];//
     }
 }
@@ -734,14 +734,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayerFinishedPlay:)]) {
         [self.delegate wmplayerFinishedPlay:self];
     }
-    [self.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-        [self.progressSlider setValue:0.0 animated:YES];
+    [self.player seekToTime:kCMTimeZero toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
         if (finished) {
-            self.state = WMPlayerStateFinished;
-            [self pause];
+            [self showControlView];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.state = WMPlayerStateFinished;
+                self.playOrPauseBtn.selected = YES;
+            });
         }
-        }];
-    [self showControlView];
+    }];
 }
 ///显示操作栏view
 -(void)showControlView{
@@ -912,29 +913,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark
 #pragma mark autoDismissBottomView
 -(void)autoDismissBottomView:(NSTimer *)timer{
-    
-    
     if (self.state==WMPlayerStatePlaying) {
         if (self.bottomView.alpha==1.0) {
-            
-            [self hiddenControlView];
-
+            [self hiddenControlView];//隐藏操作栏
         }
     }
-//    if (self.player.rate==.0f&&self.currentTime != self.duration) {//暂停状态
-//   
-//    }else if(self.player.rate==1.0f){
-//        if (self.bottomView.alpha==1.0) {
-//            [UIView animateWithDuration:0.5 animations:^{
-//                self.bottomView.alpha = 0.0;
-//                self.closeBtn.alpha = 0.0;
-//                self.topView.alpha = 0.0;
-//
-//            } completion:^(BOOL finish){
-//                
-//            }];
-//        }
-//    }
 }
 #pragma  mark - 定时器
 -(void)initTimer{
@@ -1128,9 +1111,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [UIScreen mainScreen].brightness = tempLightValue;
             //        实时改变现实亮度进度的view
             NSLog(@"亮度调节 = %f",tempLightValue);
-            
-//            [self.lightView changeLightViewWithValue:tempLightValue];
-
         }else{
             
         }
@@ -1139,7 +1119,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesCancelled:touches withEvent:event];
-//    self.lightView.alpha = 0.0;
 //    if (iOS8) {
 //        self.effectView.alpha = 0.0;
 //    }
@@ -1215,6 +1194,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.FF_View.hidden = NO;
     self.FF_View.sheetTimeLabel.text = [NSString stringWithFormat:@"%@/%@", [self convertTime:value], [self convertTime:totalTime]];
     self.leftTimeLabel.text = [self convertTime:value];
+    [self showControlView];
     [self.progressSlider setValue:value animated:YES];
 }
 
@@ -1237,7 +1217,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     if (self.isFullscreen) {//全屏才出亮度调节的view
         if (hidden) {
             [UIView animateWithDuration:1.0 delay:1.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-//                self.lightView.alpha = 0.0;
                 if (iOS8) {
                     self.effectView.alpha = 0.0;
                 }
@@ -1245,16 +1224,11 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
             
         }else{
             if (iOS8) {
-//                self.lightView.alpha = 1.0;
                 self.effectView.alpha = 1.0;
-            }else{
-//                self.lightView.alpha = 1.0;
             }
         }
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
             self.effectView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
-        }else{
-//            self.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
         }
     }else{
         return;
@@ -1279,7 +1253,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     [self.player replaceCurrentItemWithPlayerItem:nil];
     // 把player置为nil
     self.player = nil;
-
 }
 -(void)dealloc{
     for (UIView *aLightView in [UIApplication sharedApplication].keyWindow.subviews) {
