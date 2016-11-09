@@ -196,13 +196,13 @@
         }];
     }else{
         //这个地方加判断是为了从全屏的一侧,直接到全屏的另一侧不用修改限制,否则会出错;
-        //        if (currentOrientation ==UIInterfaceOrientationPortrait) {
+                if (currentOrientation ==UIInterfaceOrientationPortrait) {
         [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@(kScreenHeight));
             make.height.equalTo(@(kScreenWidth));
             make.center.equalTo(wmPlayer.superview);
         }];
-        //        }
+                }
     }
     //iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
     //也就是说在实现这个方法的时候-(BOOL)shouldAutorotate返回值要为NO
