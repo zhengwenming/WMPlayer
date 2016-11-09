@@ -47,6 +47,8 @@
     if (wmplayer.isFullscreen) {
         [self toOrientation:UIInterfaceOrientationPortrait];
         wmPlayer.isFullscreen = NO;
+        self.enablePanGesture = YES;
+
     }else{
         [self releaseWMPlayer];
         [self.navigationController popViewControllerAnimated:YES];
@@ -61,9 +63,13 @@
     if (wmPlayer.isFullscreen==YES) {//全屏
         [self toOrientation:UIInterfaceOrientationPortrait];
         wmPlayer.isFullscreen = NO;
+        self.enablePanGesture = YES;
+
         }else{//非全屏
             [self toOrientation:UIInterfaceOrientationLandscapeRight];
             wmPlayer.isFullscreen = YES;
+            self.enablePanGesture = NO;
+
     }
 }
 ///单击播放器

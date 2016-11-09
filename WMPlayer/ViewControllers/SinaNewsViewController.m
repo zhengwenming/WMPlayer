@@ -57,8 +57,6 @@
     NSLog(@"didClickedCloseButton");
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
-    
-
         if (wmplayer.isFullscreen) {
             [self toOrientation:UIInterfaceOrientationPortrait];
             wmPlayer.isFullscreen = NO;
