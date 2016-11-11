@@ -562,6 +562,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:singleTaped:)]) {
         [self.delegate wmplayer:self singleTaped:sender];
     }
+    
+    
+   
     [self.autoDismissTimer invalidate];
     self.autoDismissTimer = nil;
     self.autoDismissTimer = [NSTimer timerWithTimeInterval:5.0 target:self selector:@selector(autoDismissBottomView:) userInfo:nil repeats:YES];
@@ -986,11 +989,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 - (NSString *)convertTime:(float)second{
     NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
-    if (second/3600 >= 1) {
-        [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
-    } else {
-        [[self dateFormatter] setDateFormat:@"mm:ss"];
-    }
+//    if (second/3600 >= 1) {
+//        [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
+//    } else {
+//        [[self dateFormatter] setDateFormat:@"mm:ss"];
+//    }
+    [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
+
     return [[self dateFormatter] stringFromDate:d];
 }
 /**
@@ -1010,6 +1015,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 - (NSDateFormatter *)dateFormatter {
     if (!_dateFormatter) {
         _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
     }
     return _dateFormatter;
 }
