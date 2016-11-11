@@ -989,13 +989,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 - (NSString *)convertTime:(float)second{
     NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
-//    if (second/3600 >= 1) {
-//        [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
-//    } else {
-//        [[self dateFormatter] setDateFormat:@"mm:ss"];
-//    }
-    [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
-
+    if (second/3600 >= 1) {
+        [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
+    } else {
+        [[self dateFormatter] setDateFormat:@"mm:ss"];
+    }
     return [[self dateFormatter] stringFromDate:d];
 }
 /**
