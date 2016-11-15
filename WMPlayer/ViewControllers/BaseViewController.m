@@ -39,20 +39,7 @@
     self.view.backgroundColor = [UIColor  whiteColor];
     
 }
-//根据想要旋转的方向来设置旋转
--(CGAffineTransform)getOrientation{
-    //状态条的方向已经设置过,所以这个就是你想要旋转的方向
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    //根据要进行旋转的方向来计算旋转的角度
-    if (orientation ==UIInterfaceOrientationPortrait) {
-        return CGAffineTransformIdentity;
-    }else if (orientation ==UIInterfaceOrientationLandscapeLeft){
-        return CGAffineTransformMakeRotation(-M_PI_2);
-    }else if(orientation ==UIInterfaceOrientationLandscapeRight){
-        return CGAffineTransformMakeRotation(M_PI_2);
-    }
-    return CGAffineTransformIdentity;
-}
+
 - (void)addHud
 {
     if (!_hud) {

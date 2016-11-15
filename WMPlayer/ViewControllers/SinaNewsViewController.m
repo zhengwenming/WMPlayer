@@ -212,7 +212,7 @@
     //更改了状态条的方向,但是设备方向UIInterfaceOrientation还是正方向的,这就要设置给你播放视频的视图的方向设置旋转
     //给你的播放视频的view视图设置旋转
     wmPlayer.transform = CGAffineTransformIdentity;
-    wmPlayer.transform = [self getOrientation];
+    wmPlayer.transform = [WMPlayer getCurrentDeviceOrientation];
     [UIView setAnimationDuration:1.0];
     //开始旋转
     [UIView commitAnimations];

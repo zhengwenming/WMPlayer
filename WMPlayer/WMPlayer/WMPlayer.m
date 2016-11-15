@@ -1179,7 +1179,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark - 用来控制移动过程中计算手指划过的时间
 -(float)moveProgressControllWithTempPoint:(CGPoint)tempPoint{
     //90代表整个屏幕代表的时间
-    float tempValue = _touchBeginValue + TotalScreenTime * ((tempPoint.x - _touchBeginPoint.x)/kScreenWidth);
+    float tempValue = _touchBeginValue + TotalScreenTime * ((tempPoint.x - _touchBeginPoint.x)/([UIScreen mainScreen].bounds.size.width));
     if (tempValue > [self duration]) {
         tempValue = [self duration];
     }else if (tempValue < 0){
@@ -1232,7 +1232,7 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
             }
         }
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
-            self.effectView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
+            self.effectView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.height)/2-155/2, ([UIScreen mainScreen].bounds.size.width)/2-155/2, 155, 155);
         }
     }else{
         return;
@@ -1288,6 +1288,20 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     self.autoDismissTimer = nil;
 }
 
+//获取当前的旋转状态
++(CGAffineTransform)getCurrentDeviceOrientation{
+    //状态条的方向已经设置过,所以这个就是你想要旋转的方向
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    //根据要进行旋转的方向来计算旋转的角度
+    if (orientation ==UIInterfaceOrientationPortrait) {
+        return CGAffineTransformIdentity;
+    }else if (orientation ==UIInterfaceOrientationLandscapeLeft){
+        return CGAffineTransformMakeRotation(-M_PI_2);
+    }else if(orientation ==UIInterfaceOrientationLandscapeRight){
+        return CGAffineTransformMakeRotation(M_PI_2);
+    }
+    return CGAffineTransformIdentity;
+}
 - (NSString *)version{
     return @"3.0.0";
 }

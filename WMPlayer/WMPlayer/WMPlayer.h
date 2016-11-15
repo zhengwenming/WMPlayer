@@ -206,5 +206,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  * 版本号
  */
 - (NSString *)version;
+//获取当前的旋转状态
++(CGAffineTransform)getCurrentDeviceOrientation;
 @end
 
