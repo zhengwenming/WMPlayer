@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
   #
 
  s.subspec 'base' do |ss|
-	  s.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
+	  ss.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
   end
 
  s.subspec 'View' do |ss|
