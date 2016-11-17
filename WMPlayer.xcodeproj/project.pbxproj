@@ -647,7 +647,6 @@
 				TargetAttributes = {
 					70C8EC8B1C5F91C200B0DE61 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = XJVZHH6395;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -892,7 +891,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = XJVZHH6395;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -909,7 +908,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = XJVZHH6395;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
