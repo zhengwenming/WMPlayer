@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "http://10.77.77.67:3000/iOS/WMPlayer.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/azayu/WMPlayer.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
