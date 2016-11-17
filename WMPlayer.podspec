@@ -136,5 +136,8 @@ s.public_header_files = "WMPlayer/WMPlayer/","WMPlayer/WMPlayer/View"
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
    s.dependency 'Masonry'
-
+s.dependency 'SDWebImage'
+s.dependency 'Masonry'
+s.dependency 'MJRefresh'
+s.dependency 'MBprogressHUD'
 end
