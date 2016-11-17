@@ -139,5 +139,4 @@ s.public_header_files = "WMPlayer/WMPlayer/","WMPlayer/WMPlayer/View"
 s.dependency 'SDWebImage'
 s.dependency 'Masonry'
 s.dependency 'MJRefresh'
-s.dependency 'MBprogressHUD'
 end
