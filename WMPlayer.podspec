@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
   #
  s.subspec 'View' do |ss|
 	ss.source_files ="WMPlayer/WMPlayer/View/*.{h,m}"
-	ss.dependency "WMPlayer/WMPlayer/"
+	#ss.dependency "WMPlayer/WMPlayer/"
   end
   s.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
  # s.exclude_files = "Classes/Exclude"
