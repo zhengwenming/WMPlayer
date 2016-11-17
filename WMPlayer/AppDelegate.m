@@ -11,11 +11,21 @@
 @import AVFoundation;
 
 @interface AppDelegate ()
-
+@property(nonatomic,strong)NSDateFormatter *dateFormatter;
 @end
 
 @implementation AppDelegate
-
+-(BOOL)shouldAutorotate{
+    return NO;
+}
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -28,6 +38,10 @@
                                                       
                                                   }];
     
+    
+    
+    
+    
     NSError *setCategoryErr = nil;
     NSError *activationErr  = nil;
     [[AVAudioSession sharedInstance]
@@ -36,9 +50,13 @@
     [[AVAudioSession sharedInstance]
      setActive: YES
      error: &activationErr];
-    
-    
+        
     self.window.rootViewController = self.tabbar = [[RootTabBarController alloc]init];
+#if kUseScreenShotGesture
+    self.screenshotView = [[ScreenShotView alloc] initWithFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
+    [self.window insertSubview:self.screenshotView atIndex:0];
+    self.screenshotView.hidden = YES;
+#endif
     [self.window makeKeyAndVisible];
     return YES;
 }

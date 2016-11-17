@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		700A61E91D0A7D0B00B0D86F /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700A61E71D0A7D0B00B0D86F /* TestViewController.m */; };
 		700A61EA1D0A7D0B00B0D86F /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700A61E81D0A7D0B00B0D86F /* TestViewController.xib */; };
+		7015EAB71DD20B1800CBAB80 /* ScreenShotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7015EAB61DD20B1800CBAB80 /* ScreenShotView.m */; };
+		704E009C1DC3A822009D1B88 /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 704E00941DC3A822009D1B88 /* FastForwardView.m */; };
+		704E009D1DC3A822009D1B88 /* FastForwardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704E00951DC3A822009D1B88 /* FastForwardView.xib */; };
+		704E00A01DC3A823009D1B88 /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 704E00991DC3A822009D1B88 /* WMPlayer.bundle */; };
+		704E00A11DC3A823009D1B88 /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 704E009B1DC3A822009D1B88 /* WMPlayer.m */; };
 		7069A2441D07E6060071AB7C /* tab_icon05_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2401D07E6060071AB7C /* tab_icon05_on@2x.png */; };
 		7069A2451D07E6060071AB7C /* tab_icon05_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2411D07E6060071AB7C /* tab_icon05_on@3x.png */; };
 		7069A2461D07E6060071AB7C /* tab_icon05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7069A2421D07E6060071AB7C /* tab_icon05@2x.png */; };
@@ -89,20 +94,26 @@
 		70C8ED811C5F92E900B0DE61 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED191C5F92E900B0DE61 /* VideoCell.xib */; };
 		70C8ED821C5F92E900B0DE61 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED1C1C5F92E900B0DE61 /* BaseNavigationController.m */; };
 		70C8ED831C5F92E900B0DE61 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */; };
-		70C8ED841C5F92E900B0DE61 /* NetEaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED201C5F92E900B0DE61 /* NetEaseViewController.m */; };
-		70C8ED851C5F92E900B0DE61 /* NetEaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED211C5F92E900B0DE61 /* NetEaseViewController.xib */; };
 		70C8ED871C5F92E900B0DE61 /* SinaNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED251C5F92E900B0DE61 /* SinaNewsViewController.m */; };
 		70C8ED881C5F92E900B0DE61 /* SinaNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */; };
 		70C8ED891C5F92E900B0DE61 /* TencentNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED281C5F92E900B0DE61 /* TencentNewsViewController.m */; };
 		70C8ED8A1C5F92E900B0DE61 /* TencentNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED291C5F92E900B0DE61 /* TencentNewsViewController.xib */; };
-		70C8ED951C5F92E900B0DE61 /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED451C5F92E900B0DE61 /* WMPlayer.bundle */; };
-		70C8ED961C5F92E900B0DE61 /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED471C5F92E900B0DE61 /* WMPlayer.m */; };
+		BFE466011DD2D23A009DFCBF /* WMLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE466001DD2D23A009DFCBF /* WMLightView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		700A61E61D0A7D0B00B0D86F /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		700A61E71D0A7D0B00B0D86F /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		700A61E81D0A7D0B00B0D86F /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
+		7015EAB41DD20B1800CBAB80 /* ScreenShotBackConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShotBackConfig.h; sourceTree = "<group>"; };
+		7015EAB51DD20B1800CBAB80 /* ScreenShotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShotView.h; sourceTree = "<group>"; };
+		7015EAB61DD20B1800CBAB80 /* ScreenShotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShotView.m; sourceTree = "<group>"; };
+		704E00931DC3A822009D1B88 /* FastForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastForwardView.h; sourceTree = "<group>"; };
+		704E00941DC3A822009D1B88 /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
+		704E00951DC3A822009D1B88 /* FastForwardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FastForwardView.xib; sourceTree = "<group>"; };
+		704E00991DC3A822009D1B88 /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
+		704E009A1DC3A822009D1B88 /* WMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayer.h; sourceTree = "<group>"; };
+		704E009B1DC3A822009D1B88 /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
 		7069A2401D07E6060071AB7C /* tab_icon05_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05_on@2x.png"; sourceTree = "<group>"; };
 		7069A2411D07E6060071AB7C /* tab_icon05_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05_on@3x.png"; sourceTree = "<group>"; };
 		7069A2421D07E6060071AB7C /* tab_icon05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon05@2x.png"; sourceTree = "<group>"; };
@@ -246,18 +257,14 @@
 		70C8ED1C1C5F92E900B0DE61 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		70C8ED1D1C5F92E900B0DE61 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		70C8ED1F1C5F92E900B0DE61 /* NetEaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetEaseViewController.h; sourceTree = "<group>"; };
-		70C8ED201C5F92E900B0DE61 /* NetEaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetEaseViewController.m; sourceTree = "<group>"; };
-		70C8ED211C5F92E900B0DE61 /* NetEaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetEaseViewController.xib; sourceTree = "<group>"; };
 		70C8ED241C5F92E900B0DE61 /* SinaNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaNewsViewController.h; sourceTree = "<group>"; };
 		70C8ED251C5F92E900B0DE61 /* SinaNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaNewsViewController.m; sourceTree = "<group>"; };
 		70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinaNewsViewController.xib; sourceTree = "<group>"; };
 		70C8ED271C5F92E900B0DE61 /* TencentNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentNewsViewController.h; sourceTree = "<group>"; };
 		70C8ED281C5F92E900B0DE61 /* TencentNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentNewsViewController.m; sourceTree = "<group>"; };
 		70C8ED291C5F92E900B0DE61 /* TencentNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TencentNewsViewController.xib; sourceTree = "<group>"; };
-		70C8ED451C5F92E900B0DE61 /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
-		70C8ED461C5F92E900B0DE61 /* WMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayer.h; sourceTree = "<group>"; };
-		70C8ED471C5F92E900B0DE61 /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
+		BFE465FF1DD2D23A009DFCBF /* WMLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLightView.h; sourceTree = "<group>"; };
+		BFE466001DD2D23A009DFCBF /* WMLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLightView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +278,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7015EAB31DD20B1800CBAB80 /* ScreenShotBack */ = {
+			isa = PBXGroup;
+			children = (
+				7015EAB41DD20B1800CBAB80 /* ScreenShotBackConfig.h */,
+				7015EAB51DD20B1800CBAB80 /* ScreenShotView.h */,
+				7015EAB61DD20B1800CBAB80 /* ScreenShotView.m */,
+			);
+			path = ScreenShotBack;
+			sourceTree = "<group>";
+		};
+		704E00911DC3A822009D1B88 /* WMPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				704E00921DC3A822009D1B88 /* View */,
+				704E00991DC3A822009D1B88 /* WMPlayer.bundle */,
+				704E009A1DC3A822009D1B88 /* WMPlayer.h */,
+				704E009B1DC3A822009D1B88 /* WMPlayer.m */,
+			);
+			path = WMPlayer;
+			sourceTree = "<group>";
+		};
+		704E00921DC3A822009D1B88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BFE465FF1DD2D23A009DFCBF /* WMLightView.h */,
+				BFE466001DD2D23A009DFCBF /* WMLightView.m */,
+				704E00931DC3A822009D1B88 /* FastForwardView.h */,
+				704E00941DC3A822009D1B88 /* FastForwardView.m */,
+				704E00951DC3A822009D1B88 /* FastForwardView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		707DB8A01C979A3B005EB252 /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,9 +381,9 @@
 				70C8ED171C5F92E900B0DE61 /* VideoCell.h */,
 				70C8ED181C5F92E900B0DE61 /* VideoCell.m */,
 				70C8ED191C5F92E900B0DE61 /* VideoCell.xib */,
-				70C8ED2C1C5F92E900B0DE61 /* WMPlayer */,
 				70C8ECB31C5F92E900B0DE61 /* Resource */,
 				70C8ECC81C5F92E900B0DE61 /* ThirdLib */,
+				704E00911DC3A822009D1B88 /* WMPlayer */,
 				70C8EC981C5F91C200B0DE61 /* Main.storyboard */,
 				70C8EC9B1C5F91C200B0DE61 /* Assets.xcassets */,
 				70C8EC9D1C5F91C200B0DE61 /* LaunchScreen.storyboard */,
@@ -405,6 +445,7 @@
 		70C8ECC81C5F92E900B0DE61 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				7015EAB31DD20B1800CBAB80 /* ScreenShotBack */,
 				707DB8A01C979A3B005EB252 /* Masonry */,
 				70C8ECC91C5F92E900B0DE61 /* MJRefresh */,
 				707FD7311C7D5B13008B3597 /* MBProgressHUD */,
@@ -561,9 +602,6 @@
 				70C8ED271C5F92E900B0DE61 /* TencentNewsViewController.h */,
 				70C8ED281C5F92E900B0DE61 /* TencentNewsViewController.m */,
 				70C8ED291C5F92E900B0DE61 /* TencentNewsViewController.xib */,
-				70C8ED1F1C5F92E900B0DE61 /* NetEaseViewController.h */,
-				70C8ED201C5F92E900B0DE61 /* NetEaseViewController.m */,
-				70C8ED211C5F92E900B0DE61 /* NetEaseViewController.xib */,
 				70C8ED241C5F92E900B0DE61 /* SinaNewsViewController.h */,
 				70C8ED251C5F92E900B0DE61 /* SinaNewsViewController.m */,
 				70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */,
@@ -576,16 +614,6 @@
 				70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		70C8ED2C1C5F92E900B0DE61 /* WMPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				70C8ED451C5F92E900B0DE61 /* WMPlayer.bundle */,
-				70C8ED461C5F92E900B0DE61 /* WMPlayer.h */,
-				70C8ED471C5F92E900B0DE61 /* WMPlayer.m */,
-			);
-			path = WMPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -619,7 +647,7 @@
 				TargetAttributes = {
 					70C8EC8B1C5F91C200B0DE61 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = FT79ZHXPA8;
+						DevelopmentTeam = XJVZHH6395;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -652,6 +680,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70C8ED551C5F92E900B0DE61 /* share_s@2x.png in Resources */,
+				704E009D1DC3A822009D1B88 /* FastForwardView.xib in Resources */,
 				7069A2471D07E6060071AB7C /* tab_icon05@3x.png in Resources */,
 				70C8ED4B1C5F92E900B0DE61 /* clear@2x.png in Resources */,
 				70C8ED571C5F92E900B0DE61 /* video_play_btn_bg@2x.png in Resources */,
@@ -669,6 +698,7 @@
 				70C8ED811C5F92E900B0DE61 /* VideoCell.xib in Resources */,
 				707FD7381C7D5B13008B3597 /* MBProgressHUD.bundle in Resources */,
 				70C8ED4E1C5F92E900B0DE61 /* found_s@2x.png in Resources */,
+				704E00A01DC3A823009D1B88 /* WMPlayer.bundle in Resources */,
 				70C8ED4F1C5F92E900B0DE61 /* logo.png in Resources */,
 				70C8ED4D1C5F92E900B0DE61 /* found@2x.png in Resources */,
 				70C8ED6C1C5F92E900B0DE61 /* MJRefresh.bundle in Resources */,
@@ -679,9 +709,7 @@
 				70C8ED521C5F92E900B0DE61 /* play.png in Resources */,
 				70C8ECAA1C5F92A700B0DE61 /* navigator_btn_back.png in Resources */,
 				70C8ED531C5F92E900B0DE61 /* playcount.png in Resources */,
-				70C8ED951C5F92E900B0DE61 /* WMPlayer.bundle in Resources */,
 				7069A2451D07E6060071AB7C /* tab_icon05_on@3x.png in Resources */,
-				70C8ED851C5F92E900B0DE61 /* NetEaseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +722,7 @@
 			files = (
 				70C8ED7A1C5F92E900B0DE61 /* UIImage+GIF.m in Sources */,
 				70C8ED6A1C5F92E900B0DE61 /* MJRefreshNormalHeader.m in Sources */,
+				BFE466011DD2D23A009DFCBF /* WMLightView.m in Sources */,
 				70C8ED6B1C5F92E900B0DE61 /* MJRefreshStateHeader.m in Sources */,
 				70C8ED691C5F92E900B0DE61 /* MJRefreshGifHeader.m in Sources */,
 				70C8ED821C5F92E900B0DE61 /* BaseNavigationController.m in Sources */,
@@ -710,8 +739,8 @@
 				70C8ED631C5F92E900B0DE61 /* MJRefreshAutoGifFooter.m in Sources */,
 				70C8ED5F1C5F92E900B0DE61 /* MJRefreshBackFooter.m in Sources */,
 				70C8ED891C5F92E900B0DE61 /* TencentNewsViewController.m in Sources */,
-				70C8ED841C5F92E900B0DE61 /* NetEaseViewController.m in Sources */,
 				70C8ED801C5F92E900B0DE61 /* VideoCell.m in Sources */,
+				704E00A11DC3A823009D1B88 /* WMPlayer.m in Sources */,
 				707DB8C31C98276D005EB252 /* BaseViewController.m in Sources */,
 				70C8EC941C5F91C200B0DE61 /* AppDelegate.m in Sources */,
 				707DB8C01C979A3B005EB252 /* View+MASAdditions.m in Sources */,
@@ -727,17 +756,18 @@
 				70C8ED6F1C5F92E900B0DE61 /* UIScrollView+MJRefresh.m in Sources */,
 				707DB8BB1C979A3B005EB252 /* MASLayoutConstraint.m in Sources */,
 				70C8ED481C5F92E900B0DE61 /* DataManager.m in Sources */,
+				7015EAB71DD20B1800CBAB80 /* ScreenShotView.m in Sources */,
 				70C8ED661C5F92E900B0DE61 /* MJRefreshBackGifFooter.m in Sources */,
 				707DB8BF1C979A3B005EB252 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				707DB8B81C979A3B005EB252 /* MASCompositeConstraint.m in Sources */,
 				70C8ED731C5F92E900B0DE61 /* SDWebImageCompat.m in Sources */,
 				707FD7391C7D5B13008B3597 /* MBProgressHUD.m in Sources */,
 				70C8ED621C5F92E900B0DE61 /* MJRefreshHeader.m in Sources */,
-				70C8ED961C5F92E900B0DE61 /* WMPlayer.m in Sources */,
 				70C8ED651C5F92E900B0DE61 /* MJRefreshAutoStateFooter.m in Sources */,
 				70C8ED611C5F92E900B0DE61 /* MJRefreshFooter.m in Sources */,
 				70C8ED681C5F92E900B0DE61 /* MJRefreshBackStateFooter.m in Sources */,
 				70C8ED781C5F92E900B0DE61 /* SDWebImagePrefetcher.m in Sources */,
+				704E009C1DC3A822009D1B88 /* FastForwardView.m in Sources */,
 				70C8ED871C5F92E900B0DE61 /* SinaNewsViewController.m in Sources */,
 				70C8ED491C5F92E900B0DE61 /* SidModel.m in Sources */,
 				70C8ED761C5F92E900B0DE61 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -862,6 +892,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = XJVZHH6395;
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -878,6 +909,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = XJVZHH6395;
 				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
