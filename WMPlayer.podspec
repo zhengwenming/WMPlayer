@@ -88,11 +88,15 @@ Pod::Spec.new do |s|
   #  For header files it will include any header in the folder.
   #  Not including the public_header_files will make all headers public.
   #
-  s.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
+
+ s.subspec 'base' do |ss|
+	  s.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
+  end
+
  s.subspec 'View' do |ss|
 	ss.source_files ="WMPlayer/WMPlayer/View/*.{h,m}"
 	ss.resource = "WMPlayer/WMPlayer/View/FastForwardView.xib"
-	#ss.dependency "WMPlayer/WMPlayer"
+	#ss.dependency "WMPlayer/base"
   end
 
  # s.exclude_files = "Classes/Exclude"
