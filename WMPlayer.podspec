@@ -94,7 +94,7 @@ Pod::Spec.new do |s|
   s.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
  # s.exclude_files = "Classes/Exclude"
 
-s.public_header_files = "WMPlayer/WMPlayer/","WMPlayer/WMPlayer/View"
+s.public_header_files = "WMPlayer/WMPlayer/","WMPlayer/WMPlayer/View/"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
