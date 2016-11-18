@@ -90,16 +90,16 @@ Pod::Spec.new do |s|
   #
 
  
- s.source_files  =    "WMPlayer/*.{h,m}"
+ s.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
  s.subspec 'View' do |ss|
-	ss.source_files ="WMPlayer/View/*.{h,m}"
-	ss.resource = "WMPlayer/View/FastForwardView.xib"
+	ss.source_files ="WMPlayer/WMPlayer/View/*.{h,m}"
+	ss.resource = "WMPlayer/WMPlayer/View/FastForwardView.xib"
 	
   end
 
  # s.exclude_files = "Classes/Exclude"
 
-s.public_header_files = "WMPlayer/*.h","WMPlayer/View/*.h"
+s.public_header_files = "WMPlayer/WMPlayer/*.h","WMPlayer/WMPlayer/View/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -110,7 +110,7 @@ s.public_header_files = "WMPlayer/*.h","WMPlayer/View/*.h"
   #  non-essential files like tests, examples and documentation.
   #
 
-  s.resource = "WMPlayer/WMPlayer.bundle"
+  s.resource = "WMPlayer/WMPlayer/WMPlayer.bundle"
   # s.resources = "Resources/*.png"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
