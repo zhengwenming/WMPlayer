@@ -95,8 +95,8 @@ Pod::Spec.new do |s|
 s.source_files  =    "WMPlayer/WMPlayer/*.{h,m}","WMPlayer/WMPlayer/View/*.{h,m}"
 s.public_header_files = "WMPlayer/WMPlayer/*.h","WMPlayer/WMPlayer/View/*.h"
 
-s.resource = "WMPlayer/WMPlayer/View/FastForwardView.xib"
-s.resource = "WMPlayer/WMPlayer/WMPlayer.bundle"
+s.resources = "WMPlayer/WMPlayer/WMPlayer.bundle","WMPlayer/WMPlayer/View/FastForwardView.xib"
+
 
 
 
