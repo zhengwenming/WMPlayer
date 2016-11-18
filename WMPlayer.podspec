@@ -110,7 +110,7 @@ s.public_header_files = "WMPlayer/*.h","WMPlayer/View/*.h"
   #  non-essential files like tests, examples and documentation.
   #
 
-  s.resource = "/WMPlayer/WMPlayer.bundle"
+  s.resource = "WMPlayer/WMPlayer.bundle"
   # s.resources = "Resources/*.png"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
