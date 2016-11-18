@@ -94,14 +94,14 @@ Pod::Spec.new do |s|
   end
 
  s.subspec 'View' do |ss|
-	ss.source_files ="WMPlayer/WMPlayer/View/*.{h,m}"
-	ss.resource = "WMPlayer/WMPlayer/View/FastForwardView.xib"
+	ss.source_files ="WMPlayer/View/*.{h,m}"
+	ss.resource = "WMPlayer/View/FastForwardView.xib"
 	#ss.dependency "WMPlayer/base"
   end
 
  # s.exclude_files = "Classes/Exclude"
 
-s.public_header_files = "WMPlayer/WMPlayer/*.h","WMPlayer/WMPlayer/View/*.h"
+s.public_header_files = "WMPlayer/*.h","WMPlayer/View/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
