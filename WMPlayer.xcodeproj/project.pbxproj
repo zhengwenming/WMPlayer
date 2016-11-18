@@ -98,6 +98,9 @@
 		70C8ED881C5F92E900B0DE61 /* SinaNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED261C5F92E900B0DE61 /* SinaNewsViewController.xib */; };
 		70C8ED891C5F92E900B0DE61 /* TencentNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C8ED281C5F92E900B0DE61 /* TencentNewsViewController.m */; };
 		70C8ED8A1C5F92E900B0DE61 /* TencentNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C8ED291C5F92E900B0DE61 /* TencentNewsViewController.xib */; };
+		B81EB8F11DDEF9D00034BC8D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81EB8F01DDEF9D00034BC8D /* MediaPlayer.framework */; };
+		B81EB8F31DDEF9D80034BC8D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81EB8F21DDEF9D80034BC8D /* AVFoundation.framework */; };
+		B81EB8F51DDEF9DE0034BC8D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81EB8F41DDEF9DE0034BC8D /* UIKit.framework */; };
 		BFE466011DD2D23A009DFCBF /* WMLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE466001DD2D23A009DFCBF /* WMLightView.m */; };
 /* End PBXBuildFile section */
 
@@ -263,6 +266,9 @@
 		70C8ED271C5F92E900B0DE61 /* TencentNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentNewsViewController.h; sourceTree = "<group>"; };
 		70C8ED281C5F92E900B0DE61 /* TencentNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentNewsViewController.m; sourceTree = "<group>"; };
 		70C8ED291C5F92E900B0DE61 /* TencentNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TencentNewsViewController.xib; sourceTree = "<group>"; };
+		B81EB8F01DDEF9D00034BC8D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		B81EB8F21DDEF9D80034BC8D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B81EB8F41DDEF9DE0034BC8D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BFE465FF1DD2D23A009DFCBF /* WMLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLightView.h; sourceTree = "<group>"; };
 		BFE466001DD2D23A009DFCBF /* WMLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLightView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -272,6 +278,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B81EB8F51DDEF9DE0034BC8D /* UIKit.framework in Frameworks */,
+				B81EB8F31DDEF9D80034BC8D /* AVFoundation.framework in Frameworks */,
+				B81EB8F11DDEF9D00034BC8D /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +368,7 @@
 			children = (
 				70C8EC8E1C5F91C200B0DE61 /* WMPlayer */,
 				70C8EC8D1C5F91C200B0DE61 /* Products */,
+				B81EB8EF1DDEF9D00034BC8D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -614,6 +624,16 @@
 				70C8ED1E1C5F92E900B0DE61 /* DetailViewController.m */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B81EB8EF1DDEF9D00034BC8D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B81EB8F41DDEF9DE0034BC8D /* UIKit.framework */,
+				B81EB8F21DDEF9D80034BC8D /* AVFoundation.framework */,
+				B81EB8F01DDEF9D00034BC8D /* MediaPlayer.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

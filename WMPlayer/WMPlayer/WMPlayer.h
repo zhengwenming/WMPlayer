@@ -15,9 +15,13 @@
 #import "WMLightView.h"
 #import "FastForwardView.h"
 
-@import MediaPlayer;
-@import AVFoundation;
-@import UIKit;
+//@import MediaPlayer;
+//@import AVFoundation;
+//@import UIKit;
+
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 // 播放器的几种状态
 typedef NS_ENUM(NSInteger, WMPlayerState) {
     WMPlayerStateFailed,        // 播放失败
