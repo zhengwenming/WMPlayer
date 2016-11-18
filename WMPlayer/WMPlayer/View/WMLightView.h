@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMPlayer.h"
+
 @interface WMLightView : UIView
 @property (strong, nonatomic)  UIView *lightBackView;
 @property (strong, nonatomic)  UIImageView *centerLightIV;

@@ -132,8 +132,24 @@
     [super layoutSubviews];
     self.center = CGPointMake(([UIScreen mainScreen].bounds.size.height) * 0.5, ([UIScreen mainScreen].bounds.size.width) * 0.5);
     self.transform = CGAffineTransformIdentity;
-    self.transform = [WMPlayer getCurrentDeviceOrientation];
+    self.transform = [self getCurrentDeviceOrientation];
 }
+    
+    //获取当前的旋转状态
+-(CGAffineTransform)getCurrentDeviceOrientation{
+    //状态条的方向已经设置过,所以这个就是你想要旋转的方向
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    //根据要进行旋转的方向来计算旋转的角度
+    if (orientation ==UIInterfaceOrientationPortrait) {
+        return CGAffineTransformIdentity;
+    }else if (orientation ==UIInterfaceOrientationLandscapeLeft){
+        return CGAffineTransformMakeRotation(-M_PI_2);
+    }else if(orientation ==UIInterfaceOrientationLandscapeRight){
+        return CGAffineTransformMakeRotation(M_PI_2);
+    }
+    return CGAffineTransformIdentity;
+}
+    
 - (void)dealloc {
     self.lightViewArr = nil;
     self.lightBackView = nil;
