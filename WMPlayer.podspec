@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT (example)"
+  s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
@@ -91,18 +91,18 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-s.subspec 'classes' do |ss|
+s.subspec 'base' do |ss|
 ss.source_files  =    "WMPlayer/WMPlayer/*.{h,m}"
 ss.public_header_files = "WMPlayer/WMPlayer/*.h"
+ss.dependency 'WMPlayer/View'
 end
 
 s.subspec 'View' do |ss|
 ss.source_files ="WMPlayer/WMPlayer/View/*.{h,m}"
 ss.resource = "WMPlayer/WMPlayer/View/FastForwardView.xib"
 ss.public_header_files = "WMPlayer/WMPlayer/View/*.h"
-ss.dependency 'WMPlayer/WMPlayer'
 end
-
+  s.resource = "WMPlayer/WMPlayer/WMPlayer.bundle"
   # s.public_header_files = "Classes/**/*.h"
 
 
@@ -113,7 +113,7 @@ end
   #  You can preserve files from being cleaned, please don't preserve
   #  non-essential files like tests, examples and documentation.
   #
-  s.resource = "WMPlayer/WMPlayer/WMPlayer.bundle"
+
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
 
