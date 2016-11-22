@@ -1276,13 +1276,16 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     [_currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     [_currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     [_currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+    _currentItem = nil;
 
+    
+    
+    
     [self.effectView removeFromSuperview];
     self.effectView = nil;
     [self.playerLayer removeFromSuperlayer];
     [self.player replaceCurrentItemWithPlayerItem:nil];
     self.player = nil;
-    self.currentItem = nil;
     self.playOrPauseBtn = nil;
     self.playerLayer = nil;
     self.autoDismissTimer = nil;
