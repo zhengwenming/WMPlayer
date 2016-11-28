@@ -30,19 +30,21 @@ cell中播放视频，全屏小屏切换自如。
     [self.view addSubview:wmPlayer];
     
     [wmPlayer play]; 
-    
  * 全屏播放视频解决方案
-* WMPlayer同时支持持旋转view和旋转ViewController
-* 1、旋转view
+ 
+  * WMPlayer同时支持持旋转view和旋转ViewController
+  
+     1、旋转view
     思路：顾名思义，就是讲WMPlayer旋转90°，然后设置宽高为屏幕的宽和高，先从父视图上（可能是self.view）移除，然后在屏幕旋转的通知里面add到window上，造成全屏的效果，或者说造成全屏的假象吧。
     案例：网易新闻
     代码：详见demo中的腾讯tab对应的TencentNewsViewController.m里面
     
  
- * 2、旋转ViewController
+     2、旋转ViewController
     思路：状态栏旋转，然后处理视频播放器的逻辑。（记住项目设置里面勾选☑️其他三个屏幕方向）
     案例：今日头条、新浪新闻
     代码：详见demo中的新浪tab对应的SinaNewsViewController.m里面
+
 
 * 依赖库为Masonry。
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
