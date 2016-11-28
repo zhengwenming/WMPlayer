@@ -35,9 +35,9 @@ cell中播放视频，全屏小屏切换自如。
     
     
     
- * 全屏播放视频解决方案
+* 全屏播放视频解决方案
 
-  *WMPlayer同时支持持旋转view和旋转ViewController
+*   WMPlayer同时支持持旋转view和旋转ViewController
   
   
   
