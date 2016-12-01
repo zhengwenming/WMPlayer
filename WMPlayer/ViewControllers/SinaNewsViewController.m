@@ -198,8 +198,8 @@
         //这个地方加判断是为了从全屏的一侧,直接到全屏的另一侧不用修改限制,否则会出错;
                 if (currentOrientation ==UIInterfaceOrientationPortrait) {
         [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@(kScreenHeight));
-            make.height.equalTo(@(kScreenWidth));
+            make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
+            make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
             make.center.equalTo(wmPlayer.superview);
         }];
                 }
@@ -416,7 +416,7 @@
             CGRect rectInSuperview = [self.table convertRect:rectInTableView toView:[self.table superview]];
             NSLog(@"rectInSuperview = %@",NSStringFromCGRect(rectInSuperview));
    
-            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>kScreenHeight-kNavbarHeight-kTabBarHeight) {//往上拖动
+            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-kNavbarHeight-kTabBarHeight) {//往上拖动
                 [self releaseWMPlayer];
                 [self.currentCell.playBtn.superview bringSubviewToFront:self.currentCell.playBtn];
             }

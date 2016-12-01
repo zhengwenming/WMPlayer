@@ -172,8 +172,8 @@
         //这个地方加判断是为了从全屏的一侧,直接到全屏的另一侧不用修改限制,否则会出错;
         if (currentOrientation ==UIInterfaceOrientationPortrait) {
             [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(@(kScreenHeight));
-                make.height.equalTo(@(kScreenWidth));
+                make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
+                make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
                 make.center.equalTo(wmPlayer.superview);
             }];
         }
@@ -212,7 +212,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    playerFrame = CGRectMake(0, 0, kScreenWidth, (kScreenWidth)*(0.75));
+    playerFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.width)*(0.75));
 //    wmPlayer = [[WMPlayer alloc]init];
     wmPlayer = [WMPlayer new];
 

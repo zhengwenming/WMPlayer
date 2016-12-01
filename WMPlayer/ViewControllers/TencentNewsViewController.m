@@ -117,18 +117,18 @@
         [wmPlayer.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.edges.equalTo(wmPlayer).with.offset(0);
-            make.width.mas_equalTo(kScreenWidth);
+            make.width.mas_equalTo([UIScreen mainScreen].bounds.size.width);
             make.height.mas_equalTo(wmPlayer.frame.size.height);
             
         }];
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
-            wmPlayer.effectView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
+            wmPlayer.effectView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2-155/2, [UIScreen mainScreen].bounds.size.height/2-155/2, 155, 155);
         }else{
 //            wmPlayer.lightView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
         }
         
         [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.center.mas_equalTo(CGPointMake(kScreenWidth/2-180, wmPlayer.frame.size.height/2-144));
+            make.center.mas_equalTo(CGPointMake([UIScreen mainScreen].bounds.size.width/2-180, wmPlayer.frame.size.height/2-144));
             make.height.mas_equalTo(60);
             make.width.mas_equalTo(120);
             
@@ -181,36 +181,36 @@
     }else if(interfaceOrientation==UIInterfaceOrientationLandscapeRight){
         wmPlayer.transform = CGAffineTransformMakeRotation(M_PI_2);
     }
-    wmPlayer.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-    wmPlayer.playerLayer.frame =  CGRectMake(0,0, kScreenHeight,kScreenWidth);
+    wmPlayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    wmPlayer.playerLayer.frame =  CGRectMake(0,0, [UIScreen mainScreen].bounds.size.height,[UIScreen mainScreen].bounds.size.width);
     
     [wmPlayer.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(kScreenHeight);
-        make.height.mas_equalTo(kScreenWidth);
+        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
+        make.height.mas_equalTo([UIScreen mainScreen].bounds.size.width);
         make.left.equalTo(wmPlayer).with.offset(0);
         make.top.equalTo(wmPlayer).with.offset(0);
     }];
     if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
-        wmPlayer.effectView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
+        wmPlayer.effectView.frame = CGRectMake([UIScreen mainScreen].bounds.size.height/2-155/2, [UIScreen mainScreen].bounds.size.width/2-155/2, 155, 155);
     }else{
 //        wmPlayer.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
     }
     [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(wmPlayer).with.offset(kScreenHeight/2-120/2);
-        make.top.equalTo(wmPlayer).with.offset(kScreenWidth/2-60/2);
+        make.left.equalTo(wmPlayer).with.offset([UIScreen mainScreen].bounds.size.height/2-120/2);
+        make.top.equalTo(wmPlayer).with.offset([UIScreen mainScreen].bounds.size.width/2-60/2);
         make.height.mas_equalTo(60);
         make.width.mas_equalTo(120);
     }];
     [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(50);
-        make.width.mas_equalTo(kScreenHeight);
+        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
         make.bottom.equalTo(wmPlayer.contentView).with.offset(0);
     }];
     
     [wmPlayer.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(70);
         make.left.equalTo(wmPlayer).with.offset(0);
-        make.width.mas_equalTo(kScreenHeight);
+        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
     }];
     
     [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -230,14 +230,14 @@
     
     [wmPlayer.loadFailedLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(wmPlayer).with.offset(0);
-        make.top.equalTo(wmPlayer).with.offset(kScreenWidth/2-30/2);
+        make.top.equalTo(wmPlayer).with.offset([UIScreen mainScreen].bounds.size.width/2-30/2);
         make.height.equalTo(@30);
-        make.width.mas_equalTo(kScreenHeight);
+        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
     }];
     
     [wmPlayer.loadingView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(wmPlayer).with.offset(kScreenHeight/2-22/2);
-        make.top.equalTo(wmPlayer).with.offset(kScreenWidth/2-22/2);
+        make.left.equalTo(wmPlayer).with.offset([UIScreen mainScreen].bounds.size.height/2-22/2);
+        make.top.equalTo(wmPlayer).with.offset([UIScreen mainScreen].bounds.size.width/2-22/2);
         make.height.mas_equalTo(22);
         make.width.mas_equalTo(22);
     }];
@@ -253,13 +253,13 @@
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.5f animations:^{
         wmPlayer.transform = CGAffineTransformIdentity;
-        wmPlayer.frame = CGRectMake(kScreenWidth/2,kScreenHeight-kTabBarHeight-(kScreenWidth/2)*0.75, kScreenWidth/2, (kScreenWidth/2)*0.75);
+        wmPlayer.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height-kTabBarHeight-([UIScreen mainScreen].bounds.size.width/2)*0.75, [UIScreen mainScreen].bounds.size.width/2, ([UIScreen mainScreen].bounds.size.width/2)*0.75);
         wmPlayer.playerLayer.frame =  wmPlayer.bounds;
         [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
         
         [wmPlayer.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(kScreenWidth/2);
-            make.height.mas_equalTo((kScreenWidth/2)*0.75);
+            make.width.mas_equalTo([UIScreen mainScreen].bounds.size.width/2);
+            make.height.mas_equalTo(([UIScreen mainScreen].bounds.size.width/2)*0.75);
             make.left.equalTo(wmPlayer).with.offset(0);
             make.top.equalTo(wmPlayer).with.offset(0);
         }];
@@ -519,7 +519,7 @@
         if (wmPlayer.superview) {
             CGRect rectInTableView = [self.table rectForRowAtIndexPath:currentIndexPath];
             CGRect rectInSuperview = [self.table convertRect:rectInTableView toView:[self.table superview]];
-            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>kScreenHeight-kNavbarHeight-kTabBarHeight) {//往上拖动
+            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-kNavbarHeight-kTabBarHeight) {//往上拖动
                 
                 if ([[UIApplication sharedApplication].keyWindow.subviews containsObject:wmPlayer]&&isSmallScreen) {
                     isSmallScreen = YES;

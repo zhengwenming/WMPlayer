@@ -24,8 +24,8 @@
 
 
 
-#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
-#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+//#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+//#define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define kDeviceVersion [[UIDevice currentDevice].systemVersion floatValue]
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
 
