@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBProgressHUD.h"
 @interface BaseViewController : UIViewController
 /**
  用了自定义的手势返回，则系统的手势返回屏蔽
