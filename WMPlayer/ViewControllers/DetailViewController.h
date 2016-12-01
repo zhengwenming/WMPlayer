@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @interface DetailViewController : BaseViewController
 @property (nonatomic, retain)NSString * URLString;

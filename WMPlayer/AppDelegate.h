@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import "RootTabBarController.h"
+#import "DataManager.h"
 
 #if kUseScreenShotGesture
 #import "ScreenShotView.h"
