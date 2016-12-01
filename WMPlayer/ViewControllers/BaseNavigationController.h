@@ -12,6 +12,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @interface BaseNavigationController : UINavigationController
 @property (strong ,nonatomic) NSMutableArray *arrayScreenshot;
