@@ -9,6 +9,7 @@
 //
 
 #import "ScreenShotView.h"
+#import "AppDelegate.h"
 
 #import <QuartzCore/QuartzCore.h>
 

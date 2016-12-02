@@ -17,6 +17,8 @@
 #import "VideoModel.h"
 #import "WMPlayer.h"
 #import "DetailViewController.h"
+#import "AppDelegate.h"
+#import "MJRefresh.h"
 
 
 @interface TencentNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate>{
@@ -253,7 +255,7 @@
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.5f animations:^{
         wmPlayer.transform = CGAffineTransformIdentity;
-        wmPlayer.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height-kTabBarHeight-([UIScreen mainScreen].bounds.size.width/2)*0.75, [UIScreen mainScreen].bounds.size.width/2, ([UIScreen mainScreen].bounds.size.width/2)*0.75);
+        wmPlayer.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height-49-([UIScreen mainScreen].bounds.size.width/2)*0.75, [UIScreen mainScreen].bounds.size.width/2, ([UIScreen mainScreen].bounds.size.width/2)*0.75);
         wmPlayer.playerLayer.frame =  wmPlayer.bounds;
         [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
         
@@ -368,8 +370,7 @@
 
 }
 -(void)addMJRefresh{
-    WS(weakSelf)
-
+__weak __typeof(&*self)weakSelf = self;
  __unsafe_unretained UITableView *tableView = self.table;
  // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -519,7 +520,7 @@
         if (wmPlayer.superview) {
             CGRect rectInTableView = [self.table rectForRowAtIndexPath:currentIndexPath];
             CGRect rectInSuperview = [self.table convertRect:rectInTableView toView:[self.table superview]];
-            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-kNavbarHeight-kTabBarHeight) {//往上拖动
+            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-64-49) {//往上拖动
                 
                 if ([[UIApplication sharedApplication].keyWindow.subviews containsObject:wmPlayer]&&isSmallScreen) {
                     isSmallScreen = YES;

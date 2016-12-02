@@ -8,10 +8,13 @@
 
 #import "VideoCell.h"
 #import "VideoModel.h"
+#import "UIImageView+WebCache.h"
+
 @implementation VideoCell
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

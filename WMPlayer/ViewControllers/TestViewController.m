@@ -8,6 +8,7 @@
 
 
 #import "TestViewController.h"
+#import "WMPlayer.h"
 
 #define TheUserDefaults [NSUserDefaults standardUserDefaults]
 

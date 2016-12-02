@@ -159,7 +159,6 @@
 		70C8EC9B1C5F91C200B0DE61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70C8EC9E1C5F91C200B0DE61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70C8ECA01C5F91C200B0DE61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		70C8ECA71C5F928700B0DE61 /* WMPlayer.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPlayer.pch; sourceTree = "<group>"; };
 		70C8ECA81C5F92A700B0DE61 /* navigator_btn_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigator_btn_back.png; sourceTree = "<group>"; };
 		70C8ECA91C5F92A700B0DE61 /* navigator_btn_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigator_btn_back@2x.png"; sourceTree = "<group>"; };
 		70C8ECAD1C5F92E900B0DE61 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -396,7 +395,6 @@
 			isa = PBXGroup;
 			children = (
 				70C8ECA01C5F91C200B0DE61 /* Info.plist */,
-				70C8ECA71C5F928700B0DE61 /* WMPlayer.pch */,
 				70C8ECA81C5F92A700B0DE61 /* navigator_btn_back.png */,
 				70C8ECA91C5F92A700B0DE61 /* navigator_btn_back@2x.png */,
 				70C8EC901C5F91C200B0DE61 /* main.m */,
@@ -893,7 +891,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = XJVZHH6395;
-				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -910,7 +908,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = XJVZHH6395;
-				GCC_PREFIX_HEADER = WMPlayer/WMPlayer.pch;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = WMPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

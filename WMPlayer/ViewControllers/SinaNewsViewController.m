@@ -17,6 +17,8 @@
 #import "VideoModel.h"
 #import "WMPlayer.h"
 #import "DetailViewController.h"
+#import "AppDelegate.h"
+#import "MJRefresh.h"
 
 @interface SinaNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate>{
     NSMutableArray *dataSource;
@@ -240,7 +242,7 @@
     [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
 }
 -(void)loadData{
-    WS(weakSelf)
+__weak __typeof(&*self)weakSelf = self;
     if ([AppDelegate shareAppDelegate].sidArray.count>2) {
         SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[2];
         [weakSelf addHudWithMessage:@"加载中..."];
@@ -260,8 +262,7 @@
     }
 }
 -(void)addMJRefresh{
-    WS(weakSelf)
-
+__weak __typeof(&*self)weakSelf = self;
     __unsafe_unretained UITableView *tableView = self.table;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -416,7 +417,7 @@
             CGRect rectInSuperview = [self.table convertRect:rectInTableView toView:[self.table superview]];
             NSLog(@"rectInSuperview = %@",NSStringFromCGRect(rectInSuperview));
    
-            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-kNavbarHeight-kTabBarHeight) {//往上拖动
+            if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-64-49) {//往上拖动
                 [self releaseWMPlayer];
                 [self.currentCell.playBtn.superview bringSubviewToFront:self.currentCell.playBtn];
             }

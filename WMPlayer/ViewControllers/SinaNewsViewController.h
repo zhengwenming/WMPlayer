@@ -12,6 +12,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @interface SinaNewsViewController : BaseViewController
 @property (weak, nonatomic) IBOutlet UITableView *table;

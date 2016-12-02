@@ -9,6 +9,8 @@
 
 #import "PersonCenterViewController.h"
 #import "TestViewController.h"
+#import "Masonry.h"
+
 @implementation PersonCenterViewController
 - (void)viewDidLoad
 {
