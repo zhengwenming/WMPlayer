@@ -9,7 +9,7 @@
 
 #import "PersonCenterViewController.h"
 #import "TestViewController.h"
-#import "Masonry.h"
+#import <UIKit/UIKit.h>
 
 @implementation PersonCenterViewController
 - (void)viewDidLoad
@@ -25,13 +25,10 @@
     palyBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [palyBtn setImage:[UIImage imageNamed:@"commentBtn"] forState:UIControlStateNormal];
     [palyBtn setImage:[UIImage imageNamed:@"commentBtn"] forState:UIControlStateSelected];
-    
+    palyBtn.frame = CGRectMake(0, 0, 200, 50);
     [palyBtn addTarget:self action:@selector(testSeekToPlay:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:palyBtn];
-    [palyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-        make.size.mas_equalTo(CGSizeMake(200, 50));
-    }];
+    palyBtn.center = self.view.center;
 }
 -(void)testSeekToPlay:(UIButton *)sender{
     [self.navigationController pushViewController:[[TestViewController alloc] init] animated:YES];
