@@ -9,6 +9,7 @@ cell中播放视频，全屏小屏切换自如。
 
 * 播放网络视频
 
+```
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     
     [wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
@@ -16,9 +17,11 @@ cell中播放视频，全屏小屏切换自如。
     [self.view addSubview:wmPlayer];
     
     [wmPlayer play];
+```
 
 * 播放本地视频
 
+```
     wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
     
      NSURL *URL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"4k" ofType:@"mp4"]];
@@ -30,14 +33,13 @@ cell中播放视频，全屏小屏切换自如。
     [self.view addSubview:wmPlayer];
     
     [wmPlayer play]; 
-    
-    
-    
-    
-    
+```    
+  
+ 
+ 
 * 全屏播放视频解决方案
 
-*   WMPlayer同时支持持旋转view和旋转ViewController
+*   WMPlayer 同时支持持旋转 view 和旋转 ViewController
   
   
   
