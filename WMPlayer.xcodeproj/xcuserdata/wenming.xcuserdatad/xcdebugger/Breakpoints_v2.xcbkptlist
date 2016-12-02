@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/ViewControllers/TencentNewsViewController.m"
-            timestampString = "500288094.717929"
+            timestampString = "502342037.951362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
+            startingLineNumber = "492"
+            endingLineNumber = "492"
             landmarkName = "-startPlayVideo:"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/ViewControllers/SinaNewsViewController.m"
-            timestampString = "500294297.205551"
+            timestampString = "502342037.951362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "-onDeviceOrientationChange:"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/ViewControllers/SinaNewsViewController.m"
-            timestampString = "500294297.205551"
+            timestampString = "502342037.951362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-onDeviceOrientationChange:"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/ViewControllers/SinaNewsViewController.m"
-            timestampString = "500294297.205551"
+            timestampString = "502342037.951362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "-toOrientation:"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/ViewControllers/SinaNewsViewController.m"
-            timestampString = "500294297.205551"
+            timestampString = "502342037.951362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "-toOrientation:"
             landmarkType = "7">
             <Locations>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/ViewControllers/SinaNewsViewController.m"
-            timestampString = "500294297.205551"
+            timestampString = "502342037.951362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "-wmplayer:clickedFullScreenButton:"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WMPlayer/ViewControllers/SinaNewsViewController.m"
-            timestampString = "500294297.205551"
+            timestampString = "502342037.951362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "-wmplayer:isHiddenTopAndBottomView:"
             landmarkType = "7">
          </BreakpointContent>
