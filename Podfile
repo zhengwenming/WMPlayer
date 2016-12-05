@@ -2,11 +2,11 @@
 # platform :ios, '9.0'
 
 target 'PlayerDemo' do
-# Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-# use_frameworks!
+    # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+    # use_frameworks!
 
-# Pods for PlayerDemo
+    # Pods for PlayerDemo
 
-pod 'Masonry'
+    pod 'Masonry'
 
 end
