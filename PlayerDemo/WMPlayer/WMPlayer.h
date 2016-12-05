@@ -12,8 +12,10 @@
  */
 
 #import <Masonry.h>
-#import "WMLightView.h"
-#import "FastForwardView.h"
+
+
+@class WMLightView;
+@class FastForwardView;
 
 @import MediaPlayer;
 @import AVFoundation;
