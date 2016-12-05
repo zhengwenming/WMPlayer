@@ -28,15 +28,6 @@
 		BF1624771DF50011006209D1 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1623D71DF50011006209D1 /* time.png */; };
 		BF1624781DF50011006209D1 /* video_play_btn_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF1623D81DF50011006209D1 /* video_play_btn_bg@2x.png */; };
 		BF1624791DF50011006209D1 /* WMPlayer.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF1623D91DF50011006209D1 /* WMPlayer.gif */; };
-		BF16247A1DF50011006209D1 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623DD1DF50011006209D1 /* MASCompositeConstraint.m */; };
-		BF16247B1DF50011006209D1 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623E01DF50011006209D1 /* MASConstraint.m */; };
-		BF16247C1DF50011006209D1 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623E21DF50011006209D1 /* MASConstraintMaker.m */; };
-		BF16247D1DF50011006209D1 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623E41DF50011006209D1 /* MASLayoutConstraint.m */; };
-		BF16247E1DF50011006209D1 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623E81DF50011006209D1 /* MASViewAttribute.m */; };
-		BF16247F1DF50011006209D1 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623EA1DF50011006209D1 /* MASViewConstraint.m */; };
-		BF1624801DF50011006209D1 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623EC1DF50011006209D1 /* NSArray+MASAdditions.m */; };
-		BF1624811DF50011006209D1 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623EF1DF50011006209D1 /* NSLayoutConstraint+MASDebugAdditions.m */; };
-		BF1624821DF50011006209D1 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623F11DF50011006209D1 /* View+MASAdditions.m */; };
 		BF1624831DF50011006209D1 /* MBProgressHUD+Show.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623F51DF50011006209D1 /* MBProgressHUD+Show.m */; };
 		BF1624841DF50011006209D1 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF1623F61DF50011006209D1 /* MBProgressHUD.bundle */; };
 		BF1624851DF50011006209D1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623F81DF50011006209D1 /* MBProgressHUD.m */; };
@@ -100,9 +91,13 @@
 		C4EC7F4A1DF4FCD3006E9820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F481DF4FCD3006E9820 /* Main.storyboard */; };
 		C4EC7F4C1DF4FCD3006E9820 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F4B1DF4FCD3006E9820 /* Assets.xcassets */; };
 		C4EC7F4F1DF4FCD3006E9820 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F4D1DF4FCD3006E9820 /* LaunchScreen.storyboard */; };
+		E2D7122D2137BEF7266E17DE /* libPods-PlayerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405F2043D18D2B06CC91D75F /* libPods-PlayerDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		405F2043D18D2B06CC91D75F /* libPods-PlayerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlayerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
+		AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BF1623B71DF50011006209D1 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		BF1623B81DF50011006209D1 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		BF1623B91DF50011006209D1 /* SidModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidModel.h; sourceTree = "<group>"; };
@@ -274,12 +269,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2D7122D2137BEF7266E17DE /* libPods-PlayerDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AAEEC1312C0C3531902D027 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */,
+				A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9CB412B180A011467ACD0171 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				405F2043D18D2B06CC91D75F /* libPods-PlayerDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BF1623B61DF50011006209D1 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +587,8 @@
 				BF1624B91DF50182006209D1 /* WMPlayer */,
 				C4EC7F3E1DF4FCD2006E9820 /* PlayerDemo */,
 				C4EC7F3D1DF4FCD2006E9820 /* Products */,
+				8AAEEC1312C0C3531902D027 /* Pods */,
+				9CB412B180A011467ACD0171 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -626,9 +641,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C4EC7F531DF4FCD3006E9820 /* Build configuration list for PBXNativeTarget "PlayerDemo" */;
 			buildPhases = (
+				D4D31148F85F770E5848B158 /* [CP] Check Pods Manifest.lock */,
 				C4EC7F381DF4FCD2006E9820 /* Sources */,
 				C4EC7F391DF4FCD2006E9820 /* Frameworks */,
 				C4EC7F3A1DF4FCD2006E9820 /* Resources */,
+				E6EC241C6DCD1D5BE4DA5E68 /* [CP] Embed Pods Frameworks */,
+				9AAF9FC38E18602CFE939F5D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -645,7 +663,7 @@
 		C4EC7F341DF4FCD2006E9820 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "DS-Team";
 				TargetAttributes = {
 					C4EC7F3B1DF4FCD2006E9820 = {
@@ -712,6 +730,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9AAF9FC38E18602CFE939F5D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4D31148F85F770E5848B158 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E6EC241C6DCD1D5BE4DA5E68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C4EC7F381DF4FCD2006E9820 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -721,20 +787,17 @@
 				BF1624961DF50011006209D1 /* UIScrollView+MJExtension.m in Sources */,
 				BF1624C51DF50182006209D1 /* WMLightView.m in Sources */,
 				BF1624B31DF50011006209D1 /* TestViewController.m in Sources */,
-				BF16247F1DF50011006209D1 /* MASViewConstraint.m in Sources */,
 				BF1624A81DF50011006209D1 /* RootTabBarController.m in Sources */,
 				BF1624861DF50011006209D1 /* MJRefreshAutoFooter.m in Sources */,
 				C4EC7F471DF4FCD3006E9820 /* ViewController.m in Sources */,
 				BF1624991DF50011006209D1 /* ScreenShotView.m in Sources */,
 				BF1624A31DF50011006209D1 /* UIImage+GIF.m in Sources */,
 				BF1624AE1DF50011006209D1 /* PersonCenterViewController.m in Sources */,
-				BF16247E1DF50011006209D1 /* MASViewAttribute.m in Sources */,
 				BF16249F1DF50011006209D1 /* SDWebImageDownloaderOperation.m in Sources */,
 				BF1624A91DF50011006209D1 /* VideoCell.m in Sources */,
 				BF1624601DF50011006209D1 /* DataManager.m in Sources */,
 				BF1624C31DF50182006209D1 /* FastForwardView.m in Sources */,
 				BF1624611DF50011006209D1 /* SidModel.m in Sources */,
-				BF16247A1DF50011006209D1 /* MASCompositeConstraint.m in Sources */,
 				BF16249A1DF50011006209D1 /* NSData+ImageContentType.m in Sources */,
 				BF1624A61DF50011006209D1 /* UIImageView+WebCache.m in Sources */,
 				BF1624881DF50011006209D1 /* MJRefreshComponent.m in Sources */,
@@ -742,13 +805,9 @@
 				BF1624AC1DF50011006209D1 /* BaseViewController.m in Sources */,
 				BF16248E1DF50011006209D1 /* MJRefreshBackGifFooter.m in Sources */,
 				BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */,
-				BF16247C1DF50011006209D1 /* MASConstraintMaker.m in Sources */,
-				BF1624821DF50011006209D1 /* View+MASAdditions.m in Sources */,
 				BF1624AD1DF50011006209D1 /* DetailViewController.m in Sources */,
-				BF16247D1DF50011006209D1 /* MASLayoutConstraint.m in Sources */,
 				BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */,
 				BF1624981DF50011006209D1 /* UIView+MJExtension.m in Sources */,
-				BF16247B1DF50011006209D1 /* MASConstraint.m in Sources */,
 				BF16249C1DF50011006209D1 /* SDWebImageCompat.m in Sources */,
 				BF1624A41DF50011006209D1 /* UIImage+MultiFormat.m in Sources */,
 				BF1624C71DF50182006209D1 /* WMPlayer.m in Sources */,
@@ -775,9 +834,7 @@
 				C4EC7F411DF4FCD2006E9820 /* main.m in Sources */,
 				BF16249E1DF50011006209D1 /* SDWebImageDownloader.m in Sources */,
 				BF1624901DF50011006209D1 /* MJRefreshBackStateFooter.m in Sources */,
-				BF1624801DF50011006209D1 /* NSArray+MASAdditions.m in Sources */,
 				BF16248A1DF50011006209D1 /* MJRefreshHeader.m in Sources */,
-				BF1624811DF50011006209D1 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				BF1624621DF50011006209D1 /* VideoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -817,8 +874,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -840,7 +899,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -861,8 +920,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -878,7 +939,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -888,6 +949,7 @@
 		};
 		C4EC7F541DF4FCD3006E9820 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
@@ -901,6 +963,7 @@
 		};
 		C4EC7F551DF4FCD3006E9820 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
