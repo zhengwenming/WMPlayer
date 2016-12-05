@@ -15,7 +15,7 @@
 
 
 @class WMLightView;
-@class FastForwardView;
+#import "FastForwardView.h"
 
 @import MediaPlayer;
 @import AVFoundation;

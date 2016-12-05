@@ -14,7 +14,6 @@
 
 #import "WMPlayer.h"
 #import "WMLightView.h"
-#import "FastForwardView.h"
 #define Window [UIApplication sharedApplication].keyWindow
 #define iOS8 [UIDevice currentDevice].systemVersion.floatValue >= 8.0
 

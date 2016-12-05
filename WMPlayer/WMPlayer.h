@@ -14,7 +14,9 @@
 #import <Masonry.h>
 
 @class WMLightView;
-@class FastForwardView;
+#import "FastForwardView.h"
+
+
 @import MediaPlayer;
 @import AVFoundation;
 @import UIKit;
