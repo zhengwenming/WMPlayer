@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "WMPlayer"
-    s.version      = "3.0.3"
+    s.version      = "3.0.4"
     s.summary      = "A lightweight UIView for iOS to play local or network video,base on AVPlayer."
     s.homepage     = "https://github.com/zhengwenming/WMPlayer"
     s.license      = "MIT"
