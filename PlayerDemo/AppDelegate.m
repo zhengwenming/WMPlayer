@@ -1,45 +1,86 @@
 //
 //  AppDelegate.m
-//  PlayerDemo
+//  WMPlayer
 //
-//  Created by 博爱 on 2016/12/5.
-//  Copyright © 2016年 DS-Team. All rights reserved.
+//  Created by 郑文明 on 16/2/1.
+//  Copyright © 2016年 郑文明. All rights reserved.
 //
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@import AVFoundation;
 
+@interface AppDelegate ()
+@property(nonatomic,strong)NSDateFormatter *dateFormatter;
 @end
 
 @implementation AppDelegate
-
+-(BOOL)shouldAutorotate{
+    return NO;
+}
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [[DataManager shareManager] getSIDArrayWithURLString:@"http://c.m.163.com/nc/video/home/0-10.html"
+                                                 success:^(NSArray *sidArray, NSArray *videoArray) {
+                                                     self.sidArray =[NSArray arrayWithArray:sidArray];
+                                                     self.videoArray = [NSArray arrayWithArray:videoArray];
+                                                 }
+                                                  failed:^(NSError *error) {
+                                                      
+                                                  }];
+    
+    
+    
+    
+    
+    NSError *setCategoryErr = nil;
+    NSError *activationErr  = nil;
+    [[AVAudioSession sharedInstance]
+     setCategory: AVAudioSessionCategoryPlayback
+     error: &setCategoryErr];
+    [[AVAudioSession sharedInstance]
+     setActive: YES
+     error: &activationErr];
+        
+    self.window.rootViewController = self.tabbar = [[RootTabBarController alloc]init];
+#if kUseScreenShotGesture
+    self.screenshotView = [[ScreenShotView alloc] initWithFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
+    [self.window insertSubview:self.screenshotView atIndex:0];
+    self.screenshotView.hidden = YES;
+#endif
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+   
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+ 
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
 }
-
++(AppDelegate *)shareAppDelegate{
+    return (AppDelegate *) [UIApplication sharedApplication].delegate;
+}
 @end
