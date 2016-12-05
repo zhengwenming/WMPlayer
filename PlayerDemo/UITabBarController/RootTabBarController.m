@@ -11,7 +11,6 @@
 #import "SinaNewsViewController.h"
 #import "BaseNavigationController.h"
 
-#import "PersonCenterViewController.h"
 
 @interface RootTabBarController (){
 }
@@ -46,11 +45,11 @@
 //    netEaseNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"网易" image:[UIImage imageNamed:@"share@2x.png"] selectedImage:[UIImage imageNamed:@"share_s@2x.png"]];
     
     
-    PersonCenterViewController *pcenterVC = [[PersonCenterViewController alloc]init];
-    pcenterVC.title = @"我";
-    BaseNavigationController *pcenterNav = [[BaseNavigationController alloc]initWithRootViewController:pcenterVC];
-    pcenterNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"测试" image:[UIImage imageNamed:@"tab_icon05"] selectedImage:[UIImage imageNamed:@"tab_icon05_on"]];
-    self.viewControllers = @[tencentNav,sinaNav,pcenterNav];
+//    PersonCenterViewController *pcenterVC = [[PersonCenterViewController alloc]init];
+//    pcenterVC.title = @"我";
+//    BaseNavigationController *pcenterNav = [[BaseNavigationController alloc]initWithRootViewController:pcenterVC];
+//    pcenterNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"测试" image:[UIImage imageNamed:@"tab_icon05"] selectedImage:[UIImage imageNamed:@"tab_icon05_on"]];
+    self.viewControllers = @[tencentNav,sinaNav];
     
                              
                              
