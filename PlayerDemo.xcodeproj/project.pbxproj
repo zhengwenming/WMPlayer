@@ -86,7 +86,6 @@
 		BF1624C71DF50182006209D1 /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624C21DF50182006209D1 /* WMPlayer.m */; };
 		C4EC7F411DF4FCD2006E9820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EC7F401DF4FCD2006E9820 /* main.m */; };
 		C4EC7F441DF4FCD2006E9820 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EC7F431DF4FCD2006E9820 /* AppDelegate.m */; };
-		C4EC7F471DF4FCD3006E9820 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EC7F461DF4FCD3006E9820 /* ViewController.m */; };
 		C4EC7F4A1DF4FCD3006E9820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F481DF4FCD3006E9820 /* Main.storyboard */; };
 		C4EC7F4C1DF4FCD3006E9820 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F4B1DF4FCD3006E9820 /* Assets.xcassets */; };
 		C4EC7F4F1DF4FCD3006E9820 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F4D1DF4FCD3006E9820 /* LaunchScreen.storyboard */; };
@@ -230,8 +229,6 @@
 		C4EC7F401DF4FCD2006E9820 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4EC7F421DF4FCD2006E9820 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4EC7F431DF4FCD2006E9820 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C4EC7F451DF4FCD2006E9820 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C4EC7F461DF4FCD3006E9820 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C4EC7F491DF4FCD3006E9820 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4EC7F4B1DF4FCD3006E9820 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4EC7F4E1DF4FCD3006E9820 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -556,8 +553,6 @@
 				BF16244E1DF50011006209D1 /* ViewControllers */,
 				C4EC7F421DF4FCD2006E9820 /* AppDelegate.h */,
 				C4EC7F431DF4FCD2006E9820 /* AppDelegate.m */,
-				C4EC7F451DF4FCD2006E9820 /* ViewController.h */,
-				C4EC7F461DF4FCD3006E9820 /* ViewController.m */,
 				C4EC7F481DF4FCD3006E9820 /* Main.storyboard */,
 				C4EC7F4B1DF4FCD3006E9820 /* Assets.xcassets */,
 				C4EC7F4D1DF4FCD3006E9820 /* LaunchScreen.storyboard */,
@@ -730,7 +725,6 @@
 				BF1624B31DF50011006209D1 /* TestViewController.m in Sources */,
 				BF1624A81DF50011006209D1 /* RootTabBarController.m in Sources */,
 				BF1624861DF50011006209D1 /* MJRefreshAutoFooter.m in Sources */,
-				C4EC7F471DF4FCD3006E9820 /* ViewController.m in Sources */,
 				BF1624991DF50011006209D1 /* ScreenShotView.m in Sources */,
 				BF1624A31DF50011006209D1 /* UIImage+GIF.m in Sources */,
 				BF16249F1DF50011006209D1 /* SDWebImageDownloaderOperation.m in Sources */,
