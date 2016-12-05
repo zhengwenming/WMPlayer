@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
     s.source_files  = "WMPlayer", "WMPlayer/**/*.{h,m}"
     s.resource     = "WMPlayer/WMPlayer.bundle"
-    s.framework    = "UIKit","MediaPlayer"
+    s.framework    = "UIKit","MediaPlayer","AVFoundation"
 
     s.requires_arc = true
 
