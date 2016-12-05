@@ -524,7 +524,6 @@
 			children = (
 				BF1624B91DF50182006209D1 /* WMPlayer */,
 				C4EC7F3E1DF4FCD2006E9820 /* PlayerDemo */,
-				C4EC7F3D1DF4FCD2006E9820 /* Products */,
 				8AAEEC1312C0C3531902D027 /* Pods */,
 				9CB412B180A011467ACD0171 /* Frameworks */,
 			);
@@ -536,11 +535,13 @@
 				C4EC7F3C1DF4FCD2006E9820 /* PlayerDemo.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		C4EC7F3E1DF4FCD2006E9820 /* PlayerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C4EC7F3D1DF4FCD2006E9820 /* Products */,
 				BF1624B51DF5001D006209D1 /* navigator_btn_back.png */,
 				BF1624B61DF5001D006209D1 /* navigator_btn_back@2x.png */,
 				BF1623B61DF50011006209D1 /* DataManager */,
