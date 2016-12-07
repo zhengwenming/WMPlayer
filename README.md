@@ -57,6 +57,16 @@ cell中播放视频，全屏小屏切换自如。
 
 
 
+#另外关于程序崩溃在main中，但是手动的过了这个崩溃断点又可以继续运行，貌似又没有崩溃的问题，解释如下：(有些人不知道，总说我在代码中下毒了，冤枉！！！)
+这是异常断点导致的，cocoa在某些框架中会加异常的捕获，而这个是系统级别的，AVFoundation就是。
+stackoverflow中有详细的解释，解决方法也有。地址为：
+http://stackoverflow.com/questions/26408264/xcode-6-0-1-begins-with-breakpoint-thread-1-breakpoint-1-2
+
+The problem is that you have a global Exceptions breakpoint. For some reason, an exception is being thrown. But not every exception is fatal; this one is being caught internally by Cocoa. So, you have two choices:
+
+Hit the Exceptions breakpoint and resume.
+Temporarily turn off the Exceptions breakpoint (in the Breakpoints navigator).
+It is a little infuriating that this happens, but that's how it is. There are a lot of situations where Cocoa throws and catches an exception internally. (For example, AVFoundation does this a lot.) This would normally go unnoticed, but when you have a global Exceptions breakpoint enabled, it causes a pause whenever this occurs.
 
 
 
