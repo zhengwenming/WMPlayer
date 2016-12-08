@@ -127,6 +127,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
  *  初始化WMPlayer的控件，添加手势，添加通知，添加kvo等
  */
 -(void)initWMPlayer{
+    NSError *setCategoryErr = nil;
+    NSError *activationErr  = nil;
+    [[AVAudioSession sharedInstance]
+     setCategory: AVAudioSessionCategoryPlayback
+     error: &setCategoryErr];
+    [[AVAudioSession sharedInstance]
+     setActive: YES
+     error: &activationErr];
 //    self.backgroundColor = [UIColor blackColor];
     //wmplayer内部的一个view，用来管理子视图
     self.contentView = [[UIView alloc]init];

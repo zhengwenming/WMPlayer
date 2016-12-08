@@ -42,14 +42,7 @@
     
     
     
-    NSError *setCategoryErr = nil;
-    NSError *activationErr  = nil;
-    [[AVAudioSession sharedInstance]
-     setCategory: AVAudioSessionCategoryPlayback
-     error: &setCategoryErr];
-    [[AVAudioSession sharedInstance]
-     setActive: YES
-     error: &activationErr];
+    
         
     self.window.rootViewController = self.tabbar = [[RootTabBarController alloc]init];
 #if kUseScreenShotGesture
