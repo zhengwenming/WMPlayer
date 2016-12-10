@@ -769,7 +769,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [self.delegate wmplayer:self isHiddenTopAndBottomView:NO];
         }
     } completion:^(BOOL finish){
-        
+
     }];
 }
 ///隐藏操作栏view
