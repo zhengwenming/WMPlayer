@@ -212,7 +212,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    playerFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.width)*(0.75));
+    playerFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.width)* 9 / 16);
+    
 //    wmPlayer = [[WMPlayer alloc]init];
     wmPlayer = [WMPlayer new];
 

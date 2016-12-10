@@ -196,17 +196,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         
     }];
     
-    
-    
-    
-    
     [self setAutoresizesSubviews:NO];
+    
     //_playOrPauseBtn
     self.playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.playOrPauseBtn.showsTouchWhenHighlighted = YES;
     [self.playOrPauseBtn addTarget:self action:@selector(PlayOrPause:) forControlEvents:UIControlEventTouchUpInside];
-    
-      [self.playOrPauseBtn setImage:WMPlayerImage(@"pause") forState:UIControlStateNormal];
+    [self.playOrPauseBtn setImage:WMPlayerImage(@"pause") forState:UIControlStateNormal];
     [self.playOrPauseBtn setImage:WMPlayerImage(@"play") forState:UIControlStateSelected];
 
     [self.bottomView addSubview:self.playOrPauseBtn];
@@ -235,9 +231,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //slider
     self.progressSlider = [[UISlider alloc]init];
     self.progressSlider.minimumValue = 0.0;
+    self.progressSlider.maximumValue = 1.0;
+
     [self.progressSlider setThumbImage:WMPlayerImage(@"dot")  forState:UIControlStateNormal];
     self.progressSlider.minimumTrackTintColor = [UIColor greenColor];
-    self.progressSlider.maximumTrackTintColor = [UIColor clearColor];
+    self.progressSlider.maximumTrackTintColor = [UIColor whiteColor];
 
     self.progressSlider.value = 0.0;//指定初始值
     //进度条的拖拽事件
@@ -251,27 +249,33 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.progressSlider addGestureRecognizer:self.tap];
     [self.bottomView addSubview:self.progressSlider];
     self.progressSlider.backgroundColor = [UIColor clearColor];
-    
     //autoLayout slider
     [self.progressSlider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bottomView).with.offset(45);
         make.right.equalTo(self.bottomView).with.offset(-45);
-        make.center.equalTo(self.bottomView);
+        make.centerY.equalTo(self.bottomView.mas_centerY).offset(-1);
+        make.height.mas_equalTo(30);
     }];
     
-   
+
+    
+    
+
     self.loadingProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     self.loadingProgress.progressTintColor = [UIColor clearColor];
     self.loadingProgress.trackTintColor    = [UIColor lightGrayColor];
     [self.bottomView addSubview:self.loadingProgress];
     [self.loadingProgress setProgress:0.0 animated:NO];
 
+    
+    
+    
     [self.loadingProgress mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.progressSlider);
-        make.right.equalTo(self.progressSlider);
-        make.center.equalTo(self.progressSlider);
-        make.height.mas_equalTo(1.5);
+        make.left.equalTo(self.bottomView).with.offset(45);
+        make.right.equalTo(self.bottomView).with.offset(-45);
+        make.centerY.equalTo(self.bottomView.mas_centerY);
     }];
+    
     
     [self.bottomView sendSubviewToBack:self.loadingProgress];
     
@@ -612,6 +616,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [_currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
         [_currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
         [_currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+        [_currentItem removeObserver:self forKeyPath:@"duration"];
+
         _currentItem = nil;
     }
     _currentItem = playerItem;
@@ -627,6 +633,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         // 缓冲区有足够数据可以播放了
         [_currentItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options: NSKeyValueObservingOptionNew context:PlayViewStatusObservationContext];
         
+        [_currentItem addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew context:PlayViewStatusObservationContext];
+
         
         [self.player replaceCurrentItemWithPlayerItem:_currentItem];
         // 添加视频播放结束通知
@@ -822,15 +830,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                       /* Once the AVPlayerItem becomes ready to play, i.e.
                      [playerItem status] == AVPlayerItemStatusReadyToPlay,
                      its duration can be fetched from the item. */
-                    if (CMTimeGetSeconds(_currentItem.duration)) {
-                        
-                        totalTime = CMTimeGetSeconds(_currentItem.duration);
-                        if (!isnan(totalTime)) {
-                            self.progressSlider.maximumValue = totalTime;
-                            NSLog(@"totalTime = %f",totalTime);
-
-                        }
-                    }
+//                    if (CMTimeGetSeconds(_currentItem.duration)) {
+//                        
+//                        totalTime = CMTimeGetSeconds(_currentItem.duration);
+//                        if (!isnan(totalTime)) {
+//                            self.progressSlider.maximumValue = totalTime;
+//                            NSLog(@"totalTime = %f",totalTime);
+//
+//                        }
+//                    }
                     //监听播放状态
                     [self initTimer];
                     
@@ -875,7 +883,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                     break;
             }
 
-        }else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
+        }else if ([keyPath isEqualToString:@"duration"]) {
+            if ((CGFloat)CMTimeGetSeconds(_currentItem.duration) != totalTime) {
+                totalTime = (CGFloat)CMTimeGetSeconds(_currentItem.duration);
+                self.progressSlider.maximumValue = totalTime;
+                self.state = WMPlayerStatePlaying;
+            }
+        }
+        else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
             
             // 计算缓冲进度
             NSTimeInterval timeInterval = [self availableDuration];
@@ -1252,6 +1267,9 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
 
 //重置播放器
 -(void )resetWMPlayer{
+    
+  
+    
     self.currentItem = nil;
     self.seekTime = 0;
     // 移除通知
@@ -1286,6 +1304,8 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     [_currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     [_currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     [_currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+    [_currentItem removeObserver:self forKeyPath:@"duration"];
+
     _currentItem = nil;
 
     
