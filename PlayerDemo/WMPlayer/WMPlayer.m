@@ -235,7 +235,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 
     [self.progressSlider setThumbImage:WMPlayerImage(@"dot")  forState:UIControlStateNormal];
     self.progressSlider.minimumTrackTintColor = [UIColor greenColor];
-    self.progressSlider.maximumTrackTintColor = [UIColor whiteColor];
+    self.progressSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
 
     self.progressSlider.value = 0.0;//指定初始值
     //进度条的拖拽事件
@@ -258,17 +258,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
     
 
-    
-    
-
     self.loadingProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    self.loadingProgress.progressTintColor = [UIColor clearColor];
-    self.loadingProgress.trackTintColor    = [UIColor lightGrayColor];
+    self.loadingProgress.progressTintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
+    self.loadingProgress.trackTintColor    = [UIColor clearColor];
     [self.bottomView addSubview:self.loadingProgress];
     [self.loadingProgress setProgress:0.0 animated:NO];
 
-    
-    
     
     [self.loadingProgress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bottomView).with.offset(45);
