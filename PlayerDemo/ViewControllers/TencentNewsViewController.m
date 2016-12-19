@@ -108,7 +108,7 @@
     }
 }
 -(void)toCell{
-    wmPlayer.dragEnable = YES;
+    wmPlayer.dragEnable = NO;
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.7f animations:^{
