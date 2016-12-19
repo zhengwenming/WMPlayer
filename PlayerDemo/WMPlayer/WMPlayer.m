@@ -151,7 +151,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //设置默认值
     self.seekTime = 0.00;
     self.enableVolumeGesture = YES;
-    
+    self.enableFastForwardGesture = YES;
     
     //小菊花
     self.loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -1100,9 +1100,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     
     if (_controlType == progressControl) {     //如果是进度手势
-        float value = [self moveProgressControllWithTempPoint:tempPoint];
-        [self timeValueChangingWithValue:value];
-    }else if(_controlType == voiceControl){    //如果是音量手势
+        if (self.enableFastForwardGesture) {
+            float value = [self moveProgressControllWithTempPoint:tempPoint];
+            [self timeValueChangingWithValue:value];
+
+        }
+        }else if(_controlType == voiceControl){    //如果是音量手势
         if (self.isFullscreen) {//全屏的时候才开启音量的手势调节
             
             if (self.enableVolumeGesture) {
@@ -1151,9 +1154,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         if (_controlType == progressControl) { //进度控制就跳到响应的进度
             CGPoint tempPoint = [touches.anyObject locationInView:self];
             //            if ([self.delegate respondsToSelector:@selector(seekToTheTimeValue:)]) {
-            float value = [self moveProgressControllWithTempPoint:tempPoint];
-            //                [self.delegate seekToTheTimeValue:value];
-            [self seekToTimeToPlay:value];
+            if (self.enableFastForwardGesture) {
+                float value = [self moveProgressControllWithTempPoint:tempPoint];
+                //                [self.delegate seekToTheTimeValue:value];
+                [self seekToTimeToPlay:value];
+            }
             //            }
                         self.FF_View.hidden = YES;
         }else if (_controlType == lightControl){//如果是亮度控制, 控制完亮度还要隐藏显示亮度的view
@@ -1176,13 +1181,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //判断是否移动过,
     if (_hasMoved) {
         if (_controlType == progressControl) { //进度控制就跳到响应的进度
-            CGPoint tempPoint = [touches.anyObject locationInView:self];
             //            if ([self.delegate respondsToSelector:@selector(seekToTheTimeValue:)]) {
-            float value = [self moveProgressControllWithTempPoint:tempPoint];
-            //                [self.delegate seekToTheTimeValue:value];
-            [self seekToTimeToPlay:value];
-            //            }
-            self.FF_View.hidden = YES;
+            if (self.enableFastForwardGesture) {
+                CGPoint tempPoint = [touches.anyObject locationInView:self];
+                float value = [self moveProgressControllWithTempPoint:tempPoint];
+                //                [self.delegate seekToTheTimeValue:value];
+                [self seekToTimeToPlay:value];
+                //            }
+                self.FF_View.hidden = YES;
+            }
+          
         }else if (_controlType == lightControl){//如果是亮度控制, 控制完亮度还要隐藏显示亮度的view
             [self hideTheLightViewWithHidden:YES];
         }

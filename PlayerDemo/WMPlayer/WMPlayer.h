@@ -13,6 +13,7 @@
 
 //#import "Masonry.h"
 #import <Masonry.h>
+#import "WMDragView.h"
 
 @class WMLightView;
 #import "FastForwardView.h"
@@ -81,7 +82,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 /**
  *  注意⚠：本人把属性都公开到.h文件里面了，为了适配广大开发者，不同的需求可以修改属性东西，也可以直接修改源代码。
  */
-@interface WMPlayer : UIView
+@interface WMPlayer : WMDragView
 /**
  *  播放器player
  */
@@ -105,7 +106,10 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  *  是否使用手势控制音量
  */
 @property (nonatomic,assign) BOOL  enableVolumeGesture;
-
+/**
+ *  是否使用手势控制音量
+ */
+@property (nonatomic,assign) BOOL  enableFastForwardGesture;
 /**
  *  显示播放视频的title
  */
