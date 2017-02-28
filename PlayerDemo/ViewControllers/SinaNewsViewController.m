@@ -372,12 +372,14 @@ __weak __typeof(&*self)weakSelf = self;
 }
 -(void)startPlayVideo:(UIButton *)sender{
     currentIndexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    if ([UIDevice currentDevice].systemVersion.floatValue>=8||[UIDevice currentDevice].systemVersion.floatValue<7) {
-        self.currentCell = (VideoCell *)sender.superview.superview;
-        
-    }else{//ios7系统 UITableViewCell上多了一个层级UITableViewCellScrollView
-        self.currentCell = (VideoCell *)sender.superview.superview.subviews;
+  
+    UIView *cellView = [sender superview];
+    while (![cellView isKindOfClass:[UITableViewCell class]])
+    {
+        cellView =  [cellView superview];
     }
+    self.currentCell = (VideoCell *)cellView;
+    
     VideoModel *model = [dataSource objectAtIndex:sender.tag];
     
     if (wmPlayer) {
@@ -394,6 +396,8 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer.URLString = model.mp4_url;
         wmPlayer.titleLabel.text = model.title;
     }
+    wmPlayer.dragEnable = NO;
+
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];
     [self.currentCell.playBtn.superview sendSubviewToBack:self.currentCell.playBtn];

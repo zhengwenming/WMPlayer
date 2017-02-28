@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,23 +16,31 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="274"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="274"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="恋爱中的女生竟然是这样子的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWL-jl-1gR">
+                        <rect key="frame" x="8" y="8" width="304" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="ktW-js-jho"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Yl-Wr-uuU"/>
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Yl-Wr-uuU">
+                        <rect key="frame" x="0.0" y="55.5" width="320" height="185"/>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cax-82-QUE">
+                        <rect key="frame" x="127" y="120" width="66" height="64"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="66" id="l61-fe-fC5"/>
                             <constraint firstAttribute="height" constant="64" id="pjZ-bj-Bxn"/>
                         </constraints>
-                        <state key="normal" image="video_play_btn_bg.png"/>
+                        <state key="normal" image="video_play_btn_bg"/>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time.png" translatesAutoresizingMaskIntoConstraints="NO" id="lji-oA-ZVu">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time" translatesAutoresizingMaskIntoConstraints="NO" id="lji-oA-ZVu">
+                        <rect key="frame" x="8" y="248.5" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="1Nc-wi-OKe"/>
                             <constraint firstAttribute="width" constant="20" id="7wO-kV-lW9"/>
@@ -35,6 +48,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEd-9K-NaK">
+                        <rect key="frame" x="36" y="248.5" width="42" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="xEd-9K-NaK" secondAttribute="height" multiplier="21:10" id="CcP-9c-Axs"/>
                         </constraints>
@@ -43,6 +57,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.22万" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJZ-ZF-MEW">
+                        <rect key="frame" x="117" y="248.5" width="51" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="yJZ-ZF-MEW" secondAttribute="height" multiplier="51:20" id="TT3-sj-93r"/>
                         </constraints>
@@ -50,7 +65,8 @@
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playcount.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cor-Ow-SC1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playcount" translatesAutoresizingMaskIntoConstraints="NO" id="Cor-Ow-SC1">
+                        <rect key="frame" x="89" y="248.5" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="23m-8A-xbS"/>
                             <constraint firstAttribute="width" secondItem="Cor-Ow-SC1" secondAttribute="height" multiplier="1:1" id="Gga-Xx-toP"/>
@@ -58,6 +74,10 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="温柔美女如何逼疯欧巴，怒甩男子耳光" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IlI-mv-Igm">
+                        <rect key="frame" x="8" y="30.5" width="304" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="17" id="yFa-6C-aKk"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -104,8 +124,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="playcount.png" width="64" height="64"/>
-        <image name="time.png" width="64" height="64"/>
-        <image name="video_play_btn_bg.png" width="64" height="64"/>
+        <image name="playcount" width="64" height="64"/>
+        <image name="time" width="64" height="64"/>
+        <image name="video_play_btn_bg" width="64" height="64"/>
     </resources>
 </document>

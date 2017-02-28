@@ -107,6 +107,7 @@
             break;
     }
 }
+///把播放器wmPlayer对象放到cell上，同时更新约束
 -(void)toCell{
     wmPlayer.dragEnable = NO;
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
@@ -475,18 +476,19 @@ __weak __typeof(&*self)weakSelf = self;
 -(void)startPlayVideo:(UIButton *)sender{
     currentIndexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
     NSLog(@"currentIndexPath.row = %ld",currentIndexPath.row);
-    if ([UIDevice currentDevice].systemVersion.floatValue>=8||[UIDevice currentDevice].systemVersion.floatValue<7) {
-        self.currentCell = (VideoCell *)sender.superview.superview;
-    }else{//ios7系统 UITableViewCell上多了一个层级UITableViewCellScrollView
-        self.currentCell = (VideoCell *)sender.superview.superview.subviews;
+    
+    UIView *cellView = [sender superview];
+    while (![cellView isKindOfClass:[UITableViewCell class]])
+    {
+        cellView =  [cellView superview];
     }
+    self.currentCell = (VideoCell *)cellView;
+    
     VideoModel *model = [dataSource objectAtIndex:sender.tag];
     
-//    isSmallScreen = NO;
     if (isSmallScreen) {
         [self releaseWMPlayer];
        isSmallScreen = NO;
-        
     }
     if (wmPlayer) {
         [self releaseWMPlayer];
@@ -507,6 +509,8 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer.titleLabel.text = model.title;
         wmPlayer.URLString = model.mp4_url;
     }
+    wmPlayer.dragEnable = NO;
+
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];
     [self.currentCell.playBtn.superview sendSubviewToBack:self.currentCell.playBtn];
