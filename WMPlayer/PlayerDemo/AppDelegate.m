@@ -45,11 +45,14 @@
     
         
     self.window.rootViewController = self.tabbar = [[RootTabBarController alloc]init];
-#if kUseScreenShotGesture
+    
+    
+    //截图返回，地址为https://github.com/zhengwenming/ScreenShotBack
+    
     self.screenshotView = [[ScreenShotView alloc] initWithFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
     [self.window insertSubview:self.screenshotView atIndex:0];
     self.screenshotView.hidden = YES;
-#endif
+
     [self.window makeKeyAndVisible];
     return YES;
 }

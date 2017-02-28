@@ -12,6 +12,7 @@
  */
 
 #import "BaseNavigationController.h"
+#import "AppDelegate.h"
 
 
 // 打开边界多少距离才触发pop
@@ -57,12 +58,11 @@
 //        self.edgesForExtendedLayout=UIRectEdgeNone;//下移64
 //        self.navigationBar.translucent = NO;
 //    }
-#if kUseScreenShotGesture
     self.interactivePopGestureRecognizer.enabled = NO;
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     _panGesture.delegate = self;
     [self.view addGestureRecognizer:_panGesture];
-#endif
+
     self.navigationBar.barTintColor = [UIColor redColor];
     //返回按钮颜色
     UIImage *backButtonImage = [[UIImage imageNamed:@"navigator_btn_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
@@ -104,7 +104,6 @@
 //    
 //    return YES;
 //}
-#if kUseScreenShotGesture
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture
 {
@@ -172,7 +171,7 @@
     return arr;
 }
 
-#endif
+
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (self.viewControllers.count == 0){
@@ -180,7 +179,6 @@
     }else if (self.viewControllers.count>=1) {
         viewController.hidesBottomBarWhenPushed = YES;//隐藏二级页面的tabbar
     }
-#if kUseScreenShotGesture
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(appdelegate.window.frame.size.width, appdelegate.window.frame.size.height), YES, 0);
     [appdelegate.window.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -188,26 +186,24 @@
     UIGraphicsEndImageContext();
     [self.arrayScreenshot addObject:viewImage];
     appdelegate.screenshotView.imgView.image = viewImage;
-#endif
+
     [super pushViewController:viewController animated:animated];
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated
 {
-#if kUseScreenShotGesture
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [self.arrayScreenshot removeLastObject];
     UIImage *image = [self.arrayScreenshot lastObject];
     if (image)
         appdelegate.screenshotView.imgView.image = image;
-#endif
+
     UIViewController *v = [super popViewControllerAnimated:animated];
     return v;
 }
 
 - (NSArray *)popToRootViewControllerAnimated:(BOOL)animated
 {
-#if kUseScreenShotGesture
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (self.arrayScreenshot.count > 2)
     {
@@ -216,7 +212,6 @@
     UIImage *image = [self.arrayScreenshot lastObject];
     if (image)
         appdelegate.screenshotView.imgView.image = image;
-#endif
     return [super popToRootViewControllerAnimated:animated];
 }
 /**

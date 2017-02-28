@@ -62,7 +62,9 @@
                 self.sidArray = [NSArray arrayWithArray:sidArray];
 
             }
-            success(sidArray,videoArray);
+            if (success) {
+                success(sidArray,videoArray);
+            }
 
         }];
         
@@ -87,7 +89,9 @@
                     [model setValuesForKeysWithDictionary:video];
                     [listArray addObject:model];
                 }
-                success(listArray,nil);
+                if (success) {
+                    success(listArray,nil);
+                }
             }
             
         }];

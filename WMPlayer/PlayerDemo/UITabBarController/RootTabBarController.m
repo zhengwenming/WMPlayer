@@ -26,7 +26,7 @@
     tencentVC.title = @"腾讯";
 
     BaseNavigationController *tencentNav = [[BaseNavigationController alloc]initWithRootViewController:tencentVC];
-    tencentNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"腾讯" image:[UIImage imageNamed:@"found@2x.png"] selectedImage:[UIImage imageNamed:@"found_s@2x.png"]];
+    tencentNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"腾讯" image:[UIImage imageNamed:@"found"] selectedImage:[UIImage imageNamed:@"found_s"]];
     tencentNav.navigationBar.barTintColor = [UIColor redColor];
 
     
@@ -35,26 +35,11 @@
     sinaVC.title = @"新浪";
     BaseNavigationController *sinaNav = [[BaseNavigationController alloc]initWithRootViewController:sinaVC];
     
-    sinaNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"新浪" image:[UIImage imageNamed:@"message@2x.png"] selectedImage:[UIImage imageNamed:@"message_s@2x.png"]];
+    sinaNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"新浪" image:[UIImage imageNamed:@"message"] selectedImage:[UIImage imageNamed:@"message_s"]];
 
-    
-    
-//    NetEaseViewController *netEaseVC = [[NetEaseViewController alloc]init];
-//    netEaseVC.title = @"网易";
-//    BaseNavigationController *netEaseNav = [[BaseNavigationController alloc]initWithRootViewController:netEaseVC];
-//    netEaseNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"网易" image:[UIImage imageNamed:@"share@2x.png"] selectedImage:[UIImage imageNamed:@"share_s@2x.png"]];
-    
-    
-//    PersonCenterViewController *pcenterVC = [[PersonCenterViewController alloc]init];
-//    pcenterVC.title = @"我";
-//    BaseNavigationController *pcenterNav = [[BaseNavigationController alloc]initWithRootViewController:pcenterVC];
-//    pcenterNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"测试" image:[UIImage imageNamed:@"tab_icon05"] selectedImage:[UIImage imageNamed:@"tab_icon05_on"]];
     self.viewControllers = @[tencentNav,sinaNav];
     
-                             
-                             
     self.tabBar.tintColor = [UIColor redColor];
-    
 }
 -(BOOL)shouldAutorotate{
     UINavigationController *nav = self.viewControllers[self.selectedIndex];
