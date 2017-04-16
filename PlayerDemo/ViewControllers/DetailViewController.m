@@ -47,7 +47,13 @@
 ///播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
     if (wmplayer.isFullscreen) {
-        [self toOrientation:UIInterfaceOrientationPortrait];
+
+        //强制翻转屏幕，Home键在下边。
+        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+        //刷新
+        [UIViewController attemptRotationToDeviceOrientation];
+        
+        
         wmPlayer.isFullscreen = NO;
         self.enablePanGesture = YES;
     }else{
@@ -62,11 +68,14 @@
 ///全屏按钮
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
     if (wmPlayer.isFullscreen==YES) {//全屏
-        [self toOrientation:UIInterfaceOrientationPortrait];
+        //强制翻转屏幕，Home键在下边。
+        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+        
         wmPlayer.isFullscreen = NO;
         self.enablePanGesture = YES;
 
         }else{//非全屏
+            [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeRight) forKey:@"orientation"];
             [self toOrientation:UIInterfaceOrientationLandscapeRight];
             wmPlayer.isFullscreen = YES;
             self.enablePanGesture = NO;
@@ -75,15 +84,15 @@
 ///单击播放器
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
     NSLog(@"didSingleTaped");
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"测试" message:@"测试旋转屏" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-    [alertView show];
-    
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"测试" message:@"测试旋转屏" preferredStyle:UIAlertControllerStyleAlert];
-    [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }]];
-    [self presentViewController:alertVC animated:YES completion:^{
-    }];
+//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"测试" message:@"测试旋转屏" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//    [alertView show];
+//    
+//    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"测试" message:@"测试旋转屏" preferredStyle:UIAlertControllerStyleAlert];
+//    [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }]];
+//    [self presentViewController:alertVC animated:YES completion:^{
+//    }];
 
     
     
