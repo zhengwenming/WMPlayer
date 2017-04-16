@@ -56,9 +56,7 @@
 		BF1624AC1DF50011006209D1 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624521DF50011006209D1 /* BaseViewController.m */; };
 		BF1624AD1DF50011006209D1 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624541DF50011006209D1 /* DetailViewController.m */; };
 		BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624581DF50011006209D1 /* SinaNewsViewController.m */; };
-		BF1624B01DF50011006209D1 /* SinaNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1624591DF50011006209D1 /* SinaNewsViewController.xib */; };
 		BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF16245B1DF50011006209D1 /* TencentNewsViewController.m */; };
-		BF1624B21DF50011006209D1 /* TencentNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF16245C1DF50011006209D1 /* TencentNewsViewController.xib */; };
 		BF1624B31DF50011006209D1 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF16245E1DF50011006209D1 /* TestViewController.m */; };
 		BF1624B41DF50011006209D1 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF16245F1DF50011006209D1 /* TestViewController.xib */; };
 		BF1624C31DF50182006209D1 /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624BC1DF50182006209D1 /* FastForwardView.m */; };
@@ -174,10 +172,8 @@
 		BF1624541DF50011006209D1 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		BF1624571DF50011006209D1 /* SinaNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaNewsViewController.h; sourceTree = "<group>"; };
 		BF1624581DF50011006209D1 /* SinaNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaNewsViewController.m; sourceTree = "<group>"; };
-		BF1624591DF50011006209D1 /* SinaNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinaNewsViewController.xib; sourceTree = "<group>"; };
 		BF16245A1DF50011006209D1 /* TencentNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentNewsViewController.h; sourceTree = "<group>"; };
 		BF16245B1DF50011006209D1 /* TencentNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentNewsViewController.m; sourceTree = "<group>"; };
-		BF16245C1DF50011006209D1 /* TencentNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TencentNewsViewController.xib; sourceTree = "<group>"; };
 		BF16245D1DF50011006209D1 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		BF16245E1DF50011006209D1 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		BF16245F1DF50011006209D1 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
@@ -430,12 +426,10 @@
 				BF1624521DF50011006209D1 /* BaseViewController.m */,
 				BF1624531DF50011006209D1 /* DetailViewController.h */,
 				BF1624541DF50011006209D1 /* DetailViewController.m */,
-				BF1624571DF50011006209D1 /* SinaNewsViewController.h */,
-				BF1624581DF50011006209D1 /* SinaNewsViewController.m */,
-				BF1624591DF50011006209D1 /* SinaNewsViewController.xib */,
 				BF16245A1DF50011006209D1 /* TencentNewsViewController.h */,
 				BF16245B1DF50011006209D1 /* TencentNewsViewController.m */,
-				BF16245C1DF50011006209D1 /* TencentNewsViewController.xib */,
+				BF1624571DF50011006209D1 /* SinaNewsViewController.h */,
+				BF1624581DF50011006209D1 /* SinaNewsViewController.m */,
 				BF16245D1DF50011006209D1 /* TestViewController.h */,
 				BF16245E1DF50011006209D1 /* TestViewController.m */,
 				BF16245F1DF50011006209D1 /* TestViewController.xib */,
@@ -582,8 +576,6 @@
 				C4EC7F4F1DF4FCD3006E9820 /* LaunchScreen.storyboard in Resources */,
 				BF1624C61DF50182006209D1 /* WMPlayer.bundle in Resources */,
 				C4EC7F4C1DF4FCD3006E9820 /* Assets.xcassets in Resources */,
-				BF1624B01DF50011006209D1 /* SinaNewsViewController.xib in Resources */,
-				BF1624B21DF50011006209D1 /* TencentNewsViewController.xib in Resources */,
 				BF1624AA1DF50011006209D1 /* VideoCell.xib in Resources */,
 				BF1624841DF50011006209D1 /* MBProgressHUD.bundle in Resources */,
 				BF1624941DF50011006209D1 /* MJRefresh.bundle in Resources */,

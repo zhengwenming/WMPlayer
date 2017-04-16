@@ -15,20 +15,8 @@
 @end
 
 @implementation AppDelegate
--(BOOL)shouldAutorotate{
-    return NO;
-}
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [[DataManager shareManager] getSIDArrayWithURLString:@"http://c.m.163.com/nc/video/home/0-10.html"
                                                  success:^(NSArray *sidArray, NSArray *videoArray) {
                                                      self.sidArray =[NSArray arrayWithArray:sidArray];
@@ -44,7 +32,7 @@
     
     
         
-    self.window.rootViewController = self.tabbar = [[RootTabBarController alloc]init];
+//    self.window.rootViewController = self.tabbar = [[RootTabBarController alloc]init];
     
     
     //截图返回，地址为https://github.com/zhengwenming/ScreenShotBack
