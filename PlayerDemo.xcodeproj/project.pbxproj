@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		701570961E067CC700632595 /* WMDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 701570951E067CC700632595 /* WMDragView.m */; };
 		701C246A1E0844C600232AAB /* WMPlayer.gif in Resources */ = {isa = PBXBuildFile; fileRef = 701C24691E0844C600232AAB /* WMPlayer.gif */; };
 		BF1624601DF50011006209D1 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623B81DF50011006209D1 /* DataManager.m */; };
 		BF1624611DF50011006209D1 /* SidModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623BA1DF50011006209D1 /* SidModel.m */; };
@@ -74,8 +73,6 @@
 
 /* Begin PBXFileReference section */
 		405F2043D18D2B06CC91D75F /* libPods-PlayerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlayerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		701570941E067CC700632595 /* WMDragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDragView.h; sourceTree = "<group>"; };
-		701570951E067CC700632595 /* WMDragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDragView.m; sourceTree = "<group>"; };
 		701C24691E0844C600232AAB /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -207,15 +204,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		701570791E06384A00632595 /* WMDragView */ = {
-			isa = PBXGroup;
-			children = (
-				701570941E067CC700632595 /* WMDragView.h */,
-				701570951E067CC700632595 /* WMDragView.m */,
-			);
-			path = WMDragView;
-			sourceTree = "<group>";
-		};
 		8AAEEC1312C0C3531902D027 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,7 +237,6 @@
 		BF1623DA1DF50011006209D1 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
-				701570791E06384A00632595 /* WMDragView */,
 				BF1623F31DF50011006209D1 /* MBprogressHUD */,
 				BF1623F91DF50011006209D1 /* MJRefresh */,
 				BF1624261DF50011006209D1 /* ScreenShotBack */,
@@ -664,7 +651,6 @@
 				BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */,
 				BF1624981DF50011006209D1 /* UIView+MJExtension.m in Sources */,
 				BF16249C1DF50011006209D1 /* SDWebImageCompat.m in Sources */,
-				701570961E067CC700632595 /* WMDragView.m in Sources */,
 				BF1624A41DF50011006209D1 /* UIImage+MultiFormat.m in Sources */,
 				BF1624C71DF50182006209D1 /* WMPlayer.m in Sources */,
 				BF1624931DF50011006209D1 /* MJRefreshStateHeader.m in Sources */,

@@ -116,7 +116,6 @@
 }
 ///把播放器wmPlayer对象放到cell上，同时更新约束
 -(void)toCell{
-    wmPlayer.dragEnable = NO;
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.7f animations:^{
@@ -186,7 +185,6 @@
 
 -(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
     [wmPlayer removeFromSuperview];
-    wmPlayer.dragEnable = NO;
     wmPlayer.transform = CGAffineTransformIdentity;
     if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft) {
         wmPlayer.transform = CGAffineTransformMakeRotation(-M_PI_2);
@@ -262,12 +260,10 @@
 }
 -(void)toSmallScreen{
     //放widow上
-    wmPlayer.dragEnable = YES;
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.7f animations:^{
         wmPlayer.transform = CGAffineTransformIdentity;
         wmPlayer.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height-49-([UIScreen mainScreen].bounds.size.width/2)*0.75, [UIScreen mainScreen].bounds.size.width/2, ([UIScreen mainScreen].bounds.size.width/2)*0.75);
-        wmPlayer.freeRect = CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-64-49);
         wmPlayer.playerLayer.frame =  wmPlayer.bounds;
         [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
         
@@ -503,7 +499,7 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds];
         wmPlayer.delegate = self;
         //关闭音量调节的手势
-        wmPlayer.enableVolumeGesture = NO;
+//        wmPlayer.enableVolumeGesture = NO;
         wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         wmPlayer.URLString = model.mp4_url;
         wmPlayer.titleLabel.text = model.title;
@@ -513,11 +509,10 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer.delegate = self;
         wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         //关闭音量调节的手势
-        wmPlayer.enableVolumeGesture = NO;
+//        wmPlayer.enableVolumeGesture = NO;
         wmPlayer.titleLabel.text = model.title;
         wmPlayer.URLString = model.mp4_url;
     }
-    wmPlayer.dragEnable = NO;
 
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];

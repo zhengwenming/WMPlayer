@@ -397,7 +397,6 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer.URLString = model.mp4_url;
         wmPlayer.titleLabel.text = model.title;
     }
-    wmPlayer.dragEnable = NO;
 
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];

@@ -208,7 +208,7 @@
     wmPlayer.URLString = self.URLString;
     wmPlayer.titleLabel.text = self.title;
     wmPlayer.closeBtn.hidden = NO;
-    wmPlayer.dragEnable = NO;
+
     [self.view addSubview:wmPlayer];
     [wmPlayer play];
  

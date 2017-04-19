@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlayerDemo/ViewControllers/TencentNewsViewController.m"
-            timestampString = "514299736.677723"
+            timestampString = "514301062.525313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "-loadData"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlayerDemo/ViewControllers/TencentNewsViewController.m"
-            timestampString = "514299736.677723"
+            timestampString = "514301062.525313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
             landmarkName = "-addMJRefresh"
             landmarkType = "7">
          </BreakpointContent>
