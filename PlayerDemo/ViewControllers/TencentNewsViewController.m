@@ -23,20 +23,27 @@
 
 
 @interface TencentNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate>{
-    NSMutableArray *dataSource;
+    
     WMPlayer *wmPlayer;
     NSIndexPath *currentIndexPath;
     BOOL isSmallScreen;
 }
 @property(nonatomic,retain)VideoCell *currentCell;
+@property(nonatomic,retain)NSMutableArray *dataSource;
 
 @end
 
 @implementation TencentNewsViewController
+-(NSMutableArray *)dataSource{
+    if (_dataSource==nil) {
+        _dataSource = [NSMutableArray array];
+
+    }
+   return _dataSource;
+}
 - (instancetype)init{
     self = [super init];
     if (self) {
-        dataSource = [NSMutableArray array];
         isSmallScreen = NO;
     }
     return self;
@@ -370,7 +377,7 @@
     [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
 }
 -(void)loadData{
-    [dataSource addObjectsFromArray:[AppDelegate shareAppDelegate].videoArray];
+    [self.dataSource addObjectsFromArray:[AppDelegate shareAppDelegate].videoArray];
     [self.table reloadData];
 
 }
@@ -382,9 +389,10 @@ __weak __typeof(&*self)weakSelf = self;
         [weakSelf addHudWithMessage:@"加载中..."];
      [[DataManager shareManager] getSIDArrayWithURLString:@"http://c.m.163.com/nc/video/home/0-10.html"
           success:^(NSArray *sidArray, NSArray *videoArray) {
-              dataSource =[NSMutableArray arrayWithArray:videoArray];
+              [self.dataSource removeAllObjects];
+              [self.dataSource addObjectsFromArray:videoArray];
               dispatch_async(dispatch_get_main_queue(), ^{
-                  if (currentIndexPath.row>dataSource.count) {
+                  if (currentIndexPath.row>self.dataSource.count) {
                       [weakSelf releaseWMPlayer];
                   }
                   [weakSelf removeHud];
@@ -404,11 +412,11 @@ __weak __typeof(&*self)weakSelf = self;
  tableView.mj_header.automaticallyChangeAlpha = YES;
  // 上拉刷新
  tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-     NSString *URLString = [NSString stringWithFormat:@"http://c.m.163.com/nc/video/home/%ld-10.html",dataSource.count - dataSource.count%10];
+     NSString *URLString = [NSString stringWithFormat:@"http://c.m.163.com/nc/video/home/%ld-10.html",self.dataSource.count - self.dataSource.count%10];
      [weakSelf addHudWithMessage:@"加载中..."];
      [[DataManager shareManager] getSIDArrayWithURLString:URLString
       success:^(NSArray *sidArray, NSArray *videoArray) {
-          [dataSource addObjectsFromArray:videoArray];
+          [self.dataSource addObjectsFromArray:videoArray];
           dispatch_async(dispatch_get_main_queue(), ^{
               [weakSelf removeHud];
               [tableView reloadData];
@@ -431,7 +439,7 @@ __weak __typeof(&*self)weakSelf = self;
     return 1;
 }
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return dataSource.count;
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 274;
@@ -439,7 +447,7 @@ __weak __typeof(&*self)weakSelf = self;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"VideoCell";
     VideoCell *cell = (VideoCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-    cell.model = [dataSource objectAtIndex:indexPath.row];
+    cell.model = [self.dataSource objectAtIndex:indexPath.row];
     [cell.playBtn addTarget:self action:@selector(startPlayVideo:) forControlEvents:UIControlEventTouchUpInside];
     cell.playBtn.tag = indexPath.row;
     
@@ -484,7 +492,7 @@ __weak __typeof(&*self)weakSelf = self;
     }
     self.currentCell = (VideoCell *)cellView;
     
-    VideoModel *model = [dataSource objectAtIndex:sender.tag];
+    VideoModel *model = [self.dataSource objectAtIndex:sender.tag];
     
     if (isSmallScreen) {
         [self releaseWMPlayer];
@@ -550,7 +558,7 @@ __weak __typeof(&*self)weakSelf = self;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    VideoModel *   model = [dataSource objectAtIndex:indexPath.row];
+    VideoModel *   model = [self.dataSource objectAtIndex:indexPath.row];
 
     DetailViewController *detailVC = [[DetailViewController alloc]init];
     detailVC.URLString  = model.m3u8_url;
