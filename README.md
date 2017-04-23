@@ -1,4 +1,4 @@
-# WMPlayer 3.0.0
+# WMPlayer 4.0.0(修复视频全屏的bug)
 WMPlayer视频播放器，AVPlayer的封装，继承UIView，想怎么玩就怎么玩。支持播放mp4、m3u8、3gp、mov，网络和本地视频同时支持。全屏和小屏播放同时支持。
 cell中播放视频，全屏小屏切换自如。
 
