@@ -62,6 +62,13 @@ cell中播放视频，全屏小屏切换自如。
 stackoverflow中有详细的解释，解决方法也有。地址为：
 http://stackoverflow.com/questions/26408264/xcode-6-0-1-begins-with-breakpoint-thread-1-breakpoint-1-2
 
+
+# 升级iOS10后,AVPlayer有时候播放不了的问题
+参考以下链接
+http://blog.csdn.net/viiimaus/article/details/54926022
+https://developer.apple.com/reference/avfoundation/avplayer/1643482-automaticallywaitstominimizestal
+
+
 The problem is that you have a global Exceptions breakpoint. For some reason, an exception is being thrown. But not every exception is fatal; this one is being caught internally by Cocoa. So, you have two choices:
 
 Hit the Exceptions breakpoint and resume.
