@@ -1,4 +1,4 @@
-# WMPlayer 3.0.0
+# WMPlayer 4.0.0(修复视频全屏的bug)
 WMPlayer视频播放器，AVPlayer的封装，继承UIView，想怎么玩就怎么玩。支持播放mp4、m3u8、3gp、mov，网络和本地视频同时支持。全屏和小屏播放同时支持。
 cell中播放视频，全屏小屏切换自如。
 
@@ -53,14 +53,21 @@ cell中播放视频，全屏小屏切换自如。
     2、旋转ViewController
     思路：状态栏旋转，然后处理视频播放器的逻辑。（记住项目设置里面勾选☑️其他三个屏幕方向）
     案例：今日头条、新浪新闻
-    代码：详见demo中的新浪tab对应的SinaNewsViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。（如果需要播放视频的时候弹出键盘或者系统的UIAlertView，那么暂时不适合用此播放器，没做适配）。
+    代码：详见demo中的新浪tab对应的SinaNewsViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
     
     
     
-#另外关于程序崩溃在main中，但是手动的过了这个崩溃断点又可以继续运行，貌似又没有崩溃的问题，解释如下：(有些人不知道，总说我在代码中下毒了，冤枉！！！)
+# 另外关于程序崩溃在main中，但是手动的过了这个崩溃断点又可以继续运行，貌似又没有崩溃的问题，解释如下：(有些人不知道，总说我在代码中下毒了，冤枉！！！)
 这是异常断点导致的，cocoa在某些框架中会加异常的捕获，而这个是系统级别的，AVFoundation这个框架就是。
 stackoverflow中有详细的解释，解决方法也有。地址为：
 http://stackoverflow.com/questions/26408264/xcode-6-0-1-begins-with-breakpoint-thread-1-breakpoint-1-2
+
+
+# 升级iOS10后,AVPlayer有时候播放不了的问题
+参考以下链接
+http://blog.csdn.net/viiimaus/article/details/54926022
+https://developer.apple.com/reference/avfoundation/avplayer/1643482-automaticallywaitstominimizestal
+
 
 The problem is that you have a global Exceptions breakpoint. For some reason, an exception is being thrown. But not every exception is fatal; this one is being caught internally by Cocoa. So, you have two choices:
 
