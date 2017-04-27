@@ -441,8 +441,13 @@ __weak __typeof(&*self)weakSelf = self;
     detailVC.title = model.title;
 
     //    detailVC.URLString = model.mp4_url;
-    [self.navigationController pushViewController:detailVC animated:YES];
-    
+    if (indexPath.row%2) {//present测试
+        [self presentViewController:detailVC animated:YES completion:^{
+            
+        }];
+    }else{//push测试
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 /**
  *  释放WMPlayer

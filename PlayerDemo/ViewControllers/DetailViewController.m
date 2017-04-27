@@ -42,6 +42,16 @@
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
+    //对于present出来的控制器，要主动的更新一个约束，让wmPlayer全屏，更安全
+    if (wmPlayer.isFullscreen==NO) {
+        [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
+            make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
+            make.center.equalTo(wmPlayer.superview);
+        }];
+        wmPlayer.isFullscreen = YES;
+        self.enablePanGesture = NO;
+    }
     return UIInterfaceOrientationLandscapeRight;
 }
 ///播放器事件
@@ -58,7 +68,14 @@
         self.enablePanGesture = YES;
     }else{
         [self releaseWMPlayer];
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.presentingViewController) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
+
+        }
     }
 }
 ///播放暂停
@@ -82,19 +99,7 @@
     }
 }
 ///单击播放器
--(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
-    NSLog(@"didSingleTaped");
-//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"测试" message:@"测试旋转屏" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-//    [alertView show];
-//    
-//    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"测试" message:@"测试旋转屏" preferredStyle:UIAlertControllerStyleAlert];
-//    [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }]];
-//    [self presentViewController:alertVC animated:YES completion:^{
-//    }];
-
-    
+-(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{    
     
 }
 ///双击播放器
@@ -218,6 +223,38 @@
         make.right.equalTo(self.view).with.offset(0);
         make.height.equalTo(@(playerFrame.size.height));
     }];
+    
+    //测试代码
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"测试" message:@"关闭播放器" preferredStyle:UIAlertControllerStyleAlert];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (self.presentingViewController) {
+                
+                [self dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
+            }else{
+                if (wmPlayer.isFullscreen) {//由于是push出来的，所以如果在全屏状态下，先转为非全屏（也就是人像模式Portrait）
+                    
+                    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+                    [self toOrientation:UIInterfaceOrientationPortrait];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self.navigationController popViewControllerAnimated:YES];
+                    });
+
+                }else{
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+           
+        }]];
+        [self presentViewController:alertVC animated:YES completion:^{
+        }];
+    });
+    
 }
 
 - (void)releaseWMPlayer
