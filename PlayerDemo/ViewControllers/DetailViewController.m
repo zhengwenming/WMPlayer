@@ -63,7 +63,12 @@
         //刷新
         [UIViewController attemptRotationToDeviceOrientation];
         
-        
+        [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).with.offset(0);
+            make.left.equalTo(self.view).with.offset(0);
+            make.right.equalTo(self.view).with.offset(0);
+            make.height.equalTo(@(playerFrame.size.height));
+        }];
         wmPlayer.isFullscreen = NO;
         self.enablePanGesture = YES;
     }else{

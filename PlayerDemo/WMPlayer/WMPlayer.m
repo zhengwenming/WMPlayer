@@ -655,6 +655,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.URLString]];
     
     self.player = [AVPlayer playerWithPlayerItem:_currentItem];
+    self.player.automaticallyWaitsToMinimizeStalling = NO;
     self.player.usesExternalPlaybackWhileExternalScreenIsActive=YES;
     //AVPlayerLayer
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
