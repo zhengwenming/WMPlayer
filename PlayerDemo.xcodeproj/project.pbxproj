@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */; };
 		701C246A1E0844C600232AAB /* WMPlayer.gif in Resources */ = {isa = PBXBuildFile; fileRef = 701C24691E0844C600232AAB /* WMPlayer.gif */; };
 		BF1624601DF50011006209D1 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623B81DF50011006209D1 /* DataManager.m */; };
 		BF1624611DF50011006209D1 /* SidModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623BA1DF50011006209D1 /* SidModel.m */; };
@@ -68,11 +69,10 @@
 		C4EC7F4A1DF4FCD3006E9820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F481DF4FCD3006E9820 /* Main.storyboard */; };
 		C4EC7F4C1DF4FCD3006E9820 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F4B1DF4FCD3006E9820 /* Assets.xcassets */; };
 		C4EC7F4F1DF4FCD3006E9820 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EC7F4D1DF4FCD3006E9820 /* LaunchScreen.storyboard */; };
-		E2D7122D2137BEF7266E17DE /* libPods-PlayerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405F2043D18D2B06CC91D75F /* libPods-PlayerDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		405F2043D18D2B06CC91D75F /* libPods-PlayerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlayerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		701C24691E0844C600232AAB /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 		BF1624C01DF50182006209D1 /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
 		BF1624C11DF50182006209D1 /* WMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayer.h; sourceTree = "<group>"; };
 		BF1624C21DF50182006209D1 /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
-		C4EC7F3C1DF4FCD2006E9820 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4EC7F3C1DF4FCD2006E9820 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PlayerDemo.app; path = "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/build/Debug-iphoneos/PlayerDemo.app"; sourceTree = "<absolute>"; };
 		C4EC7F401DF4FCD2006E9820 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4EC7F421DF4FCD2006E9820 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4EC7F431DF4FCD2006E9820 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2D7122D2137BEF7266E17DE /* libPods-PlayerDemo.a in Frameworks */,
+				507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +216,7 @@
 		9CB412B180A011467ACD0171 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				405F2043D18D2B06CC91D75F /* libPods-PlayerDemo.a */,
+				3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -461,7 +461,6 @@
 		C4EC7F3D1DF4FCD2006E9820 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4EC7F3C1DF4FCD2006E9820 /* PlayerDemo.app */,
 			);
 			name = Products;
 			path = ..;
@@ -532,7 +531,7 @@
 				TargetAttributes = {
 					C4EC7F3B1DF4FCD2006E9820 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = XJVZHH6395;
+						DevelopmentTeam = D66L8SMRE3;
 					};
 				};
 			};
@@ -794,13 +793,15 @@
 			baseConfigurationReference = AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XJVZHH6395;
+				DEVELOPMENT_TEAM = D66L8SMRE3;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wenming;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asiainfo.wenming;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Debug;
 		};
@@ -809,13 +810,15 @@
 			baseConfigurationReference = A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XJVZHH6395;
+				DEVELOPMENT_TEAM = D66L8SMRE3;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wenming;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asiainfo.wenming;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Release;
 		};

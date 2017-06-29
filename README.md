@@ -77,8 +77,6 @@ Hit the Exceptions breakpoint and resume.
 Temporarily turn off the Exceptions breakpoint (in the Breakpoints navigator).
 It is a little infuriating that this happens, but that's how it is. There are a lot of situations where Cocoa throws and catches an exception internally. (For example, AVFoundation does this a lot.) This would normally go unnoticed, but when you have a global Exceptions breakpoint enabled, it causes a pause whenever this occurs.
 
-
-
 依赖库为Masonry。
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
 

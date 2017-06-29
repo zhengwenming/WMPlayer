@@ -8,7 +8,7 @@
 
 #import "DetailViewController.h"
 #import "WMPlayer.h"
-
+#import "Masonry.h"
 @interface DetailViewController ()<WMPlayerDelegate>{
     WMPlayer  *wmPlayer;
     CGRect     playerFrame;
