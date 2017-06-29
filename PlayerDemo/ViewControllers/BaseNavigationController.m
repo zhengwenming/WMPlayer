@@ -14,18 +14,12 @@
 #import "BaseNavigationController.h"
 #import "AppDelegate.h"
 
-
 // 打开边界多少距离才触发pop
 #define DISTANCE_TO_POP 80
 
-
 @interface BaseNavigationController ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
-
 @end
-
-
-
 
 @implementation BaseNavigationController
 // 是否支持自动转屏

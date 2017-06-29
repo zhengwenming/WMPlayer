@@ -1,0 +1,22 @@
+dependencies: \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/WMPlayer/WMPlayer.m \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Modules/module.modulemap \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/NSLayoutConstraint+MASDebugAdditions.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASViewConstraint.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/NSArray+MASShorthandAdditions.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/NSArray+MASAdditions.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/ViewController+MASAdditions.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/View+MASShorthandAdditions.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASViewAttribute.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/View+MASAdditions.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/Masonry.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASLayoutConstraint.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASConstraintMaker.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASConstraint+Private.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASUtilities.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASConstraint.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/MASCompositeConstraint.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/Masonry-umbrella.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/WMPlayer/WMPlayer.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/WMPlayer/View/FastForwardView.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/WMPlayer/View/WMLightView.h
