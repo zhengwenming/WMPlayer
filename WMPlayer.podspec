@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.license      = "MIT"
     s.authors      = { 'zhengwenming' => '740747055@qq.com' }
     s.platform     = :ios, '8.0'
-    s.source       = { :git => 'https://github.com/zhengwenming/WMPlayer.git',:tag => "3.0.5" }
+    s.source       = { :git => 'https://github.com/wvqusrtg/WMPlayer.git',:tag => "3.0.5" }
 
     s.source_files  = "WMPlayer", "WMPlayer/**/*.{h,m}"
     s.resource     = "WMPlayer/WMPlayer.bundle"
