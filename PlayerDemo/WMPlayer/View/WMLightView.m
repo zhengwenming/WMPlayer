@@ -7,7 +7,6 @@
 //
 
 #import "WMLightView.h"
-
 #import "WMPlayer.h"
 
 #define LIGHT_VIEW_COUNT 16

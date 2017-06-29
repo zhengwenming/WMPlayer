@@ -19,7 +19,7 @@
 #import "DetailViewController.h"
 #import "AppDelegate.h"
 #import "MJRefresh.h"
-#import <Masonry.h>
+#import "Masonry.h"
 
 
 @interface TencentNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate>{

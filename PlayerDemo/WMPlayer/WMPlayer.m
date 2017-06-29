@@ -11,9 +11,8 @@
  Copyright © 2016年 郑文明. All rights reserved.
  */
 #import <Masonry/Masonry.h>
-
-
 #import "WMPlayer.h"
+
 #import "WMLightView.h"
 #define Window [UIApplication sharedApplication].keyWindow
 #define iOS8 [UIDevice currentDevice].systemVersion.floatValue >= 8.0
