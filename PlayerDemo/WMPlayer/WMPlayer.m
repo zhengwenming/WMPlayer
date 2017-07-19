@@ -220,9 +220,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     
     
-    
-    
-    
     //slider
     self.progressSlider = [[UISlider alloc]init];
     self.progressSlider.minimumValue = 0.0;
@@ -658,7 +655,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.frame = self.contentView.layer.bounds;
     //WMPlayer视频的默认填充模式，AVLayerVideoGravityResizeAspect
-    self.playerLayer.videoGravity = AVLayerVideoGravityResize;
+    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [self.contentView.layer insertSublayer:_playerLayer atIndex:0];
     self.state = WMPlayerStateBuffering;
 }
