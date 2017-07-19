@@ -73,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70176A0D1F1F9612003AE71B /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		701C24691E0844C600232AAB /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -182,7 +183,6 @@
 		BF1624C01DF50182006209D1 /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
 		BF1624C11DF50182006209D1 /* WMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayer.h; sourceTree = "<group>"; };
 		BF1624C21DF50182006209D1 /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
-		C4EC7F3C1DF4FCD2006E9820 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PlayerDemo.app; path = "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/build/Debug-iphoneos/PlayerDemo.app"; sourceTree = "<absolute>"; };
 		C4EC7F401DF4FCD2006E9820 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4EC7F421DF4FCD2006E9820 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4EC7F431DF4FCD2006E9820 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -461,6 +461,7 @@
 		C4EC7F3D1DF4FCD2006E9820 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				70176A0D1F1F9612003AE71B /* PlayerDemo.app */,
 			);
 			name = Products;
 			path = ..;
@@ -517,7 +518,7 @@
 			);
 			name = PlayerDemo;
 			productName = PlayerDemo;
-			productReference = C4EC7F3C1DF4FCD2006E9820 /* PlayerDemo.app */;
+			productReference = 70176A0D1F1F9612003AE71B /* PlayerDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -531,7 +532,7 @@
 				TargetAttributes = {
 					C4EC7F3B1DF4FCD2006E9820 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = D66L8SMRE3;
+						DevelopmentTeam = F57QM5EC39;
 					};
 				};
 			};
@@ -793,7 +794,7 @@
 			baseConfigurationReference = AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D66L8SMRE3;
+				DEVELOPMENT_TEAM = F57QM5EC39;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -810,7 +811,7 @@
 			baseConfigurationReference = A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D66L8SMRE3;
+				DEVELOPMENT_TEAM = F57QM5EC39;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
