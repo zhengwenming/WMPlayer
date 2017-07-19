@@ -131,9 +131,7 @@
     [super layoutSubviews];
     self.transform = [WMPlayer getCurrentDeviceOrientation];
     self.transform = CGAffineTransformIdentity;
-//    self.center = CGPointMake(([UIScreen mainScreen].bounds.size.width) * 0.5, ([UIScreen mainScreen].bounds.size.height) * 0.5);
     self.center = [UIApplication sharedApplication].keyWindow.center;
-
 }
 - (void)dealloc {
     self.lightViewArr = nil;
