@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     s.authors      = { 'zhengwenming' => '740747055@qq.com',
                         "倪新生" => "1911398892@qq.com" }
     s.platform     = :ios, '8.0'
-    s.source       = { :git => 'https://github.com/wvqusrtg/WMPlayer/tree/nixs',:tag => "3.0.6" }
+    s.source       = { :git => 'https://github.com/zhengwenming/WMPlayer.git',:tag => "3.0.6" }
 
     s.source_files  = "WMPlayer", "WMPlayer/**/*.{h,m}"
     s.resource     = "WMPlayer/WMPlayer.bundle"
