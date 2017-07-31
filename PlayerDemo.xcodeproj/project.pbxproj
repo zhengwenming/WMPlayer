@@ -532,7 +532,7 @@
 				TargetAttributes = {
 					C4EC7F3B1DF4FCD2006E9820 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = F57QM5EC39;
+						DevelopmentTeam = D66L8SMRE3;
 					};
 				};
 			};
@@ -794,7 +794,7 @@
 			baseConfigurationReference = AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F57QM5EC39;
+				DEVELOPMENT_TEAM = D66L8SMRE3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -811,7 +811,7 @@
 			baseConfigurationReference = A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F57QM5EC39;
+				DEVELOPMENT_TEAM = D66L8SMRE3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

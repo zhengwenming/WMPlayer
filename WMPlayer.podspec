@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
     s.platform     = :ios, '8.0'
     s.source       = { :git => 'https://github.com/zhengwenming/WMPlayer.git',:tag => "3.0.5" }
 
-    s.source_files  = "WMPlayer", "WMPlayer/**/*.{h,m}"
+    s.source_files  = "WMPlayer", "WMPlayer/**/*.{h,m,xib}"
     s.resource     = "WMPlayer/WMPlayer.bundle"
     s.framework    = "UIKit","MediaPlayer","AVFoundation"
 
