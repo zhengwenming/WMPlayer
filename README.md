@@ -3,6 +3,7 @@
 ---
 微信扫码关注文明的iOS开发公众号
 或者微信搜索“iOS开发by文明”
+
 ![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/gzh.jpg)
 
 ---
