@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */; };
 		701C246A1E0844C600232AAB /* WMPlayer.gif in Resources */ = {isa = PBXBuildFile; fileRef = 701C24691E0844C600232AAB /* WMPlayer.gif */; };
+		701DCC8F1F52FD27003ACAB6 /* gzh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 701DCC8E1F52FD27003ACAB6 /* gzh.jpg */; };
+		70B3301D1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */; };
 		BF1624601DF50011006209D1 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623B81DF50011006209D1 /* DataManager.m */; };
 		BF1624611DF50011006209D1 /* SidModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623BA1DF50011006209D1 /* SidModel.m */; };
 		BF1624621DF50011006209D1 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623BC1DF50011006209D1 /* VideoModel.m */; };
@@ -75,6 +77,9 @@
 		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70176A0D1F1F9612003AE71B /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		701C24691E0844C600232AAB /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
+		701DCC8E1F52FD27003ACAB6 /* gzh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gzh.jpg; sourceTree = "<group>"; };
+		70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GestureStateBlock.h"; sourceTree = "<group>"; };
+		70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+GestureStateBlock.m"; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BF1623B71DF50011006209D1 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -353,6 +358,8 @@
 		BF1624261DF50011006209D1 /* ScreenShotBack */ = {
 			isa = PBXGroup;
 			children = (
+				70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */,
+				70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */,
 				BF1624281DF50011006209D1 /* ScreenShotView.h */,
 				BF1624291DF50011006209D1 /* ScreenShotView.m */,
 			);
@@ -492,6 +499,7 @@
 		C4EC7F3F1DF4FCD2006E9820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				701DCC8E1F52FD27003ACAB6 /* gzh.jpg */,
 				701C24691E0844C600232AAB /* WMPlayer.gif */,
 				C4EC7F401DF4FCD2006E9820 /* main.m */,
 			);
@@ -567,6 +575,7 @@
 				BF1624AA1DF50011006209D1 /* VideoCell.xib in Resources */,
 				BF1624841DF50011006209D1 /* MBProgressHUD.bundle in Resources */,
 				BF1624941DF50011006209D1 /* MJRefresh.bundle in Resources */,
+				701DCC8F1F52FD27003ACAB6 /* gzh.jpg in Resources */,
 				BF1624C41DF50182006209D1 /* FastForwardView.xib in Resources */,
 				C4EC7F4A1DF4FCD3006E9820 /* Main.storyboard in Resources */,
 			);
@@ -653,6 +662,7 @@
 				BF16249C1DF50011006209D1 /* SDWebImageCompat.m in Sources */,
 				BF1624A41DF50011006209D1 /* UIImage+MultiFormat.m in Sources */,
 				BF1624C71DF50182006209D1 /* WMPlayer.m in Sources */,
+				70B3301D1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m in Sources */,
 				BF1624931DF50011006209D1 /* MJRefreshStateHeader.m in Sources */,
 				BF16248F1DF50011006209D1 /* MJRefreshBackNormalFooter.m in Sources */,
 				BF1624A01DF50011006209D1 /* SDWebImageManager.m in Sources */,

@@ -14,6 +14,8 @@
     WMPlayer  *wmPlayer;
     CGRect     playerFrame;
     BOOL isHiddenStatusBar;//记录状态的隐藏显示
+    BOOL isRotateEable;//记录支不支持旋转
+
 }
 
 @end
@@ -30,12 +32,16 @@
 }
 //视图控制器实现的方法
 - (BOOL)shouldAutorotate{
+    if (isRotateEable==NO) {
+        return NO;
+    }
     //是否允许转屏
     return YES;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
+    
     UIInterfaceOrientationMask result = [super supportedInterfaceOrientations];
     //viewController所支持的全部旋转方向
     return result;
@@ -174,6 +180,9 @@
 
 //点击进入,退出全屏,或者监测到屏幕旋转去调用的方法
 -(void)toOrientation:(UIInterfaceOrientation)orientation{
+    if (isRotateEable==NO) {
+        return;
+    }
     if (orientation ==UIInterfaceOrientationPortrait) {//
         [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).with.offset(0);
@@ -210,6 +219,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    isRotateEable = YES;
     playerFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.width)* 9 / 16);
     
     wmPlayer = [[WMPlayer alloc]init];
@@ -260,6 +270,26 @@
         [self presentViewController:alertVC animated:YES completion:^{
         }];
     });
+    
+    
+    ///手势开始时刻回调block
+    self.gestureBeganBlock = ^(UIViewController *viewController) {
+        NSLog(@"gestureBegan");
+        isRotateEable = NO;
+    };
+    
+    ///手势作用期间回调block
+    self.gestureChangedBlock = ^(UIViewController *viewController) {
+        NSLog(@"gestureChanged");
+        isRotateEable = NO;
+    };
+    
+    ///手势结束时刻回调block
+    self.gestureEndedBlock = ^(UIViewController *viewController) {
+        NSLog(@"gestureEnded");
+        isRotateEable = YES;
+    };
+    
     
 }
 
