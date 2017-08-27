@@ -1,7 +1,11 @@
 #### WMPlayer 4.0.0(修复视频全屏的bug,具体表现为键盘和状态栏方向不一致)
 #### WMPlayer 4.1.0(修复present出来WMPlayer无法全屏显示的bug)
 ---
+微信扫码关注文明的iOS开发公众号
+或者微信搜索“iOS开发by文明”
+![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/gzh.jpg)
 
+---
 ![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
 ![Pod version](https://img.shields.io/cocoapods/v/WMPlayer.svg?style=flat)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
