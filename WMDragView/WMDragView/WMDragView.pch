@@ -1,0 +1,45 @@
+//
+//  WMDragView.pch
+//  WMDragView
+//
+//  Created by zhengwenming on 2017/8/19.
+//  Copyright © 2017年 zhengwenming. All rights reserved.
+//
+
+#ifndef WMDragView_pch
+#define WMDragView_pch
+
+
+
+#define kThemeColor ([UIColor colorWithRed:252.0/255.0 green:252.0/255.0 blue:252.0/255.0 alpha:1.0])
+
+//#define kTintColor ([UIColor colorWithRed:67.0/255.0 green:194.0/255.0 blue:71.0/255.0 alpha:1.0])
+#define kTintColor [UIColor redColor]
+
+
+
+
+
+///适配相关
+#define kDeviceVersion [[UIDevice currentDevice].systemVersion floatValue]
+
+#define kTopScrollerViewHight 44
+#define kTabBarHeight 49
+#define kNavbarHeight ((kDeviceVersion>=7.0)? 64 :44 )
+
+#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define TheUserDefaults [NSUserDefaults standardUserDefaults]
+
+
+/** 弱引用 */
+#define WEAKSELF __weak typeof(self) weakSelf = self
+
+
+
+#import "WMDragView.h"
+
+
+
+#endif /* WMDragView_pch */

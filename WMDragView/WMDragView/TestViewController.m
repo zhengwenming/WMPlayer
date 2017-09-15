@@ -33,18 +33,18 @@
     logoView.center = self.view.center;
 
     ///点击block
-    logoView.ClickDragViewBlock = ^(WMDragView *dragView){
+    logoView.clickDragViewBlock = ^(WMDragView *dragView){
         [dragView.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://weixintest.ihk.cn/ihkwx_upload/userPhoto/15914867203-1461920972642.jpg"] placeholderImage:[UIImage imageNamed:@"logo1024"]];
         NSLog(@"点击block");
 
     };
     ///开始拖曳block
-    logoView.BeginDragBlock = ^(WMDragView *dragView){
+    logoView.beginDragBlock = ^(WMDragView *dragView){
         NSLog(@"开始拖曳");
     };
     
     ///结束拖曳block
-    logoView.EndDragBlock = ^(WMDragView *dragView){
+    logoView.endDragBlock = ^(WMDragView *dragView){
         NSLog(@"结束拖曳");
 
     };

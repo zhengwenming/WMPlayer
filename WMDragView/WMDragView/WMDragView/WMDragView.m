@@ -10,8 +10,9 @@
 
 @interface WMDragView ()
 @property (nonatomic,assign) CGPoint startPoint;
-@property (nonatomic,assign) CGPoint startFramePoint;
 @property (nonatomic,strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic,assign) CGFloat previousScale;
+
 
 @end
 
@@ -38,9 +39,9 @@
  */
 -(UIButton *)button{
     if (_button==nil) {
-        _button = [[UIButton alloc]init];
+        _button = [UIButton buttonWithType:UIButtonTypeCustom];
         _button.clipsToBounds = YES;
-        _button.enabled = NO;
+        _button.userInteractionEnabled = NO;
         _button.frame = (CGRect){CGPointZero,self.bounds.size};
         [self.contentViewForDrag addSubview:_button];
     }
@@ -65,8 +66,7 @@
     }
     return self;
 }
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         [self setUp];
@@ -94,15 +94,12 @@
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDragView)];
     [self addGestureRecognizer:singleTap];
     
-    
     //添加移动手势可以拖动
-    _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragAction:)];
-    _panGestureRecognizer.minimumNumberOfTouches = 1;
-    _panGestureRecognizer.maximumNumberOfTouches = 1;
-    [self addGestureRecognizer:_panGestureRecognizer];
-    
+    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragAction:)];
+    self.panGestureRecognizer.minimumNumberOfTouches = 1;
+    self.panGestureRecognizer.maximumNumberOfTouches = 1;
+    [self addGestureRecognizer:self.panGestureRecognizer];
 }
-
 /**
  拖动事件
  @param pan 拖动手势
@@ -113,32 +110,26 @@
         return;
     }
     switch (pan.state) {
-            ///开始拖动
-        case UIGestureRecognizerStateBegan:{
-            
-            if (self.BeginDragBlock) {
-                self.BeginDragBlock(self);
+        case UIGestureRecognizerStateBegan:{///开始拖动
+            if (self.beginDragBlock) {
+                self.beginDragBlock(self);
             }
             //  注意一旦你完成上述的移动，将translation重置为0十分重要。否则translation每次都会叠加
-            [pan setTranslation:CGPointMake(0, 0) inView:self];
+            [pan setTranslation:CGPointZero inView:self];
             //保存触摸起始点位置
             self.startPoint = [pan translationInView:self];
             //该view置于最前
-            [[self superview] bringSubviewToFront:self];
+            [self.superview bringSubviewToFront:self];
             break;
         }
-            ///拖动中
-        case UIGestureRecognizerStateChanged:
-        {
-           
-            //计算位移=当前位置-起始位置
-            if (self.DuringDragBlock) {
-                self.DuringDragBlock(self);
+        case UIGestureRecognizerStateChanged:{///拖动中
+            //计算位移 = 当前位置 - 起始位置
+            if (self.duringDragBlock) {
+                self.duringDragBlock(self);
             }
             CGPoint point = [pan translationInView:self];
             float dx;
             float dy;
-            
             switch (self.dragDirection) {
                 case WMDragDirectionAny:
                     dx = point.x - self.startPoint.x;
@@ -159,60 +150,34 @@
             }
             
             //计算移动后的view中心点
-            CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
-            /* 限制用户不可将视图托出给定的范围 */
-//            float halfx = CGRectGetMidX(self.bounds);
-        
-//                        newcenter.x = MAX(halfx + self.freeRect.origin.x , newcenter.x);
-//            x坐标右边界
-//                        newcenter.x = MIN(self.freeRect.size.width+self.freeRect.origin.x - halfx, newcenter.x);
-            
-            
-//            if (self.isKeepBounds) {
-//                //y坐标同理
-//                            float halfy = CGRectGetMidY(self.bounds);
-//                //y的上面进行限制
-//                            newcenter.y = MAX(halfy + self.freeRect.origin.y, newcenter.y);
-//                //y的下面进行限制
-//                            newcenter.y = MIN(self.freeRect.size.height+self.freeRect.origin.y - halfy, newcenter.y);
-//            }
-           
-            
+            CGPoint newCenter = CGPointMake(self.center.x + dx, self.center.y + dy);
             //移动view
-            self.center = newcenter;
+            self.center = newCenter;
             //  注意一旦你完成上述的移动，将translation重置为0十分重要。否则translation每次都会叠加
-            [pan setTranslation:CGPointMake(0, 0) inView:self];
+            [pan setTranslation:CGPointZero inView:self];
             break;
         }
-            ///拖动结束
-        case UIGestureRecognizerStateEnded:
-        {
+        case UIGestureRecognizerStateEnded:{///拖动结束
             [self keepBounds];
-            
-            if (self.EndDragBlock) {
-                self.EndDragBlock(self);
+            if (self.endDragBlock) {
+                self.endDragBlock(self);
             }
-
             break;
         }
         default:
             break;
     }
-   
 }
 ///点击事件
 -(void)clickDragView{
-    if (self.ClickDragViewBlock) {
-        self.ClickDragViewBlock(self);
+    if (self.clickDragViewBlock) {
+        self.clickDragViewBlock(self);
     }
 }
-- (void)keepBounds
-{
+- (void)keepBounds{
     //中心点判断
     float centerX = self.freeRect.origin.x+(self.freeRect.size.width - self.frame.size.width)/2;
-
     CGRect rect = self.frame;
-
     if (self.isKeepBounds==NO) {//没有黏贴边界的效果
         if (self.frame.origin.x < self.freeRect.origin.x) {
             CGContextRef context = UIGraphicsGetCurrentContext();
@@ -220,7 +185,7 @@
             [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
             [UIView setAnimationDuration:0.5];
             rect.origin.x = self.freeRect.origin.x;
-            [self setFrame:rect];
+            self.frame = rect;
             [UIView commitAnimations];
         } else if(self.freeRect.origin.x+self.freeRect.size.width < self.frame.origin.x+self.frame.size.width){
             CGContextRef context = UIGraphicsGetCurrentContext();
@@ -228,7 +193,7 @@
             [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
             [UIView setAnimationDuration:0.5];
             rect.origin.x = self.freeRect.origin.x+self.freeRect.size.width-self.frame.size.width;
-            [self setFrame:rect];
+            self.frame = rect;
             [UIView commitAnimations];
         }
     }else if(self.isKeepBounds==YES){//自动粘边
@@ -238,7 +203,7 @@
             [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
             [UIView setAnimationDuration:0.5];
             rect.origin.x = self.freeRect.origin.x;
-            [self setFrame:rect];
+            self.frame = rect;
             [UIView commitAnimations];
         } else {
             CGContextRef context = UIGraphicsGetCurrentContext();
@@ -246,7 +211,7 @@
             [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
             [UIView setAnimationDuration:0.5];
             rect.origin.x =self.freeRect.origin.x+self.freeRect.size.width - self.frame.size.width;
-            [self setFrame:rect];
+            self.frame = rect;
             [UIView commitAnimations];
         }
     }
@@ -257,7 +222,7 @@
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationDuration:0.5];
         rect.origin.y = self.freeRect.origin.y;
-        [self setFrame:rect];
+        self.frame = rect;
         [UIView commitAnimations];
     } else if(self.freeRect.origin.y+self.freeRect.size.height< self.frame.origin.y+self.frame.size.height){
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -265,7 +230,7 @@
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationDuration:0.5];
         rect.origin.y = self.freeRect.origin.y+self.freeRect.size.height-self.frame.size.height;
-        [self setFrame:rect];
+        self.frame = rect;
         [UIView commitAnimations];
     }
    }

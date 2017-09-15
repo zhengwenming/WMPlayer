@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>vcName</key>
+		<string>APIShowViewController</string>
+		<key>title</key>
+		<string>API介绍</string>
+		<key>icon</key>
+		<string>tab0</string>
+		<key>selectIcon</key>
+		<string>tab0on</string>
+	</dict>
+	<dict>
+		<key>vcName</key>
+		<string>SceneOneViewController</string>
+		<key>title</key>
+		<string>场景1</string>
+		<key>icon</key>
+		<string>tab1</string>
+		<key>selectIcon</key>
+		<string>tab1on</string>
+	</dict>
+	<dict>
+		<key>vcName</key>
+		<string>SceneTwoViewController</string>
+		<key>title</key>
+		<string>场景2</string>
+		<key>icon</key>
+		<string>tab2</string>
+		<key>selectIcon</key>
+		<string>tab2on</string>
+	</dict>
+</array>
+</plist>

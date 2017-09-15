@@ -18,8 +18,9 @@ typedef NS_ENUM(NSInteger, WMDragDirection) {
 
 @interface WMDragView : UIView<UIGestureRecognizerDelegate>
 
+//--------------------------------属性API--------------------------------------
 /**
- 是不是能拖曳，
+ 是不是能拖曳，默认为YES
  YES，能拖曳
  NO，不能拖曳
  */
@@ -54,35 +55,40 @@ typedef NS_ENUM(NSInteger, WMDragDirection) {
 @property (nonatomic,strong) UIButton *button;
 
 /**
- 内容view，命名为contentViewForDrag，因为很多第三方的库继承UIView，里面同样有contentView这个属性
- 防止冲突，这里特别命名为contentViewForDrag
+ 内容view，命名为contentViewForDrag，因为很多其他开源的第三方的库，里面同样有contentView这个属性
+ ，这里特意命名为contentViewForDrag以防止冲突
  */
 @property (nonatomic,strong) UIView *contentViewForDrag;
 
 /**
+ 是不是总保持在父视图边界，默认为NO,没有黏贴边界效果
+ isKeepBounds = YES，它将自动黏贴边界，而且是最近的边界
+ isKeepBounds = NO， 它将不会黏贴在边界，它是free(自由)状态，跟随手指到任意位置，但是也不可以拖出给定的范围frame
+ */
+@property (nonatomic,assign) BOOL isKeepBounds;
+
+
+//--------------------------------block回调--------------------------------------
+
+/**
  点击的回调block
  */
-@property (nonatomic,copy) void(^ClickDragViewBlock)(WMDragView *dragView);
+@property (nonatomic,copy) void(^clickDragViewBlock)(WMDragView *dragView);
 
 /**
  开始拖动的回调block
  */
-@property (nonatomic,copy) void(^BeginDragBlock)(WMDragView *dragView);
+@property (nonatomic,copy) void(^beginDragBlock)(WMDragView *dragView);
+
 /**
  拖动中的回调block
  */
-@property (nonatomic,copy) void(^DuringDragBlock)(WMDragView *dragView);
+@property (nonatomic,copy) void(^duringDragBlock)(WMDragView *dragView);
+
 /**
  结束拖动的回调block
  */
-@property (nonatomic,copy) void(^EndDragBlock)(WMDragView *dragView);
-
-/**
- 是不是保持在边界，默认为NO,没有黏贴边界效果
- isKeepBounds = YES，它将自动黏贴边界，而且是最近的边界
- isKeepBounds = NO， 它将不会黏贴在边界，它是free(自由)状态，跟随手指到任意位置，但是也不可以拖出规定的范围
- */
-@property (nonatomic,assign) BOOL isKeepBounds;
+@property (nonatomic,copy) void(^endDragBlock)(WMDragView *dragView);
 
 @end
 

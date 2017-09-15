@@ -12,6 +12,7 @@
 #import "BaseNavigationController.h"
 
 
+
 @interface RootTabBarController (){
 }
 
@@ -21,40 +22,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    TencentNewsViewController *tencentVC = [[TencentNewsViewController alloc]init];
-    tencentVC.title = @"腾讯";
-
-    BaseNavigationController *tencentNav = [[BaseNavigationController alloc]initWithRootViewController:tencentVC];
-    tencentNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"腾讯" image:[UIImage imageNamed:@"found"] selectedImage:[UIImage imageNamed:@"found_s"]];
-    tencentNav.navigationBar.barTintColor = [UIColor redColor];
-
-    
-    
-    SinaNewsViewController *sinaVC = [[SinaNewsViewController alloc]init];
-    sinaVC.title = @"新浪";
-    BaseNavigationController *sinaNav = [[BaseNavigationController alloc]initWithRootViewController:sinaVC];
-    
-    sinaNav.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"新浪" image:[UIImage imageNamed:@"message"] selectedImage:[UIImage imageNamed:@"message_s"]];
-
-    self.viewControllers = @[tencentNav,sinaNav];
-    
     self.tabBar.tintColor = [UIColor redColor];
 }
 -(BOOL)shouldAutorotate{
-    UINavigationController *nav = self.viewControllers[self.selectedIndex];
-    return [nav.topViewController shouldAutorotate];
+    BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
+    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
+        return YES;
+    }
+    return NO;
 }
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
+    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-     UINavigationController *nav = self.viewControllers[self.selectedIndex];
-    return [nav.topViewController supportedInterfaceOrientations];
-}
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    UINavigationController *nav = self.viewControllers[self.selectedIndex];
-    return [nav.topViewController preferredInterfaceOrientationForPresentation];
-}
-- (void)didReceiveMemoryWarning {
+    BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
+    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
+        return UIInterfaceOrientationPortrait|UIInterfaceOrientationLandscapeLeft|UIInterfaceOrientationLandscapeRight;
+    }
+    return UIInterfaceOrientationPortrait;
+    
+}- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

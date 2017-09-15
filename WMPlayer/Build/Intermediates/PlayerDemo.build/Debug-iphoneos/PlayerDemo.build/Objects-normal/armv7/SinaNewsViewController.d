@@ -1,0 +1,47 @@
+dependencies: \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ViewControllers/SinaNewsViewController.m \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ViewControllers/SinaNewsViewController.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ViewControllers/BaseViewController.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MBprogressHUD/MBProgressHUD.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/DataManager/SidModel.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/VideoCell.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/DataManager/VideoModel.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/WMPlayer/WMPlayer.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/WMPlayer/View/FastForwardView.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ViewControllers/DetailViewController.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/AppDelegate.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/UITabBarController/RootTabBarController.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/DataManager/DataManager.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/ScreenShotBack/ScreenShotView.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/MJRefresh.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/UIScrollView+MJRefresh.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/MJRefreshConst.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/UIScrollView+MJExtension.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/UIView+MJExtension.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Header/MJRefreshNormalHeader.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Header/MJRefreshStateHeader.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Base/MJRefreshHeader.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Base/MJRefreshComponent.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Header/MJRefreshGifHeader.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Base/MJRefreshBackFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Base/MJRefreshFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Base/MJRefreshAutoFooter.h \
+  /Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/PlayerDemo/ThirdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h \
+  Pods/Masonry/Masonry/Masonry.h Pods/Masonry/Masonry/MASUtilities.h \
+  Pods/Masonry/Masonry/View+MASAdditions.h \
+  Pods/Masonry/Masonry/MASConstraintMaker.h \
+  Pods/Masonry/Masonry/MASConstraint.h \
+  Pods/Masonry/Masonry/MASViewAttribute.h \
+  Pods/Masonry/Masonry/View+MASShorthandAdditions.h \
+  Pods/Masonry/Masonry/ViewController+MASAdditions.h \
+  Pods/Masonry/Masonry/NSArray+MASAdditions.h \
+  Pods/Masonry/Masonry/NSArray+MASShorthandAdditions.h \
+  Pods/Masonry/Masonry/MASCompositeConstraint.h \
+  Pods/Masonry/Masonry/MASViewConstraint.h \
+  Pods/Masonry/Masonry/MASLayoutConstraint.h \
+  Pods/Masonry/Masonry/NSLayoutConstraint+MASDebugAdditions.h

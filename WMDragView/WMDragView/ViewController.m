@@ -29,13 +29,13 @@
     label.textAlignment = NSTextAlignmentCenter;
     [redView addSubview:label];
     
-   WMDragView *orangeView = [[WMDragView alloc] initWithFrame:CGRectMake(29, 64 , 70, 70)];
+   WMDragView *orangeView = [[WMDragView alloc] initWithFrame:CGRectMake(0, 0 , 70, 70)];
     orangeView.button.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [orangeView.button setTitle:@"可拖曳" forState:UIControlStateNormal];
     orangeView.backgroundColor = [UIColor orangeColor];
     [redView addSubview:orangeView];
-    orangeView.ClickDragViewBlock = ^(WMDragView *dragView){
-        NSLog(@"绿色view被点击了");
+    orangeView.clickDragViewBlock = ^(WMDragView *dragView){
+        NSLog(@"橙色view被点击了");
         dragView.dragEnable = !dragView.dragEnable;
         if (dragView.dragEnable) {
             [dragView.button setTitle:@"可拖曳" forState:UIControlStateNormal];
@@ -44,7 +44,11 @@
         }
 
     };
-    
+//    orangeView.EndDragBlock = ^(WMDragView *dragView) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            dragView.frame = CGRectMake(0, 0 , 70, 70);
+//        }];
+//    };
     
     
     
@@ -52,19 +56,21 @@
    WMDragView *logoView = [[WMDragView alloc] initWithFrame:CGRectMake(0, 0 , 70, 70)];
     logoView.layer.cornerRadius = 14;
     logoView.isKeepBounds = YES;
+    //设置显示图片方式一：
     logoView.imageView.image = [UIImage imageNamed:@"logo1024"];
+    //设置显示图片方式二：
+//    [logoView.button setBackgroundImage:[UIImage imageNamed:@"logo1024"] forState:UIControlStateNormal];
+
+    
     [logoView setBackgroundColor:[UIColor redColor]];
-    [self.view addSubview:logoView];
+    [[UIApplication sharedApplication].keyWindow addSubview:logoView];
     //限定logoView的活动范围
     logoView.center = self.view.center;
-    logoView.ClickDragViewBlock = ^(WMDragView *dragView){
+    logoView.clickDragViewBlock = ^(WMDragView *dragView){
         
         [self.navigationController pushViewController:[TestViewController new] animated:YES];
     };
- 
-    
-    
-    
+
     
 }
 

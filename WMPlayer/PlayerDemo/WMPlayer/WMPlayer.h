@@ -11,13 +11,8 @@
    Copyright © 2016年 郑文明. All rights reserved.
  */
 
-//#import "Masonry.h"
-#import <Masonry.h>
-#import "WMDragView.h"
-
 @class WMLightView;
 #import "FastForwardView.h"
-
 @import MediaPlayer;
 @import AVFoundation;
 @import UIKit;
@@ -82,7 +77,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 /**
  *  注意⚠：本人把属性都公开到.h文件里面了，为了适配广大开发者，不同的需求可以修改属性东西，也可以直接修改源代码。
  */
-@interface WMPlayer : WMDragView
+@interface WMPlayer : UIView
 /**
  *  播放器player
  */

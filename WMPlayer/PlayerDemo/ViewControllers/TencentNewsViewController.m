@@ -19,24 +19,31 @@
 #import "DetailViewController.h"
 #import "AppDelegate.h"
 #import "MJRefresh.h"
-#import <Masonry.h>
+#import "Masonry.h"
 
 
 @interface TencentNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate>{
-    NSMutableArray *dataSource;
+    
     WMPlayer *wmPlayer;
     NSIndexPath *currentIndexPath;
     BOOL isSmallScreen;
 }
 @property(nonatomic,retain)VideoCell *currentCell;
+@property(nonatomic,retain)NSMutableArray *dataSource;
 
 @end
 
 @implementation TencentNewsViewController
+-(NSMutableArray *)dataSource{
+    if (_dataSource==nil) {
+        _dataSource = [NSMutableArray array];
+
+    }
+   return _dataSource;
+}
 - (instancetype)init{
     self = [super init];
     if (self) {
-        dataSource = [NSMutableArray array];
         isSmallScreen = NO;
     }
     return self;
@@ -109,7 +116,6 @@
 }
 ///把播放器wmPlayer对象放到cell上，同时更新约束
 -(void)toCell{
-    wmPlayer.dragEnable = NO;
     VideoCell *currentCell = (VideoCell *)[self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndexPath.row inSection:0]];
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.7f animations:^{
@@ -128,7 +134,6 @@
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
             wmPlayer.effectView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2-155/2, [UIScreen mainScreen].bounds.size.height/2-155/2, 155, 155);
         }else{
-//            wmPlayer.lightView.frame = CGRectMake(kScreenWidth/2-155/2, kScreenHeight/2-155/2, 155, 155);
         }
         
         [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -179,7 +184,6 @@
 
 -(void)toFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
     [wmPlayer removeFromSuperview];
-    wmPlayer.dragEnable = NO;
     wmPlayer.transform = CGAffineTransformIdentity;
     if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft) {
         wmPlayer.transform = CGAffineTransformMakeRotation(-M_PI_2);
@@ -198,7 +202,6 @@
     if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
         wmPlayer.effectView.frame = CGRectMake([UIScreen mainScreen].bounds.size.height/2-155/2, [UIScreen mainScreen].bounds.size.width/2-155/2, 155, 155);
     }else{
-//        wmPlayer.lightView.frame = CGRectMake(kScreenHeight/2-155/2, kScreenWidth/2-155/2, 155, 155);
     }
     [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(wmPlayer).with.offset([UIScreen mainScreen].bounds.size.height/2-120/2);
@@ -255,12 +258,10 @@
 }
 -(void)toSmallScreen{
     //放widow上
-    wmPlayer.dragEnable = YES;
     [wmPlayer removeFromSuperview];
     [UIView animateWithDuration:0.7f animations:^{
         wmPlayer.transform = CGAffineTransformIdentity;
         wmPlayer.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height-49-([UIScreen mainScreen].bounds.size.width/2)*0.75, [UIScreen mainScreen].bounds.size.width/2, ([UIScreen mainScreen].bounds.size.width/2)*0.75);
-        wmPlayer.freeRect = CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-64-49);
         wmPlayer.playerLayer.frame =  wmPlayer.bounds;
         [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
         
@@ -370,7 +371,7 @@
     [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
 }
 -(void)loadData{
-    [dataSource addObjectsFromArray:[AppDelegate shareAppDelegate].videoArray];
+    [self.dataSource addObjectsFromArray:[AppDelegate shareAppDelegate].videoArray];
     [self.table reloadData];
 
 }
@@ -382,9 +383,10 @@ __weak __typeof(&*self)weakSelf = self;
         [weakSelf addHudWithMessage:@"加载中..."];
      [[DataManager shareManager] getSIDArrayWithURLString:@"http://c.m.163.com/nc/video/home/0-10.html"
           success:^(NSArray *sidArray, NSArray *videoArray) {
-              dataSource =[NSMutableArray arrayWithArray:videoArray];
+              [self.dataSource removeAllObjects];
+              [self.dataSource addObjectsFromArray:videoArray];
               dispatch_async(dispatch_get_main_queue(), ^{
-                  if (currentIndexPath.row>dataSource.count) {
+                  if (currentIndexPath.row>self.dataSource.count) {
                       [weakSelf releaseWMPlayer];
                   }
                   [weakSelf removeHud];
@@ -404,11 +406,11 @@ __weak __typeof(&*self)weakSelf = self;
  tableView.mj_header.automaticallyChangeAlpha = YES;
  // 上拉刷新
  tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-     NSString *URLString = [NSString stringWithFormat:@"http://c.m.163.com/nc/video/home/%ld-10.html",dataSource.count - dataSource.count%10];
+     NSString *URLString = [NSString stringWithFormat:@"http://c.m.163.com/nc/video/home/%ld-10.html",self.dataSource.count - self.dataSource.count%10];
      [weakSelf addHudWithMessage:@"加载中..."];
      [[DataManager shareManager] getSIDArrayWithURLString:URLString
       success:^(NSArray *sidArray, NSArray *videoArray) {
-          [dataSource addObjectsFromArray:videoArray];
+          [self.dataSource addObjectsFromArray:videoArray];
           dispatch_async(dispatch_get_main_queue(), ^{
               [weakSelf removeHud];
               [tableView reloadData];
@@ -431,7 +433,7 @@ __weak __typeof(&*self)weakSelf = self;
     return 1;
 }
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return dataSource.count;
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 274;
@@ -439,7 +441,7 @@ __weak __typeof(&*self)weakSelf = self;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"VideoCell";
     VideoCell *cell = (VideoCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-    cell.model = [dataSource objectAtIndex:indexPath.row];
+    cell.model = [self.dataSource objectAtIndex:indexPath.row];
     [cell.playBtn addTarget:self action:@selector(startPlayVideo:) forControlEvents:UIControlEventTouchUpInside];
     cell.playBtn.tag = indexPath.row;
     
@@ -484,7 +486,7 @@ __weak __typeof(&*self)weakSelf = self;
     }
     self.currentCell = (VideoCell *)cellView;
     
-    VideoModel *model = [dataSource objectAtIndex:sender.tag];
+    VideoModel *model = [self.dataSource objectAtIndex:sender.tag];
     
     if (isSmallScreen) {
         [self releaseWMPlayer];
@@ -495,7 +497,7 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer = [[WMPlayer alloc]initWithFrame:self.currentCell.backgroundIV.bounds];
         wmPlayer.delegate = self;
         //关闭音量调节的手势
-        wmPlayer.enableVolumeGesture = NO;
+//        wmPlayer.enableVolumeGesture = NO;
         wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         wmPlayer.URLString = model.mp4_url;
         wmPlayer.titleLabel.text = model.title;
@@ -505,11 +507,10 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer.delegate = self;
         wmPlayer.closeBtnStyle = CloseBtnStyleClose;
         //关闭音量调节的手势
-        wmPlayer.enableVolumeGesture = NO;
+//        wmPlayer.enableVolumeGesture = NO;
         wmPlayer.titleLabel.text = model.title;
         wmPlayer.URLString = model.mp4_url;
     }
-    wmPlayer.dragEnable = NO;
 
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];
@@ -550,14 +551,19 @@ __weak __typeof(&*self)weakSelf = self;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    VideoModel *   model = [dataSource objectAtIndex:indexPath.row];
+    VideoModel *   model = [self.dataSource objectAtIndex:indexPath.row];
 
     DetailViewController *detailVC = [[DetailViewController alloc]init];
     detailVC.URLString  = model.m3u8_url;
     detailVC.title = model.title;
 //    detailVC.URLString = model.mp4_url;
-    [self.navigationController pushViewController:detailVC animated:YES];
-    
+    if (indexPath.row%2) {//present测试
+        [self presentViewController:detailVC animated:YES completion:^{
+            
+        }];
+    }else{//push测试
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 /**
  *  释放WMPlayer

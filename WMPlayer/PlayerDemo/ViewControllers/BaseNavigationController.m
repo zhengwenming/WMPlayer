@@ -14,18 +14,12 @@
 #import "BaseNavigationController.h"
 #import "AppDelegate.h"
 
-
 // 打开边界多少距离才触发pop
 #define DISTANCE_TO_POP 80
 
-
 @interface BaseNavigationController ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
-
 @end
-
-
-
 
 @implementation BaseNavigationController
 // 是否支持自动转屏
@@ -54,10 +48,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    if( ([[UIDevice currentDevice].systemVersion floatValue]>=7.0)) {
-//        self.edgesForExtendedLayout=UIRectEdgeNone;//下移64
-//        self.navigationBar.translucent = NO;
-//    }
     self.interactivePopGestureRecognizer.enabled = NO;
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     _panGesture.delegate = self;
@@ -107,23 +97,31 @@
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture
 {
-    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    AppDelegate *appdelegate = [AppDelegate shareAppDelegate];
     
-    UIViewController *rootVC = appdelegate.window.rootViewController;
-    UIViewController *presentedVC = rootVC.presentedViewController;
+    UITabBarController *rootVC = (UITabBarController *)appdelegate.window.rootViewController;
+    
+    UINavigationController *nav= rootVC.selectedViewController;
+    UIViewController * currentVC = nav.topViewController;
+    UIViewController * presentedVC = rootVC.presentedViewController;
+    
     if (self.viewControllers.count == 1)
     {
         return;
     }
     if (panGesture.state == UIGestureRecognizerStateBegan)
     {
-        
+        if (currentVC.gestureBeganBlock) {
+            currentVC.gestureBeganBlock(currentVC);
+        }
         appdelegate.screenshotView.hidden = NO;
     }
     else if (panGesture.state == UIGestureRecognizerStateChanged)
     {
         CGPoint point_inView = [panGesture translationInView:self.view];
-        
+        if (currentVC.gestureChangedBlock) {
+            currentVC.gestureChangedBlock(currentVC);
+        }
         if (point_inView.x >= 10)
         {
             rootVC.view.transform = CGAffineTransformMakeTranslation(point_inView.x - 10, 0);
@@ -132,6 +130,9 @@
     }
     else if (panGesture.state == UIGestureRecognizerStateEnded)
     {
+        if (currentVC.gestureEndedBlock) {
+            currentVC.gestureEndedBlock(currentVC);
+        }
         CGPoint point_inView = [panGesture translationInView:self.view];
         if (point_inView.x >= DISTANCE_TO_POP)
         {

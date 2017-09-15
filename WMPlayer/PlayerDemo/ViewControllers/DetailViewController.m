@@ -8,11 +8,14 @@
 
 #import "DetailViewController.h"
 #import "WMPlayer.h"
+#import "Masonry.h"
 
 @interface DetailViewController ()<WMPlayerDelegate>{
     WMPlayer  *wmPlayer;
     CGRect     playerFrame;
     BOOL isHiddenStatusBar;//记录状态的隐藏显示
+    BOOL isRotateEable;//记录支不支持旋转
+
 }
 
 @end
@@ -28,30 +31,63 @@
     return NO;
 }
 //视图控制器实现的方法
--(BOOL)shouldAutorotate{       //iOS6.0之后,要想让状态条可以旋转,必须设置视图不能自动旋转
-    return NO;
-}
-// 支持哪些屏幕方向
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
+- (BOOL)shouldAutorotate{
+    if (isRotateEable==NO) {
+        return NO;
+    }
+    //是否允许转屏
+    return YES;
 }
 
-// 默认的屏幕方向（当前ViewController必须是通过模态出来的UIViewController（模态带导航的无效）方式展现出来的，才会调用这个方法）
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    
+    UIInterfaceOrientationMask result = [super supportedInterfaceOrientations];
+    //viewController所支持的全部旋转方向
+    return result;
+}
+
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-    return UIInterfaceOrientationPortrait;
+    //对于present出来的控制器，要主动的更新一个约束，让wmPlayer全屏，更安全
+    if (wmPlayer.isFullscreen==NO) {
+        [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
+            make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
+            make.center.equalTo(wmPlayer.superview);
+        }];
+        wmPlayer.isFullscreen = YES;
+        self.enablePanGesture = NO;
+    }
+    return UIInterfaceOrientationLandscapeRight;
 }
 ///播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
     if (wmplayer.isFullscreen) {
-        [self toOrientation:UIInterfaceOrientationPortrait];
+
+        //强制翻转屏幕，Home键在下边。
+        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+        //刷新
+        [UIViewController attemptRotationToDeviceOrientation];
+        
+        [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).with.offset(0);
+            make.left.equalTo(self.view).with.offset(0);
+            make.right.equalTo(self.view).with.offset(0);
+            make.height.equalTo(@(playerFrame.size.height));
+        }];
         wmPlayer.isFullscreen = NO;
         self.enablePanGesture = YES;
-
     }else{
         [self releaseWMPlayer];
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.presentingViewController) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
+
+        }
     }
 }
 ///播放暂停
@@ -61,30 +97,21 @@
 ///全屏按钮
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
     if (wmPlayer.isFullscreen==YES) {//全屏
-        [self toOrientation:UIInterfaceOrientationPortrait];
+        //强制翻转屏幕，Home键在下边。
+        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+        
         wmPlayer.isFullscreen = NO;
         self.enablePanGesture = YES;
 
         }else{//非全屏
+            [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeRight) forKey:@"orientation"];
             [self toOrientation:UIInterfaceOrientationLandscapeRight];
             wmPlayer.isFullscreen = YES;
             self.enablePanGesture = NO;
     }
 }
 ///单击播放器
--(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
-    NSLog(@"didSingleTaped");
-//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"测试" message:@"测试旋转屏" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-//    [alertView show];
-    
-//    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"测试" message:@"测试旋转屏" preferredStyle:UIAlertControllerStyleAlert];
-//    [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }]];
-//    [self presentViewController:alertVC animated:YES completion:^{
-//    }];
-
-    
+-(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{    
     
 }
 ///双击播放器
@@ -113,7 +140,7 @@
     if (wmPlayer==nil||wmPlayer.superview==nil){
         return;
     }
-    
+
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
     switch (interfaceOrientation) {
@@ -153,14 +180,10 @@
 
 //点击进入,退出全屏,或者监测到屏幕旋转去调用的方法
 -(void)toOrientation:(UIInterfaceOrientation)orientation{
-    //获取到当前状态条的方向
-    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    //判断如果当前方向和要旋转的方向一致,那么不做任何操作
-    if (currentOrientation == orientation) {
+    if (isRotateEable==NO) {
         return;
     }
     
-    //根据要旋转的方向,使用Masonry重新修改限制
     if (orientation ==UIInterfaceOrientationPortrait) {//
         [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).with.offset(0);
@@ -169,27 +192,12 @@
             make.height.equalTo(@(playerFrame.size.height));
         }];
     }else{
-        //这个地方加判断是为了从全屏的一侧,直接到全屏的另一侧不用修改限制,否则会出错;
-        if (currentOrientation ==UIInterfaceOrientationPortrait) {
-            [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
-                make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
-                make.center.equalTo(wmPlayer.superview);
-            }];
-        }
+        [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@([UIScreen mainScreen].bounds.size.width));
+            make.height.equalTo(@([UIScreen mainScreen].bounds.size.height));
+            make.center.equalTo(wmPlayer.superview);
+        }];
     }
-    //iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
-    //也就是说在实现这个方法的时候-(BOOL)shouldAutorotate返回值要为NO
-    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:NO];
-    //获取旋转状态条需要的时间:
-    [UIView beginAnimations:nil context:nil];
-    //更改了状态条的方向,但是设备方向UIInterfaceOrientation还是正方向的,这就要设置给你播放视频的视图的方向设置旋转
-    //给你的播放视频的view视图设置旋转
-    wmPlayer.transform = CGAffineTransformIdentity;
-    wmPlayer.transform = [WMPlayer getCurrentDeviceOrientation];
-    [UIView setAnimationDuration:2.0];
-    //开始旋转
-    [UIView commitAnimations];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -212,6 +220,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    isRotateEable = YES;
     playerFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.width)* 9 / 16);
     
     wmPlayer = [[WMPlayer alloc]init];
@@ -221,7 +230,7 @@
     wmPlayer.URLString = self.URLString;
     wmPlayer.titleLabel.text = self.title;
     wmPlayer.closeBtn.hidden = NO;
-    wmPlayer.dragEnable = NO;
+
     [self.view addSubview:wmPlayer];
     [wmPlayer play];
  
@@ -231,6 +240,58 @@
         make.right.equalTo(self.view).with.offset(0);
         make.height.equalTo(@(playerFrame.size.height));
     }];
+    
+    //测试代码
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"测试" message:@"关闭播放器" preferredStyle:UIAlertControllerStyleAlert];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (self.presentingViewController) {
+                
+                [self dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
+            }else{
+                if (wmPlayer.isFullscreen) {//由于是push出来的，所以如果在全屏状态下，先转为非全屏（也就是人像模式Portrait）
+                    
+                    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+                    [self toOrientation:UIInterfaceOrientationPortrait];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self.navigationController popViewControllerAnimated:YES];
+                    });
+
+                }else{
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+           
+        }]];
+        [self presentViewController:alertVC animated:YES completion:^{
+        }];
+    });
+    
+    
+    ///手势开始时刻回调block
+    self.gestureBeganBlock = ^(UIViewController *viewController) {
+        NSLog(@"gestureBegan");
+        isRotateEable = NO;
+    };
+    
+    ///手势作用期间回调block
+    self.gestureChangedBlock = ^(UIViewController *viewController) {
+        NSLog(@"gestureChanged");
+        isRotateEable = NO;
+    };
+    
+    ///手势结束时刻回调block
+    self.gestureEndedBlock = ^(UIViewController *viewController) {
+        NSLog(@"gestureEnded");
+        isRotateEable = YES;
+    };
+    
+    
 }
 
 - (void)releaseWMPlayer

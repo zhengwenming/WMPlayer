@@ -1,0 +1,135 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "MASCompositeConstraint.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASCompositeConstraint.h"
+        },
+        {
+          'type': 'file',
+          'name': "MASConstraint+Private.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASConstraint+Private.h"
+        },
+        {
+          'type': 'file',
+          'name': "MASConstraint.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASConstraint.h"
+        },
+        {
+          'type': 'file',
+          'name': "MASConstraintMaker.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASConstraintMaker.h"
+        },
+        {
+          'type': 'file',
+          'name': "MASLayoutConstraint.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASLayoutConstraint.h"
+        },
+        {
+          'type': 'file',
+          'name': "MASUtilities.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASUtilities.h"
+        },
+        {
+          'type': 'file',
+          'name': "MASViewAttribute.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASViewAttribute.h"
+        },
+        {
+          'type': 'file',
+          'name': "MASViewConstraint.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/MASViewConstraint.h"
+        },
+        {
+          'type': 'file',
+          'name': "Masonry-Swift.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Headers/Masonry-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "Masonry-umbrella.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Target Support Files/Masonry/Masonry-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Masonry.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/Masonry.h"
+        },
+        {
+          'type': 'file',
+          'name': "NSArray+MASAdditions.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/NSArray+MASAdditions.h"
+        },
+        {
+          'type': 'file',
+          'name': "NSArray+MASShorthandAdditions.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/NSArray+MASShorthandAdditions.h"
+        },
+        {
+          'type': 'file',
+          'name': "NSLayoutConstraint+MASDebugAdditions.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/NSLayoutConstraint+MASDebugAdditions.h"
+        },
+        {
+          'type': 'file',
+          'name': "View+MASAdditions.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/View+MASAdditions.h"
+        },
+        {
+          'type': 'file',
+          'name': "View+MASShorthandAdditions.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/View+MASShorthandAdditions.h"
+        },
+        {
+          'type': 'file',
+          'name': "ViewController+MASAdditions.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Masonry/Masonry/ViewController+MASAdditions.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Masonry/Masonry.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Intermediates/Pods.build/Debug-iphoneos/Masonry.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Pods_PlayerDemo.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-PlayerDemo-umbrella.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_PlayerDemo-Swift.h",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Pods_PlayerDemo.framework/Headers/Pods_PlayerDemo-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Products/Debug-iphoneos/Pods_PlayerDemo.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/nixinsheng/Desktop/wo_iphone/Iphone/wenming/Build/Intermediates/Pods.build/Debug-iphoneos/Pods-PlayerDemo.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

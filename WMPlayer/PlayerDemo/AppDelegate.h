@@ -16,7 +16,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) RootTabBarController *tabbar;
 
 @property (copy, nonatomic) NSArray *sidArray;
 @property (copy, nonatomic) NSArray *videoArray;

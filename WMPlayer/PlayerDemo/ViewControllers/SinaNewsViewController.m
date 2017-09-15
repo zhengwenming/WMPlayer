@@ -19,7 +19,7 @@
 #import "DetailViewController.h"
 #import "AppDelegate.h"
 #import "MJRefresh.h"
-#import <Masonry.h>
+#import "Masonry.h"
 
 
 @interface SinaNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate>{
@@ -91,6 +91,7 @@
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
     NSLog(@"didSingleTaped");
+    
 }
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
     NSLog(@"didDoubleTaped");
@@ -396,7 +397,6 @@ __weak __typeof(&*self)weakSelf = self;
         wmPlayer.URLString = model.mp4_url;
         wmPlayer.titleLabel.text = model.title;
     }
-    wmPlayer.dragEnable = NO;
 
     [self.currentCell.backgroundIV addSubview:wmPlayer];
     [self.currentCell.backgroundIV bringSubviewToFront:wmPlayer];
@@ -441,8 +441,13 @@ __weak __typeof(&*self)weakSelf = self;
     detailVC.title = model.title;
 
     //    detailVC.URLString = model.mp4_url;
-    [self.navigationController pushViewController:detailVC animated:YES];
-    
+    if (indexPath.row%2) {//present测试
+        [self presentViewController:detailVC animated:YES completion:^{
+            
+        }];
+    }else{//push测试
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 /**
  *  释放WMPlayer

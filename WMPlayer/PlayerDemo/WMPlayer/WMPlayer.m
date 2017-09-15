@@ -11,8 +11,6 @@
  Copyright © 2016年 郑文明. All rights reserved.
  */
 #import <Masonry/Masonry.h>
-
-
 #import "WMPlayer.h"
 #import "WMLightView.h"
 #define Window [UIApplication sharedApplication].keyWindow
@@ -20,10 +18,7 @@
 
 #define WMPlayerSrcName(file) [@"WMPlayer.bundle" stringByAppendingPathComponent:file]
 #define WMPlayerFrameworkSrcName(file) [@"Frameworks/WMPlayer.framework/WMPlayer.bundle" stringByAppendingPathComponent:file]
-
 #define WMPlayerImage(file)      [UIImage imageNamed:WMPlayerSrcName(file)] ? :[UIImage imageNamed:WMPlayerFrameworkSrcName(file)]
-
-
 
 #define kHalfWidth self.frame.size.width * 0.5
 #define kHalfHeight self.frame.size.height * 0.5
@@ -223,9 +218,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             self.volumeSlider = (UISlider *)view;
         }
     }
-    
-    
-    
     
     
     //slider
@@ -655,12 +647,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.URLString]];
     
     self.player = [AVPlayer playerWithPlayerItem:_currentItem];
+    if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
+        self.player.automaticallyWaitsToMinimizeStalling = NO;
+    }
     self.player.usesExternalPlaybackWhileExternalScreenIsActive=YES;
     //AVPlayerLayer
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.frame = self.contentView.layer.bounds;
     //WMPlayer视频的默认填充模式，AVLayerVideoGravityResizeAspect
-    self.playerLayer.videoGravity = AVLayerVideoGravityResize;
+    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [self.contentView.layer insertSublayer:_playerLayer atIndex:0];
     self.state = WMPlayerStateBuffering;
 }
