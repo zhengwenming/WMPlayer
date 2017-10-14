@@ -456,25 +456,13 @@ __weak __typeof(&*self)weakSelf = self;
 }
 -(void)startPlayVideo:(UIButton *)sender{
     currentIndexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-<<<<<<< HEAD:WMPlayer/PlayerDemo/ViewControllers/TencentNewsViewController.m
-=======
-    NSLog(@"currentIndexPath.row = %ld",currentIndexPath.row);
-    
->>>>>>> a52a9cbcdf0f31313041029f0bbcb78f251c96d5:PlayerDemo/ViewControllers/TencentNewsViewController.m
     UIView *cellView = [sender superview];
     while (![cellView isKindOfClass:[UITableViewCell class]])
     {
         cellView =  [cellView superview];
     }
     self.currentCell = (VideoCell *)cellView;
-<<<<<<< HEAD:WMPlayer/PlayerDemo/ViewControllers/TencentNewsViewController.m
-    
     VideoModel *model = [self.dataSource objectAtIndex:sender.tag];
-=======
-    
-    VideoModel *model = [self.dataSource objectAtIndex:sender.tag];
-    
->>>>>>> a52a9cbcdf0f31313041029f0bbcb78f251c96d5:PlayerDemo/ViewControllers/TencentNewsViewController.m
     if (isSmallScreen) {
         [self releaseWMPlayer];
        isSmallScreen = NO;

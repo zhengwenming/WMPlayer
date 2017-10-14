@@ -1328,7 +1328,8 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     }
     return CGAffineTransformIdentity;
 }
+///版本号
 - (NSString *)version{
-    return @"3.0.0";
+    return @"4.2.0";
 }
 @end

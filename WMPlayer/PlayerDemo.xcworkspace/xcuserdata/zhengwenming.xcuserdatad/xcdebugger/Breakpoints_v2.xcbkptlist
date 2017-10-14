@@ -33,38 +33,6 @@
             endingLineNumber = "183"
             landmarkName = "-toOrientation:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[DetailViewController toOrientation:]"
-                  moduleName = "PlayerDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/Github/WMPlayer/PlayerDemo/ViewControllers/DetailViewController.m"
-                  timestampString = "522176026.432768"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "183"
-                  endingLineNumber = "183"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__38-[DetailViewController toOrientation:]_block_invoke"
-                  moduleName = "PlayerDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/Github/WMPlayer/PlayerDemo/ViewControllers/DetailViewController.m"
-                  timestampString = "522176026.434511"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "183"
-                  endingLineNumber = "183"
-                  offsetFromSymbolStart = "19">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
