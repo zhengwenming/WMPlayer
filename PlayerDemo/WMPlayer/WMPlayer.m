@@ -126,7 +126,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [[AVAudioSession sharedInstance]
      setActive: YES
      error: &activationErr];
-//    self.backgroundColor = [UIColor blackColor];
     //wmplayer内部的一个view，用来管理子视图
     self.contentView = [[UIView alloc]init];
     self.contentView.backgroundColor = [UIColor blackColor];
@@ -277,10 +276,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.width.mas_equalTo(50);
         
     }];
-    
-    
-    
-    
+
     
     //leftTimeLabel显示左边的时间进度
     self.leftTimeLabel = [[UILabel alloc]init];
@@ -385,7 +381,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             make.center.equalTo(self.contentView);
             make.width.equalTo(self.contentView);
             make.height.equalTo(@30);
-
         }];
     }
     return _loadFailedLabel;
@@ -1301,9 +1296,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
 
     _currentItem = nil;
 
-    
-    
-    
     [self.effectView removeFromSuperview];
     self.effectView = nil;
     [self.playerLayer removeFromSuperlayer];

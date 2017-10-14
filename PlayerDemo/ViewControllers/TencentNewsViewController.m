@@ -295,7 +295,6 @@
         wmPlayer.FF_View.hidden = YES;
         [[UIApplication sharedApplication].keyWindow bringSubviewToFront:wmPlayer];
     }];
-    
 }
 
 
@@ -406,8 +405,6 @@ __weak __typeof(&*self)weakSelf = self;
      // 结束刷新
      [tableView.mj_footer endRefreshing];
  }];
- 
- 
 }
                      
 -(NSInteger )numberOfSectionsInTableView:(UITableView *)tableView{
@@ -447,7 +444,6 @@ __weak __typeof(&*self)weakSelf = self;
                 [wmPlayer play];
                 wmPlayer.hidden = NO;
             }
-            
         }
     }
     
@@ -571,7 +567,6 @@ __weak __typeof(&*self)weakSelf = self;
 -(void)dealloc{
     NSLog(@"%@ dealloc",[self class]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
     [self releaseWMPlayer];
 }
 @end
