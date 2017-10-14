@@ -91,7 +91,6 @@
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
     NSLog(@"didSingleTaped");
-    
 }
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
     NSLog(@"didDoubleTaped");
@@ -110,7 +109,6 @@
     [currentCell.playBtn.superview bringSubviewToFront:currentCell.playBtn];
     [self toOrientation:UIInterfaceOrientationPortrait];
     [wmPlayer removeFromSuperview];
-    
 }
 //操作栏隐藏或者显示都会调用此方法
 -(void)wmplayer:(WMPlayer *)wmplayer isHiddenTopAndBottomView:(BOOL)isHidden{
@@ -225,6 +223,8 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+
     //获取设备旋转方向的通知,即使关闭了自动旋转,一样可以监测到设备的旋转方向
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     //旋转屏幕通知

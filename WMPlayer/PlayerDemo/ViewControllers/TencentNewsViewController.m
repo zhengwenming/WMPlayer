@@ -125,11 +125,9 @@
         [currentCell.backgroundIV addSubview:wmPlayer];
         [currentCell.backgroundIV bringSubviewToFront:wmPlayer];
         [wmPlayer.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            
             make.edges.equalTo(wmPlayer).with.offset(0);
-            make.width.mas_equalTo([UIScreen mainScreen].bounds.size.width);
+            make.width.mas_equalTo(wmPlayer.frame.size.width);
             make.height.mas_equalTo(wmPlayer.frame.size.height);
-            
         }];
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
             wmPlayer.effectView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2-155/2, [UIScreen mainScreen].bounds.size.height/2-155/2, 155, 155);
@@ -137,10 +135,9 @@
         }
         
         [wmPlayer.FF_View  mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.center.mas_equalTo(CGPointMake([UIScreen mainScreen].bounds.size.width/2-180, wmPlayer.frame.size.height/2-144));
+            make.center.mas_equalTo(wmPlayer.contentView);
             make.height.mas_equalTo(60);
             make.width.mas_equalTo(120);
-            
         }];
         
         [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -192,13 +189,14 @@
     }
     wmPlayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     wmPlayer.playerLayer.frame =  CGRectMake(0,0, [UIScreen mainScreen].bounds.size.height,[UIScreen mainScreen].bounds.size.width);
-    
+
     [wmPlayer.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
         make.height.mas_equalTo([UIScreen mainScreen].bounds.size.width);
         make.left.equalTo(wmPlayer).with.offset(0);
         make.top.equalTo(wmPlayer).with.offset(0);
     }];
+    
     if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
         wmPlayer.effectView.frame = CGRectMake([UIScreen mainScreen].bounds.size.height/2-155/2, [UIScreen mainScreen].bounds.size.width/2-155/2, 155, 155);
     }else{
@@ -209,32 +207,20 @@
         make.height.mas_equalTo(60);
         make.width.mas_equalTo(120);
     }];
-    [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(50);
-        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
-        make.bottom.equalTo(wmPlayer.contentView).with.offset(0);
-    }];
-    
     [wmPlayer.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(70);
         make.left.equalTo(wmPlayer).with.offset(0);
         make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
+        make.top.equalTo(wmPlayer.contentView).with.offset(0);
     }];
     
-    [wmPlayer.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(wmPlayer.topView).with.offset(5);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(30);
-        make.top.equalTo(wmPlayer).with.offset(20);
-        
+    [wmPlayer.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(50);
+        make.left.equalTo(wmPlayer).with.offset(0);
+        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.height);
+        make.bottom.equalTo(wmPlayer.contentView).with.offset(0);
     }];
     
-    [wmPlayer.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(wmPlayer.topView).with.offset(45);
-        make.right.equalTo(wmPlayer.topView).with.offset(-45);
-        make.center.equalTo(wmPlayer.topView);
-        make.top.equalTo(wmPlayer.topView).with.offset(0);
-    }];
     
     [wmPlayer.loadFailedLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(wmPlayer).with.offset(0);
@@ -250,7 +236,6 @@
         make.width.mas_equalTo(22);
     }];
    
-  [self.view addSubview:wmPlayer];
     [[UIApplication sharedApplication].keyWindow addSubview:wmPlayer];
     wmPlayer.fullScreenBtn.selected = YES;
     wmPlayer.isFullscreen = YES;
@@ -373,7 +358,6 @@
 -(void)loadData{
     [self.dataSource addObjectsFromArray:[AppDelegate shareAppDelegate].videoArray];
     [self.table reloadData];
-
 }
 -(void)addMJRefresh{
 __weak __typeof(&*self)weakSelf = self;
@@ -396,7 +380,6 @@ __weak __typeof(&*self)weakSelf = self;
           }
            failed:^(NSError *error) {
                [weakSelf removeHud];
-
            }];
      
     }];
@@ -416,11 +399,9 @@ __weak __typeof(&*self)weakSelf = self;
               [tableView reloadData];
               [tableView.mj_header endRefreshing];
           });
-
       }
        failed:^(NSError *error) {
            [weakSelf removeHud];
- 
        }];
      // 结束刷新
      [tableView.mj_footer endRefreshing];
@@ -454,7 +435,6 @@ __weak __typeof(&*self)weakSelf = self;
         }
         NSArray *indexpaths = [tableView indexPathsForVisibleRows];
         if (![indexpaths containsObject:currentIndexPath]&&currentIndexPath!=nil) {//复用
-            
             if ([[UIApplication sharedApplication].keyWindow.subviews containsObject:wmPlayer]) {
                 wmPlayer.hidden = NO;
             }else{
@@ -464,7 +444,6 @@ __weak __typeof(&*self)weakSelf = self;
         }else{
             if ([cell.backgroundIV.subviews containsObject:wmPlayer]) {
                 [cell.backgroundIV addSubview:wmPlayer];
-                
                 [wmPlayer play];
                 wmPlayer.hidden = NO;
             }
@@ -477,8 +456,6 @@ __weak __typeof(&*self)weakSelf = self;
 }
 -(void)startPlayVideo:(UIButton *)sender{
     currentIndexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    NSLog(@"currentIndexPath.row = %ld",currentIndexPath.row);
-    
     UIView *cellView = [sender superview];
     while (![cellView isKindOfClass:[UITableViewCell class]])
     {
@@ -487,7 +464,6 @@ __weak __typeof(&*self)weakSelf = self;
     self.currentCell = (VideoCell *)cellView;
     
     VideoModel *model = [self.dataSource objectAtIndex:sender.tag];
-    
     if (isSmallScreen) {
         [self releaseWMPlayer];
        isSmallScreen = NO;
@@ -522,7 +498,7 @@ __weak __typeof(&*self)weakSelf = self;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView ==self.table){
-        if (wmPlayer==nil) {
+        if (wmPlayer==nil||wmPlayer.isFullscreen) {
             return;
         }
        

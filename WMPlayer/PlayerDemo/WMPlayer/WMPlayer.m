@@ -67,10 +67,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
  */
 @property (nonatomic,strong) UILabel        *leftTimeLabel;
 @property (nonatomic,strong) UILabel        *rightTimeLabel;
-
-
-
-
 ///进度滑块
 @property (nonatomic,strong) UISlider       *progressSlider;
 ///声音滑块
@@ -111,7 +107,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.contentView addSubview:self.FF_View];
     
     [self.FF_View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
+        make.center.equalTo(self.contentView);
         make.width.equalTo(@(120));
         make.height.equalTo(@60);
     }];
@@ -188,7 +184,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.right.equalTo(self.contentView).with.offset(0);
         make.height.mas_equalTo(50);
         make.bottom.equalTo(self.contentView).with.offset(0);
-        
     }];
     
     [self setAutoresizesSubviews:NO];

@@ -183,7 +183,6 @@
     if (isRotateEable==NO) {
         return;
     }
-    
     if (orientation ==UIInterfaceOrientationPortrait) {//
         [wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).with.offset(0);
