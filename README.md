@@ -1,5 +1,6 @@
 #### WMPlayer 4.0.0(修复视频全屏的bug,具体表现为键盘和状态栏方向不一致)
 #### WMPlayer 4.1.0(修复present出来WMPlayer无法全屏显示的bug)
+#### WMPlayer 4.2.0(适配iOS 11、适配iPhone X)
 ---
 微信扫码关注文明的iOS开发公众号
 或者微信搜索“iOS开发by文明”
