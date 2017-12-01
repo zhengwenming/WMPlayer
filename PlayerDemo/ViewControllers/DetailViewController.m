@@ -14,9 +14,9 @@
     WMPlayer  *wmPlayer;
     CGRect     playerFrame;
     BOOL isHiddenStatusBar;//记录状态的隐藏显示
-    BOOL isRotateEable;//记录支不支持旋转
 
 }
+@property(nonatomic,assign)    BOOL isRotateEable;//记录支不支持旋转
 
 @end
 
@@ -32,7 +32,7 @@
 }
 //视图控制器实现的方法
 - (BOOL)shouldAutorotate{
-    if (isRotateEable==NO) {
+    if (self.isRotateEable==NO) {
         return NO;
     }
     //是否允许转屏
@@ -180,7 +180,7 @@
 
 //点击进入,退出全屏,或者监测到屏幕旋转去调用的方法
 -(void)toOrientation:(UIInterfaceOrientation)orientation{
-    if (isRotateEable==NO) {
+    if (self.isRotateEable==NO) {
         return;
     }
     if (orientation ==UIInterfaceOrientationPortrait) {//
@@ -200,14 +200,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    //获取设备旋转方向的通知,即使关闭了自动旋转,一样可以监测到设备的旋转方向
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    //旋转屏幕通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onDeviceOrientationChange:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil
-     ];
+    
     self.navigationController.navigationBarHidden = YES;
 }
 -(void)viewDidDisappear:(BOOL)animated{
@@ -219,7 +212,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    isRotateEable = YES;
+    //获取设备旋转方向的通知,即使关闭了自动旋转,一样可以监测到设备的旋转方向
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    //旋转屏幕通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onDeviceOrientationChange:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil
+     ];
+    self.isRotateEable = YES;
     playerFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.width)* 9 / 16);
     
     wmPlayer = [[WMPlayer alloc]init];
@@ -271,23 +272,23 @@
         }];
     });
     
-    
+    __weak __typeof(&*self) weakSelf = self;
     ///手势开始时刻回调block
     self.gestureBeganBlock = ^(UIViewController *viewController) {
         NSLog(@"gestureBegan");
-        isRotateEable = NO;
+        weakSelf.isRotateEable = NO;
     };
     
     ///手势作用期间回调block
     self.gestureChangedBlock = ^(UIViewController *viewController) {
         NSLog(@"gestureChanged");
-        isRotateEable = NO;
+        weakSelf.isRotateEable = NO;
     };
     
     ///手势结束时刻回调block
     self.gestureEndedBlock = ^(UIViewController *viewController) {
         NSLog(@"gestureEnded");
-        isRotateEable = YES;
+        weakSelf.isRotateEable = YES;
     };
     
     
