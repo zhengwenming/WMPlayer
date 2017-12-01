@@ -638,7 +638,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     self.player = [AVPlayer playerWithPlayerItem:_currentItem];
     if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
-        self.player.automaticallyWaitsToMinimizeStalling = NO;
+        self.player.automaticallyWaitsToMinimizeStalling = YES;
     }
     self.player.usesExternalPlaybackWhileExternalScreenIsActive=YES;
     //AVPlayerLayer
