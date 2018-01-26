@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */; };
+		701BA92B201B210A00E7281C /* NSBundle+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 701BA92A201B210A00E7281C /* NSBundle+MJRefresh.m */; };
 		701C246A1E0844C600232AAB /* WMPlayer.gif in Resources */ = {isa = PBXBuildFile; fileRef = 701C24691E0844C600232AAB /* WMPlayer.gif */; };
 		701DCC8F1F52FD27003ACAB6 /* gzh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 701DCC8E1F52FD27003ACAB6 /* gzh.jpg */; };
 		70B3301D1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */; };
@@ -76,6 +77,8 @@
 /* Begin PBXFileReference section */
 		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70176A0D1F1F9612003AE71B /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		701BA929201B210900E7281C /* NSBundle+MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+MJRefresh.h"; sourceTree = "<group>"; };
+		701BA92A201B210A00E7281C /* NSBundle+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MJRefresh.m"; sourceTree = "<group>"; };
 		701C24691E0844C600232AAB /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
 		701DCC8E1F52FD27003ACAB6 /* gzh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gzh.jpg; sourceTree = "<group>"; };
 		70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GestureStateBlock.h"; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 		BF1623F91DF50011006209D1 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
+				701BA929201B210900E7281C /* NSBundle+MJRefresh.h */,
+				701BA92A201B210A00E7281C /* NSBundle+MJRefresh.m */,
 				BF1623FA1DF50011006209D1 /* Base */,
 				BF1624051DF50011006209D1 /* Custom */,
 				BF16241C1DF50011006209D1 /* MJRefresh.bundle */,
@@ -540,7 +545,7 @@
 				TargetAttributes = {
 					C4EC7F3B1DF4FCD2006E9820 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = F57QM5EC39;
+						DevelopmentTeam = 7D992WX2BB;
 					};
 				};
 			};
@@ -653,6 +658,7 @@
 				BF1624A61DF50011006209D1 /* UIImageView+WebCache.m in Sources */,
 				BF1624881DF50011006209D1 /* MJRefreshComponent.m in Sources */,
 				BF1624851DF50011006209D1 /* MBProgressHUD.m in Sources */,
+				701BA92B201B210A00E7281C /* NSBundle+MJRefresh.m in Sources */,
 				BF1624AC1DF50011006209D1 /* BaseViewController.m in Sources */,
 				BF16248E1DF50011006209D1 /* MJRefreshBackGifFooter.m in Sources */,
 				BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */,
@@ -804,7 +810,7 @@
 			baseConfigurationReference = AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F57QM5EC39;
+				DEVELOPMENT_TEAM = 7D992WX2BB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -821,7 +827,7 @@
 			baseConfigurationReference = A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F57QM5EC39;
+				DEVELOPMENT_TEAM = 7D992WX2BB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PlayerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
