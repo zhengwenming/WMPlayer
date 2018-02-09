@@ -77,7 +77,7 @@ cell中播放视频，全屏小屏切换自如。
     
   
 # Android拍摄视频，上传服务器，iOS端无法播放，请☞戳这里
-【链接】Android拍摄的视频无法在IOS播放
+【链接】Android拍摄的视频无法在iOS播放
 http://blog.csdn.net/u012992171/article/details/50673305 
 
 （安卓音频编码使用了AMR_NB，苹果不支持这个音频的解码，请安卓使用苹果端支持的AAC音频编码）
