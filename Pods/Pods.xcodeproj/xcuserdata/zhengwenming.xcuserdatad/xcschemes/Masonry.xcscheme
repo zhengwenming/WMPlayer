@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0830"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "53480ED0BE09FF49E34B1702D485CAAB"
-               BuildableName = "libMasonry.a"
+               BlueprintIdentifier = "D52144DE9D7255DE912490FF5A806573"
+               BuildableName = "Masonry.framework"
                BlueprintName = "Masonry"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "53480ED0BE09FF49E34B1702D485CAAB"
-            BuildableName = "libMasonry.a"
+            BlueprintIdentifier = "D52144DE9D7255DE912490FF5A806573"
+            BuildableName = "Masonry.framework"
             BlueprintName = "Masonry"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "53480ED0BE09FF49E34B1702D485CAAB"
-            BuildableName = "libMasonry.a"
+            BlueprintIdentifier = "D52144DE9D7255DE912490FF5A806573"
+            BuildableName = "Masonry.framework"
             BlueprintName = "Masonry"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

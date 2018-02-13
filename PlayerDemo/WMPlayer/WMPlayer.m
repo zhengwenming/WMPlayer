@@ -11,8 +11,6 @@
  Copyright © 2016年 郑文明. All rights reserved.
  */
 #import <Masonry/Masonry.h>
-
-
 #import "WMPlayer.h"
 #import "WMLightView.h"
 #define Window [UIApplication sharedApplication].keyWindow
@@ -20,10 +18,7 @@
 
 #define WMPlayerSrcName(file) [@"WMPlayer.bundle" stringByAppendingPathComponent:file]
 #define WMPlayerFrameworkSrcName(file) [@"Frameworks/WMPlayer.framework/WMPlayer.bundle" stringByAppendingPathComponent:file]
-
 #define WMPlayerImage(file)      [UIImage imageNamed:WMPlayerSrcName(file)] ? :[UIImage imageNamed:WMPlayerFrameworkSrcName(file)]
-
-
 
 #define kHalfWidth self.frame.size.width * 0.5
 #define kHalfHeight self.frame.size.height * 0.5
@@ -72,10 +67,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
  */
 @property (nonatomic,strong) UILabel        *leftTimeLabel;
 @property (nonatomic,strong) UILabel        *rightTimeLabel;
-
-
-
-
 ///进度滑块
 @property (nonatomic,strong) UISlider       *progressSlider;
 ///声音滑块
@@ -116,7 +107,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.contentView addSubview:self.FF_View];
     
     [self.FF_View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
+        make.center.equalTo(self.contentView);
         make.width.equalTo(@(120));
         make.height.equalTo(@60);
     }];
@@ -135,7 +126,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [[AVAudioSession sharedInstance]
      setActive: YES
      error: &activationErr];
-//    self.backgroundColor = [UIColor blackColor];
     //wmplayer内部的一个view，用来管理子视图
     self.contentView = [[UIView alloc]init];
     self.contentView.backgroundColor = [UIColor blackColor];
@@ -193,7 +183,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.right.equalTo(self.contentView).with.offset(0);
         make.height.mas_equalTo(50);
         make.bottom.equalTo(self.contentView).with.offset(0);
-        
     }];
     
     [self setAutoresizesSubviews:NO];
@@ -223,9 +212,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             self.volumeSlider = (UISlider *)view;
         }
     }
-    
-    
-    
     
     
     //slider
@@ -290,10 +276,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.width.mas_equalTo(50);
         
     }];
-    
-    
-    
-    
+
     
     //leftTimeLabel显示左边的时间进度
     self.leftTimeLabel = [[UILabel alloc]init];
@@ -398,7 +381,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             make.center.equalTo(self.contentView);
             make.width.equalTo(self.contentView);
             make.height.equalTo(@30);
-
         }];
     }
     return _loadFailedLabel;
@@ -656,14 +638,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     self.player = [AVPlayer playerWithPlayerItem:_currentItem];
     if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
-        self.player.automaticallyWaitsToMinimizeStalling = NO;
+        self.player.automaticallyWaitsToMinimizeStalling = YES;
     }
     self.player.usesExternalPlaybackWhileExternalScreenIsActive=YES;
     //AVPlayerLayer
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.frame = self.contentView.layer.bounds;
     //WMPlayer视频的默认填充模式，AVLayerVideoGravityResizeAspect
-    self.playerLayer.videoGravity = AVLayerVideoGravityResize;
+    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [self.contentView.layer insertSublayer:_playerLayer atIndex:0];
     self.state = WMPlayerStateBuffering;
 }
@@ -1314,9 +1296,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
 
     _currentItem = nil;
 
-    
-    
-    
     [self.effectView removeFromSuperview];
     self.effectView = nil;
     [self.playerLayer removeFromSuperlayer];
@@ -1341,7 +1320,8 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     }
     return CGAffineTransformIdentity;
 }
+///版本号
 - (NSString *)version{
-    return @"3.0.0";
+    return @"4.2.0";
 }
 @end

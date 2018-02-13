@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIViewController+GestureStateBlock.h"
 #import "MBProgressHUD.h"
 @interface BaseViewController : UIViewController
 /**
