@@ -137,8 +137,8 @@
         if (point_inView.x >= DISTANCE_TO_POP)
         {
             [UIView animateWithDuration:0.3 animations:^{
-                rootVC.view.transform = CGAffineTransformMakeTranslation(320, 0);
-                presentedVC.view.transform = CGAffineTransformMakeTranslation(320, 0);
+                rootVC.view.transform = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
+                presentedVC.view.transform = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
             } completion:^(BOOL finished) {
                 [self popViewControllerAnimated:NO];
                 rootVC.view.transform = CGAffineTransformIdentity;
