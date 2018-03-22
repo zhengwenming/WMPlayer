@@ -348,12 +348,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     singleTap.numberOfTapsRequired = 1; // 单击
     singleTap.numberOfTouchesRequired = 1;
+    singleTap.delegate = self;
     [self.contentView addGestureRecognizer:singleTap];
     
     // 双击的 Recognizer
     UITapGestureRecognizer* doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     doubleTap.numberOfTouchesRequired = 1; //手指数
     doubleTap.numberOfTapsRequired = 2; // 双击
+    doubleTap.delegate = self;
     // 解决点击当前view时候响应其他控件事件
     [singleTap setDelaysTouchesBegan:YES];
     [doubleTap setDelaysTouchesBegan:YES];
@@ -569,6 +571,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     } completion:^(BOOL finish){
         
     }];
+}
+
+#pragma mark - <<< Gesture Delegate >>> -
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UIControl class]]) {
+        return NO;
+    }
+    return YES;
 }
 #pragma mark
 #pragma mark - 双击手势方法
