@@ -6,14 +6,23 @@
 #### Version-5.0.0 (添加新功能点如下)---------2018.05.22
 
 WMPlayer5.0版本新功能
+
 1、添加后台播放功能开关，开发者可以选择性使用后台播放功能
+
 2、添加全屏后底部progress进度条指示当前进度
+
 3、添加视频播放器的锁定🔒功能
+
 4、优化视频旋转的功能（不在维护单独旋转view）
+
 5、全面适配iPhone X，效果如同腾讯视频全屏界面
+
 6、解决手势返回时刻，旋转视频的bug
+
 7、添加WMPlayerModel，统一管理播放数据，更MVC
+
 8、添加两个初始化方法，+方法和-方法，初始化更便捷
+
 
 ---
 微信扫码关注文明的iOS开发公众号
@@ -42,28 +51,31 @@ cell中播放视频，全屏小屏切换自如。
 * 播放网络视频
 
 ```
-    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
-    
-    [wmPlayer setURLString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-    
-    [self.view addSubview:wmPlayer];
-    
+    WMPlayerModel *playerModel = [WMPlayerModel new];
+    playerModel.title = self.videoModel.title;
+    playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+    WMPlayer * wmPlayer = [[WMPlayer alloc]initPlayerModel:playerModel];
+    [self.view addSubview:wmPlayer];
+    [wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.top.equalTo(self.view);
+        make.height.mas_equalTo(wmPlayer.mas_width).multipliedBy(9.0/16);
+    }];
     [wmPlayer play];
 ```
 
 * 播放本地视频
 
 ```
-    wmPlayer = [[WMPlayer alloc]initWithFrame:playerFrame];
-    
-     NSURL *URL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"4k" ofType:@"mp4"]];
-     
-    NSString *urlstring = [URL absoluteString];
-    
-    [self.wmPlayer setURLString:urlstring];
-    
+    WMPlayerModel *playerModel = [WMPlayerModel new];
+    playerModel.title = self.videoModel.title;
+    NSURL *URL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"4k" ofType:@"mp4"]];
+    playerModel.videoURL = [NSURL URLWithString:[URL absoluteString]];
+    WMPlayer * wmPlayer = [WMPlayer playerWithModel:playerModel];        
     [self.view addSubview:wmPlayer];
-    
+    [wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.top.equalTo(self.view);
+        make.height.mas_equalTo(wmPlayer.mas_width).multipliedBy(9.0/16);
+    }];
     [wmPlayer play]; 
 ```    
   
@@ -78,8 +90,8 @@ cell中播放视频，全屏小屏切换自如。
     1、旋转view
     思路：顾名思义，就是讲WMPlayer旋转90°，然后设置宽高为屏幕的宽和高，先从父视图上（可能是self.view）移除，然后在屏幕旋转的通知里面add到window上，造成全屏的效果，或者说造成全屏的假象吧。
     案例：网易新闻
-    代码：详见demo中的腾讯tab对应的TencentNewsViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
-    
+    代码：比较low，不在维护。但是这个功能是支持的，开发者自行开发，或者看老版本的代码（5.0以前的版本）。
+    
  
  
     2、旋转ViewController
