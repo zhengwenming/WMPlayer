@@ -23,13 +23,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBar.tintColor = [UIColor redColor];
+    self.selectedIndex = 1;
 }
 -(BOOL)shouldAutorotate{
     BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
-    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
-        return YES;
-    }
-    return NO;
+//    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
+//        return YES;
+//    }
+    return nav.topViewController.shouldAutorotate;
 }
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations{
     BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;

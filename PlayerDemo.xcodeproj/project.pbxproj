@@ -11,6 +11,7 @@
 		701BA92B201B210A00E7281C /* NSBundle+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 701BA92A201B210A00E7281C /* NSBundle+MJRefresh.m */; };
 		701C246A1E0844C600232AAB /* WMPlayer.gif in Resources */ = {isa = PBXBuildFile; fileRef = 701C24691E0844C600232AAB /* WMPlayer.gif */; };
 		701DCC8F1F52FD27003ACAB6 /* gzh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 701DCC8E1F52FD27003ACAB6 /* gzh.jpg */; };
+		704443ED2091A55500CCF69E /* WMPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 704443EC2091A55500CCF69E /* WMPlayerModel.m */; };
 		70B3301D1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */; };
 		BF1624601DF50011006209D1 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623B81DF50011006209D1 /* DataManager.m */; };
 		BF1624611DF50011006209D1 /* SidModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623BA1DF50011006209D1 /* SidModel.m */; };
@@ -81,6 +82,9 @@
 		701BA92A201B210A00E7281C /* NSBundle+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MJRefresh.m"; sourceTree = "<group>"; };
 		701C24691E0844C600232AAB /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
 		701DCC8E1F52FD27003ACAB6 /* gzh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gzh.jpg; sourceTree = "<group>"; };
+		704443EB2091A55500CCF69E /* WMPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayerModel.h; sourceTree = "<group>"; };
+		704443EC2091A55500CCF69E /* WMPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayerModel.m; sourceTree = "<group>"; };
+		7079ABD22076667E00E611E4 /* WMHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMHeader.h; sourceTree = "<group>"; };
 		70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GestureStateBlock.h"; sourceTree = "<group>"; };
 		70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+GestureStateBlock.m"; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -441,8 +445,11 @@
 			children = (
 				BF1624BA1DF50182006209D1 /* View */,
 				BF1624C01DF50182006209D1 /* WMPlayer.bundle */,
+				7079ABD22076667E00E611E4 /* WMHeader.h */,
 				BF1624C11DF50182006209D1 /* WMPlayer.h */,
 				BF1624C21DF50182006209D1 /* WMPlayer.m */,
+				704443EB2091A55500CCF69E /* WMPlayerModel.h */,
+				704443EC2091A55500CCF69E /* WMPlayerModel.m */,
 			);
 			name = WMPlayer;
 			path = PlayerDemo/WMPlayer;
@@ -641,6 +648,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				704443ED2091A55500CCF69E /* WMPlayerModel.m in Sources */,
 				BF1624A51DF50011006209D1 /* UIImageView+HighlightedWebCache.m in Sources */,
 				BF1624961DF50011006209D1 /* UIScrollView+MJExtension.m in Sources */,
 				BF1624C51DF50182006209D1 /* WMLightView.m in Sources */,

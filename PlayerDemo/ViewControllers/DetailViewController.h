@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "VideoModel.h"
 
 @interface DetailViewController : BaseViewController
-@property (nonatomic, retain)NSString * URLString;
+@property (nonatomic, retain)VideoModel *   videoModel;
+
 @end

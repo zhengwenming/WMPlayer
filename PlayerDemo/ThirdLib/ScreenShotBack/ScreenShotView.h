@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define kUseScreenShotGesture 1
+
+
 @interface ScreenShotView : UIView
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UIView *maskView;

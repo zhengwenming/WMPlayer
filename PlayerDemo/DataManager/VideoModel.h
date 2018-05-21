@@ -31,6 +31,7 @@
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * vid;
 @property (nonatomic, strong) NSString * videosource;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 
 @end
