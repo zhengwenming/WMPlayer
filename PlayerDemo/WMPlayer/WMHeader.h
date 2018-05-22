@@ -42,9 +42,10 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
     lightControl,//屏幕亮度调节操作
     noneControl//无任何操作
 } ;
+
+
 //****************************宏*********************************
 #define KeyWindow [UIApplication sharedApplication].keyWindow
-#define iOS8 [UIDevice currentDevice].systemVersion.floatValue >= 8.0
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define kScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -52,8 +53,6 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 #define WMPlayerFrameworkSrcName(file) [@"Frameworks/WMPlayer.framework/WMPlayer.bundle" stringByAppendingPathComponent:file]
 #define WMPlayerImage(file)      [UIImage imageNamed:WMPlayerSrcName(file)] ? :[UIImage imageNamed:WMPlayerFrameworkSrcName(file)]
 
-#define kHalfWidth (kScreenWidth) * 0.5
-#define kHalfHeight (kScreenHeight) * 0.5
 
 //****************************头文件******************************
 #import "FastForwardView.h"

@@ -111,7 +111,7 @@
 - (double)currentTime;
 
 /**
- * 重置播放器
+ * 重置播放器,然后切换下一个播放资源
  */
 - (void )resetWMPlayer;
 /**
