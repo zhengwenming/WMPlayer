@@ -60,8 +60,7 @@ cell中播放视频，全屏小屏切换自如。
 
 ![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/WMPlayer.gif)   
 
-#用法，Usage
-1.初始化
+## Usage
 
 * 播放网络视频
 
