@@ -70,7 +70,7 @@
     if (self.wmPlayer.isFullscreen) {//全屏
         //强制翻转屏幕，Home键在下边。
         [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
-        }else{//非全屏
+    }else{//非全屏
         [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeRight) forKey:@"orientation"];
     }
     //刷新
