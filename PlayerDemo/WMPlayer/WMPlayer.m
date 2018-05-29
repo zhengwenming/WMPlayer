@@ -635,9 +635,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self dismissControlView];
     }
 }
-/**
- *  重写playerModel的setter方法，处理自己的逻辑
- */
+//重写playerModel的setter方法，处理自己的逻辑
 -(void)setPlayerModel:(WMPlayerModel *)playerModel{    
     if (_playerModel==playerModel) {
         return;
@@ -730,10 +728,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     _isHiddenTopAndBottomView = isHiddenTopAndBottomView;
     self.prefersStatusBarHidden = isHiddenTopAndBottomView;
 }
-/**
- *  设置播放的状态
- *  @param state WMPlayerState
- */
+//设置播放的状态
 - (void)setState:(WMPlayerState)state{
     _state = state;
     // 控制菊花显示、隐藏
@@ -926,9 +921,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         }
     }
 }
-/**
- *  缓冲回调
- */
+//缓冲回调
 - (void)loadedTimeRanges{
     if (self.state==WMPlayerStatePause) {
         
@@ -976,10 +969,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [self.bottomProgress setProgress:nowTime/(self.totalTime) animated:YES];
         }
 }
-/**
- *  跳到time处播放
- *  @param seekTime这个时刻，这个时间点
- */
+//seekTime跳到time处播放
 - (void)seekToTimeToPlay:(double)time{
     if (self.player&&self.player.currentItem.status == AVPlayerItemStatusReadyToPlay) {
         if (time>=self.totalTime) {
@@ -1014,11 +1004,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     return [[self dateFormatter] stringFromDate:d];
 }
-/**
- *  计算缓冲进度
- *
- *  @return 缓冲进度
- */
+//计算缓冲进度
 - (NSTimeInterval)availableDuration {
     NSArray *loadedTimeRanges = [_currentItem loadedTimeRanges];
     CMTimeRange timeRange     = [loadedTimeRanges.firstObject CMTimeRangeValue];// 获取缓冲区域
@@ -1266,7 +1252,7 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     }
     return CGAffineTransformIdentity;
 }
-///版本号
+//版本号
 +(NSString *)version{
     return @"5.0.0";
 }
