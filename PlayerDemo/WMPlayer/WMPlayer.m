@@ -455,7 +455,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.delegate wmplayer:self clickedCloseButton:sender];
     }
 }
-///获取视频长度
+//获取视频长度
 - (double)duration{
     AVPlayerItem *playerItem = self.player.currentItem;
     if (playerItem.status == AVPlayerItemStatusReadyToPlay){
@@ -464,7 +464,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         return 0.f;
     }
 }
-///获取视频当前播放的时间
+//获取视频当前播放的时间
 - (double)currentTime{
     if (self.player) {
         return CMTimeGetSeconds([self.player currentTime]);
@@ -494,7 +494,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.delegate wmplayer:self clickedPlayOrPauseButton:sender];
     }
 }
-///播放
+//播放
 -(void)play{
     if (self.isInitPlayer == NO) {
         [self creatWMPlayerAndReadyToPlay];
@@ -509,7 +509,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         }
     }
 }
-///暂停
+//暂停
 -(void)pause{
     if (self.state==WMPlayerStatePlaying) {
         self.state = WMPlayerStateStopped;
@@ -763,7 +763,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         }
     }];
 }
-///显示操作栏view
+//显示操作栏view
 -(void)showControlView{
     [UIView animateWithDuration:0.5 animations:^{
         self.bottomView.alpha = 1.0;
@@ -785,7 +785,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.delegate wmplayer:self singleTaped:self.singleTap];
     }
 }
-///隐藏操作栏view
+//隐藏操作栏view
 -(void)hiddenControlView{
     [UIView animateWithDuration:0.5 animations:^{
         self.bottomView.alpha = 0.0;
