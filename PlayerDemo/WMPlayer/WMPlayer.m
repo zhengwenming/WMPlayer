@@ -89,16 +89,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 
 
 @implementation WMPlayer
-/**
- *  storyboard、xib的初始化方法
- */
 - (void)awakeFromNib{
     [self initWMPlayer];
     [super awakeFromNib];
 }
-/**
- *  initWithFrame的初始化方法
- */
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -130,9 +124,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     return _videoGravity;
 }
-/**
- *  初始化WMPlayer的控件，添加手势，添加通知，添加kvo等
- */
+
 -(void)initWMPlayer{
     NSError *setCategoryErr = nil;
     NSError *activationErr  = nil;
@@ -149,9 +141,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.backgroundColor = [UIColor blackColor];
 
     //创建fastForwardView，快进⏩和快退的view
-    self.FF_View = [[NSBundle mainBundle] loadNibNamed:@"FastForwardView" owner:self options:nil].lastObject;
+    self.FF_View = [[FastForwardView alloc] init];
     self.FF_View.hidden = YES;
-    self.FF_View.layer.cornerRadius = 10.0;
     [self.contentView addSubview:self.FF_View];
     
     [KeyWindow addSubview:[WMLightView sharedLightView]];
@@ -304,7 +295,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
     [self.FF_View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.contentView);
-        make.size.mas_equalTo(CGSizeMake(120, 60));
+        make.size.mas_equalTo(CGSizeMake(120, 70));
     }];
     [self.loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.contentView);
@@ -608,20 +599,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_currentItem];
     }
 }
-/**
- *  设置静音
- *
- *  @param mute BOOL
- */
+//设置静音
 - (void)setMuted:(BOOL)muted{
     _muted = muted;
     self.player.muted = muted;
 }
-/**
- *  设置playerLayer的填充模式
- *
- *  @param playerLayerGravity playerLayerGravity
- */
+//设置playerLayer的填充模式
 - (void)setPlayerLayerGravity:(WMPlayerLayerGravity)playerLayerGravity {
     _playerLayerGravity = playerLayerGravity;
     switch (playerLayerGravity) {
@@ -1196,12 +1179,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark - 用来显示时间的view在时间发生变化时所作的操作
 -(void)timeValueChangingWithValue:(float)value{
     if (value > self.touchBeginValue) {
-        self.FF_View.sheetStateImageView.image = WMPlayerImage(@"progress_icon_r");
+        self.FF_View.stateImageView.image = WMPlayerImage(@"progress_icon_r");
     }else if(value < self.touchBeginValue){
-        self.FF_View.sheetStateImageView.image = WMPlayerImage(@"progress_icon_l");
+        self.FF_View.stateImageView.image = WMPlayerImage(@"progress_icon_l");
     }
     self.FF_View.hidden = NO;
-    self.FF_View.sheetTimeLabel.text = [NSString stringWithFormat:@"%@/%@", [self convertTime:value], [self convertTime:self.totalTime]];
+    self.FF_View.timeLabel.text = [NSString stringWithFormat:@"%@/%@", [self convertTime:value], [self convertTime:self.totalTime]];
     self.leftTimeLabel.text = [self convertTime:value];
     [self showControlView];
     [self.progressSlider setValue:value animated:YES];

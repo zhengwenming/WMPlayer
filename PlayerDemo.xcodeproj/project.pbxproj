@@ -64,7 +64,6 @@
 		BF1624B31DF50011006209D1 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF16245E1DF50011006209D1 /* TestViewController.m */; };
 		BF1624B41DF50011006209D1 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF16245F1DF50011006209D1 /* TestViewController.xib */; };
 		BF1624C31DF50182006209D1 /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624BC1DF50182006209D1 /* FastForwardView.m */; };
-		BF1624C41DF50182006209D1 /* FastForwardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1624BD1DF50182006209D1 /* FastForwardView.xib */; };
 		BF1624C51DF50182006209D1 /* WMLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624BF1DF50182006209D1 /* WMLightView.m */; };
 		BF1624C61DF50182006209D1 /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF1624C01DF50182006209D1 /* WMPlayer.bundle */; };
 		BF1624C71DF50182006209D1 /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624C21DF50182006209D1 /* WMPlayer.m */; };
@@ -189,7 +188,6 @@
 		BF16245F1DF50011006209D1 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
 		BF1624BB1DF50182006209D1 /* FastForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastForwardView.h; sourceTree = "<group>"; };
 		BF1624BC1DF50182006209D1 /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
-		BF1624BD1DF50182006209D1 /* FastForwardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FastForwardView.xib; sourceTree = "<group>"; };
 		BF1624BE1DF50182006209D1 /* WMLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLightView.h; sourceTree = "<group>"; };
 		BF1624BF1DF50182006209D1 /* WMLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLightView.m; sourceTree = "<group>"; };
 		BF1624C01DF50182006209D1 /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
@@ -460,7 +458,6 @@
 			children = (
 				BF1624BB1DF50182006209D1 /* FastForwardView.h */,
 				BF1624BC1DF50182006209D1 /* FastForwardView.m */,
-				BF1624BD1DF50182006209D1 /* FastForwardView.xib */,
 				BF1624BE1DF50182006209D1 /* WMLightView.h */,
 				BF1624BF1DF50182006209D1 /* WMLightView.m */,
 			);
@@ -588,7 +585,6 @@
 				BF1624841DF50011006209D1 /* MBProgressHUD.bundle in Resources */,
 				BF1624941DF50011006209D1 /* MJRefresh.bundle in Resources */,
 				701DCC8F1F52FD27003ACAB6 /* gzh.jpg in Resources */,
-				BF1624C41DF50182006209D1 /* FastForwardView.xib in Resources */,
 				C4EC7F4A1DF4FCD3006E9820 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
