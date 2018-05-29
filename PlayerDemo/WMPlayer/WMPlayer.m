@@ -970,20 +970,20 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         }
 }
 //seekTime跳到time处播放
-- (void)seekToTimeToPlay:(double)time{
+- (void)seekToTimeToPlay:(double)seekTime{
     if (self.player&&self.player.currentItem.status == AVPlayerItemStatusReadyToPlay) {
-        if (time>=self.totalTime) {
-            time = 0.0;
+        if (seekTime>=self.totalTime) {
+            seekTime = 0.0;
         }
-        if (time<0) {
-            time=0.0;
+        if (seekTime<0) {
+            seekTime=0.0;
         }
 //        int32_t timeScale = self.player.currentItem.asset.duration.timescale;
         //currentItem.asset.duration.timescale计算的时候严重堵塞主线程，慎用
         /* A timescale of 1 means you can only specify whole seconds to seek to. The timescale is the number of parts per second. Use 600 for video, as Apple recommends, since it is a product of the common video frame rates like 50, 60, 25 and 24 frames per second*/
         __weak typeof(self) weakSelf = self;
 
-        [self.player seekToTime:CMTimeMakeWithSeconds(time, self.currentItem.currentTime.timescale) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
+        [self.player seekToTime:CMTimeMakeWithSeconds(seekTime, self.currentItem.currentTime.timescale) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
             weakSelf.seekTime = 0;
         }];
     }
