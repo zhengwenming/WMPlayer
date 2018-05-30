@@ -1,4 +1,5 @@
 ## 功能
+- [x] 支持Cocoapods
 - [x] 支持旋转屏：全屏模式和小屏模式切换，自动感应旋转
 - [x] 支持网络和本地视频资源播放
 - [x] 支持cell中播放，列表播放
@@ -46,14 +47,6 @@ WMPlayer5.0版本新功能
 ![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/gzh.jpg)
 
 ---
-![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
-![Pod version](https://img.shields.io/cocoapods/v/WMPlayer.svg?style=flat)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform info](https://img.shields.io/cocoapods/p/WMPlayer.svg?style=flat)](http://cocoadocs.org/docsets/WMPlayer)
-[![Build Status](https://api.travis-ci.org/WMPlayer/WMPlayer.svg?branch=master)](https://travis-ci.org/WMPlayer/WMPlayer)
-
->![](./Res/修复cocopods拉取xib文件失败1.png)
->![](./Res/修复cocopods拉取xib文件失败2.png)
 
 WMPlayer视频播放器，AVPlayer的封装，继承UIView，想怎么玩就怎么玩。支持播放mp4、m3u8、3gp、mov，网络和本地视频同时支持。全屏和小屏播放同时支持。
 cell中播放视频，全屏小屏切换自如。
@@ -121,7 +114,7 @@ cell中播放视频，全屏小屏切换自如。
     代码：详见demo中的新浪tab对应的DetailViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
     bug：无
   
-# Android拍摄视频，上传服务器，iOS端无法播放，请☞戳这里
+# Android拍摄视频，上传服务器，iOS端无法播放，请☞戳下面链接
 【链接】Android拍摄的视频无法在iOS播放
 http://blog.csdn.net/u012992171/article/details/50673305 
 
