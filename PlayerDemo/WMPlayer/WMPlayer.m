@@ -276,17 +276,26 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     self.singleTap.numberOfTapsRequired = 1; // 单击
     self.singleTap.numberOfTouchesRequired = 1;
+    self.singleTap.delegate = self;
     [self.contentView addGestureRecognizer:self.singleTap];
 
     // 双击的 Recognizer
     UITapGestureRecognizer* doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     doubleTap.numberOfTouchesRequired = 1; //手指数
     doubleTap.numberOfTapsRequired = 2; // 双击
+    doubleTap.delegate = self;
     // 解决点击当前view时候响应其他控件事件
     [self.singleTap setDelaysTouchesBegan:YES];
     [doubleTap setDelaysTouchesBegan:YES];
     [self.singleTap requireGestureRecognizerToFail:doubleTap];//如果双击成立，则取消单击手势（双击的时候不会走单击事件）
     [self.contentView addGestureRecognizer:doubleTap];
+}
+#pragma mark - Gesture Delegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+        if ([touch.view isKindOfClass:[UIControl class]]) {
+            return NO;
+        }
+    return YES;
 }
 //添加控件的约束
 -(void)addUIControlConstraints{
