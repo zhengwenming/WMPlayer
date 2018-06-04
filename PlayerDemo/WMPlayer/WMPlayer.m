@@ -1263,6 +1263,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
 }
 //版本号
 +(NSString *)version{
-    return @"5.1.0";
+    return @"5.2.0";
 }
 @end
