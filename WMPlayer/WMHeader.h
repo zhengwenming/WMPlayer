@@ -9,9 +9,9 @@
 #ifndef WMHeader_h
 #define WMHeader_h
 
-@import AVFoundation;
-@import UIKit;
-@import MediaPlayer;
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <UIKit/UIKit.h>
 
 //****************************枚举*******************************
 // 播放器的几种状态

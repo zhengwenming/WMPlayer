@@ -217,13 +217,13 @@
 		706A53E520C540A2007CF810 /* WMPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				706A53EA20C540A2007CF810 /* WMPlayerModel.h */,
 				706A53E620C540A2007CF810 /* WMPlayerModel.m */,
 				706A53E720C540A2007CF810 /* WMHeader.h */,
 				706A53E820C540A2007CF810 /* WMPlayer.bundle */,
 				706A53E920C540A2007CF810 /* WMPlayer.h */,
-				706A53EA20C540A2007CF810 /* WMPlayerModel.h */,
-				706A53EB20C540A2007CF810 /* View */,
 				706A53F020C540A2007CF810 /* WMPlayer.m */,
+				706A53EB20C540A2007CF810 /* View */,
 			);
 			path = WMPlayer;
 			sourceTree = SOURCE_ROOT;
@@ -232,8 +232,8 @@
 			isa = PBXGroup;
 			children = (
 				706A53EC20C540A2007CF810 /* WMLightView.h */,
-				706A53ED20C540A2007CF810 /* FastForwardView.h */,
 				706A53EE20C540A2007CF810 /* WMLightView.m */,
+				706A53ED20C540A2007CF810 /* FastForwardView.h */,
 				706A53EF20C540A2007CF810 /* FastForwardView.m */,
 			);
 			path = View;
