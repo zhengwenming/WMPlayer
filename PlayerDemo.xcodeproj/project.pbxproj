@@ -76,7 +76,7 @@
 
 /* Begin PBXFileReference section */
 		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		70176A0D1F1F9612003AE71B /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		70176A0D1F1F9612003AE71B /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PlayerDemo.app; path = "/Users/apple/Desktop/Github/WMPlayer/build/Debug-iphoneos/PlayerDemo.app"; sourceTree = "<absolute>"; };
 		701BA929201B210900E7281C /* NSBundle+MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+MJRefresh.h"; sourceTree = "<group>"; };
 		701BA92A201B210A00E7281C /* NSBundle+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MJRefresh.m"; sourceTree = "<group>"; };
 		701C24691E0844C600232AAB /* WMPlayer.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WMPlayer.gif; sourceTree = "<group>"; };
@@ -473,19 +473,9 @@
 			);
 			sourceTree = "<group>";
 		};
-		C4EC7F3D1DF4FCD2006E9820 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				70176A0D1F1F9612003AE71B /* PlayerDemo.app */,
-			);
-			name = Products;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		C4EC7F3E1DF4FCD2006E9820 /* PlayerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C4EC7F3D1DF4FCD2006E9820 /* Products */,
 				BF1623B61DF50011006209D1 /* DataManager */,
 				BF1623DA1DF50011006209D1 /* ThirdLib */,
 				BF1624481DF50011006209D1 /* UITabBarController */,
@@ -561,7 +551,7 @@
 				Base,
 			);
 			mainGroup = C4EC7F331DF4FCD2006E9820;
-			productRefGroup = C4EC7F3D1DF4FCD2006E9820 /* Products */;
+			productRefGroup = C4EC7F331DF4FCD2006E9820;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

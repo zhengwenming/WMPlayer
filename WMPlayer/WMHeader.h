@@ -19,9 +19,9 @@ typedef NS_ENUM(NSInteger, WMPlayerState) {
     WMPlayerStateFailed,        // 播放失败
     WMPlayerStateBuffering,     // 缓冲中
     WMPlayerStatePlaying,       // 播放中
-    WMPlayerStateStopped,        //暂停播放
-    WMPlayerStateFinished,        //完成播放
-    WMPlayerStatePause,       // 打断播放
+    WMPlayerStateStopped,       //暂停播放
+    WMPlayerStateFinished,      //完成播放
+    WMPlayerStatePause,         // 打断播放
 };
 // playerLayer的填充模式（默认：等比例填充，直到一个维度到达区域边界）
 typedef NS_ENUM(NSInteger, WMPlayerLayerGravity) {
@@ -46,7 +46,6 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 
 //****************************宏*********************************
 #define KeyWindow [UIApplication sharedApplication].keyWindow
-#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define kScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define WMPlayerSrcName(file) [@"WMPlayer.bundle" stringByAppendingPathComponent:file]
