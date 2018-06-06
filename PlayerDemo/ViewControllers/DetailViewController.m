@@ -39,7 +39,7 @@
     UIInterfaceOrientationMask result = [super supportedInterfaceOrientations];
     return result;
 }
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
     //对于present出来的控制器，要主动的（强制的）选择VC，让wmPlayer全屏
 //    UIInterfaceOrientationLandscapeLeft或UIInterfaceOrientationLandscapeRight
     [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeRight) forKey:@"orientation"];
@@ -140,7 +140,7 @@
     if (orientation ==UIInterfaceOrientationPortrait) {//
         [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.leading.trailing.top.equalTo(self.view);
-            make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
+        make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
         }];
         self.wmPlayer.isFullscreen = NO;
     }else{
@@ -200,11 +200,11 @@
     self.nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nextBtn.backgroundColor = [UIColor lightGrayColor];
     [self.nextBtn addTarget:self action:@selector(nextVideo:) forControlEvents:UIControlEventTouchUpInside];
-    [self.nextBtn setImage:WMPlayerImage(@"player_ctrl_icon_next") forState:UIControlStateNormal];
-    [self.nextBtn setImage:WMPlayerImage(@"player_ctrl_icon_next") forState:UIControlStateSelected];
+    self.nextBtn.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:self.nextBtn];
     [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(100, 40));
     }];
     
     

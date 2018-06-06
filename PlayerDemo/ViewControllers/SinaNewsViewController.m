@@ -143,7 +143,7 @@
         }];
         
     }else{
-        [KeyWindow addSubview:self.wmPlayer];
+        [[UIApplication sharedApplication].keyWindow addSubview:self.wmPlayer];
         self.wmPlayer.isFullscreen = YES;
         self.wmPlayer.backBtnStyle = BackBtnStylePop;
         if(currentOrientation ==UIInterfaceOrientationPortrait){

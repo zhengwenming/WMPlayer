@@ -27,9 +27,6 @@
 }
 -(BOOL)shouldAutorotate{
     BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
-//    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
-//        return YES;
-//    }
     return nav.topViewController.shouldAutorotate;
 }
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations{

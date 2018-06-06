@@ -15,6 +15,13 @@
 #import "sys/utsname.h"
 #import "WMPlayer.h"
 
+//****************************宏*********************************
+#define WMPlayerSrcName(file) [@"WMPlayer.bundle" stringByAppendingPathComponent:file]
+#define WMPlayerFrameworkSrcName(file) [@"Frameworks/WMPlayer.framework/WMPlayer.bundle" stringByAppendingPathComponent:file]
+#define WMPlayerImage(file)      [UIImage imageNamed:WMPlayerSrcName(file)] ? :[UIImage imageNamed:WMPlayerFrameworkSrcName(file)]
+
+
+
 //整个屏幕代表的时间
 #define TotalScreenTime 90
 #define LeastDistance 15
@@ -145,7 +152,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.FF_View.hidden = YES;
     [self.contentView addSubview:self.FF_View];
     
-    [KeyWindow addSubview:[WMLightView sharedLightView]];
+    [[UIApplication sharedApplication].keyWindow addSubview:[WMLightView sharedLightView]];
     //设置默认值
     self.enableVolumeGesture = YES;
     self.enableFastForwardGesture = YES;
@@ -1068,24 +1075,24 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         //滑动角度的tan值
         float tan = fabs(tempPoint.y - _touchBeginPoint.y)/fabs(tempPoint.x - self.touchBeginPoint.x);
         if (tan < 1/sqrt(3)) {    //当滑动角度小于30度的时候, 进度手势
-            self.controlType = progressControl;
+            self.controlType = WMControlTypeProgress;
         }else if(tan > sqrt(3)){  //当滑动角度大于60度的时候, 声音和亮度
             //判断是在屏幕的左半边还是右半边滑动, 左侧控制为亮度, 右侧控制音量
             if (self.touchBeginPoint.x < self.bounds.size.width/2) {
-                self.controlType = lightControl;
+                self.controlType = WMControlTypeLight;
             }else{
-                self.controlType = voiceControl;
+                self.controlType = WMControlTypeVoice;
             }
         }else{     //如果是其他角度则不是任何控制
-            self.controlType = noneControl;
+            self.controlType = WMControlTypeDefault;
             return;
         }
-    if (self.controlType == progressControl) {     //如果是进度手势
+    if (self.controlType == WMControlTypeProgress) {     //如果是进度手势
         if (self.enableFastForwardGesture) {
             float value = [self moveProgressControllWithTempPoint:tempPoint];
             [self timeValueChangingWithValue:value];
         }
-        }else if(self.controlType == voiceControl){    //如果是音量手势
+        }else if(self.controlType == WMControlTypeVoice){    //如果是音量手势
         if (self.isFullscreen) {//全屏的时候才开启音量的手势调节
             if (self.enableVolumeGesture) {
                 //根据触摸开始时的音量和触摸开始时的点去计算出现在滑动到的音量
@@ -1102,7 +1109,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         }else{
             return;
         }
-    }else if(self.controlType == lightControl){   //如果是亮度手势
+    }else if(self.controlType == WMControlTypeLight){   //如果是亮度手势
         if (self.isFullscreen) {
             //根据触摸开始时的亮度, 和触摸开始时的点来计算出现在的亮度
             float tempLightValue = self.touchBeginLightValue - ((tempPoint.y - _touchBeginPoint.y)/self.bounds.size.height);
@@ -1124,7 +1131,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [super touchesCancelled:touches withEvent:event];
     //判断是否移动过,
     if (self.hasMoved) {
-        if (_controlType == progressControl) { //进度控制就跳到响应的进度
+        if (_controlType == WMControlTypeProgress) { //进度控制就跳到响应的进度
             CGPoint tempPoint = [touches.anyObject locationInView:self];
             //            if ([self.delegate respondsToSelector:@selector(seekToTheTimeValue:)]) {
             if (self.enableFastForwardGesture) {
@@ -1134,7 +1141,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             }
             //            }
                         self.FF_View.hidden = YES;
-        }else if (_controlType == lightControl){//如果是亮度控制, 控制完亮度还要隐藏显示亮度的view
+        }else if (_controlType == WMControlTypeLight){//如果是亮度控制, 控制完亮度还要隐藏显示亮度的view
         }
     }else{
     }
@@ -1145,7 +1152,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [super touchesEnded:touches withEvent:event];
     //判断是否移动过,
     if (self.hasMoved) {
-        if (self.controlType == progressControl) { //进度控制就跳到响应的进度
+        if (self.controlType == WMControlTypeProgress) { //进度控制就跳到响应的进度
             //            if ([self.delegate respondsToSelector:@selector(seekToTheTimeValue:)]) {
             if (self.enableFastForwardGesture) {
                 CGPoint tempPoint = [touches.anyObject locationInView:self];
@@ -1153,7 +1160,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                 [self seekToTimeToPlay:value];
                 self.FF_View.hidden = YES;
             }
-        }else if (_controlType == lightControl){//如果是亮度控制, 控制完亮度还要隐藏显示亮度的view
+        }else if (_controlType == WMControlTypeLight){//如果是亮度控制, 控制完亮度还要隐藏显示亮度的view
         }
     }else{
 

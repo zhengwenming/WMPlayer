@@ -11,9 +11,45 @@
    Copyright © 2016年 郑文明. All rights reserved.
  */
 
-
-#import "WMHeader.h"
+#import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "WMPlayerModel.h"
+#import "Masonry.h"
+#import "FastForwardView.h"
+#import "WMLightView.h"
+
+//****************************枚举*******************************
+// 播放器的几种状态
+typedef NS_ENUM(NSInteger, WMPlayerState) {
+    WMPlayerStateFailed,        // 播放失败
+    WMPlayerStateBuffering,     // 缓冲中
+    WMPlayerStatePlaying,       // 播放中
+    WMPlayerStateStopped,       //暂停播放
+    WMPlayerStateFinished,      //完成播放
+    WMPlayerStatePause,         // 打断播放
+};
+// playerLayer的填充模式（默认：等比例填充，直到一个维度到达区域边界）
+typedef NS_ENUM(NSInteger, WMPlayerLayerGravity) {
+    WMPlayerLayerGravityResize,           // 非均匀模式。两个维度完全填充至整个视图区域
+    WMPlayerLayerGravityResizeAspect,     // 等比例填充，直到一个维度到达区域边界
+    WMPlayerLayerGravityResizeAspectFill  // 等比例填充，直到填充满整个视图区域，其中一个维度的部分区域会被裁剪
+};
+// 枚举值，包含播放器左上角的返回按钮的类型
+typedef NS_ENUM(NSInteger, BackBtnStyle){
+    BackBtnStyleClose,//关闭（X）
+    BackBtnStylePop //pop箭头<-
+};
+
+//手势操作的类型
+typedef NS_ENUM(NSUInteger,WMControlType) {
+    WMControlTypeDefault,//无任何操作
+    WMControlTypeProgress,//视频进度调节操作
+    WMControlTypeVoice,//声音调节操作
+    WMControlTypeLight//屏幕亮度调节操作
+} ;
+
+
 
 @class WMPlayer;
 @protocol WMPlayerDelegate <NSObject>
