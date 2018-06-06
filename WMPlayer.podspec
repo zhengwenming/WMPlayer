@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
     s.authors      = { 'zhengwenming' => '740747055@qq.com','wvqusrtg'=>' <1911398892@qq.com>'}
     s.platform     = :ios, '8.0'
     s.source       = { :git => 'https://github.com/zhengwenming/WMPlayer.git',:tag =>s.version }
-    s.source_files  = 'WMPlayer/**/*.{h,m}'
-    s.resources     = 'WMPlayer/WMPlayer.bundle'
+    s.source_files  = 'WMPlayer/WMPlayer/**/*.{h,m}'
+    s.resources     = 'WMPlayer/WMPlayer/WMPlayer.bundle'
     s.framework     = 'UIKit','MediaPlayer','AVFoundation'
     s.requires_arc  = true
     s.dependency 'Masonry'
