@@ -23,23 +23,19 @@
 
 @implementation BaseNavigationController
 // 是否支持自动转屏
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate{
     return [self.visibleViewController shouldAutorotate];
 }
 // 支持哪些屏幕方向
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
     return [self.visibleViewController supportedInterfaceOrientations];
 }
 
 // 默认的屏幕方向（当前ViewController必须是通过模态出来的UIViewController（模态带导航的无效）方式展现出来的，才会调用这个方法）
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
     return [self.visibleViewController preferredInterfaceOrientationForPresentation];
 }
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.arrayScreenshot = [NSMutableArray array];
@@ -95,29 +91,21 @@
 //    return YES;
 //}
 
-- (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture
-{
+- (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture{
     AppDelegate *appdelegate = [AppDelegate shareAppDelegate];
-    
     UITabBarController *rootVC = (UITabBarController *)appdelegate.window.rootViewController;
-    
     UINavigationController *nav= rootVC.selectedViewController;
     UIViewController * currentVC = nav.topViewController;
     UIViewController * presentedVC = rootVC.presentedViewController;
-    
-    if (self.viewControllers.count == 1)
-    {
+    if (self.viewControllers.count == 1){
         return;
     }
-    if (panGesture.state == UIGestureRecognizerStateBegan)
-    {
+    if (panGesture.state == UIGestureRecognizerStateBegan){
         if (currentVC.gestureBeganBlock) {
             currentVC.gestureBeganBlock(currentVC);
         }
         appdelegate.screenshotView.hidden = NO;
-    }
-    else if (panGesture.state == UIGestureRecognizerStateChanged)
-    {
+    }else if (panGesture.state == UIGestureRecognizerStateChanged){
         CGPoint point_inView = [panGesture translationInView:self.view];
         if (currentVC.gestureChangedBlock) {
             currentVC.gestureChangedBlock(currentVC);
@@ -127,9 +115,7 @@
             rootVC.view.transform = CGAffineTransformMakeTranslation(point_inView.x - 10, 0);
             presentedVC.view.transform = CGAffineTransformMakeTranslation(point_inView.x - 10, 0);
         }
-    }
-    else if (panGesture.state == UIGestureRecognizerStateEnded)
-    {
+    }else if (panGesture.state == UIGestureRecognizerStateEnded){
         if (currentVC.gestureEndedBlock) {
             currentVC.gestureEndedBlock(currentVC);
         }
@@ -159,8 +145,7 @@
     
 }
 
-- (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
+- (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated{
     NSArray *arr = [super popToViewController:viewController animated:animated];
     
     if (self.arrayScreenshot.count > arr.count)
@@ -173,8 +158,7 @@
 }
 
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if (self.viewControllers.count == 0){
         return [super pushViewController:viewController animated:animated];
     }else if (self.viewControllers.count>=1) {
@@ -187,12 +171,10 @@
     UIGraphicsEndImageContext();
     [self.arrayScreenshot addObject:viewImage];
     appdelegate.screenshotView.imgView.image = viewImage;
-
     [super pushViewController:viewController animated:animated];
 }
 
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated
-{
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [self.arrayScreenshot removeLastObject];
     UIImage *image = [self.arrayScreenshot lastObject];
@@ -203,11 +185,9 @@
     return v;
 }
 
-- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated
-{
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated{
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (self.arrayScreenshot.count > 2)
-    {
+    if (self.arrayScreenshot.count > 2){
         [self.arrayScreenshot removeObjectsInRange:NSMakeRange(1, self.arrayScreenshot.count - 1)];
     }
     UIImage *image = [self.arrayScreenshot lastObject];

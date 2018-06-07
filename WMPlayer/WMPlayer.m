@@ -696,9 +696,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString *platform = [NSString stringWithCString: systemInfo.machine encoding:NSASCIIStringEncoding];
-    if([platform isEqualToString:@"iPhone10,3"]||[platform isEqualToString:@"iPhone10,6"]) {
-        return YES;
-    }else{
+    if([platform isEqualToString:@"i386"]||[platform isEqualToString:@"x86_64"]){//模拟器
+        return ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO);
+    }else{//真机
+        if([platform isEqualToString:@"iPhone10,3"]||[platform isEqualToString:@"iPhone10,6"]) {
+            return YES;
+        }
         return NO;
     }
 }
@@ -1270,6 +1273,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
 }
 //版本号
 +(NSString *)version{
-    return @"5.2.0";
+    return @"5.0.0";
 }
 @end
