@@ -89,7 +89,7 @@
 		706A53EE20C540A2007CF810 /* WMLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLightView.m; sourceTree = "<group>"; };
 		706A53EF20C540A2007CF810 /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
 		706A53F020C540A2007CF810 /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
-		70973B0420C7B6CD00188A24 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		70973B0420C7B6CD00188A24 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PlayerDemo.app; path = "/Users/apple/Desktop/Github/WMPlayer/build/Debug-iphoneos/PlayerDemo.app"; sourceTree = "<absolute>"; };
 		70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GestureStateBlock.h"; sourceTree = "<group>"; };
 		70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+GestureStateBlock.m"; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -468,7 +468,6 @@
 				C4EC7F3E1DF4FCD2006E9820 /* PlayerDemo */,
 				8AAEEC1312C0C3531902D027 /* Pods */,
 				9CB412B180A011467ACD0171 /* Frameworks */,
-				70973B0420C7B6CD00188A24 /* PlayerDemo.app */,
 			);
 			sourceTree = "<group>";
 		};
