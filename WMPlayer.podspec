@@ -12,4 +12,5 @@ s.resources     = 'resources/WMPlayer.bundle'
 s.framework     = 'Foundation','UIKit','MediaPlayer','AVFoundation'
 s.requires_arc  = true
 s.dependency 'Masonry'
+spec.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
 end
