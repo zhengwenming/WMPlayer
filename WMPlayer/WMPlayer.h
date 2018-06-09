@@ -15,7 +15,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "WMPlayerModel.h"
-#import "Masonry.h"
 #import "FastForwardView.h"
 #import "WMLightView.h"
 

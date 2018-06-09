@@ -218,12 +218,12 @@
 			children = (
 				70763CBC20CBCE4400DCB7BE /* resources */,
 				70763CB020CBCE3200DCB7BE /* WMLightView.h */,
-				70763CB120CBCE3200DCB7BE /* WMPlayerModel.m */,
-				70763CB220CBCE3200DCB7BE /* FastForwardView.h */,
-				70763CB320CBCE3200DCB7BE /* WMPlayer.h */,
-				70763CB420CBCE3200DCB7BE /* WMPlayerModel.h */,
 				70763CB520CBCE3200DCB7BE /* WMLightView.m */,
+				70763CB120CBCE3200DCB7BE /* WMPlayerModel.m */,
+				70763CB420CBCE3200DCB7BE /* WMPlayerModel.h */,
+				70763CB220CBCE3200DCB7BE /* FastForwardView.h */,
 				70763CB620CBCE3200DCB7BE /* FastForwardView.m */,
+				70763CB320CBCE3200DCB7BE /* WMPlayer.h */,
 				70763CB720CBCE3200DCB7BE /* WMPlayer.m */,
 			);
 			path = WMPlayer;

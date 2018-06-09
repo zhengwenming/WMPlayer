@@ -14,6 +14,7 @@
 
 #import "sys/utsname.h"
 #import "WMPlayer.h"
+#import "Masonry.h"
 
 //****************************宏*********************************
 #define WMPlayerSrcName(file) [@"WMPlayer.bundle" stringByAppendingPathComponent:file]
