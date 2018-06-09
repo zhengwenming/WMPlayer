@@ -186,6 +186,7 @@
     self.wmPlayer = [WMPlayer playerWithModel:playerModel];
     self.wmPlayer.backBtnStyle = BackBtnStylePop;
     self.wmPlayer.enableBackgroundMode = YES;
+    
     self.wmPlayer.delegate = self;
     [self.view addSubview:self.wmPlayer];
     [self.wmPlayer play];

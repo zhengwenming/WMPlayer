@@ -13,9 +13,9 @@
 		701DCC8F1F52FD27003ACAB6 /* gzh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 701DCC8E1F52FD27003ACAB6 /* gzh.jpg */; };
 		706A53F120C540A3007CF810 /* WMPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 706A53E620C540A2007CF810 /* WMPlayerModel.m */; };
 		706A53F220C540A3007CF810 /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 706A53E820C540A2007CF810 /* WMPlayer.bundle */; };
-		706A53F320C540A3007CF810 /* WMLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 706A53EE20C540A2007CF810 /* WMLightView.m */; };
-		706A53F420C540A3007CF810 /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 706A53EF20C540A2007CF810 /* FastForwardView.m */; };
 		706A53F520C540A3007CF810 /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 706A53F020C540A2007CF810 /* WMPlayer.m */; };
+		70763C9B20CBC56200DCB7BE /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70763C9920CBC56200DCB7BE /* FastForwardView.m */; };
+		70763C9C20CBC56200DCB7BE /* WMLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70763C9A20CBC56200DCB7BE /* WMLightView.m */; };
 		70B3301D1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */; };
 		BF1624601DF50011006209D1 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623B81DF50011006209D1 /* DataManager.m */; };
 		BF1624611DF50011006209D1 /* SidModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623BA1DF50011006209D1 /* SidModel.m */; };
@@ -84,12 +84,12 @@
 		706A53E820C540A2007CF810 /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
 		706A53E920C540A2007CF810 /* WMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayer.h; sourceTree = "<group>"; };
 		706A53EA20C540A2007CF810 /* WMPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayerModel.h; sourceTree = "<group>"; };
-		706A53EC20C540A2007CF810 /* WMLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLightView.h; sourceTree = "<group>"; };
-		706A53ED20C540A2007CF810 /* FastForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastForwardView.h; sourceTree = "<group>"; };
-		706A53EE20C540A2007CF810 /* WMLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLightView.m; sourceTree = "<group>"; };
-		706A53EF20C540A2007CF810 /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
 		706A53F020C540A2007CF810 /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
-		70973B0420C7B6CD00188A24 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PlayerDemo.app; path = "/Users/apple/Desktop/Github/WMPlayer/build/Debug-iphoneos/PlayerDemo.app"; sourceTree = "<absolute>"; };
+		70763C9620CBC54D00DCB7BE /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		70763C9720CBC56200DCB7BE /* WMLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLightView.h; sourceTree = "<group>"; };
+		70763C9820CBC56200DCB7BE /* FastForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastForwardView.h; sourceTree = "<group>"; };
+		70763C9920CBC56200DCB7BE /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
+		70763C9A20CBC56200DCB7BE /* WMLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLightView.m; sourceTree = "<group>"; };
 		70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GestureStateBlock.h"; sourceTree = "<group>"; };
 		70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+GestureStateBlock.m"; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -216,26 +216,18 @@
 		706A53E520C540A2007CF810 /* WMPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				70763C9820CBC56200DCB7BE /* FastForwardView.h */,
+				70763C9920CBC56200DCB7BE /* FastForwardView.m */,
+				70763C9720CBC56200DCB7BE /* WMLightView.h */,
+				70763C9A20CBC56200DCB7BE /* WMLightView.m */,
 				706A53EA20C540A2007CF810 /* WMPlayerModel.h */,
 				706A53E620C540A2007CF810 /* WMPlayerModel.m */,
 				706A53E820C540A2007CF810 /* WMPlayer.bundle */,
 				706A53E920C540A2007CF810 /* WMPlayer.h */,
 				706A53F020C540A2007CF810 /* WMPlayer.m */,
-				706A53EB20C540A2007CF810 /* View */,
 			);
 			path = WMPlayer;
 			sourceTree = SOURCE_ROOT;
-		};
-		706A53EB20C540A2007CF810 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				706A53EC20C540A2007CF810 /* WMLightView.h */,
-				706A53EE20C540A2007CF810 /* WMLightView.m */,
-				706A53ED20C540A2007CF810 /* FastForwardView.h */,
-				706A53EF20C540A2007CF810 /* FastForwardView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
 		};
 		8AAEEC1312C0C3531902D027 /* Pods */ = {
 			isa = PBXGroup;
@@ -468,6 +460,7 @@
 				C4EC7F3E1DF4FCD2006E9820 /* PlayerDemo */,
 				8AAEEC1312C0C3531902D027 /* Pods */,
 				9CB412B180A011467ACD0171 /* Frameworks */,
+				70763C9620CBC54D00DCB7BE /* PlayerDemo.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -522,7 +515,7 @@
 			);
 			name = PlayerDemo;
 			productName = PlayerDemo;
-			productReference = 70973B0420C7B6CD00188A24 /* PlayerDemo.app */;
+			productReference = 70763C9620CBC54D00DCB7BE /* PlayerDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -634,7 +627,7 @@
 				BF1624A51DF50011006209D1 /* UIImageView+HighlightedWebCache.m in Sources */,
 				BF1624961DF50011006209D1 /* UIScrollView+MJExtension.m in Sources */,
 				BF1624B31DF50011006209D1 /* TestViewController.m in Sources */,
-				706A53F420C540A3007CF810 /* FastForwardView.m in Sources */,
+				70763C9B20CBC56200DCB7BE /* FastForwardView.m in Sources */,
 				BF1624A81DF50011006209D1 /* RootTabBarController.m in Sources */,
 				BF1624861DF50011006209D1 /* MJRefreshAutoFooter.m in Sources */,
 				BF1624991DF50011006209D1 /* ScreenShotView.m in Sources */,
@@ -652,6 +645,7 @@
 				BF16248E1DF50011006209D1 /* MJRefreshBackGifFooter.m in Sources */,
 				BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */,
 				BF1624AD1DF50011006209D1 /* DetailViewController.m in Sources */,
+				70763C9C20CBC56200DCB7BE /* WMLightView.m in Sources */,
 				BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */,
 				BF1624981DF50011006209D1 /* UIView+MJExtension.m in Sources */,
 				BF16249C1DF50011006209D1 /* SDWebImageCompat.m in Sources */,
@@ -663,7 +657,6 @@
 				BF16249B1DF50011006209D1 /* SDImageCache.m in Sources */,
 				BF1624971DF50011006209D1 /* UIScrollView+MJRefresh.m in Sources */,
 				BF1624A11DF50011006209D1 /* SDWebImagePrefetcher.m in Sources */,
-				706A53F320C540A3007CF810 /* WMLightView.m in Sources */,
 				BF16248C1DF50011006209D1 /* MJRefreshAutoNormalFooter.m in Sources */,
 				C4EC7F441DF4FCD2006E9820 /* AppDelegate.m in Sources */,
 				BF1624921DF50011006209D1 /* MJRefreshNormalHeader.m in Sources */,
