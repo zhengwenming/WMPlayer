@@ -97,9 +97,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 
 
 @implementation WMPlayer
-- (void)awakeFromNib{
-    [self initWMPlayer];
-    [super awakeFromNib];
+- (instancetype)initWithCoder:(NSCoder *)coder{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self initWMPlayer];
+    }
+    return self;
 }
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -1192,9 +1195,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.FF_View.hidden = NO;
     self.FF_View.timeLabel.text = [NSString stringWithFormat:@"%@/%@", [self convertTime:value], [self convertTime:self.totalTime]];
     self.leftTimeLabel.text = [self convertTime:value];
-    [self showControlView];
-    [self.progressSlider setValue:value animated:YES];
-    self.bottomProgress.progress = self.progressSlider.value;
+//    [self showControlView];
+//    [self.progressSlider setValue:value animated:YES];
+//    self.bottomProgress.progress = self.progressSlider.value;
 }
 
 NSString * calculateTimeWithTimeFormatter(long long timeSecond){

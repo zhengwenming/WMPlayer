@@ -22,19 +22,6 @@
 @end
 
 @implementation BaseNavigationController
-// 是否支持自动转屏
-- (BOOL)shouldAutorotate{
-    return [self.visibleViewController shouldAutorotate];
-}
-// 支持哪些屏幕方向
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    return [self.visibleViewController supportedInterfaceOrientations];
-}
-
-// 默认的屏幕方向（当前ViewController必须是通过模态出来的UIViewController（模态带导航的无效）方式展现出来的，才会调用这个方法）
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    return [self.visibleViewController preferredInterfaceOrientationForPresentation];
-}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -47,8 +34,7 @@
     self.interactivePopGestureRecognizer.enabled = NO;
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     _panGesture.delegate = self;
-    [self.view addGestureRecognizer:_panGesture];
-
+    [self.view addGestureRecognizer:self.panGesture];
     self.navigationBar.barTintColor = [UIColor redColor];
     //返回按钮颜色
     UIImage *backButtonImage = [[UIImage imageNamed:@"navigator_btn_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
@@ -61,18 +47,16 @@
     if (gestureRecognizer.view == self.view) {
         BaseViewController *topView = (BaseViewController *)self.topViewController;
         
-        if (!topView.enablePanGesture)
+        if (!topView.enablePanGesture){
             return NO;
-        else
-        {
+        }else{
             CGPoint translate = [gestureRecognizer translationInView:self.view];
-            
             BOOL possible = translate.x != 0 && fabs(translate.y) == 0;
-            if (possible)
+            if (possible){
                 return YES;
-            else
+            }else{
                 return NO;
-            return YES;
+            }
         }
     }
     return NO;

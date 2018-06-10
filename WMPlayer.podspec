@@ -7,10 +7,9 @@ s.license      = 'MIT'
 s.authors      = { 'zhengwenming' => '740747055@qq.com','wvqusrtg'=>' <1911398892@qq.com>'}
 s.platform     = :ios, '7.0'
 s.source       = { :git => 'https://github.com/zhengwenming/WMPlayer.git',:tag =>s.version}
-s.source_files  = 'WMPlayer/*.{h,m}'
-s.resources     = 'resources/WMPlayer.bundle'
+s.source_files  = 'WMPlayer/**/*.{h,m}'
+s.resources     = 'WMPlayer/WMPlayer.bundle'
 s.framework     = 'Foundation','UIKit','MediaPlayer','AVFoundation'
+s.dependency    'Masonry'
 s.requires_arc  = true
-s.dependency 'Masonry'
-spec.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
 end

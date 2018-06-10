@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
-#import "VideoModel.h"
+#import "WMPlayer.h"
 
 @interface DetailViewController : BaseViewController
-@property (nonatomic, retain)VideoModel *   videoModel;
-
+@property (nonatomic, retain)WMPlayerModel *playerModel;
+@property (nonatomic, strong)WMPlayer  *wmPlayer;
 @end

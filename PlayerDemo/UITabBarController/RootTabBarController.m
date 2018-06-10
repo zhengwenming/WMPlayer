@@ -7,15 +7,8 @@
 //
 
 #import "RootTabBarController.h"
-#import "TencentNewsViewController.h"
-#import "SinaNewsViewController.h"
-#import "BaseNavigationController.h"
-
-
-
 @interface RootTabBarController (){
 }
-
 @end
 
 @implementation RootTabBarController
@@ -25,26 +18,7 @@
     self.tabBar.tintColor = [UIColor redColor];
     self.selectedIndex = 1;
 }
--(BOOL)shouldAutorotate{
-    BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
-    return nav.topViewController.shouldAutorotate;
-}
--(UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
-    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    }
-    return UIInterfaceOrientationMaskPortrait;
-}
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    BaseNavigationController *nav = (BaseNavigationController *)self.selectedViewController;
-    if ([nav.topViewController isKindOfClass:[NSClassFromString(@"DetailViewController") class]]) {
-        return UIInterfaceOrientationPortrait|UIInterfaceOrientationLandscapeLeft|UIInterfaceOrientationLandscapeRight;
-    }
-    return UIInterfaceOrientationPortrait;
-    
-}- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

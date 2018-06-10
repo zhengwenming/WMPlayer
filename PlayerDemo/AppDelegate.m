@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 
-@import AVFoundation;
 
 @interface AppDelegate ()
 @property(nonatomic,strong)NSDateFormatter *dateFormatter;

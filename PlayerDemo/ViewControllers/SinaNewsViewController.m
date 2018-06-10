@@ -40,9 +40,6 @@
     }
     return NO;
 }
--(BOOL)shouldAutorotate{
-    return NO;
-}
 -(NSMutableArray *)dataSource{
     if (_dataSource==nil) {
         _dataSource = [NSMutableArray array];
@@ -67,7 +64,23 @@
     }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
-    [self setNeedsStatusBarAppearanceUpdate];
+    if(self.wmPlayer.isFullscreen==NO){
+        DetailViewController *detailVC = [DetailViewController new];
+        detailVC.playerModel = wmplayer.playerModel;
+        detailVC.wmPlayer = self.wmPlayer;
+        [self.currentCell.playBtn.superview bringSubviewToFront:self.currentCell.playBtn];
+        //push测试
+        [self.navigationController pushViewController:detailVC animated:YES];
+        [self releaseWMPlayer];
+        
+        //present测试
+//        [self presentViewController:detailVC animated:YES completion:^{
+//
+//        }];
+    }else{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+    
 }
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
     NSLog(@"didDoubleTaped");
@@ -313,20 +326,6 @@
                 [self.currentCell.playBtn.superview bringSubviewToFront:self.currentCell.playBtn];
             }
         }
-    }
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    VideoModel *   model = [self.dataSource objectAtIndex:indexPath.row];
-    DetailViewController *detailVC = [[DetailViewController alloc]init];
-    detailVC.videoModel = model;
-    if (indexPath.row%2) {//present测试
-        [self presentViewController:detailVC animated:YES completion:^{
-            
-        }];
-    }else{//push测试
-        [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
 /**

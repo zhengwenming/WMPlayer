@@ -7,11 +7,9 @@
 //
 
 #import "DetailViewController.h"
-#import "WMPlayer.h"
 #import "Masonry.h"
 
 @interface DetailViewController ()<WMPlayerDelegate>
-@property(nonatomic,strong)    WMPlayer  *wmPlayer;//记录支不支持旋转
 @property(nonatomic,strong)    UIButton *nextBtn;
 @property(nonatomic,assign)    BOOL  forbidRotate;//手势返回的时候禁止旋转VC
 @end
@@ -36,8 +34,7 @@
 }
 //viewController所支持的全部旋转方向
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    UIInterfaceOrientationMask result = [super supportedInterfaceOrientations];
-    return result;
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
     //对于present出来的控制器，要主动的（强制的）选择VC，让wmPlayer全屏
@@ -105,7 +102,7 @@
     if (self.wmPlayer.isLockScreen){
         return;
     }
-    if (self.forbidRotate==YES) {
+    if (self.forbidRotate) {
         return ;
     }
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
@@ -153,17 +150,15 @@
     self.nextBtn.hidden = self.wmPlayer.isFullscreen;
     if (@available(iOS 11.0, *)) {
         [self setNeedsUpdateOfHomeIndicatorAutoHidden];
-    } else {
-        // Fallback on earlier versions
     }
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 -(void)viewDidDisappear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = NO;
     [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 #pragma mark
 #pragma mark viewDidLoad
@@ -178,29 +173,21 @@
                                                object:nil
      ];
     
-    WMPlayerModel *playerModel = [WMPlayerModel new];
-    playerModel.title = self.videoModel.title;
-    playerModel.videoURL = [NSURL URLWithString:self.videoModel.m3u8_url];
-//    playerModel.seekTime = 5.f;//从5s处开始播放
-//    self.wmPlayer = [[WMPlayer alloc]initPlayerModel:playerModel];
-    self.wmPlayer = [WMPlayer playerWithModel:playerModel];
     self.wmPlayer.backBtnStyle = BackBtnStylePop;
-    self.wmPlayer.enableBackgroundMode = YES;
-    
+    self.wmPlayer.enableBackgroundMode = YES;//开启后台播放模式
     self.wmPlayer.delegate = self;
     [self.view addSubview:self.wmPlayer];
     [self.wmPlayer play];
- 
     [self.wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.top.equalTo(self.view);
         make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
     }];
     
     
-    
     self.nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nextBtn.backgroundColor = [UIColor lightGrayColor];
     [self.nextBtn addTarget:self action:@selector(nextVideo:) forControlEvents:UIControlEventTouchUpInside];
+     [self.nextBtn setTitle:@"切换视频" forState:UIControlStateNormal];
     self.nextBtn.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:self.nextBtn];
     [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,7 +204,7 @@
     
     ///手势作用期间回调block
     self.gestureChangedBlock = ^(UIViewController *viewController) {
-        weakSelf.forbidRotate = YES;
+
     };
     
     ///手势结束时刻回调block
@@ -230,7 +217,7 @@
     WMPlayerModel *newModel = [WMPlayerModel new];
     newModel.title = @"这个是新视频的标题";
     newModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-    [self.wmPlayer setPlayerModel:newModel];
+    self.wmPlayer.playerModel = newModel;
     [self.wmPlayer play];
 }
 - (void)releaseWMPlayer{

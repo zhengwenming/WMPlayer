@@ -80,7 +80,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 /**
  播放器对应的model
  */
-@property (nonatomic,retain ) WMPlayerModel   *playerModel;
+@property (nonatomic,strong) WMPlayerModel   *playerModel;
 /**
  返回按钮的样式
  */

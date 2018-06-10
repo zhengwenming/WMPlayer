@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface WMPlayerModel : NSObject
 //视频标题
@@ -16,5 +17,5 @@
 //跳到seekTime处播放
 @property (nonatomic, assign) double   seekTime;
 @property (nonatomic, strong) NSIndexPath  *indexPath;
-
+@property (nonatomic, strong) AVURLAsset    *urlAsset;
 @end
