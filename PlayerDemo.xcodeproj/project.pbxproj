@@ -224,14 +224,14 @@
 			children = (
 				70763CDB20CD5D0200DCB7BE /* Category */,
 				70763CDA20CD5D0200DCB7BE /* WMPlayer.bundle */,
-				70763CC820CD5C9700DCB7BE /* WMLightView.h */,
-				70763CC920CD5C9700DCB7BE /* WMPlayerModel.m */,
-				70763CCA20CD5C9700DCB7BE /* FastForwardView.h */,
-				70763CCE20CD5C9700DCB7BE /* WMPlayer.h */,
 				70763CCF20CD5C9700DCB7BE /* WMPlayerModel.h */,
-				70763CD020CD5C9700DCB7BE /* WMLightView.m */,
-				70763CD120CD5C9700DCB7BE /* FastForwardView.m */,
+				70763CC920CD5C9700DCB7BE /* WMPlayerModel.m */,
+				70763CCE20CD5C9700DCB7BE /* WMPlayer.h */,
 				70763CD220CD5C9700DCB7BE /* WMPlayer.m */,
+				70763CC820CD5C9700DCB7BE /* WMLightView.h */,
+				70763CD020CD5C9700DCB7BE /* WMLightView.m */,
+				70763CCA20CD5C9700DCB7BE /* FastForwardView.h */,
+				70763CD120CD5C9700DCB7BE /* FastForwardView.m */,
 			);
 			path = WMPlayer;
 			sourceTree = SOURCE_ROOT;

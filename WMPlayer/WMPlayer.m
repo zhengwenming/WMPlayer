@@ -72,7 +72,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //显示播放时间的UILabel+加载失败的UILabel+播放视频的title
 @property (nonatomic,strong) UILabel   *leftTimeLabel,*rightTimeLabel,*titleLabel,*loadFailedLabel;
 //控制全屏和播放暂停按钮
-@property (nonatomic,retain) UIButton  *fullScreenBtn,*playOrPauseBtn,*lockBtn,*backBtn;
+@property (nonatomic,strong) UIButton  *fullScreenBtn,*playOrPauseBtn,*lockBtn,*backBtn,*rateBtn;
 //进度滑块&声音滑块
 @property (nonatomic,strong) UISlider   *progressSlider,*volumeSlider;
 //显示缓冲进度和底部的播放进度
@@ -265,6 +265,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.backBtn addTarget:self action:@selector(colseTheVideo:) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.backBtn];
     
+    //rateBtn
+    self.rateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.rateBtn addTarget:self action:@selector(switchRate:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rateBtn setTitle:@"1.0X" forState:UIControlStateNormal];
+    [self.rateBtn setTitle:@"1.0X" forState:UIControlStateSelected];
+    [self.topView addSubview:self.rateBtn];
+    self.rateBtn.hidden = YES;
+
     //titleLabel
     self.titleLabel = [UILabel new];
     self.titleLabel.textColor = [UIColor whiteColor];
@@ -363,6 +371,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.centerY.equalTo(self.bottomView);
         make.trailing.equalTo(self.bottomView).offset(-10);
     }];
+    [self.rateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.topView);
+        make.trailing.equalTo(self.topView).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(60, 30));
+    }];
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.topView).offset(8);
         make.size.mas_equalTo(CGSizeMake(self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4));
@@ -377,6 +390,33 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.loadFailedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.contentView);
     }];
+}
+-(void)setRate:(CGFloat)rate{
+    _rate = rate;
+    self.player.rate = rate;
+}
+//切换速度
+-(void)switchRate:(UIButton *)rateBtn{
+    CGFloat rate = [rateBtn.currentTitle floatValue];
+    if(rate==0.5){
+        rate+=0.5;
+    }else if(rate==1.0){
+        rate+=0.25;
+    }else if(rate==1.25){
+        rate+=0.25;
+    }else if(rate==1.5){
+        rate+=0.5;
+    }else if(rate==2){
+        rate=0.5;
+    }
+    if(rate==1.25){
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateNormal];
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateSelected];
+    }else{
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateNormal];
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
+    }
+    self.rate = rate;
 }
 #pragma mark
 #pragma mark - layoutSubviews
@@ -712,7 +752,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //是否全屏
 -(void)setIsFullscreen:(BOOL)isFullscreen{
     _isFullscreen = isFullscreen;
-    self.lockBtn.hidden = !isFullscreen;
+    self.rateBtn.hidden =  self.lockBtn.hidden = !isFullscreen;
     self.fullScreenBtn.selected= isFullscreen;
     if (!isFullscreen) {
         self.bottomProgress.alpha = 0.0;
@@ -884,7 +924,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                     if (self.muted) {
                         self.player.muted = self.muted;
                     }
-
+                    self.rate = [self.rateBtn.currentTitle floatValue];
                 }
                     break;
                     

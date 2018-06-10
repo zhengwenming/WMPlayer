@@ -89,6 +89,11 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  BOOL值判断当前的状态，开发者要自己维护次BOOL值
  */
 @property (nonatomic,assign) BOOL    isFullscreen;
+/**
+ 播放速率(倍速播放，支持0.5、1.0、1.25、1.5、2.0)
+ */
+@property (nonatomic,assign) CGFloat rate;
+
 
 @property (nonatomic,assign,readonly) BOOL    prefersStatusBarHidden;
 /**
