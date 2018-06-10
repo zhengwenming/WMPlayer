@@ -1,4 +1,4 @@
-#Masonry [![Build Status](https://travis-ci.org/SnapKit/Masonry.svg?branch=master)](https://travis-ci.org/SnapKit/Masonry) [![Coverage Status](https://img.shields.io/coveralls/SnapKit/Masonry.svg?style=flat-square)](https://coveralls.io/r/SnapKit/Masonry) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![Pod Version](https://img.shields.io/cocoapods/v/Masonry.svg?style=flat)
+# Masonry [![Build Status](https://travis-ci.org/SnapKit/Masonry.svg?branch=master)](https://travis-ci.org/SnapKit/Masonry) [![Coverage Status](https://img.shields.io/coveralls/SnapKit/Masonry.svg?style=flat-square)](https://coveralls.io/r/SnapKit/Masonry) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![Pod Version](https://img.shields.io/cocoapods/v/Masonry.svg?style=flat)
 
 **Masonry is still actively maintained, we are committed to fixing bugs and merging good quality PRs from the wider community. However if you're using Swift in your project, we recommend using [SnapKit](https://github.com/SnapKit/SnapKit) as it provides better type safety with a simpler API.**
 
@@ -389,11 +389,17 @@ Get busy Masoning
 
 Copy the included code snippets to ``~/Library/Developer/Xcode/UserData/CodeSnippets`` to write your masonry blocks at lightning speed!
 
-`mas_make` -> `[<view> mas_makeConstraints:^(MASConstraintMaker *make){<code>}];`
+`mas_make` -> ` [<#view#> mas_makeConstraints:^(MASConstraintMaker *make) {
+     <#code#>
+ }];`
 
-`mas_update` -> `[<view> mas_updateConstraints:^(MASConstraintMaker *make){<code>}];`
+`mas_update` -> ` [<#view#> mas_updateConstraints:^(MASConstraintMaker *make) {
+     <#code#>
+ }];`
 
-`mas_remake` -> `[<view> mas_remakeConstraints:^(MASConstraintMaker *make){<code>}];`
+`mas_remake` -> ` [<#view#> mas_remakeConstraints:^(MASConstraintMaker *make) {
+     <#code#>
+ }];`
 
 ## Features
 * Not limited to subset of Auto Layout. Anything NSLayoutConstraint can do, Masonry can do too!

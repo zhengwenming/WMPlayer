@@ -394,6 +394,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)setRate:(CGFloat)rate{
     _rate = rate;
     self.player.rate = rate;
+    if(rate==1.25){
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateNormal];
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateSelected];
+    }else{
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateNormal];
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
+    }
 }
 //切换速度
 -(void)switchRate:(UIButton *)rateBtn{
@@ -408,13 +415,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         rate+=0.5;
     }else if(rate==2){
         rate=0.5;
-    }
-    if(rate==1.25){
-        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateNormal];
-        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateSelected];
-    }else{
-        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateNormal];
-        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
     }
     self.rate = rate;
 }
@@ -704,7 +704,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.isPauseBySystem = NO;
     self.seekTime = playerModel.seekTime;
     self.titleLabel.text = playerModel.title;
-    self.videoURL = playerModel.videoURL;
+    if(playerModel.playerItem){
+        self.currentItem = playerModel.playerItem;
+    }else{
+        self.videoURL = playerModel.videoURL;
+    }
     if (self.isInitPlayer) {
         self.state = WMPlayerStateBuffering;
     }else{
@@ -717,9 +721,17 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     //设置player的参数
-    self.urlAsset = [AVURLAsset assetWithURL:self.videoURL];
-    self.currentItem = [AVPlayerItem playerItemWithAsset:self.urlAsset];
-    self.player = [AVPlayer playerWithPlayerItem:self.currentItem];
+    if(self.currentItem){
+        self.player = [AVPlayer playerWithPlayerItem:self.currentItem];
+    }else{
+        self.urlAsset = [AVURLAsset assetWithURL:self.videoURL];
+        self.currentItem = [AVPlayerItem playerItemWithAsset:self.urlAsset];
+        self.player = [AVPlayer playerWithPlayerItem:self.currentItem];
+    }
+    
+//    self.urlAsset = [AVURLAsset assetWithURL:self.videoURL];
+//    self.currentItem = [AVPlayerItem playerItemWithAsset:self.urlAsset];
+//    self.player = [AVPlayer playerWithPlayerItem:self.currentItem];
     //ios10新添加的属性，如果播放不了，可以试试打开这个代码
 //    if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
 //        self.player.automaticallyWaitsToMinimizeStalling = YES;
@@ -1235,9 +1247,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.FF_View.hidden = NO;
     self.FF_View.timeLabel.text = [NSString stringWithFormat:@"%@/%@", [self convertTime:value], [self convertTime:self.totalTime]];
     self.leftTimeLabel.text = [self convertTime:value];
-//    [self showControlView];
-//    [self.progressSlider setValue:value animated:YES];
-//    self.bottomProgress.progress = self.progressSlider.value;
 }
 
 NSString * calculateTimeWithTimeFormatter(long long timeSecond){

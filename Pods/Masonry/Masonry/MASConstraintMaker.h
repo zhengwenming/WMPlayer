@@ -1,5 +1,5 @@
 //
-//  MASConstraintBuilder.h
+//  MASConstraintMaker.h
 //  Masonry
 //
 //  Created by Jonas Budelmann on 20/07/13.
@@ -29,7 +29,7 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
     
 #endif
     
-#if TARGET_OS_IPHONE || TARGET_OS_TV
+#if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
     
     MASAttributeLeftMargin = 1 << NSLayoutAttributeLeftMargin,
     MASAttributeRightMargin = 1 << NSLayoutAttributeRightMargin,
@@ -74,7 +74,7 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
 
 #endif
 
-#if TARGET_OS_IPHONE || TARGET_OS_TV
+#if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
 
 @property (nonatomic, strong, readonly) MASConstraint *leftMargin;
 @property (nonatomic, strong, readonly) MASConstraint *rightMargin;
@@ -128,7 +128,7 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
 /**
  *	initialises the maker with a default view
  *
- *	@param	view	any MASConstrait are created with this view as the first item
+ *	@param	view	any MASConstraint are created with this view as the first item
  *
  *	@return	a new MASConstraintMaker
  */

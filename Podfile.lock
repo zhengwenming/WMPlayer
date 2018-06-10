@@ -1,12 +1,20 @@
 PODS:
-  - Masonry (1.0.2)
+  - Masonry (1.1.0)
+  - TZImagePickerController (2.1.5)
 
 DEPENDENCIES:
   - Masonry
+  - TZImagePickerController
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Masonry
+    - TZImagePickerController
 
 SPEC CHECKSUMS:
-  Masonry: 4f8d5aca9c5d4eb057b4b51d62af8fccdf2106ac
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  TZImagePickerController: e60a73665cf665c18abd45cdf48e912094eefff5
 
-PODFILE CHECKSUM: 4c380088f4bfd0fa8ab6dffbf2b2915cbd139203
+PODFILE CHECKSUM: 86a983d61c7344f78bc8d47cb255e4b813e1a0c0
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.5.3
