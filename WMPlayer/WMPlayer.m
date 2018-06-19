@@ -394,6 +394,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)setRate:(CGFloat)rate{
     _rate = rate;
     self.player.rate = rate;
+    self.state = WMPlayerStatePlaying;
+    self.playOrPauseBtn.selected = NO;
     if(rate==1.25){
         [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateNormal];
         [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateSelected];
@@ -435,9 +437,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             if (self.enableBackgroundMode) {
                 self.playerLayer.player = nil;
                 [self.playerLayer removeFromSuperlayer];
-                [self.player play];
-                self.state = WMPlayerStatePlaying;
-                self.playOrPauseBtn.selected = NO;
+                self.rate = [self.rateBtn.currentTitle floatValue];
             }else{
                 self.isPauseBySystem = YES;
                 [self pause];
@@ -471,8 +471,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                 self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
                 [self.contentView.layer insertSublayer:self.playerLayer atIndex:0];
                 [self.player play];
-                self.state = WMPlayerStatePlaying;
-                self.playOrPauseBtn.selected = NO;
+                self.rate = [self.rateBtn.currentTitle floatValue];
             }else{
                 return;
             }
@@ -537,18 +536,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 - (void)PlayOrPause:(UIButton *)sender{
     if (self.state==WMPlayerStateStopped||self.state==WMPlayerStateFailed) {
         [self play];
+        self.rate = [self.rateBtn.currentTitle floatValue];
     } else if(self.state==WMPlayerStatePlaying){
         [self pause];
     }else if(self.state ==WMPlayerStateFinished){
-        NSLog(@"WMPlayerStateFinished");
-        self.state = WMPlayerStatePlaying;
-        self.playOrPauseBtn.selected = NO;
-        [self.player play];
+        self.rate = [self.rateBtn.currentTitle floatValue];
     }else if(self.state==WMPlayerStatePause){
-        NSLog(@"WMPlayerStatePause");
-        self.state = WMPlayerStatePlaying;
-        self.playOrPauseBtn.selected = NO;
-        [self.player play];
+
+        self.rate = [self.rateBtn.currentTitle floatValue];
     }
     if ([self.delegate respondsToSelector:@selector(wmplayer:clickedPlayOrPauseButton:)]) {
         [self.delegate wmplayer:self clickedPlayOrPauseButton:sender];
@@ -936,7 +931,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                     if (self.muted) {
                         self.player.muted = self.muted;
                     }
-                    self.rate = [self.rateBtn.currentTitle floatValue];
+                    if (self.state==WMPlayerStateStopped||self.state==WMPlayerStatePause) {
+                        
+                    }else{
+                        self.rate = [self.rateBtn.currentTitle floatValue];
+                    }
                 }
                     break;
                     
