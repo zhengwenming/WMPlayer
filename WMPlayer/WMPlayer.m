@@ -191,7 +191,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             self.volumeSlider = (UISlider *)view;
         }
     }
-    
     self.loadingProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     self.loadingProgress.progressTintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
     self.loadingProgress.trackTintColor    = [UIColor clearColor];
@@ -723,10 +722,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.currentItem = [AVPlayerItem playerItemWithAsset:self.urlAsset];
         self.player = [AVPlayer playerWithPlayerItem:self.currentItem];
     }
-    
-//    self.urlAsset = [AVURLAsset assetWithURL:self.videoURL];
-//    self.currentItem = [AVPlayerItem playerItemWithAsset:self.urlAsset];
-//    self.player = [AVPlayer playerWithPlayerItem:self.currentItem];
     //ios10新添加的属性，如果播放不了，可以试试打开这个代码
 //    if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
 //        self.player.automaticallyWaitsToMinimizeStalling = YES;
@@ -957,8 +952,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             }
         }else if ([keyPath isEqualToString:@"duration"]) {
             if ((CGFloat)CMTimeGetSeconds(self.currentItem.duration) != self.totalTime) {
-                self.totalTime = (CGFloat)CMTimeGetSeconds(self.currentItem.duration);
-                self.progressSlider.maximumValue = self.totalTime;
+//                self.totalTime = (CGFloat)CMTimeGetSeconds(self.currentItem.duration);
+                
+                self.totalTime = (CGFloat) CMTimeGetSeconds(self.currentItem.asset.duration);
+                
+                if (!isnan(self.totalTime)) {
+                    self.progressSlider.maximumValue = self.totalTime;
+                }else{
+                    self.totalTime = MAXFLOAT;
+                }
                 if (self.state==WMPlayerStateStopped||self.state==WMPlayerStatePause) {
                    
                 }else{
@@ -1026,15 +1028,26 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
 }
 - (void)syncScrubber{
+
     CMTime playerDuration = [self playerItemDuration];
-    if (CMTIME_IS_INVALID(playerDuration)){
-        self.progressSlider.minimumValue = 0.0;
-        self.bottomProgress.progress = 0.0;
-        return;
+    CGFloat totalTime = (CGFloat)CMTimeGetSeconds(playerDuration);
+
+   
+    long long nowTime = self.currentItem.currentTime.value/self.currentItem.currentTime.timescale;
+    self.leftTimeLabel.text = [self convertTime:nowTime];
+    self.rightTimeLabel.text = [self convertTime:self.totalTime];
+    
+    
+    if (isnan(totalTime)) {
+        self.rightTimeLabel.text = @"";
+        NSLog(@"NaN");
     }
-        long long nowTime = self.currentItem.currentTime.value/self.currentItem.currentTime.timescale;
-        self.leftTimeLabel.text = [self convertTime:nowTime];
-        self.rightTimeLabel.text = [self convertTime:self.totalTime];
+    if (CMTIME_IS_INVALID(playerDuration)){
+
+        
+    }
+    
+    
         if (self.isDragingSlider==YES) {//拖拽slider中，不更新slider的值
             
         }else if(self.isDragingSlider==NO){
