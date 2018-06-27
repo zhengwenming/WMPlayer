@@ -22,6 +22,7 @@
 如果pod搜到WMPlayer版本为3.0.6,或者搜索不到，那么请更新Mac的ruby版本为2.4.x，同时更新pod版本为V1.5.3，更新的文章请参考：https://www.cnblogs.com/angelgril/p/6731015.html
 
 2、pod 'WMPlayer'
+
 把pod 'WMPlayer'放进你项目的Podfile里面
 
 3、pod update
