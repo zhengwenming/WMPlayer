@@ -93,6 +93,9 @@
 -(void)wmplayerReadyToPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
     NSLog(@"wmplayerDidReadyToPlay");
 }
+-(void)wmplayerGotVideoSize:(WMPlayer *)wmplayer videoSize:(CGSize )presentationSize{
+
+}
 -(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
     NSLog(@"wmplayerDidFinishedPlay");
 }
@@ -105,6 +108,9 @@
  */
 - (void)onDeviceOrientationChange:(NSNotification *)notification{
     if (self.wmPlayer==nil){
+        return;
+    }
+    if (self.wmPlayer.playerModel.verticalVideo) {
         return;
     }
     if (self.wmPlayer.isLockScreen){
@@ -140,12 +146,7 @@
 -(void)toOrientation:(UIInterfaceOrientation)orientation{
     //获取到当前状态条的方向
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    //判断如果当前方向和要旋转的方向一致,那么不做任何操作
-    if (currentOrientation == orientation) {
-        return;
-    }
     [self.wmPlayer removeFromSuperview];
-
     //根据要旋转的方向,使用Masonry重新修改限制
     if (orientation ==UIInterfaceOrientationPortrait) {
         [self.currentCell.backgroundIV addSubview:self.wmPlayer];
@@ -159,32 +160,50 @@
         [[UIApplication sharedApplication].keyWindow addSubview:self.wmPlayer];
         self.wmPlayer.isFullscreen = YES;
         self.wmPlayer.backBtnStyle = BackBtnStylePop;
+        
         if(currentOrientation ==UIInterfaceOrientationPortrait){
-            [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
-                make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
-                make.center.equalTo(self.wmPlayer.superview);
-            }];
+            if (self.wmPlayer.playerModel.verticalVideo) {
+                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.wmPlayer.superview);
+                }];
+            }else{
+                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
+                    make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
+                    make.center.equalTo(self.wmPlayer.superview);
+                }];
+            }
+           
         }else{
-            [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(@([UIScreen mainScreen].bounds.size.width));
-                make.height.equalTo(@([UIScreen mainScreen].bounds.size.height));
-                make.center.equalTo(self.wmPlayer.superview);
-            }];
+            if (self.wmPlayer.playerModel.verticalVideo) {
+                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.wmPlayer.superview);
+                }];
+            }else{
+                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(@([UIScreen mainScreen].bounds.size.width));
+                    make.height.equalTo(@([UIScreen mainScreen].bounds.size.height));
+                    make.center.equalTo(self.wmPlayer.superview);
+                }];
+            }
+           
         }
     }
-    
-        //iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
+    //iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
     //也就是说在实现这个方法的时候-(BOOL)shouldAutorotate返回值要为NO
-    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:NO];
-    //更改了状态条的方向,但是设备方向UIInterfaceOrientation还是正方向的,这就要设置给你播放视频的视图的方向设置旋转
-    //给你的播放视频的view视图设置旋转
-    [UIView animateWithDuration:0.4 animations:^{
-        self.wmPlayer.transform = CGAffineTransformIdentity;
-        self.wmPlayer.transform = [WMPlayer getCurrentDeviceOrientation];
-        [self.wmPlayer layoutIfNeeded];
+    if (self.wmPlayer.playerModel.verticalVideo) {
         [self setNeedsStatusBarAppearanceUpdate];
-    }];
+    }else{
+        [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:NO];
+        //更改了状态条的方向,但是设备方向UIInterfaceOrientation还是正方向的,这就要设置给你播放视频的视图的方向设置旋转
+        //给你的播放视频的view视图设置旋转
+        [UIView animateWithDuration:0.4 animations:^{
+            self.wmPlayer.transform = CGAffineTransformIdentity;
+            self.wmPlayer.transform = [WMPlayer getCurrentDeviceOrientation];
+            [self.wmPlayer layoutIfNeeded];
+            [self setNeedsStatusBarAppearanceUpdate];
+        }];
+    }
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -289,7 +308,7 @@
         WMPlayerModel *playerModel = [WMPlayerModel new];
         playerModel.title = videoModel.title;
         playerModel.videoURL = [NSURL URLWithString:videoModel.mp4_url];
-        
+        playerModel.indexPath = indexPath;
         weakSelf.wmPlayer = [[WMPlayer alloc] init];
         weakSelf.wmPlayer.delegate = weakSelf;
         weakSelf.wmPlayer.playerModel = playerModel;
@@ -332,7 +351,6 @@
  *  释放WMPlayer
  */
 -(void)releaseWMPlayer{
-    [self.wmPlayer pause];
     [self.wmPlayer removeFromSuperview];
     self.wmPlayer = nil;
 }

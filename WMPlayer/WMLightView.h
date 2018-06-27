@@ -11,8 +11,5 @@
 @interface WMLightView : UIView
 @property (strong, nonatomic)  UIView *lightBackView;
 @property (strong, nonatomic)  UIImageView *centerLightIV;
-
-@property (nonatomic, strong) NSMutableArray * lightViewArr;
-
-+ (instancetype)sharedLightView;
+@property (strong, nonatomic) NSMutableArray * lightViewArr;
 @end

@@ -8,4 +8,10 @@
 #import "WMPlayerModel.h"
 
 @implementation WMPlayerModel
+-(void)setPresentationSize:(CGSize)presentationSize{
+    _presentationSize = presentationSize;
+    if (presentationSize.width/presentationSize.height<1) {
+        self.verticalVideo = YES;
+    }
+}
 @end

@@ -11,23 +11,16 @@
 #define LIGHT_VIEW_COUNT 16
 
 @interface WMLightView ()
-@property (nonatomic, strong) NSTimer			*timer;
 
 @end
 
 @implementation WMLightView
-+ (instancetype)sharedLightView{
-     WMLightView *lightView = [[WMLightView alloc] init];
-        lightView.backgroundColor = [UIColor whiteColor];
-    return lightView;
-}
-- (instancetype)init
-{
+- (instancetype)init{
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width) * 0.5, ([UIScreen mainScreen].bounds.size.height) * 0.5, 155, 155);
         self.layer.cornerRadius  = 10;
-        
         {
             UILabel *titleLabel      = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, self.bounds.size.width, 30)];
             titleLabel.font          = [UIFont boldSystemFontOfSize:16.0];
@@ -65,10 +58,7 @@
             [self.lightViewArr addObject:view];
             [self.lightBackView addSubview:view];
         }
-        
         [self updateLongView:[UIScreen mainScreen].brightness];
-
-    
         //通知
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onOrientationDidChange:)
@@ -91,7 +81,7 @@
     CGFloat sound = [change[@"new"] floatValue];
     if (self.alpha == 0.0) {
         self.alpha = 1.0;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self hideLightView];
         });
     }
@@ -125,18 +115,17 @@
         }
     }
     [self setNeedsLayout];
-
+    [self.superview bringSubviewToFront:self];
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.transform = [WMPlayer getCurrentDeviceOrientation];
     self.transform = CGAffineTransformIdentity;
-    self.center = [UIApplication sharedApplication].keyWindow.center;
+    self.center = self.superview.center;
 }
 - (void)dealloc {
     self.lightViewArr = nil;
     self.lightBackView = nil;
-    NSLog(@"WMLightView dealloc");
     [[UIScreen mainScreen] removeObserver:self forKeyPath:@"brightness"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

@@ -67,6 +67,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @property (nonatomic,assign) WMPlayerState   state;
 //wmPlayer内部一个UIView，所有的控件统一管理在此view中
 @property (nonatomic,strong) UIView     *contentView;
+//亮度调节的view
+@property (nonatomic,strong) WMLightView * lightView;
 //这个用来显示滑动屏幕时的时间
 @property (nonatomic,strong) FastForwardView * FF_View;
 //显示播放时间的UILabel+加载失败的UILabel+播放视频的title
@@ -139,12 +141,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)initWMPlayer{
     NSError *setCategoryErr = nil;
     NSError *activationErr  = nil;
-    [[AVAudioSession sharedInstance]
-     setCategory: AVAudioSessionCategoryPlayback
-     error: &setCategoryErr];
-    [[AVAudioSession sharedInstance]
-     setActive: YES
-     error: &activationErr];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryErr];
+    [[AVAudioSession sharedInstance]setActive: YES error: &activationErr];
     //wmplayer内部的一个view，用来管理子视图
     self.contentView = [UIView new];
     self.contentView.backgroundColor = [UIColor blackColor];
@@ -155,8 +153,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.FF_View = [[FastForwardView alloc] init];
     self.FF_View.hidden = YES;
     [self.contentView addSubview:self.FF_View];
-    
-    [[UIApplication sharedApplication].keyWindow addSubview:[WMLightView sharedLightView]];
+    self.lightView =[[WMLightView alloc] init];
+    [self.contentView addSubview:self.lightView];
     //设置默认值
     self.enableVolumeGesture = YES;
     self.enableFastForwardGesture = YES;
@@ -631,6 +629,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [_currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
         [_currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
         [_currentItem removeObserver:self forKeyPath:@"duration"];
+        [_currentItem removeObserver:self forKeyPath:@"presentationSize"];
         _currentItem = nil;
     }
     _currentItem = playerItem;
@@ -647,6 +646,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [_currentItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options: NSKeyValueObservingOptionNew context:PlayViewStatusObservationContext];
         
         [_currentItem addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew context:PlayViewStatusObservationContext];
+        
+        [_currentItem addObserver:self forKeyPath:@"presentationSize" options:NSKeyValueObservingOptionNew context:PlayViewStatusObservationContext];
+
+        
+        
         
         [self.player replaceCurrentItemWithPlayerItem:_currentItem];
         // 添加视频播放结束通知
@@ -755,6 +759,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)setIsFullscreen:(BOOL)isFullscreen{
     _isFullscreen = isFullscreen;
     self.rateBtn.hidden =  self.lockBtn.hidden = !isFullscreen;
+    
+    if (isFullscreen) {
+        self.lockBtn.hidden = self.playerModel.verticalVideo;
+    }
+    
     self.fullScreenBtn.selected= isFullscreen;
     if (!isFullscreen) {
         self.bottomProgress.alpha = 0.0;
@@ -820,7 +829,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             }else{
                 [self showControlView];
             }
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.state = WMPlayerStateFinished;
                 self.bottomProgress.progress = 0;
                 self.playOrPauseBtn.selected = YES;
@@ -952,8 +961,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             }
         }else if ([keyPath isEqualToString:@"duration"]) {
             if ((CGFloat)CMTimeGetSeconds(self.currentItem.duration) != self.totalTime) {
-//                self.totalTime = (CGFloat)CMTimeGetSeconds(self.currentItem.duration);
-                
                 self.totalTime = (CGFloat) CMTimeGetSeconds(self.currentItem.asset.duration);
                 
                 if (!isnan(self.totalTime)) {
@@ -966,6 +973,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                 }else{
                     self.state = WMPlayerStatePlaying;
                 }
+            }
+        }else if ([keyPath isEqualToString:@"presentationSize"]) {
+            self.playerModel.presentationSize = self.currentItem.presentationSize;
+            if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayerGotVideoSize:videoSize:)]) {
+                [self.delegate wmplayerGotVideoSize:self videoSize:self.playerModel.presentationSize];
             }
         }else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
             // 计算缓冲进度
@@ -1193,6 +1205,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [UIScreen mainScreen].brightness = tempLightValue;
             //        实时改变现实亮度进度的view
             NSLog(@"亮度调节 = %f",tempLightValue);
+            [self.contentView bringSubviewToFront:self.lightView];
         }else{
             
         }
@@ -1295,11 +1308,6 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     self.player = nil;
 }
 -(void)dealloc{
-    for (UIView *aLightView in [UIApplication sharedApplication].keyWindow.subviews) {
-        if ([aLightView isKindOfClass:[WMLightView class]]) {
-            [aLightView removeFromSuperview];
-        }
-    }
     NSLog(@"WMPlayer dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.player.currentItem cancelPendingSeeks];
@@ -1313,6 +1321,7 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     [_currentItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     [_currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
     [_currentItem removeObserver:self forKeyPath:@"duration"];
+    [_currentItem removeObserver:self forKeyPath:@"presentationSize"];
     _currentItem = nil;
 
     [self.playerLayer removeFromSuperlayer];
@@ -1320,6 +1329,7 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     self.player = nil;
     self.playOrPauseBtn = nil;
     self.playerLayer = nil;
+    self.lightView = nil;
 }
 
 //获取当前的旋转状态

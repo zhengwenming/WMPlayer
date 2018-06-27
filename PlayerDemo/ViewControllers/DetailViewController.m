@@ -30,6 +30,9 @@
     if (self.forbidRotate) {
         return NO;
     }
+    if (self.wmPlayer.playerModel.verticalVideo) {
+        return NO;
+    }
      return !self.wmPlayer.isLockScreen;
 }
 //viewController所支持的全部旋转方向
@@ -90,6 +93,9 @@
 }
 -(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
     NSLog(@"wmplayerDidFinishedPlay");
+}
+-(void)wmplayerGotVideoSize:(WMPlayer *)wmplayer videoSize:(CGSize )presentationSize{
+    
 }
 //操作栏隐藏或者显示都会调用此方法
 -(void)wmplayer:(WMPlayer *)wmplayer isHiddenTopAndBottomView:(BOOL)isHidden{
@@ -216,10 +222,10 @@
     [self.wmPlayer resetWMPlayer];
     WMPlayerModel *newModel = [WMPlayerModel new];
     newModel.title = @"这个是新视频的标题";
-    newModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-//    newModel.videoURL = [NSURL URLWithString:@"http://wx.wangtiansoft.com:8007/m/files/2d/f6/2df64d0556f379d9abae5a16d7c93ab2.mp3"];
+//    newModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+    newModel.videoURL = self.playerModel.videoURL;
 
-    
+//    newModel.videoURL = [NSURL URLWithString:@"http://wx.wangtiansoft.com:8007/m/files/2d/f6/2df64d0556f379d9abae5a16d7c93ab2.mp3"];
     self.wmPlayer.playerModel = newModel;
     [self.wmPlayer play];
 }
