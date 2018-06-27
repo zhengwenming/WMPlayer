@@ -92,8 +92,7 @@
         self.wmPlayer.isFullscreen = NO;
         self.wmPlayer.backBtnStyle = BackBtnStyleClose;
         
-        
-        [self.wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.wmPlayer.superview).offset([WMPlayer IsiPhoneX]?88:64);
             make.leading.trailing.equalTo(self.wmPlayer.superview);
             make.height.equalTo(@(([UIScreen mainScreen].bounds.size.width)*9/16.0));
