@@ -180,13 +180,14 @@
      ];
     
     self.wmPlayer.backBtnStyle = BackBtnStylePop;
+    self.wmPlayer.tintColor = [UIColor orangeColor];//改变播放器着色
     self.wmPlayer.enableBackgroundMode = YES;//开启后台播放模式
     self.wmPlayer.delegate = self;
     [self.view addSubview:self.wmPlayer];
     [self.wmPlayer play];
     [self.wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.top.equalTo(self.view);
-        make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
+    make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
     }];
     
     
@@ -222,9 +223,7 @@
     [self.wmPlayer resetWMPlayer];
     WMPlayerModel *newModel = [WMPlayerModel new];
     newModel.title = @"这个是新视频的标题";
-//    newModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-    newModel.videoURL = self.playerModel.videoURL;
-
+    newModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
 //    newModel.videoURL = [NSURL URLWithString:@"http://wx.wangtiansoft.com:8007/m/files/2d/f6/2df64d0556f379d9abae5a16d7c93ab2.mp3"];
     self.wmPlayer.playerModel = newModel;
     [self.wmPlayer play];

@@ -95,7 +95,10 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  播放速率(倍速播放，支持0.5、1.0、1.25、1.5、2.0)
  */
 @property (nonatomic,assign) CGFloat rate;
-
+/**
+ 播放器着色
+ */
+@property (nonatomic,strong) UIColor *tintColor;
 
 @property (nonatomic,assign,readonly) BOOL    prefersStatusBarHidden;
 /**

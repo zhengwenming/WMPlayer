@@ -52,6 +52,7 @@
         if (wmplayer.isFullscreen) {
             [self toOrientation:UIInterfaceOrientationPortrait];
         }else{
+            [self.wmPlayer pause];
             [self releaseWMPlayer];
             [self.currentCell.playBtn.superview bringSubviewToFront:self.currentCell.playBtn];
         }

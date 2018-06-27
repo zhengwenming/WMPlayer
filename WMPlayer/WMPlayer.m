@@ -86,7 +86,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //playerLayer,可以修改frame
 @property (nonatomic,retain) AVPlayerLayer  *playerLayer;
 //播放器player
-@property (nonatomic,retain) AVPlayer       *player;
+@property (nonatomic,retain) AVQueuePlayer   *player;
 //播放资源路径URL
 @property (nonatomic,strong) NSURL         *videoURL;
 //播放资源
@@ -201,7 +201,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.progressSlider.minimumValue = 0.0;
     self.progressSlider.maximumValue = 1.0;
     [self.progressSlider setThumbImage:WMPlayerImage(@"dot")  forState:UIControlStateNormal];
-    self.progressSlider.minimumTrackTintColor = [UIColor greenColor];
+    self.progressSlider.minimumTrackTintColor = self.tintColor?self.tintColor:[UIColor greenColor];
     self.progressSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
     self.progressSlider.backgroundColor = [UIColor clearColor];
     self.progressSlider.value = 0.0;//指定初始值
@@ -217,7 +217,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     
     self.bottomProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     self.bottomProgress.trackTintColor    = [UIColor clearColor];
-    self.bottomProgress.progressTintColor = [UIColor greenColor];
+    self.bottomProgress.progressTintColor = self.tintColor?self.tintColor:[UIColor greenColor];
     self.bottomProgress.alpha = 0;
     [self.contentView addSubview:self.bottomProgress];
     
@@ -441,6 +441,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                 self.state = WMPlayerStatePause;
             }
         }
+}
+-(void)setTintColor:(UIColor *)tintColor{
+    _tintColor = tintColor;
+    self.progressSlider.minimumTrackTintColor = self.tintColor;
+    self.bottomProgress.progressTintColor = self.tintColor;
 }
 #pragma mark 
 #pragma mark 进入前台
