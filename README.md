@@ -29,6 +29,9 @@
 
 4、如果是5.0.0版本，OK，enjoy it。
 
+5、如果不行，那么直接从GitHub上下载，用下面的命令：
+    pod 'WMPlayer',  :git => 'https://github.com/zhengwenming/WMPlayer.git'
+
 ---
 
 # WMPlayer更新日志
