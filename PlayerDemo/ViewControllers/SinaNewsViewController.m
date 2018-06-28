@@ -152,7 +152,7 @@
     if (orientation ==UIInterfaceOrientationPortrait) {
         [self.currentCell.backgroundIV addSubview:self.wmPlayer];
         self.wmPlayer.isFullscreen = NO;
-        self.wmPlayer.backBtnStyle = BackBtnStyleClose;
+        self.wmPlayer.backBtnStyle = BackBtnStyleNone;
         [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(self.wmPlayer.superview);
         }];

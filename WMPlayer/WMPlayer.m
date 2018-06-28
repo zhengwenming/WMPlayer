@@ -776,7 +776,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if ([WMPlayer IsiPhoneX]) {
         if (self.isFullscreen) {
             [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
+                if (self.playerModel.verticalVideo) {
+                    make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 0));
+                }else{
+                    make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
+                }
             }];
             [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.leading.trailing.bottom.equalTo(self.contentView);
@@ -798,9 +802,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (backBtnStyle==BackBtnStylePop) {
         [self.backBtn setImage:WMPlayerImage(@"player_icon_nav_back.png") forState:UIControlStateNormal];
         [self.backBtn setImage:WMPlayerImage(@"player_icon_nav_back.png") forState:UIControlStateSelected];
-    }else{
+    }else if(backBtnStyle==BackBtnStyleClose){
         [self.backBtn setImage:WMPlayerImage(@"close.png") forState:UIControlStateNormal];
         [self.backBtn setImage:WMPlayerImage(@"close.png") forState:UIControlStateSelected];
+    }else{
+        [self.backBtn setImage:nil forState:UIControlStateNormal];
+        [self.backBtn setImage:nil forState:UIControlStateSelected];
     }
 }
 -(void)setIsHiddenTopAndBottomView:(BOOL)isHiddenTopAndBottomView{

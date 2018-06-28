@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger, WMPlayerLayerGravity) {
 };
 // 枚举值，包含播放器左上角的返回按钮的类型
 typedef NS_ENUM(NSInteger, BackBtnStyle){
+    BackBtnStyleNone, //什么都没有
     BackBtnStyleClose,//关闭（X）
     BackBtnStylePop //pop箭头<-
 };
