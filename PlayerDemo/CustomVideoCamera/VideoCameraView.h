@@ -23,8 +23,7 @@ typedef void(^clickBackToHomeBtnBlock)();
 
 @end
 
-@interface VideoCameraView : UIView
-{
+@interface VideoCameraView : UIView{
     GPUImageVideoCamera *videoCamera;
     GPUImageOutput<GPUImageInput> *filter;
     GPUImageMovieWriter *movieWriter;

@@ -30,9 +30,7 @@
 -(void)clickBackHome{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
--(void)clickOKBtn
-{
+-(void)clickOKBtn{
     int width,hight,bit,framRate;
     {
         width = 720;
@@ -58,7 +56,6 @@
         videoCameraView.hight = [NSNumber numberWithInteger:hight];
         videoCameraView.bit = [NSNumber numberWithInteger:bit];
         videoCameraView.frameRate = [NSNumber numberWithInteger:framRate];
-        
         typeof(self) __weak weakself = self;
         videoCameraView.backToHomeBlock = ^(){
           [weakself.navigationController dismissViewControllerAnimated:NO completion:nil];

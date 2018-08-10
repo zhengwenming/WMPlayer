@@ -188,27 +188,19 @@ typedef NS_ENUM(NSInteger, CameraManagerDevicePosition) {
     [filteredVideoView addSubview:_dleButton];
     
     _inputLocalVieoBtn = [[UIButton alloc] init];
-//    _inputLocalVieoBtn.hidden = YES;
     _inputLocalVieoBtn.frame = CGRectMake( 50 , SCREEN_HEIGHT - 105.0, 50, 50.0);
     UIImage* img5 = [UIImage imageNamed:@"record_ico_input_1"];
     [_inputLocalVieoBtn setImage:img5 forState:UIControlStateNormal];
     [_inputLocalVieoBtn addTarget:self action:@selector(clickInputBtn:) forControlEvents:UIControlEventTouchUpInside];
     [filteredVideoView addSubview:_inputLocalVieoBtn];
-
-    
     progressPreView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT -4 , 0, 4)];
     progressPreView.backgroundColor = UIColorFromRGB(0xffc738);
     [progressPreView makeCornerRadius:2 borderColor:nil borderWidth:0];
     [filteredVideoView addSubview:progressPreView];
-
-
 }
-
-
 - (IBAction)startRecording:(UIButton*)sender {
     _inputLocalVieoBtn.hidden = YES;
     if (!sender.selected) {
-        
         lastTime = currentTime;
         [_lastAry addObject:[NSString stringWithFormat:@"%f",lastTime]];
         _camerafilterChangeButton.hidden = YES;
@@ -235,10 +227,7 @@ typedef NS_ENUM(NSInteger, CameraManagerDevicePosition) {
                                                  selector:@selector(updateTimer:)
                                                  userInfo:nil
                                                   repeats:YES];
-        
-    }else
-    {
-        
+    }else{
         _camerafilterChangeButton.hidden = NO;
         _cameraPositionChangeButton.hidden = NO;
         sender.selected = NO;
@@ -262,8 +251,6 @@ typedef NS_ENUM(NSInteger, CameraManagerDevicePosition) {
             _dleButton.hidden = NO;
         }
     }
-    
-    
 }
 
 - (IBAction)stopRecording:(id)sender {
@@ -303,17 +290,10 @@ typedef NS_ENUM(NSInteger, CameraManagerDevicePosition) {
         _photoCaptureButton.backgroundColor = [UIColor colorWithRed:250/256.0 green:211/256.0 blue:75/256.0 alpha:1];
         _photoCaptureButton.selected = NO;
         _cameraChangeButton.hidden = YES;
-
-
     });
-    
-    
 
-    
 //    http://blog.csdn.net/ismilesky/article/details/51920113  视频与音乐合成
     //    http://www.jianshu.com/p/0f9789a6d99a 视频与音乐合成
-
-    
     //[movieWriter cancelRecording];
 }
 -(void)clickDleBtn:(UIButton*)sender {
@@ -358,11 +338,9 @@ typedef NS_ENUM(NSInteger, CameraManagerDevicePosition) {
                  if (videoData.length>1024*1024*4.5) {
                      HUD.labelText = @"所选视频大于5M,请重新选择";
                      [HUD hide:YES afterDelay:1.5];
-                 }else
-                 {
+                 }else{
                      EditingPublishingDynamicViewController* cor = [[EditingPublishingDynamicViewController alloc] init];
                      cor.videoURL = url;
-                     
                      [[NSNotificationCenter defaultCenter] removeObserver:self];
                      [videoCamera stopCameraCapture];
 //                     [[AppDelegate appDelegate] pushViewController:cor animated:YES];
@@ -400,14 +378,8 @@ typedef NS_ENUM(NSInteger, CameraManagerDevicePosition) {
                 }
                 
             });
-
-            
-            
         }
-        
-
         NSLog(@"选择结束");
-        
     }];
 //    [[AppDelegate appDelegate] presentViewController:imagePickerVc animated:YES completion:^{
   
