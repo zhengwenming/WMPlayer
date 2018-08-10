@@ -6,7 +6,11 @@
  A clone of UIImagePickerController, support picking multiple photos、original photo、video, also allow preview photo and video, support iOS6+.   
  一个支持多选、选原图和视频的图片选择器，同时有预览功能，支持iOS6+。
  
- ## 重要提示：提issue前请先搜索，先从已有issue里找找线索。如果发现bug，请先和Demo对照自查下，如果Demo也有bug，请再提issue。Demo正常你那不正常的，提issue时请贴上你的初始化代码，注明必要的复现步骤。这样能避免多余的沟通，帮助你更快获取答案。
+ ## 重要提示1：提issue前，请先对照Demo、常见问题自查！Demo正常说明你可以升级下新版试试，还有问题请按下面要求提issue。Demo不正常的，如有改动过代码请贴上，描述清楚复现步骤。          
+  
+ ## 重要提示2：issue未说明下面必要情况的不予处理：1、我的demo是否正常？ 2、你用的什么版本？ 3、你的初始化TZImagePicker的代码 4、你是pod安装还是源码导入的？是否有改动TZImagePicker内部代码？                 
+ 
+ ## 重要提示3：1.9.0版本后移除了"prefs:root="的调用，这个API已经被列为私有API，请大家尽快升级。目前最新版本2.2.4          
  
      关于升级iOS10和Xcdoe8的提示:    
  在Xcode8环境下将项目运行在iOS10的设备/模拟器中，访问相册和相机需要额外配置info.plist文件。分别是Privacy - Photo Library Usage Description和Privacy - Camera Usage Description字段，详见Demo中info.plist中的设置。
@@ -58,9 +62,8 @@
       关于issue: 
   请尽可能详细地描述**系统版本**、**手机型号**、**库的版本**、**崩溃日志**和**复现步骤**，**请先更新到最新版再测试一下**，如果新版还存在再提~如果已有开启的类似issue，请直接在该issue下评论说出你的问题
   
-## 五. Other 其它    
+## 五. FAQ 常见问题    
 
-      常见问题
 **Q：pod search TZImagePickerController 搜索出来的不是最新版本**       
 A：需要在终端执行cd转换文件路径命令退回到Desktop，然后执行pod setup命令更新本地spec缓存（可能需要几分钟）,然后再搜索就可以了       
      
@@ -71,10 +74,13 @@ A：请参考issue481：https://github.com/banchichen/TZImagePickerController/is
 A：请参考issue457的解释：https://github.com/banchichen/TZImagePickerController/issues/457    
 
 **Q：系统语言是中文/英文，界面上却有部分相册名字、返回按钮显示成了英文/中文？**        
-A：请参考issue443的解释：https://github.com/banchichen/TZImagePickerController/issues/443
+A：请参考 https://github.com/banchichen/TZImagePickerController/issues/443 和 https://github.com/banchichen/TZImagePickerController/issues/929          
  
 **Q：预览界面能否支持传入NSURL、UIImage对象？**       
 A：排期中，优先级高   
+
+**Q：设置可选视频的最大/最小时长？照片的最小/最大尺寸？不符合要求的不显示**       
+A：可以的，参照Demo的isAssetCanSelect方法实现。我会返回asset出来，显示与否你来决定，注意这个是一个同步方法，对于需要根据asset去异步获取的信息如视频的大小、视频是否存在iCloud里来过滤的，无法做到。如果真要这样做，相册打开速度会变慢，你需要改我源码。
 
 **Q：可否支持横屏？**        
 A：1.8.4版本已支持    
@@ -91,7 +97,26 @@ A：1.8.4版本已支持
 **Q：可否增加微信编辑图片的功能？**           
 A：考虑下，优先级低  
 
-      最近更新    
+**Q：是否有QQ/微信群？**            
+A：有QQ群：778723997        
+
+**Q：想提交一个PR？**           
+A：请先加QQ群和我确认下，避免同时改动同一处内容。**一个PR请只修复1个问题，变动内容越少越好**。                 
+
+**Q：demo在真机上跑不起来？**             
+A：1、team选你自己的；2、bundleId也改成你自己的或改成一个不会和别人重复的。可参考[简书的这篇博客](https://www.jianshu.com/p/cbe59138fca6)             
+
+**Q：设置导航栏颜色无效？导航栏颜色总是白色？**            
+A：是否有集成WRNavigationBar？如有，参考其readme调一下它的wr_setBlackList，把TZImagePickerController相关的控制器放到黑名单里，使得不受WRNavigationBar的影响。如果没有集成，可在issues列表里搜一下看看类似的issue参考下，如实在没头绪，可加群提供个能复现该问题的demo，0~2天给你解决。最近发现WRNavigationBar的黑名单会有不生效的情况，临时解决方案大家可参考：[https://github.com/wangrui460/WRNavigationBar/issues/145](https://github.com/wangrui460/WRNavigationBar/issues/145)                          
+
+**Q：导航栏没了？**            
+A：是否有集成GKNavigationBarViewController？需要升级到2.0.4及以上版本，详见issue：[https://github.com/QuintGao/GKNavigationBarViewController/issues/7](https://github.com/QuintGao/GKNavigationBarViewController/issues/7)。       
+
+## 六. Release Notes 最近更新     
+
+2.2.4 修复minPhotoWidthSelectable不生效的问题， 使用@available消除警告            
+2.1.8 优化gif图播放的体验，加入iCloud同步进度条；新增notScaleImage属性，设置为YES时内部不去缩放图片             
+2.1.6 新增allowCameraLocation属性，默认为YES，置为NO时不会在照相/摄像时定位，修复一个序号紊乱的bug              
 2.1.5 修复开启showSelectedIndex后照片列表页iCloud图片进度条紊乱的bug              
 2.1.4 新增多个页面和组件的样式自定义block，允许自定义绝大多数UI样式              
 2.1.2 新增showPhotoCannotSelectLayer属性，当已选照片张数达到最大可选张数时，可像微信一样让其它照片显示一个提示不可选的浮层            

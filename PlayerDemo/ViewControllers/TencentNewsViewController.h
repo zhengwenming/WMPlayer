@@ -15,6 +15,5 @@
 #import "BaseViewController.h"
 
 @interface TencentNewsViewController : BaseViewController
-@property (weak, nonatomic) IBOutlet UITableView *table;
 
 @end

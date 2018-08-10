@@ -8,10 +8,9 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'PlayerDemo' do
-    # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-    # Pods for PlayerDemo
-    #pod 'Masonry', '~> 1.0.2'
     pod 'Masonry'
+    pod 'GPUImage'
+    pod 'AFNetworking'
     pod 'TZImagePickerController'
 end
 

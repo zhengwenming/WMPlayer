@@ -178,8 +178,11 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil
      ];
-    
+    if(self.wmPlayer==nil){
+        self.wmPlayer = [[WMPlayer alloc] initPlayerModel:self.playerModel];
+    }
     self.wmPlayer.backBtnStyle = BackBtnStylePop;
+    self.wmPlayer.loopPlay = YES;//设置是否循环播放
     self.wmPlayer.tintColor = [UIColor orangeColor];//改变播放器着色
     self.wmPlayer.enableBackgroundMode = YES;//开启后台播放模式
     self.wmPlayer.delegate = self;

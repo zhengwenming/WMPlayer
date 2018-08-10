@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VideoModel.h"
+#import "VideoDataModel.h"
 
-typedef void(^StartPlayVideoBlcok)(UIImageView *backgroundIV,VideoModel *videoModel);
+typedef void(^StartPlayVideoBlcok)(UIImageView *backgroundIV,VideoDataModel *videoModel);
 
 @interface VideoCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -19,8 +19,7 @@ typedef void(^StartPlayVideoBlcok)(UIImageView *backgroundIV,VideoModel *videoMo
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;
 
-@property (nonatomic, retain)VideoModel *model;
-
+@property(nonatomic,strong)VideoDataModel *videoModel;
 
 @property (nonatomic, copy)StartPlayVideoBlcok startPlayVideoBlcok;
 

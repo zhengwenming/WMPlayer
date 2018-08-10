@@ -12,9 +12,7 @@
  */
 
 #import "SinaNewsViewController.h"
-#import "SidModel.h"
 #import "VideoCell.h"
-#import "VideoModel.h"
 #import "WMPlayer.h"
 #import "DetailViewController.h"
 #import "AppDelegate.h"
@@ -27,7 +25,7 @@
 }
 @property(nonatomic,strong)VideoCell *currentCell;
 @property(nonatomic,strong)WMPlayer *wmPlayer;
-@property(nonatomic,strong)NSMutableArray<VideoModel *> *dataSource;
+@property(nonatomic,strong)NSMutableArray *dataSource;
 @end
 
 @implementation SinaNewsViewController
@@ -45,6 +43,22 @@
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
+}
+-(UITableView *)table{
+    if(_table==nil){
+        _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height)];
+        _table.showsVerticalScrollIndicator = NO;
+        _table.delegate = self;
+        _table.dataSource = self;
+        _table.separatorStyle=UITableViewCellSeparatorStyleNone;
+        if (@available(ios 11.0,*)) {
+            UITableView.appearance.estimatedRowHeight = 0;
+            UITableView.appearance.estimatedSectionFooterHeight = 0;
+            UITableView.appearance.estimatedSectionHeaderHeight = 0;
+        }
+        [self.view addSubview:_table];
+    }
+    return _table;
 }
 ///播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
@@ -220,71 +234,9 @@
                     name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     [self.table registerNib:[UINib nibWithNibName:@"VideoCell" bundle:nil] forCellReuseIdentifier:@"VideoCell"];
-    [self addMJRefresh];
-}
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self performSelector:@selector(loadData) withObject:nil afterDelay:1.0];
-}
--(void)loadData{
-    if ([AppDelegate shareAppDelegate].sidArray.count>2) {
-        SidModel *sidModl = [AppDelegate shareAppDelegate].sidArray[2];
-        [self addHudWithMessage:@"加载中..."];
-        [[DataManager shareManager] getVideoListWithURLString:[NSString stringWithFormat:@"http://c.3g.163.com/nc/video/list/%@/y/0-10.html",sidModl.sid] ListID:sidModl.sid success:^(NSArray *listArray, NSArray *videoArray) {
-            self.dataSource =[NSMutableArray arrayWithArray:listArray];
-            [self.table reloadData];
-            [self removeHud];
-            [self.table.mj_header endRefreshing];
-        } failed:^(NSError *error) {
-            [self removeHud];
-            [self.table.mj_header endRefreshing];
-        }];
-    }
-}
--(void)addMJRefresh{
-    __unsafe_unretained UITableView *tableView = self.table;
-    // 下拉刷新
-    tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self addHudWithMessage:@"加载中..."];
-        [[DataManager shareManager] getSIDArrayWithURLString:@"http://c.m.163.com/nc/video/home/0-10.html"
-                                                     success:^(NSArray *sidArray, NSArray *videoArray) {
-                                                         [self.dataSource removeAllObjects];
-                                                         [self.dataSource addObjectsFromArray:videoArray];
-                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                             [self removeHud];
-                                                             [tableView reloadData];
-                                                             [tableView.mj_header endRefreshing];
-                                                         });
-                                                     }
-                                                      failed:^(NSError *error) {
-                                                          [self removeHud];
-                                                          [tableView.mj_header endRefreshing];
-
-                                                      }];
-        
-    }];
-    
-    
-    // 设置自动切换透明度(在导航栏下面自动隐藏)
-    tableView.mj_header.automaticallyChangeAlpha = YES;
-    // 上拉刷新
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        NSString *URLString = [NSString stringWithFormat:@"http://c.m.163.com/nc/video/home/%ld-10.html",self.dataSource.count - self.dataSource.count%10];
-        [self addHudWithMessage:@"加载中..."];
-        [[DataManager shareManager] getSIDArrayWithURLString:URLString
-                                                     success:^(NSArray *sidArray, NSArray *videoArray) {
-                                                         [self.dataSource addObjectsFromArray:videoArray];
-                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                             [self removeHud];
-                                                             [tableView reloadData];
-                                                             [tableView.mj_header endRefreshing];
-                                                         });
-                                                     }
-                                                      failed:^(NSError *error) {
-                                                          [self removeHud];
-                                                      }];
-        // 结束刷新
-        [tableView.mj_footer endRefreshing];
+    [VideoDataModel getHomePageVideoDataWithBlock:^(NSArray *dateAry, NSError *error) {
+        [self.dataSource addObjectsFromArray:dateAry];
+        [self.table reloadData];
     }];
 }
 
@@ -299,16 +251,15 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     VideoCell *cell = (VideoCell *)[tableView dequeueReusableCellWithIdentifier:@"VideoCell"];
-    cell.model = [self.dataSource objectAtIndex:indexPath.row];
-    cell.model.indexPath = indexPath;
+    cell.videoModel = [self.dataSource objectAtIndex:indexPath.row];
+    cell.videoModel.indexPath = indexPath;
     __weak __typeof(&*self) weakSelf = self;
-
-    cell.startPlayVideoBlcok = ^(UIImageView *backgroundIV, VideoModel *videoModel) {
+    cell.startPlayVideoBlcok = ^(UIImageView *backgroundIV, VideoDataModel *videoModel) {
         [weakSelf releaseWMPlayer];
         weakSelf.currentCell = (VideoCell *)backgroundIV.superview.superview;
         WMPlayerModel *playerModel = [WMPlayerModel new];
-        playerModel.title = videoModel.title;
-        playerModel.videoURL = [NSURL URLWithString:videoModel.mp4_url];
+        playerModel.title = videoModel.nickname;
+        playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
         playerModel.indexPath = indexPath;
         weakSelf.wmPlayer = [[WMPlayer alloc] init];
         weakSelf.wmPlayer.delegate = weakSelf;
@@ -323,7 +274,7 @@
     };
     
     if (self.wmPlayer&&self.wmPlayer.superview) {
-        if (indexPath.row==self.currentCell.model.indexPath.row) {
+        if (indexPath.row==self.currentCell.videoModel.indexPath.row) {
             [cell.playBtn.superview sendSubviewToBack:cell.playBtn];
         }else{
             [cell.playBtn.superview bringSubviewToFront:cell.playBtn];
@@ -339,7 +290,7 @@
             return;
         }
         if (self.wmPlayer.superview) {
-            CGRect rectInTableView = [self.table rectForRowAtIndexPath:self.currentCell.model.indexPath];
+            CGRect rectInTableView = [self.table rectForRowAtIndexPath:self.currentCell.videoModel.indexPath];
             CGRect rectInSuperview = [self.table convertRect:rectInTableView toView:[self.table superview]];
             if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-([WMPlayer IsiPhoneX]?88:64)-([WMPlayer IsiPhoneX]?83:49)) {//拖动
                 [self releaseWMPlayer];

@@ -7,17 +7,14 @@
 //
 #import <UIKit/UIKit.h>
 #import "RootTabBarController.h"
-#import "DataManager.h"
 #import "ScreenShotView.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-
 @property (strong, nonatomic) UIWindow *window;
-
-
 @property (copy, nonatomic) NSArray *sidArray;
 @property (copy, nonatomic) NSArray *videoArray;
+@property (strong, nonatomic) RootTabBarController *tabbar;
 
 @property (nonatomic, strong) ScreenShotView *screenshotView;
 +(AppDelegate *)shareAppDelegate;

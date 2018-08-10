@@ -123,6 +123,12 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  */
 @property (nonatomic,assign) BOOL  muted;
 /**
+ 是否循环播放（不循环则意味着需要手动触发第二次播放）
+ */
+@property (nonatomic,assign) BOOL  loopPlay;
+
+
+/**
  设置playerLayer的填充模式
  */
 @property (nonatomic, assign) WMPlayerLayerGravity    playerLayerGravity;

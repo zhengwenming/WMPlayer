@@ -15,25 +15,25 @@
     // Initialization code
     [super awakeFromNib];
     [self.playBtn addTarget:self action:@selector(startPlayVideo:) forControlEvents:UIControlEventTouchUpInside];
-
+    self.backgroundIV.backgroundColor = [UIColor blackColor];
+    self.backgroundIV.contentMode = UIViewContentModeScaleAspectFit;
 }
+
 -(void)startPlayVideo:(UIButton *)sender{
     if (self.startPlayVideoBlcok) {
-        self.startPlayVideoBlcok(self.backgroundIV,self.model);
+        self.startPlayVideoBlcok(self.backgroundIV,self.videoModel);
     }
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-}
--(void)setModel:(VideoModel *)model{
-    _model = model;
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.titleLabel.text = model.title;
-    self.descriptionLabel.text = model.descriptionDe;
-    [self.backgroundIV sd_setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:[UIImage imageNamed:@"logo"]];
-    self.countLabel.text = [NSString stringWithFormat:@"%ld.%ld万",model.playCount/10000,model.playCount/1000-model.playCount/10000];
-    self.timeDurationLabel.text = [model.ptime substringWithRange:NSMakeRange(12, 4)];
 
+-(void)setVideoModel:(VideoDataModel *)videoModel{
+    _videoModel = videoModel;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.titleLabel.text = videoModel.nickname;
+    self.descriptionLabel.text = videoModel.location;
+    [self.backgroundIV sd_setImageWithURL:[NSURL URLWithString:videoModel.cover_url] placeholderImage:[UIImage imageNamed:@"logo"]];
+    self.countLabel.text = [NSString stringWithFormat:@"%ld.%ld万",[videoModel.play_count integerValue]/10000,[videoModel.play_count integerValue]/1000-[videoModel.comment_count integerValue]/10000];
+    
 }
+
 @end

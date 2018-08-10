@@ -86,7 +86,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //playerLayer,可以修改frame
 @property (nonatomic,retain) AVPlayerLayer  *playerLayer;
 //播放器player
-@property (nonatomic,retain) AVQueuePlayer   *player;
+@property (nonatomic,retain) AVPlayer   *player;
 //播放资源路径URL
 @property (nonatomic,strong) NSURL         *videoURL;
 //播放资源
@@ -139,6 +139,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 
 -(void)initWMPlayer{
+    [UIApplication sharedApplication].idleTimerDisabled=YES;
     NSError *setCategoryErr = nil;
     NSError *activationErr  = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryErr];
@@ -731,10 +732,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.currentItem = [AVPlayerItem playerItemWithAsset:self.urlAsset];
         self.player = [AVPlayer playerWithPlayerItem:self.currentItem];
     }
+    if(self.loopPlay){
+        self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    }else{
+        self.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
+    }
     //ios10新添加的属性，如果播放不了，可以试试打开这个代码
-//    if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
-//        self.player.automaticallyWaitsToMinimizeStalling = YES;
-//    }
+    if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
+        self.player.automaticallyWaitsToMinimizeStalling = YES;
+    }
     self.player.usesExternalPlaybackWhileExternalScreenIsActive=YES;
     //AVPlayerLayer
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
@@ -814,6 +820,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     _isHiddenTopAndBottomView = isHiddenTopAndBottomView;
     self.prefersStatusBarHidden = isHiddenTopAndBottomView;
 }
+-(void)setLoopPlay:(BOOL)loopPlay{
+    _loopPlay = loopPlay;
+    if(self.player){
+        if(loopPlay){
+            self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        }else{
+            self.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
+        }
+    }
+}
 //设置播放的状态
 - (void)setState:(WMPlayerState)state{
     _state = state;
@@ -841,11 +857,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             }else{
                 [self showControlView];
             }
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.state = WMPlayerStateFinished;
-                self.bottomProgress.progress = 0;
-                self.playOrPauseBtn.selected = YES;
-            });
+            if(!self.loopPlay){
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    self.state = WMPlayerStateFinished;
+                    self.bottomProgress.progress = 0;
+                    self.playOrPauseBtn.selected = YES;
+                });
+            }
         }
     }];
 }
@@ -864,6 +882,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 
     }];
 }
+
 -(void)hiddenLockBtn{
      self.lockBtn.alpha = 0.0;
     self.prefersStatusBarHidden = self.hiddenStatusBar = YES;
@@ -1342,6 +1361,7 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     self.playOrPauseBtn = nil;
     self.playerLayer = nil;
     self.lightView = nil;
+    [UIApplication sharedApplication].idleTimerDisabled=NO;
 }
 
 //获取当前的旋转状态

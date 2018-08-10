@@ -1,20 +1,42 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - GPUImage (0.1.7)
   - Masonry (1.1.0)
-  - TZImagePickerController (2.1.5)
+  - TZImagePickerController (2.2.4)
 
 DEPENDENCIES:
+  - AFNetworking
+  - GPUImage
   - Masonry
   - TZImagePickerController
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - GPUImage
     - Masonry
     - TZImagePickerController
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  TZImagePickerController: e60a73665cf665c18abd45cdf48e912094eefff5
+  TZImagePickerController: 93f62cc92a80b632b36facd51b55cd0206afed32
 
-PODFILE CHECKSUM: 86a983d61c7344f78bc8d47cb255e4b813e1a0c0
+PODFILE CHECKSUM: 20bc5d4979038e36b2f2bda6c40785229f0b1fac
 
 COCOAPODS: 1.5.3
