@@ -44,6 +44,10 @@
 #### Version-5.0.0 (添加n个新功能)---------2018.05.22
 
 ---
+
+感谢阳眼的熊的代码（视频拍摄和编辑）https://github.com/doubleYang1020/DYVideoCamera
+
+
 微信扫码关注文明的iOS开发公众号
 或者微信搜索“iOS开发by文明”
 
