@@ -182,6 +182,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 +(NSString *)version;
 //获取当前的旋转状态
 +(CGAffineTransform)getCurrentDeviceOrientation;
+//判断是否为iPhone X系列
 +(BOOL)IsiPhoneX;
 @end
 

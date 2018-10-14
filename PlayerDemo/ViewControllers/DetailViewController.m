@@ -11,6 +11,8 @@
 
 @interface DetailViewController ()<WMPlayerDelegate>
 @property(nonatomic,strong)    UIButton *nextBtn;
+@property(nonatomic,strong)    UIView *videoContent;
+
 @property(nonatomic,assign)    BOOL  forbidRotate;//手势返回的时候禁止旋转VC
 @end
 
@@ -142,13 +144,20 @@
 -(void)toOrientation:(UIInterfaceOrientation)orientation{    
     if (orientation ==UIInterfaceOrientationPortrait) {//
         [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.leading.trailing.top.equalTo(self.view);
+        make.leading.trailing.bottom.equalTo(self.wmPlayer.superview);
         make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
+        }];
+        [self.videoContent mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.leading.trailing.top.equalTo(self.view);
+            make.height.equalTo(@(self.view.frame.size.width*9/16.0+([WMPlayer IsiPhoneX]?34:0)));
         }];
         self.wmPlayer.isFullscreen = NO;
     }else{
         [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.wmPlayer.superview);
+        }];
+        [self.videoContent mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
         }];
         self.wmPlayer.isFullscreen = YES;
     }
@@ -178,6 +187,15 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil
      ];
+    
+    self.videoContent = [UIView new];
+    self.videoContent.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.videoContent];
+    [self.videoContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.top.equalTo(self.view);
+        make.height.equalTo(@(self.view.frame.size.width*9/16.0+([WMPlayer IsiPhoneX]?34:0)));
+    }];
+    
     if(self.wmPlayer==nil){
         self.wmPlayer = [[WMPlayer alloc] initPlayerModel:self.playerModel];
     }
@@ -186,10 +204,10 @@
     self.wmPlayer.tintColor = [UIColor orangeColor];//改变播放器着色
     self.wmPlayer.enableBackgroundMode = YES;//开启后台播放模式
     self.wmPlayer.delegate = self;
-    [self.view addSubview:self.wmPlayer];
+    [self.videoContent addSubview:self.wmPlayer];
     [self.wmPlayer play];
     [self.wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.top.equalTo(self.view);
+        make.leading.trailing.bottom.equalTo(self.wmPlayer.superview);
     make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
     }];
     

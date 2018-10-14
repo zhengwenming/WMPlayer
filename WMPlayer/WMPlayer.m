@@ -12,7 +12,6 @@
  */
 
 
-#import "sys/utsname.h"
 #import "WMPlayer.h"
 #import "Masonry.h"
 
@@ -328,7 +327,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.top.equalTo(self.contentView);
-        make.height.mas_equalTo([WMPlayer IsiPhoneX]?90:70);
+        make.height.mas_equalTo([WMPlayer IsiPhoneX]?50:90);
     }];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.bottom.equalTo(self.contentView);
@@ -754,17 +753,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.player play];
 }
 +(BOOL)IsiPhoneX{
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString *platform = [NSString stringWithCString: systemInfo.machine encoding:NSASCIIStringEncoding];
-    if([platform isEqualToString:@"i386"]||[platform isEqualToString:@"x86_64"]){//模拟器
-        return ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO);
-    }else{//真机
-        if([platform isEqualToString:@"iPhone10,3"]||[platform isEqualToString:@"iPhone10,6"]) {
-            return YES;
-        }
-        return NO;
+    BOOL iPhoneXSeries = NO;
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
+        return iPhoneXSeries;
     }
+    if (@available(iOS 11.0, *)) {//x系列的系统从iOS11开始
+        if(UIApplication.sharedApplication.delegate.window.safeAreaInsets.bottom > 0.0) {
+            iPhoneXSeries = YES;
+        }
+    }
+    return iPhoneXSeries;
 }
 //是否全屏
 -(void)setIsFullscreen:(BOOL)isFullscreen{
