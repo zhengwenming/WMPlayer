@@ -177,7 +177,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //playOrPauseBtn
     self.playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.playOrPauseBtn.showsTouchWhenHighlighted = YES;
-    [self.playOrPauseBtn addTarget:self action:@selector(PlayOrPause:) forControlEvents:UIControlEventTouchUpInside];
+    [self.playOrPauseBtn addTarget:self action:@selector(playOrPause:) forControlEvents:UIControlEventTouchUpInside];
     [self.playOrPauseBtn setImage:WMPlayerImage(@"player_ctrl_icon_pause") forState:UIControlStateNormal];
     [self.playOrPauseBtn setImage:WMPlayerImage(@"player_ctrl_icon_play") forState:UIControlStateSelected];
     [self.bottomView addSubview:self.playOrPauseBtn];
@@ -535,7 +535,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 #pragma mark
 #pragma mark - PlayOrPause
-- (void)PlayOrPause:(UIButton *)sender{
+- (void)playOrPause:(UIButton *)sender{
     if (self.state==WMPlayerStateStopped||self.state==WMPlayerStateFailed) {
         [self play];
         self.rate = [self.rateBtn.currentTitle floatValue];
@@ -616,11 +616,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:doubleTaped:)]) {
         [self.delegate wmplayer:self doubleTaped:doubleTap];
     }
-    if (self.isLockScreen) {
-        return;
-    }
-    [self PlayOrPause:self.playOrPauseBtn];
-    [self showControlView];
 }
 
 -(void)setCurrentItem:(AVPlayerItem *)playerItem{

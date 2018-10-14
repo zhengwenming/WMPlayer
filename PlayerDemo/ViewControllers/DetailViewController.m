@@ -85,6 +85,10 @@
 ///双击播放器
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
     NSLog(@"didDoubleTaped");
+    if (wmplayer.isLockScreen) {
+        return;
+    }
+    [wmplayer playOrPause:[wmplayer valueForKey:@"playOrPauseBtn"]];
 }
 ///播放状态
 -(void)wmplayerFailedPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{

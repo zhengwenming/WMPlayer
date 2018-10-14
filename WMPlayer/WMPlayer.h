@@ -168,7 +168,16 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  @return double的一个时间点
  */
 - (double)currentTime;
-
+/**
+ 获取视频长度
+ 
+ @return double的一个时间点
+ */
+- (double)duration;
+/**
+ playOrPauseBtn点击事件
+ */
+- (void)playOrPause:(UIButton *)sender;
 /**
  重置播放器,然后切换下一个播放资源
  */
