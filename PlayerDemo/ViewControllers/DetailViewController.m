@@ -11,7 +11,8 @@
 
 @interface DetailViewController ()<WMPlayerDelegate>
 @property(nonatomic,strong)    UIButton *nextBtn;
-@property(nonatomic,strong)    UIView *videoContent;
+@property(nonatomic,strong)    UIView *blackView;
+
 
 @property(nonatomic,assign)    BOOL  forbidRotate;//手势返回的时候禁止旋转VC
 @end
@@ -147,25 +148,16 @@
 //点击进入,退出全屏,或者监测到屏幕旋转去调用的方法
 -(void)toOrientation:(UIInterfaceOrientation)orientation{    
     if (orientation ==UIInterfaceOrientationPortrait) {
-        [self.videoContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.leading.trailing.top.equalTo(self.view);
-            make.height.equalTo(@(self.view.frame.size.width*9/16.0+([WMPlayer IsiPhoneX]?34:0)));
-        }];
-        
         [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.bottom.equalTo(self.wmPlayer.superview);
+            make.leading.trailing.equalTo(self.wmPlayer.superview);
+            make.top.equalTo(self.blackView.mas_bottom);
         make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
         }];
         self.wmPlayer.isFullscreen = NO;
     }else{
-        
-        [self.videoContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-        }];
-        
         [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             if([WMPlayer IsiPhoneX]){
-make.edges.mas_equalTo(UIEdgeInsetsMake(self.wmPlayer.playerModel.verticalVideo?21:0, 0, 0, 0));
+                make.edges.mas_equalTo(UIEdgeInsetsMake(self.wmPlayer.playerModel.verticalVideo?14:0, 0, 0, 0));
             }else{
             make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
             }
@@ -199,12 +191,12 @@ make.edges.mas_equalTo(UIEdgeInsetsMake(self.wmPlayer.playerModel.verticalVideo?
                                                object:nil
      ];
     
-    self.videoContent = [UIView new];
-    self.videoContent.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.videoContent];
-    [self.videoContent mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.blackView = [UIView new];
+    self.blackView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.blackView];
+    [self.blackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.top.equalTo(self.view);
-        make.height.equalTo(@(self.view.frame.size.width*9/16.0+([WMPlayer IsiPhoneX]?34:0)));
+        make.height.equalTo(@([WMPlayer IsiPhoneX]?34:0));
     }];
     
     if(self.wmPlayer==nil){
@@ -215,11 +207,12 @@ make.edges.mas_equalTo(UIEdgeInsetsMake(self.wmPlayer.playerModel.verticalVideo?
     self.wmPlayer.tintColor = [UIColor orangeColor];//改变播放器着色
     self.wmPlayer.enableBackgroundMode = YES;//开启后台播放模式
     self.wmPlayer.delegate = self;
-    [self.videoContent addSubview:self.wmPlayer];
+    [self.view addSubview:self.wmPlayer];
     [self.wmPlayer play];
     [self.wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.bottom.equalTo(self.wmPlayer.superview);
-    make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
+        make.leading.trailing.equalTo(self.wmPlayer.superview);
+        make.top.equalTo(self.blackView.mas_bottom);
+        make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
     }];
     
     

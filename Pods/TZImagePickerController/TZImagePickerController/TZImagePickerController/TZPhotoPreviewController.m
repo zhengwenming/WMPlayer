@@ -33,8 +33,6 @@
     UILabel *_originalPhotoLabel;
     
     CGFloat _offsetItemCount;
-    
-    BOOL _didSetIsSelectOriginalPhoto;
 }
 @property (nonatomic, assign) BOOL isHideNaviBar;
 @property (nonatomic, strong) UIView *cropBgView;
@@ -49,10 +47,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [TZImageManager manager].shouldFixOrientation = YES;
-    TZImagePickerController *_tzImagePickerVc = (TZImagePickerController *)self.navigationController;
-    if (!_didSetIsSelectOriginalPhoto) {
-        _isSelectOriginalPhoto = _tzImagePickerVc.isSelectOriginalPhoto;
-    }
+    __weak typeof(self) weakSelf = self;
+    TZImagePickerController *_tzImagePickerVc = (TZImagePickerController *)weakSelf.navigationController;
     if (!self.models.count) {
         self.models = [NSMutableArray arrayWithArray:_tzImagePickerVc.selectedModels];
         _assetsTemp = [NSMutableArray arrayWithArray:_tzImagePickerVc.selectedAssets];
@@ -62,11 +58,6 @@
     [self configBottomToolBar];
     self.view.clipsToBounds = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarOrientationNotification:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];    
-}
-
-- (void)setIsSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
-    _isSelectOriginalPhoto = isSelectOriginalPhoto;
-    _didSetIsSelectOriginalPhoto = YES;
 }
 
 - (void)setPhotos:(NSMutableArray *)photos {
@@ -354,12 +345,6 @@
 - (void)backButtonClick {
     if (self.navigationController.childViewControllers.count < 2) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-        if ([self.navigationController isKindOfClass: [TZImagePickerController class]]) {
-            TZImagePickerController *nav = (TZImagePickerController *)self.navigationController;
-            if (nav.imagePickerControllerDidCancelHandle) {
-                nav.imagePickerControllerDidCancelHandle();
-            }
-        }
         return;
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -512,7 +497,7 @@
     TZAssetModel *model = _models[_currentIndex];
     _selectButton.selected = model.isSelected;
     [self refreshSelectButtonImageViewContentMode];
-    if (_selectButton.isSelected && _tzImagePickerVc.showSelectedIndex && _tzImagePickerVc.showSelectBtn) {
+    if (_selectButton.isSelected && _tzImagePickerVc.showSelectedIndex) {
         NSString *assetId = [[TZImageManager manager] getAssetIdentifier:model.asset];
         NSString *index = [NSString stringWithFormat:@"%zd", [_tzImagePickerVc.selectedAssetIds indexOfObject:assetId] + 1];
         _indexLabel.text = index;

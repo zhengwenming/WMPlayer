@@ -11,7 +11,9 @@ target 'PlayerDemo' do
     pod 'Masonry'
     pod 'GPUImage'
     pod 'AFNetworking'
-    pod 'TZImagePickerController'
+    pod 'MJRefresh'
+    pod 'SDWebImage'
+    pod 'TZImagePickerController', '~> 2.1.6'
 end
 
 #Xcode里配置：项目名->Target->Build Settings->Enable BitCode中设置为NO就可以了.

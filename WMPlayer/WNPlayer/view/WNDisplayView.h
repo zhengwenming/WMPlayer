@@ -12,10 +12,10 @@
 
 
 @interface WNDisplayView : UIView
-@property (nonatomic) CGSize contentSize;
-@property (nonatomic) CGFloat rotation;
-@property (nonatomic) BOOL isYUV;
-@property (nonatomic) BOOL keepLastFrame;
+@property (nonatomic,assign) CGSize contentSize;
+@property (nonatomic,assign) CGFloat rotation;
+@property (nonatomic,assign) BOOL isYUV;
+@property (nonatomic,assign) BOOL keepLastFrame;
 
 - (void)render:(WNPlayerVideoFrame *)frame;
 - (void)clear;

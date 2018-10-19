@@ -112,7 +112,6 @@
     
     self.rotation = 0;
     self.keepLastFrame = NO;
-    
     return YES;
 }
 

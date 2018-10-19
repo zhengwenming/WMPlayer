@@ -26,12 +26,12 @@ typedef enum : NSUInteger {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WNPlayer : UIView
-@property (nonatomic, copy) NSString *url;
-@property (nonatomic) BOOL autoplay;
-@property (nonatomic) BOOL repeat;
-@property (nonatomic) BOOL preventFromScreenLock;
-@property (nonatomic) BOOL restorePlayAfterAppEnterForeground;
-@property (nonatomic, readonly) WNPlayerStatus status;
+@property (nonatomic,copy) NSString *url;
+@property (nonatomic,assign) BOOL autoplay;
+@property (nonatomic,assign) BOOL repeat;
+@property (nonatomic,assign) BOOL preventFromScreenLock;
+@property (nonatomic,assign) BOOL restorePlayAfterAppEnterForeground;
+@property (nonatomic,readonly) WNPlayerStatus status;
 
 - (void)open;
 - (void)close;
