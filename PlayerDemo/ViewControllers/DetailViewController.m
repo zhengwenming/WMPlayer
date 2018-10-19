@@ -146,22 +146,29 @@
 
 //点击进入,退出全屏,或者监测到屏幕旋转去调用的方法
 -(void)toOrientation:(UIInterfaceOrientation)orientation{    
-    if (orientation ==UIInterfaceOrientationPortrait) {//
-        [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.bottom.equalTo(self.wmPlayer.superview);
-        make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
-        }];
+    if (orientation ==UIInterfaceOrientationPortrait) {
         [self.videoContent mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.leading.trailing.top.equalTo(self.view);
             make.height.equalTo(@(self.view.frame.size.width*9/16.0+([WMPlayer IsiPhoneX]?34:0)));
         }];
+        
+        [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.bottom.equalTo(self.wmPlayer.superview);
+        make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
+        }];
         self.wmPlayer.isFullscreen = NO;
     }else{
-        [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.wmPlayer.superview);
-        }];
+        
         [self.videoContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+            make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+        }];
+        
+        [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            if([WMPlayer IsiPhoneX]){
+make.edges.mas_equalTo(UIEdgeInsetsMake(self.wmPlayer.playerModel.verticalVideo?21:0, 0, 0, 0));
+            }else{
+            make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+            }
         }];
         self.wmPlayer.isFullscreen = YES;
     }

@@ -12,7 +12,7 @@
  */
 
 #import "TencentNewsViewController.h"
-#import "DetailViewController.h"
+#import "WNPlayerDetailViewController.h"
 #import "AppDelegate.h"
 #import "MJRefresh.h"
 #import "HomeVideoCollectionViewCell.h"
@@ -125,9 +125,10 @@
     WMPlayerModel *playerModel = [WMPlayerModel new];
     playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
     playerModel.title = videoModel.nickname;
-    DetailViewController* detailVC = [[DetailViewController alloc] init];
-    detailVC.playerModel = playerModel;
-    [self.navigationController pushViewController:detailVC animated:YES];
+    WNPlayerDetailViewController* wnDetailVC = [[WNPlayerDetailViewController alloc] init];
+    wnDetailVC.playerModel = playerModel;
+    [self.navigationController pushViewController:wnDetailVC animated:YES];
+
 }
 
 -(void)dealloc{

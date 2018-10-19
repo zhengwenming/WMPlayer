@@ -1,0 +1,27 @@
+/* 
+  WNPlayerStrings.strings
+  PlayerDemo
+
+  Created by zhengwenming on 2018/10/15.
+  Copyright © 2018年 DS-Team. All rights reserved.
+*/
+"WN_PLAYER_STRINGS_INVALID_URL" = "Invalid URL";
+"WN_PLAYER_STRINGS_CANNOT_OPEN_INPUT" = "Cannot open input";
+"WN_PLAYER_STRINGS_CANNOT_FIND_STREAM_INFO" = "Cannot find stream info";
+"WN_PLAYER_STRINGS_NO_VIDEO_AND_AUDIO_STREAM" = "No video and audio streams";
+
+"WN_PLAYER_STRINGS_NO_AUDIO_OUTPUT" = "No audio output";
+"WN_PLAYER_STRINGS_NO_AUDIO_CHANNEL" = "No audio channel";
+"WN_PLAYER_STRINGS_NO_AUDIO_SAMPLE_RATE" = "No audio sample rate";
+"WN_PLAYER_STRINGS_NO_AUDIO_VOLUME" = "No audio volume";
+"WN_PLAYER_STRINGS_CANNOT_SET_AUDIO_CATEGORY" = "Cannot set audio category";
+"WN_PLAYER_STRINGS_CANNOT_SET_AUDIO_ACTIVE" = "Cannot set audio active";
+"WN_PLAYER_STRINGS_CANNOT_INIT_AUDIO_UNIT" = "Cannot initialize audio unit";
+"WN_PLAYER_STRINGS_CANNOT_CREATE_AUDIO_UNIT" = "Cannot create audio unit";
+"WN_PLAYER_STRINGS_CANNOT_GET_AUDIO_STREAM_DESCRIPTION" = "Cannot get audio stream description";
+"WN_PLAYER_STRINGS_CANNOT_SET_AUDIO_RENDER_CALLBACK" = "Cannot set audio render callback";
+"WN_PLAYER_STRINGS_CANNOT_UNINIT_AUDIO_UNIT" = "Cannot uninitialize audio unit";
+"WN_PLAYER_STRINGS_CANNOT_DISPOSE_AUDIO_UNIT" = "Cannot dispose audio unit";
+"WN_PLAYER_STRINGS_CANNOT_DEACTIVATE_AUDIO" = "Cannot deactivate audio";
+"WN_PLAYER_STRINGS_CANNOT_START_AUDIO_UNIT" = "Cannot start audio unit";
+"WN_PLAYER_STRINGS_CANNOT_STOP_AUDIO_UNIT" = "Cannot stop audio unit";
