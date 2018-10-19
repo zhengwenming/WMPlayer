@@ -57,7 +57,7 @@
 
 ---
 
-WMPlayer视频播放器，继承UIView，内部封装了AVPlayer和FFmpeg最新版本（4.0.2），没有使用废弃api，支持所有视频格式(avi、flv、m3u8、3gp、RTMP、MKV、rmvb、wmv、mp4、mov)，网络和本地视频同时支持。全屏和小屏播放同时支持。
+WMPlayer视频播放器，继承UIView，内部封装了AVPlayer和FFmpeg最新版本（4.0.2），WMPlayer和新增加的万能播放器WNPlayer完全解耦。开发者可以任意选择适合自己的播放器进行编码，或者选择性的导入其中的一个播放器。
 cell中播放视频，全屏小屏切换自如。
 
 ![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/WMPlayer.gif)   
