@@ -126,6 +126,7 @@ cell中播放视频，全屏小屏切换自如。
 ## FFmpeg4.0.2最新版本的编译文件，请到下面👇的百度云网盘下载，也可以自行编译
 
 链接: https://pan.baidu.com/s/1BVRHB5WiVO4WHf4_xL8u2Q 提取码: zkqq
+
 下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下，然后修改项目Setting里面的Header Search Paths为$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
 
 
