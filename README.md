@@ -47,6 +47,7 @@
 ---
 
 感谢阳眼的熊的代码（视频拍摄和编辑）https://github.com/doubleYang1020/DYVideoCamera
+
 感谢DeviLeo的代码（视频拍摄和编辑）https://github.com/DeviLeo/DLGPlayer
 
 微信扫码关注文明的iOS开发公众号
@@ -122,9 +123,10 @@ cell中播放视频，全屏小屏切换自如。
     代码：详见demo中的新浪tab对应的DetailViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
     bug：无
   
-# FFmpeg4.0.2最新版本的编译文件，请到下面👇的百度云网盘下载，也可以自行编译
+## FFmpeg4.0.2最新版本的编译文件，请到下面👇的百度云网盘下载，也可以自行编译
 
 链接: https://pan.baidu.com/s/1BVRHB5WiVO4WHf4_xL8u2Q 提取码: zkqq
+下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下，然后修改项目Setting里面的Header Search Paths为$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
 
 
 依赖库为Masonry。
