@@ -48,7 +48,7 @@
 
 感谢阳眼的熊的代码（视频拍摄和编辑）https://github.com/doubleYang1020/DYVideoCamera
 
-感谢DeviLeo的代码（视频拍摄和编辑）https://github.com/DeviLeo/DLGPlayer
+感谢DeviLeo的代码（视频播放）https://github.com/DeviLeo/DLGPlayer
 
 微信扫码关注文明的iOS开发公众号
 或者微信搜索“iOS开发by文明”
