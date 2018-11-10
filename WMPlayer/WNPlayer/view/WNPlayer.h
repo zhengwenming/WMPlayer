@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WNPlayer : UIView
 
 @property (nonatomic, strong) WNPlayerManager *playerManager;
-@property (nonatomic,copy) NSString *url;
+@property (nonatomic,copy) NSString *urlString;
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic, weak)id <WNPlayerDelegate> delegate;
 // 播放器着色

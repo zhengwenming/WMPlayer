@@ -146,7 +146,8 @@
     self.wnPlayer.delegate = self;
     self.wnPlayer.repeat = YES;
     self.wnPlayer.title = self.playerModel.title;
-    self.wnPlayer.url = self.playerModel.videoURL.absoluteString;
+    self.wnPlayer.urlString = self.playerModel.videoURL.absoluteString;
+//    self.wnPlayer.urlString = @"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4";
     [self.view addSubview:self.wnPlayer];
     
     [self.wnPlayer mas_makeConstraints:^(MASConstraintMaker *make) {

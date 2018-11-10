@@ -307,7 +307,7 @@ typedef enum : NSUInteger {
     self.status = WNPlayerStatusOpening;
     self.loadingView.hidden = NO;
     [self.loadingView startAnimating];
-    [self.playerManager open:self.url];
+    [self.playerManager open:self.urlString];
 }
 
 - (void)close {

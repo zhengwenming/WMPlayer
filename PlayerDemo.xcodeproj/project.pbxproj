@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184296682196F4EB00CFD97C /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184296612196F4EA00CFD97C /* libavcodec.a */; };
+		184296692196F4EB00CFD97C /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184296622196F4EB00CFD97C /* libavutil.a */; };
+		1842966A2196F4EB00CFD97C /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184296632196F4EB00CFD97C /* libswscale.a */; };
+		1842966B2196F4EB00CFD97C /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184296642196F4EB00CFD97C /* libavdevice.a */; };
+		1842966C2196F4EB00CFD97C /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184296652196F4EB00CFD97C /* libavformat.a */; };
+		1842966D2196F4EB00CFD97C /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184296662196F4EB00CFD97C /* libswresample.a */; };
+		1842966E2196F4EB00CFD97C /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184296672196F4EB00CFD97C /* libavfilter.a */; };
 		18745CFE211D20E80010E46F /* VideoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745CFD211D20E80010E46F /* VideoDataModel.m */; };
 		18745D01211D283B0010E46F /* HomeVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745D00211D283B0010E46F /* HomeVideoCollectionViewCell.m */; };
 		18745D04211D3ADC0010E46F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745D03211D3ADC0010E46F /* CameraViewController.m */; };
@@ -195,6 +202,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		184296612196F4EA00CFD97C /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
+		184296622196F4EB00CFD97C /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
+		184296632196F4EB00CFD97C /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
+		184296642196F4EB00CFD97C /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavdevice.a; sourceTree = "<group>"; };
+		184296652196F4EB00CFD97C /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavformat.a; sourceTree = "<group>"; };
+		184296662196F4EB00CFD97C /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
+		184296672196F4EB00CFD97C /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavfilter.a; sourceTree = "<group>"; };
 		18745CFC211D20E80010E46F /* VideoDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoDataModel.h; sourceTree = "<group>"; };
 		18745CFD211D20E80010E46F /* VideoDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoDataModel.m; sourceTree = "<group>"; };
 		18745CFF211D283B0010E46F /* HomeVideoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVideoCollectionViewCell.h; sourceTree = "<group>"; };
@@ -630,17 +644,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1842966E2196F4EB00CFD97C /* libavfilter.a in Frameworks */,
 				700C1554217A137F004717EE /* libz.tbd in Frameworks */,
 				700C1553217A135F004717EE /* VideoToolbox.framework in Frameworks */,
 				700C1551217A1353004717EE /* libiconv.tbd in Frameworks */,
+				1842966C2196F4EB00CFD97C /* libavformat.a in Frameworks */,
 				700C154F217A1344004717EE /* libbz2.tbd in Frameworks */,
 				700C154B217A132B004717EE /* OpenGLES.framework in Frameworks */,
 				700C1543217A1119004717EE /* libcrypto.a in Frameworks */,
 				700C1544217A1119004717EE /* libssl-tvOS.a in Frameworks */,
 				700C1545217A1119004717EE /* libssl.a in Frameworks */,
+				1842966A2196F4EB00CFD97C /* libswscale.a in Frameworks */,
 				700C1546217A1119004717EE /* libcrypto-tvOS.a in Frameworks */,
+				1842966D2196F4EB00CFD97C /* libswresample.a in Frameworks */,
+				1842966B2196F4EB00CFD97C /* libavdevice.a in Frameworks */,
 				70763CC620CD4A5400DCB7BE /* MediaPlayer.framework in Frameworks */,
+				184296692196F4EB00CFD97C /* libavutil.a in Frameworks */,
 				507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */,
+				184296682196F4EB00CFD97C /* libavcodec.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1190,6 +1211,13 @@
 		700C14A3217A1118004717EE /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				184296612196F4EA00CFD97C /* libavcodec.a */,
+				184296642196F4EB00CFD97C /* libavdevice.a */,
+				184296672196F4EB00CFD97C /* libavfilter.a */,
+				184296652196F4EB00CFD97C /* libavformat.a */,
+				184296622196F4EB00CFD97C /* libavutil.a */,
+				184296662196F4EB00CFD97C /* libswresample.a */,
+				184296632196F4EB00CFD97C /* libswscale.a */,
 			);
 			path = lib;
 			sourceTree = "<group>";
