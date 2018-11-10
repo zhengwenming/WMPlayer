@@ -8,7 +8,10 @@
 
 #import "WNPlayer.h"
 #import "WNPlayerUtils.h"
-
+#import "Masonry.h"
+#define WNPlayerSrcName(file) [@"WNPlayer.bundle" stringByAppendingPathComponent:file]
+#define WNPlayerFrameworkSrcName(file) [@"Frameworks/WNPlayer.framework/WNPlayer.bundle" stringByAppendingPathComponent:file]
+#define WNPlayerImage(file)      [UIImage imageNamed:WNPlayerSrcName(file)] ? :[UIImage imageNamed:WNPlayerFrameworkSrcName(file)]
 typedef enum : NSUInteger {
     WNPlayerOperationNone,
     WNPlayerOperationOpen,
@@ -22,19 +25,17 @@ typedef enum : NSUInteger {
     BOOL animatingHUD;
     NSTimeInterval showHUDTime;
 }
-@property (nonatomic, strong) WNPlayerManager *playerManager;
-@property (nonatomic, strong) UIActivityIndicatorView *aivBuffering;
-
-@property (nonatomic, weak) UIView *vTopBar;
-@property (nonatomic, weak) UILabel *lblTitle;
-@property (nonatomic, weak) UIView *vBottomBar;
-@property (nonatomic, weak) UIButton *btnPlay;
-@property (nonatomic, weak) UILabel *lblPosition;
-@property (nonatomic, weak) UILabel *lblDuration;
-@property (nonatomic, weak) UISlider *sldPosition;
-
-@property (nonatomic) UITapGestureRecognizer *grTap;
-
+//格式化时间（懒加载防止多次重复初始化）
+@property (nonatomic,strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic,strong) UIActivityIndicatorView *loadingView;
+@property (nonatomic, strong) UIImageView *topView,*bottomView;
+//显示播放时间的UILabel+加载失败的UILabel+播放视频的title
+@property (nonatomic,strong) UILabel   *leftTimeLabel,*rightTimeLabel,*titleLabel,*loadFailedLabel;
+@property (nonatomic, strong) UISlider *progressSlider;
+//控制全屏和播放暂停按钮
+@property (nonatomic,strong) UIButton  *fullScreenBtn,*playOrPauseBtn,*lockBtn,*backBtn,*rateBtn;
+@property (nonatomic) UITapGestureRecognizer *singleTap;
 @property (nonatomic) dispatch_source_t timer;
 @property (nonatomic) BOOL updateHUD;
 @property (nonatomic) NSTimer *timerForHUD;
@@ -45,43 +46,171 @@ typedef enum : NSUInteger {
 @end
 
 @implementation WNPlayer
-
-- (instancetype)init
-{
+- (NSDateFormatter *)dateFormatter {
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+    }
+    return _dateFormatter;
+}
+- (instancetype)init{
     self = [super init];
     if (self) {
         self.playerManager = [[WNPlayerManager alloc] init];
-        UIView *v = self.playerManager.displayView;
-        v.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:v];
+        self.contentView = self.playerManager.displayView;
+        self.contentView.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor blackColor];
+        [self addSubview:self.contentView];
+        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+        }];
         
-        // Add constraints
-        NSDictionary *views = NSDictionaryOfVariableBindings(v);
-        NSArray<NSLayoutConstraint *> *ch = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v]|"
-                                                                                    options:0
-                                                                                    metrics:nil
-                                                                                      views:views];
-        [self addConstraints:ch];
-        NSArray<NSLayoutConstraint *> *cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[v]|"
-                                                                                    options:0
-                                                                                    metrics:nil
-                                                                                      views:views];
-        [self addConstraints:cv];
+        self.topView = [[UIImageView alloc]initWithImage:WNPlayerImage(@"top_shadow")];
+        self.topView.userInteractionEnabled = YES;
+        [self.contentView addSubview:self.topView];
+        [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.trailing.top.equalTo(self.contentView);
+            make.height.mas_equalTo([WNPlayer IsiPhoneX]?50:90);
+        }];
         
-        [self initTopBar];
-        [self initBottomBar];
-        [self initBuffering];
         
-        self.grTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapGesutreRecognizer:)];
-        self.grTap.numberOfTapsRequired = 1;
-        self.grTap.numberOfTouchesRequired = 1;
-        [self addGestureRecognizer:self.grTap];
+        //backBtn
+        self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.backBtn.showsTouchWhenHighlighted = YES;
+        [self.backBtn setImage:WNPlayerImage(@"player_icon_nav_back.png") forState:UIControlStateNormal];
+        [self.backBtn setImage:WNPlayerImage(@"player_icon_nav_back.png") forState:UIControlStateSelected];
+        [self.backBtn addTarget:self action:@selector(colseTheVideo:) forControlEvents:UIControlEventTouchUpInside];
+        [self.topView addSubview:self.backBtn];
+        [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(self.topView).offset(8);
+            make.size.mas_equalTo(CGSizeMake(self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4));
+            make.centerY.equalTo(self.topView);
+        }];
+        
+        // Title Label
+        self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel.backgroundColor = [UIColor clearColor];
+        self.titleLabel.font = [UIFont systemFontOfSize:15];
+        self.titleLabel.textColor = [UIColor whiteColor];
+        [self.topView addSubview:self.titleLabel];
+
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.mas_equalTo(self.backBtn.mas_trailing).offset(50);
+            make.trailing.equalTo(self.topView).offset(-50);
+            make.center.equalTo(self.topView);
+            make.top.equalTo(self.topView);
+        }];
+        
+        
+        //bottomView
+        self.bottomView = [[UIImageView alloc]initWithImage:WNPlayerImage(@"bottom_shadow")];
+        self.bottomView.userInteractionEnabled = YES;
+        [self.contentView addSubview:self.bottomView];
+        [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.trailing.bottom.equalTo(self.contentView);
+            make.height.mas_equalTo(50);
+        }];
+        
+        // Play/Pause Button
+        self.playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.playOrPauseBtn.showsTouchWhenHighlighted = YES;
+        [self.playOrPauseBtn addTarget:self action:@selector(playOrPause:) forControlEvents:UIControlEventTouchUpInside];
+        [self.playOrPauseBtn setImage:WNPlayerImage(@"player_ctrl_icon_pause") forState:UIControlStateNormal];
+        [self.playOrPauseBtn setImage:WNPlayerImage(@"player_ctrl_icon_play") forState:UIControlStateSelected];
+        [self.bottomView addSubview:self.playOrPauseBtn];
+        self.playOrPauseBtn.selected = YES;//默认状态，即默认是不自动播放
+        [self.playOrPauseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView);
+            make.leading.equalTo(self.bottomView).offset(10);
+        }];
+        
+        
+        
+        // leftTimeLabel
+        self.leftTimeLabel = [[UILabel alloc] init];
+        self.leftTimeLabel.backgroundColor = [UIColor clearColor];
+        self.leftTimeLabel.text = @"00:00:00";
+        self.leftTimeLabel.font = [UIFont systemFontOfSize:11];
+        self.leftTimeLabel.textColor = [UIColor whiteColor];
+        self.leftTimeLabel.textAlignment = NSTextAlignmentCenter;
+        [self.bottomView addSubview:self.leftTimeLabel];
+        [self.leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(self.bottomView).offset(50);
+            make.top.equalTo(self.bottomView.mas_centerY).with.offset(8);
+        }];
+
+        // rightTimeLabel
+        self.rightTimeLabel = [[UILabel alloc] init];
+        self.rightTimeLabel.backgroundColor = [UIColor clearColor];
+        self.rightTimeLabel.text = @"00:00:00";
+        self.rightTimeLabel.font = [UIFont systemFontOfSize:11];
+        self.rightTimeLabel.textColor = [UIColor whiteColor];
+        self.rightTimeLabel.textAlignment = NSTextAlignmentCenter;
+        [self.bottomView addSubview:self.rightTimeLabel];
+        [self.rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(self.bottomView).offset(-50);
+            make.top.equalTo(self.bottomView.mas_centerY).with.offset(8);
+        }];
+        
+        
+        
+        //fullScreenBtn
+        self.fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.fullScreenBtn.showsTouchWhenHighlighted = YES;
+        [self.fullScreenBtn addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.fullScreenBtn setImage:WNPlayerImage(@"player_icon_fullscreen") forState:UIControlStateNormal];
+        [self.fullScreenBtn setImage:WNPlayerImage(@"player_icon_fullscreen") forState:UIControlStateSelected];
+        [self.bottomView addSubview:self.fullScreenBtn];
+        [self.fullScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView);
+            make.trailing.equalTo(self.bottomView).offset(-10);
+        }];
+        
+        
+        //slider
+        self.progressSlider = [UISlider new];
+        self.progressSlider.minimumValue = 0.0;
+        self.progressSlider.maximumValue = 1.0;
+        self.progressSlider.continuous = YES;
+        [self.progressSlider setThumbImage:WNPlayerImage(@"dot")  forState:UIControlStateNormal];
+        self.progressSlider.minimumTrackTintColor = self.tintColor?self.tintColor:[UIColor greenColor];
+        self.progressSlider.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
+        self.progressSlider.backgroundColor = [UIColor clearColor];
+        self.progressSlider.value = 0.0;//指定初始值
+        [self.progressSlider addTarget:self action:@selector(onSliderStartSlide:) forControlEvents:UIControlEventTouchDown];
+        //进度条的拖拽事件
+        [self.progressSlider addTarget:self action:@selector(onSliderValueChanged:)  forControlEvents:UIControlEventValueChanged];
+        //进度条的点击事件
+        [self.progressSlider addTarget:self action:@selector(onSliderEndSlide:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+        //给进度条添加单击手势
+        //        self.progressTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionTapGesture:)];
+        //        self.progressTap.delegate = self;
+        //        [self.progressSlider addGestureRecognizer:self.progressTap];
+        [self.bottomView addSubview:self.progressSlider];
+        [self.progressSlider mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(self.leftTimeLabel.mas_leading).offset(4);
+            make.trailing.equalTo(self.rightTimeLabel.mas_trailing).offset(-4);
+            make.centerY.equalTo(self.bottomView).offset(-1);
+            make.height.mas_equalTo(30);
+        }];
+
+
+        self.loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [self.contentView addSubview:self.loadingView];
+        self.loadingView.hidesWhenStopped = YES;
+        [self.loadingView startAnimating];
+        [self.loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.contentView);
+        }];
+        
+        
+        self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapGesutreRecognizer:)];
+        self.singleTap.numberOfTapsRequired = 1;
+        self.singleTap.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:self.singleTap];
         
         self.status = WNPlayerStatusNone;
         self.nextOperation = WNPlayerOperationNone;
-        
-        
-        
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(notifyAppDidEnterBackground:)
@@ -96,29 +225,48 @@ typedef enum : NSUInteger {
     }
     return self;
 }
-- (void)onPlayButtonTapped:(UIButton *)sender {
+//close btn action
+-(void)colseTheVideo:(UIButton *)sender{
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(wnplayer:clickedCloseButton:)]) {
+        [self.delegate wnplayer:self clickedCloseButton:sender];
+    }
+}
+//fullScreen btn action
+-(void)fullScreenAction:(UIButton *)sender{
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(wnplayer:clickedFullScreenButton:)]) {
+        [self.delegate wnplayer:self clickedFullScreenButton:sender];
+    }
+}
+//playOrPauseBtn action
+- (void)playOrPause:(UIButton *)sender {
     if (self.playerManager.playing) {
         [self pause];
     } else {
         [self play];
     }
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(wnplayer:clickedPlayOrPauseButton:)]) {
+        [self.delegate wnplayer:self clickedPlayOrPauseButton:sender];
+    }
 }
-
+-(void)setTintColor:(UIColor *)tintColor{
+    _tintColor = tintColor;
+    self.progressSlider.minimumTrackTintColor = self.tintColor;
+}
 - (void)onSliderStartSlide:(UISlider *)sender {
     self.updateHUD = NO;
-    self.grTap.enabled = NO;
+    self.singleTap.enabled = NO;
 }
 
 - (void)onSliderValueChanged:(UISlider *)slider {
     int seconds = slider.value;
-    self.lblPosition.text = [WNPlayerUtils durationStringFromSeconds:seconds];
+    self.leftTimeLabel.text = [self convertTime:seconds];
 }
 
 - (void)onSliderEndSlide:(UISlider *)slider {
     float position = slider.value;
     self.playerManager.position = position;
     self.updateHUD = YES;
-    self.grTap.enabled = YES;
+    self.singleTap.enabled = YES;
 }
 
 - (void)syncHUD {
@@ -127,7 +275,7 @@ typedef enum : NSUInteger {
 
 - (void)syncHUD:(BOOL)force {
     if (!force) {
-        if (self.vTopBar.hidden) return;
+        if (self.topView.hidden) return;
         if (!self.playerManager.playing) return;
         if (!self.updateHUD) return;
     }
@@ -135,10 +283,18 @@ typedef enum : NSUInteger {
     // position
     double position = self.playerManager.position;
     int seconds = ceil(position);
-    self.lblPosition.text = [WNPlayerUtils durationStringFromSeconds:seconds];
-    self.sldPosition.value = seconds;
+    self.leftTimeLabel.text = [self convertTime:seconds];
+    self.progressSlider.value = seconds;
 }
-
+- (NSString *)convertTime:(float)second{
+    NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
+    if (second/3600 >= 1) {
+        [[self dateFormatter] setDateFormat:@"HH:mm:ss"];
+    } else {
+        [[self dateFormatter] setDateFormat:@"mm:ss"];
+    }
+    return [[self dateFormatter] stringFromDate:d];
+}
 - (void)open {
     if (self.status == WNPlayerStatusClosing) {
         self.nextOperation = WNPlayerOperationOpen;
@@ -149,8 +305,8 @@ typedef enum : NSUInteger {
         return;
     }
     self.status = WNPlayerStatusOpening;
-    self.aivBuffering.hidden = NO;
-    [self.aivBuffering startAnimating];
+    self.loadingView.hidden = NO;
+    [self.loadingView startAnimating];
     [self.playerManager open:self.url];
 }
 
@@ -162,7 +318,7 @@ typedef enum : NSUInteger {
     self.status = WNPlayerStatusClosing;
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     [self.playerManager close];
-    [self.btnPlay setTitle:@"|>" forState:UIControlStateNormal];
+    self.playOrPauseBtn.selected = YES;
 }
 
 - (void)play {
@@ -179,7 +335,7 @@ typedef enum : NSUInteger {
     self.status = WNPlayerStatusPlaying;
     [UIApplication sharedApplication].idleTimerDisabled = self.preventFromScreenLock;
     [self.playerManager play];
-    [self.btnPlay setTitle:@"||" forState:UIControlStateNormal];
+    self.playOrPauseBtn.selected = NO;
 }
 
 - (void)replay {
@@ -196,7 +352,7 @@ typedef enum : NSUInteger {
     self.status = WNPlayerStatusPaused;
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     [self.playerManager pause];
-    [self.btnPlay setTitle:@"|>" forState:UIControlStateNormal];
+    self.playOrPauseBtn.selected = YES;
 }
 
 - (BOOL)doNextOperation {
@@ -235,16 +391,46 @@ typedef enum : NSUInteger {
         [self play];
     }
 }
-
+//是否全屏
+-(void)setIsFullscreen:(BOOL)isFullscreen{
+    _isFullscreen = isFullscreen;
+    self.fullScreenBtn.selected= isFullscreen;
+    if ([WNPlayer IsiPhoneX]) {
+        if (self.isFullscreen) {
+            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                if (self.playerManager.displayView.contentSize.width/self.playerManager.displayView.contentSize.height<1) {
+                    make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 0));
+                }else{
+                    make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
+                }
+            }];
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.leading.trailing.bottom.equalTo(self.contentView);
+                make.height.mas_equalTo(90);
+            }];
+        }else{
+            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+            }];
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.leading.trailing.bottom.equalTo(self.contentView);
+                make.height.mas_equalTo(50);
+            }];
+        }
+    }
+}
 - (void)notifyPlayerEOF:(NSNotification *)notif {
     self.status = WNPlayerStatusEOF;
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(wnplayerFinishedPlay:)]) {
+        [self.delegate wnplayerFinishedPlay:self];
+    }
     if (self.repeat) [self replay];
     else [self close];
 }
 
 - (void)notifyPlayerClosed:(NSNotification *)notif {
     self.status = WNPlayerStatusClosed;
-    [self.aivBuffering stopAnimating];
+    [self.loadingView stopAnimating];
     [self destroyTimer];
     [self doNextOperation];
 }
@@ -252,36 +438,36 @@ typedef enum : NSUInteger {
 - (void)notifyPlayerOpened:(NSNotification *)notif {
     __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf.aivBuffering stopAnimating];
+        [weakSelf.loadingView stopAnimating];
     });
     
     self.status = WNPlayerStatusOpened;
     dispatch_async(dispatch_get_main_queue(), ^{
-        __strong typeof(weakSelf)strongSelf = weakSelf;
-        if (!strongSelf) {
-            return;
+//        NSString *title = nil;
+//        if (self.playerManager.metadata != nil) {
+//            NSString *t = self.playerManager.metadata[@"title"];
+//            NSString *a = self.playerManager.metadata[@"artist"];
+//            if (t != nil) title = t;
+//            if (a != nil) title = [title stringByAppendingFormat:@" - %@", a];
+//        }
+//        if (title == nil) title = [self.url lastPathComponent];
+//
+//        self.titleLabel.text = title;
+        self.titleLabel.text = self.title;
+        double duration = self.playerManager.duration;
+        CGSize videoSize = self.playerManager.displayView.contentSize;
+        if (self.delegate&&[self.delegate respondsToSelector:@selector(wnplayerGotVideoSize:videoSize:)]) {
+            [self.delegate wnplayerGotVideoSize:self videoSize:videoSize];
         }
-        
-        NSString *title = nil;
-        if (strongSelf.playerManager.metadata != nil) {
-            NSString *t = strongSelf.playerManager.metadata[@"title"];
-            NSString *a = strongSelf.playerManager.metadata[@"artist"];
-            if (t != nil) title = t;
-            if (a != nil) title = [title stringByAppendingFormat:@" - %@", a];
-        }
-        if (title == nil) title = [strongSelf.url lastPathComponent];
-        
-        strongSelf.lblTitle.text = title;
-        double duration = strongSelf.playerManager.duration;
         int seconds = ceil(duration);
-        strongSelf.lblDuration.text = [WNPlayerUtils durationStringFromSeconds:seconds];
-        strongSelf.sldPosition.enabled = seconds > 0;
-        strongSelf.sldPosition.maximumValue = seconds;
-        strongSelf.sldPosition.minimumValue = 0;
-        strongSelf.sldPosition.value = 0;
-        strongSelf.updateHUD = YES;
-        [strongSelf createTimer];
-        [strongSelf showHUD];
+        self.rightTimeLabel.text = [self convertTime:seconds];
+        self.progressSlider.enabled = seconds > 0;
+        self.progressSlider.maximumValue = seconds;
+        self.progressSlider.minimumValue = 0;
+        self.progressSlider.value = 0;
+        self.updateHUD = YES;
+        [self createTimer];
+        [self showHUD];
     });
     
     if (![self doNextOperation]) {
@@ -294,30 +480,22 @@ typedef enum : NSUInteger {
     BOOL state = [userInfo[WNPlayerNotificationBufferStateKey] boolValue];
     if (state) {
         self.status = WNPlayerStatusBuffering;
-        [self.aivBuffering startAnimating];
+        [self.loadingView startAnimating];
     } else {
         self.status = WNPlayerStatusPlaying;
-        [self.aivBuffering stopAnimating];
+        [self.loadingView stopAnimating];
     }
 }
 
 - (void)notifyPlayerError:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     NSError *error = userInfo[WNPlayerNotificationErrorKey];
-    
     if ([error.domain isEqualToString:WNPlayerErrorDomainDecoder]) {
-        __weak typeof(self)weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            __strong typeof(weakSelf)strongSelf = weakSelf;
-            if (!strongSelf) {
-                return;
-            }
-            
-            [strongSelf.aivBuffering stopAnimating];
-            strongSelf.status = WNPlayerStatusNone;
-            strongSelf.nextOperation = WNPlayerOperationNone;
+            [self.loadingView stopAnimating];
+            self.status = WNPlayerStatusNone;
+            self.nextOperation = WNPlayerOperationNone;
         });
-        
         NSLog(@"Player decoder error: %@", error);
     } else if ([error.domain isEqualToString:WNPlayerErrorDomainAudioManager]) {
         NSLog(@"Player audio error: %@", error);
@@ -325,171 +503,23 @@ typedef enum : NSUInteger {
         // if it happens, please issue to me
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:WNPlayerNotificationError object:self userInfo:notif.userInfo];
+    
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(wnplayerFailedPlay:WNPlayerStatus:)]) {
+        [self.delegate wnplayerFailedPlay:self WNPlayerStatus:self.status];
+    }
+    
 }
-- (void)initBuffering {
-    UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    aiv.translatesAutoresizingMaskIntoConstraints = NO;
-    aiv.hidesWhenStopped = YES;
-    [self addSubview:aiv];
-    
-    UIView *topbar = self.vTopBar;
-    
-    // Add constraints
-    NSLayoutConstraint *cx = [NSLayoutConstraint constraintWithItem:aiv
-                                                          attribute:NSLayoutAttributeRight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:topbar
-                                                          attribute:NSLayoutAttributeRight
-                                                         multiplier:1
-                                                           constant:-8];
-    NSLayoutConstraint *cy = [NSLayoutConstraint constraintWithItem:aiv
-                                                          attribute:NSLayoutAttributeCenterY
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:topbar
-                                                          attribute:NSLayoutAttributeCenterY
-                                                         multiplier:1
-                                                           constant:0];
-    [self addConstraints:@[cx, cy]];
-    self.aivBuffering = aiv;
-}
-
-- (void)initTopBar {
-    CGRect frame = self.bounds;
-    frame.size.height = 44;
-    UIView *v = [[UIView alloc] initWithFrame:frame];
-    v.translatesAutoresizingMaskIntoConstraints = NO;
-    v.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-    [self addSubview:v];
-    NSDictionary *views = NSDictionaryOfVariableBindings(v);
-    NSArray *ch = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v]|"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:views];
-    NSArray *cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[v(==44)]"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:views];
-    [self addConstraints:ch];
-    [self addConstraints:cv];
-    
-    // Title Label
-    UILabel *lbltitle = [[UILabel alloc] init];
-    lbltitle.translatesAutoresizingMaskIntoConstraints = NO;
-    lbltitle.backgroundColor = [UIColor clearColor];
-    lbltitle.text = @"WNPlayer";
-    lbltitle.font = [UIFont systemFontOfSize:15];
-    lbltitle.textColor = [UIColor whiteColor];
-    lbltitle.textAlignment = NSTextAlignmentCenter;
-    [v addSubview:lbltitle];
-    views = NSDictionaryOfVariableBindings(lbltitle);
-    ch = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[lbltitle]-|" options:0 metrics:nil views:views];
-    [v addConstraints:ch];
-    cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[lbltitle]|" options:0 metrics:nil views:views];
-    [v addConstraints:cv];
-    v.backgroundColor = [UIColor magentaColor];
-    self.vTopBar = v;
-    self.lblTitle = lbltitle;
-}
-
-- (void)initBottomBar {
-    CGRect frame = self.bounds;
-    frame.size.height = 44;
-    UIView *v = [[UIView alloc] initWithFrame:frame];
-    v.translatesAutoresizingMaskIntoConstraints = NO;
-    v.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-    v.backgroundColor = [UIColor redColor];
-    
-    [self addSubview:v];
-    NSDictionary *views = NSDictionaryOfVariableBindings(v);
-    NSArray *ch = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v]|"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:views];
-    NSArray *cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[v(==44)]|"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:views];
-    [self addConstraints:ch];
-    [self addConstraints:cv];
-    
-    // Play/Pause Button
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.translatesAutoresizingMaskIntoConstraints = NO;
-    button.backgroundColor = [UIColor clearColor];
-    [button setTitle:@"|>" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(onPlayButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [v addSubview:button];
-    views = NSDictionaryOfVariableBindings(button);
-    cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[button]|" options:0 metrics:nil views:views];
-    [v addConstraints:cv];
-    
-    // Position Label
-    UILabel *lblpos = [[UILabel alloc] init];
-    lblpos.translatesAutoresizingMaskIntoConstraints = NO;
-    lblpos.backgroundColor = [UIColor clearColor];
-    lblpos.text = @"--:--:--";
-    lblpos.font = [UIFont systemFontOfSize:15];
-    lblpos.textColor = [UIColor whiteColor];
-    lblpos.textAlignment = NSTextAlignmentCenter;
-    [v addSubview:lblpos];
-    views = NSDictionaryOfVariableBindings(lblpos);
-    cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[lblpos]|" options:0 metrics:nil views:views];
-    [v addConstraints:cv];
-    
-    UISlider *sldpos = [[UISlider alloc] init];
-    sldpos.translatesAutoresizingMaskIntoConstraints = NO;
-    sldpos.backgroundColor = [UIColor clearColor];
-    sldpos.continuous = YES;
-    [sldpos addTarget:self action:@selector(onSliderStartSlide:) forControlEvents:UIControlEventTouchDown];
-    [sldpos addTarget:self action:@selector(onSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [sldpos addTarget:self action:@selector(onSliderEndSlide:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-    [v addSubview:sldpos];
-    views = NSDictionaryOfVariableBindings(sldpos);
-    cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[sldpos]|" options:0 metrics:nil views:views];
-    [v addConstraints:cv];
-    
-    UILabel *lblduration = [[UILabel alloc] init];
-    lblduration.translatesAutoresizingMaskIntoConstraints = NO;
-    lblduration.backgroundColor = [UIColor clearColor];
-    lblduration.text = @"--:--:--";
-    lblduration.font = [UIFont systemFontOfSize:15];
-    lblduration.textColor = [UIColor whiteColor];
-    lblduration.textAlignment = NSTextAlignmentCenter;
-    [v addSubview:lblduration];
-    views = NSDictionaryOfVariableBindings(lblduration);
-    cv = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[lblduration]|" options:0 metrics:nil views:views];
-    [v addConstraints:cv];
-    
-    views = NSDictionaryOfVariableBindings(button, lblpos, sldpos, lblduration);
-    ch = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[button(==32)]-[lblpos(==72)]-[sldpos]-[lblduration(==72)]-|"
-                                                 options:0
-                                                 metrics:nil
-                                                   views:views];
-    [v addConstraints:ch];
-    
-    self.vBottomBar = v;
-    self.btnPlay = button;
-    self.lblPosition = lblpos;
-    self.sldPosition = sldpos;
-    self.lblDuration = lblduration;
-}
-
-
 #pragma mark - Show/Hide HUD
 - (void)showHUD {
     if (animatingHUD) return;
-    
     [self syncHUD:YES];
     animatingHUD = YES;
-    self.vTopBar.hidden = NO;
-    self.vBottomBar.hidden = NO;
-    
-    __weak typeof(self)weakSelf = self;
+    self.topView.hidden = NO;
+    self.bottomView.hidden = NO;
     [UIView animateWithDuration:0.5f
                      animations:^{
-                         __strong typeof(weakSelf)strongSelf = weakSelf;
-                         strongSelf.vTopBar.alpha = 1.0f;
-                         strongSelf.vBottomBar.alpha = 1.0f;
+                         self.topView.alpha = 1.0f;
+                         self.bottomView.alpha = 1.0f;
                      }
                      completion:^(BOOL finished) {
                          animatingHUD = NO;
@@ -500,20 +530,14 @@ typedef enum : NSUInteger {
 - (void)hideHUD {
     if (animatingHUD) return;
     animatingHUD = YES;
-    
-    __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.5f
                      animations:^{
-                         __strong typeof(weakSelf)strongSelf = weakSelf;
-                         strongSelf.vTopBar.alpha = 0.0f;
-                         strongSelf.vBottomBar.alpha = 0.0f;
+                         self.topView.alpha = 0.0f;
+                         self.bottomView.alpha = 0.0f;
                      }
                      completion:^(BOOL finished) {
-                         __strong typeof(weakSelf)strongSelf = weakSelf;
-                         
-                         strongSelf.vTopBar.hidden = YES;
-                         strongSelf.vBottomBar.hidden = YES;
-                         
+                         self.topView.hidden = YES;
+                         self.bottomView.hidden = YES;
                          animatingHUD = NO;
                      }];
     [self stopTimerForHideHUD];
@@ -547,20 +571,20 @@ typedef enum : NSUInteger {
 #pragma mark - Gesture
 - (void)onTapGesutreRecognizer:(UITapGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        if (self.vTopBar.hidden) [self showHUD];
+        if (self.topView.hidden) [self showHUD];
         else [self hideHUD];
+    }
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(wnplayer:singleTaped:)]) {
+        [self.delegate wnplayer:self singleTaped:recognizer];
     }
 }
 
 - (void)createTimer {
     if (self.timer != nil) return;
-    
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
     dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
-    
-    __weak typeof(self)weakSelf = self;
     dispatch_source_set_event_handler(timer, ^{
-        [weakSelf syncHUD];
+        [self syncHUD];
     });
     dispatch_resume(timer);
     self.timer = timer;
@@ -570,11 +594,21 @@ typedef enum : NSUInteger {
     dispatch_cancel(self.timer);
     self.timer = nil;
 }
-
++(BOOL)IsiPhoneX{
+    BOOL iPhoneXSeries = NO;
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
+        return iPhoneXSeries;
+    }
+    if (@available(iOS 11.0, *)) {//x系列的系统从iOS11开始
+        if(UIApplication.sharedApplication.delegate.window.safeAreaInsets.bottom > 0.0) {
+            iPhoneXSeries = YES;
+        }
+    }
+    return iPhoneXSeries;
+}
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"%s",__FUNCTION__);
-
 }
 
 @end

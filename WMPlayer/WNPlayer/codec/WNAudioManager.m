@@ -287,12 +287,9 @@ static OSStatus audioUnitRenderCallback(void *inRefCon,
                 [errs addObject:error];
             }
         }
-        
         if (closed) _opened = NO;
     }
-    
     _closing = NO;
-    
     return closed;
 }
 

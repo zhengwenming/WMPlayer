@@ -208,7 +208,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //进度条的拖拽事件
     [self.progressSlider addTarget:self action:@selector(stratDragSlide:)  forControlEvents:UIControlEventValueChanged];
     //进度条的点击事件
-    [self.progressSlider addTarget:self action:@selector(updateProgress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.progressSlider addTarget:self action:@selector(updateProgress:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     //给进度条添加单击手势
     self.progressTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionTapGesture:)];
     self.progressTap.delegate = self;
@@ -273,7 +273,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //titleLabel
     self.titleLabel = [UILabel new];
     self.titleLabel.textColor = [UIColor whiteColor];
-    self.titleLabel.numberOfLines = 1;
     self.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.topView addSubview:self.titleLabel];
     

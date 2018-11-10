@@ -23,11 +23,41 @@ typedef enum : NSUInteger {
 
 
 
+
+@class WNPlayer;
+@protocol WNPlayerDelegate <NSObject>
+@optional
+//点击播放暂停按钮代理方法
+-(void)wnplayer:(WNPlayer *)wnplayer clickedPlayOrPauseButton:(UIButton *)playOrPauseBtn;
+//点击关闭按钮代理方法
+-(void)wnplayer:(WNPlayer *)wnplayer clickedCloseButton:(UIButton *)backBtn;
+//点击全屏按钮代理方法
+-(void)wnplayer:(WNPlayer *)wnplayer clickedFullScreenButton:(UIButton *)fullScreenBtn;
+//单击WMPlayer的代理方法
+-(void)wnplayer:(WNPlayer *)wnplayer singleTaped:(UITapGestureRecognizer *)singleTap;
+
+//播放失败的代理方法
+-(void)wnplayerFailedPlay:(WNPlayer *)wnplayer WNPlayerStatus:(WNPlayerStatus)state;
+//播放器已经拿到视频的尺寸大小
+-(void)wnplayerGotVideoSize:(WNPlayer *)wnplayer videoSize:(CGSize )presentationSize;
+//播放完毕的代理方法
+-(void)wnplayerFinishedPlay:(WNPlayer *)wnplayer;
+@end
+
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WNPlayer : UIView
+
+@property (nonatomic, strong) WNPlayerManager *playerManager;
 @property (nonatomic,copy) NSString *url;
+@property (nonatomic,copy) NSString *title;
+@property (nonatomic, weak)id <WNPlayerDelegate> delegate;
+// 播放器着色
+@property (nonatomic,strong) UIColor *tintColor;
 @property (nonatomic,assign) BOOL autoplay;
+@property (nonatomic,assign) BOOL isFullscreen;
 @property (nonatomic,assign) BOOL repeat;
 @property (nonatomic,assign) BOOL preventFromScreenLock;
 @property (nonatomic,assign) BOOL restorePlayAfterAppEnterForeground;
@@ -37,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)close;
 - (void)play;
 - (void)pause;
+//判断是否为iPhone X系列
++(BOOL)IsiPhoneX;
 @end
 
 NS_ASSUME_NONNULL_END

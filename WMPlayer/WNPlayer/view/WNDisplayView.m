@@ -23,7 +23,6 @@
     GLuint _programHandle;
     GLint _backingWidth;
     GLint _backingHeight;
-    
     GLuint _positionSlot;
     GLuint _projectionSlot;
     GLuint _rotationSlot;

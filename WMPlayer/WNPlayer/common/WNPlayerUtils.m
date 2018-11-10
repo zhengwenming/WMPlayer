@@ -30,25 +30,8 @@
                              userInfo:userInfo];
     return YES;
 }
-
 + (NSString *)localizedString:(NSString *)name {
     return NSLocalizedStringFromTable(name, WNPlayerLocalizedStringTable, nil);
 }
-
-+ (NSString *)durationStringFromSeconds:(int)seconds {
-    NSMutableString *ms = [[NSMutableString alloc] initWithCapacity:8];
-    if (seconds < 0) { [ms appendString:@"∞"]; return ms; }
-    
-    int h = seconds / 3600;
-    [ms appendFormat:@"%d:", h];
-    int m = seconds / 60 % 60;
-    if (m < 10) [ms appendString:@"0"];
-    [ms appendFormat:@"%d:", m];
-    int s = seconds % 60;
-    if (s < 10) [ms appendString:@"0"];
-    [ms appendFormat:@"%d", s];
-    return ms;
-}
-
 @end
 
