@@ -11,7 +11,7 @@
 #import "Masonry.h"
 #import "UIView+Tools.h"
 #import "MusicItemCollectionViewCell.h"
-
+#import "WMPlayer.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "SDAVAssetExportSession.h"
@@ -216,10 +216,12 @@ typedef NS_ENUM(NSUInteger , choseType)
 
     
     UIView* headerBar = [[UIView alloc] init];
+    headerBar.backgroundColor = [UIColor redColor];
     [self.view addSubview:headerBar];
     headerBar.backgroundColor = [UIColor blackColor];
     [headerBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset([WMPlayer IsiPhoneX]?44:0);
         make.height.equalTo(@(44));
     }];
     headerBar.alpha = .8;
@@ -241,7 +243,7 @@ typedef NS_ENUM(NSUInteger , choseType)
     [nextBtn addTarget:self action:@selector(clickNextBtn) forControlEvents:UIControlEventTouchUpInside];
     [headerBar addSubview:nextBtn];
     [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.bottom.top.equalTo(headerBar);
+        make.top.right.bottom.equalTo(headerBar);
         make.width.equalTo(@(80));
     }];
     
@@ -250,7 +252,7 @@ typedef NS_ENUM(NSUInteger , choseType)
     [BackToVideoCammer addTarget:self action:@selector(clickBackToVideoCammer) forControlEvents:UIControlEventTouchUpInside];
     [headerBar addSubview:BackToVideoCammer];
     [BackToVideoCammer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.top.equalTo(headerBar);
+        make.top.left.bottom.equalTo(headerBar);
         make.width.equalTo(@(60));
     }];
     
@@ -656,7 +658,7 @@ typedef NS_ENUM(NSUInteger , choseType)
         [self mixFiltWithVideoAndInputVideoURL:videoURL];
     }
 }
-
+//添加滤镜效果
 -(void)mixFiltWithVideoAndInputVideoURL:(NSURL*)inputURL;
 {
     
@@ -693,12 +695,13 @@ typedef NS_ENUM(NSUInteger , choseType)
     [endMovieFile enableSynchronizedEncodingUsingMovieWriter:movieWriter];
     [movieWriter startRecording];
     [endMovieFile startProcessing];
-    __weak GPUImageMovieWriter *weakmovieWriter = movieWriter;
+  __block  __weak GPUImageMovieWriter *weakmovieWriter = movieWriter;
 //    __weak MBProgressHUD *weakHUD = HUD;
-    typeof(self) __weak weakself = self;
+    typeof(self) __weak  weakself = self;
     [movieWriter setCompletionBlock:^{
         [endFilter removeTarget:weakmovieWriter];
         [weakmovieWriter finishRecording];
+        weakmovieWriter = nil;
       if (weakself.audioPath||!weakself.stickersImgView.hidden) {
         [weakself mixAudioAndVidoWithInputURL:movieURL];
         //音乐混合

@@ -18,6 +18,16 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>MJRefresh.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -31,6 +41,16 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>SDWebImage.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>TZImagePickerController.xcscheme</key>
 		<dict>

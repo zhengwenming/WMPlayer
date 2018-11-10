@@ -13,6 +13,7 @@
 #import "Masonry.h"
 #import <AVFoundation/AVFoundation.h>
 #import "VideoDataModel.h"
+#import "WMPlayer.h"
 #define SCREEN_LayoutScaleBaseOnIPHEN6(x) (([UIScreen mainScreen].bounds.size.width)/375.00 * x)
 #define kSignatureContextLengths 20
 
@@ -69,10 +70,10 @@
     
     UIView* headerBar = [[UIView alloc] init];
     [self.view addSubview:headerBar];
-    headerBar.backgroundColor = [UIColor blackColor];
     [headerBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
-        make.height.equalTo(@(44));
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset([WMPlayer IsiPhoneX]?34:0);
+        make.width.equalTo(@(100));
     }];
     headerBar.alpha = .8;
     
@@ -84,9 +85,7 @@
         make.centerX.centerY.equalTo(headerBar);
     }];
     
-    //    UIButton* backBtn = [[UIButton alloc] init];
-    //    backBtn setImage:<#(nullable UIImage *)#> forState:<#(UIControlState)#>
-    
+
     UIButton* nextBtn = [[UIButton alloc] init];
     [nextBtn setTitle:@"保存至本地" forState:UIControlStateNormal];
     [nextBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
