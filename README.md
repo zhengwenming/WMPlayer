@@ -127,7 +127,14 @@ cell中播放视频，全屏小屏切换自如。
 
 链接: https://pan.baidu.com/s/1BVRHB5WiVO4WHf4_xL8u2Q 提取码: zkqq
 
-下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下，然后修改项目Setting里面的Header Search Paths为$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
+下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下后，去项目系统Setting里面
+
+1、设置Header Search Paths为
+$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
+
+2、设置Library Search Paths为
+$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/lib
+$(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
 
 
 依赖库为Masonry。
