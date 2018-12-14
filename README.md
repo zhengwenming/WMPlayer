@@ -18,6 +18,22 @@
 - [x] 支持列表跳转详情页播放同一个视频资源，达到无缝播放效果，类似今日头条的列表到详情页。
 - [x] 支持动态改变播放器的填充模式
 
+
+## FFmpeg4.0.2最新版本的编译文件，请到下面👇的百度云网盘下载，也可以自行编译
+
+链接: https://pan.baidu.com/s/1BVRHB5WiVO4WHf4_xL8u2Q 提取码: zkqq
+
+下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下后，去项目系统Setting里面
+
+1、设置Header Search Paths为
+$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
+
+2、设置Library Search Paths为
+$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/lib
+$(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
+
+
+
 ---pod使用的问题总结-----
 
 1、pod search WMPlayer
@@ -34,6 +50,8 @@
 5、如果不行，那么直接从GitHub上下载，用下面的命令：
 
     pod 'WMPlayer',  :git => 'https://github.com/zhengwenming/WMPlayer.git'
+    
+6、如果需要使用WMPlayer里面的WNPlayer万能播放器组件播放mkv、avi、flv、rtmp等视频格式文件，请使用手动集成，目前WNPlayer不支持pod集成；
 
 ---
 
@@ -123,19 +141,6 @@ cell中播放视频，全屏小屏切换自如。
     代码：详见demo中的新浪tab对应的DetailViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
     bug：无
   
-## FFmpeg4.0.2最新版本的编译文件，请到下面👇的百度云网盘下载，也可以自行编译
-
-链接: https://pan.baidu.com/s/1BVRHB5WiVO4WHf4_xL8u2Q 提取码: zkqq
-
-下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下后，去项目系统Setting里面
-
-1、设置Header Search Paths为
-$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
-
-2、设置Library Search Paths为
-$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/lib
-$(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
-
 
 依赖库为Masonry。
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
