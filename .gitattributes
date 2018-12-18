@@ -1,2 +1,3 @@
 *.c linguist-language=ObjectiveC
+*.h linguist-language=ObjectiveC
 *.cpp linguist-language=ObjectiveC
