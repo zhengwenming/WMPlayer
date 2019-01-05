@@ -249,7 +249,6 @@
     WMPlayerModel *newModel = [WMPlayerModel new];
     newModel.title = @"这个是新视频的标题";
     newModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-//    newModel.videoURL = [NSURL URLWithString:@"http://wx.wangtiansoft.com:8007/m/files/2d/f6/2df64d0556f379d9abae5a16d7c93ab2.mp3"];
     self.wmPlayer.playerModel = newModel;
     [self.wmPlayer play];
 }

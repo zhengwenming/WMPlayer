@@ -138,7 +138,12 @@
     //    NSString *apiString = @"https://api.huoshan.com/hotsoon/feed/?type=video&iid=8257698093&os_version=9.3.2&os_api=18&app_name=live_stream_pro&channel=App%20Store&device_platform=iphone&idfa=B265DA9C-569C-4B55-BE8E-3D2EC5310A7A&live_sdk_version=1.7.3&vid=AD78E6CD-4827-4D52-932A-3E74AD30F5CB&openudid=82d61456516d047fbdb667fea5ceb6d87be15bfc&device_type=iPhone8,2&version_code=1.7.3&ac=WIFI&screen_width=1242&device_id=35199776125&aid=1115&action=refresh&live_source=live_small_picture";
     
     
-    NSString *apiString = @"https://api.huoshan.com/hotsoon/feed/?type=video&iid=8257698093&os_version=9.3.2&os_api=18&app_name=live_stream_pro&channel=App%20Store&device_platform=iphone&idfa=B265DA9C-569C-4B55-BE8E-3D2EC5310A7A&live_sdk_version=1.7.3&vid=AD78E6CD-4827-4D52-932A-3E74AD30F5CB&openudid=82d61456516d047fbdb667fea5ceb6d87be15bfc&device_type=iPhone8,2&version_code=2.2.1&ac=WIFI&screen_width=1242&device_id=35199776125&aid=1115&action=refresh&live_source=live_small_picture";
+//    NSString *apiString = @"https://api.huoshan.com/hotsoon/feed/?type=video&iid=8257698093&os_version=9.3.2&os_api=18&app_name=live_stream_pro&channel=App%20Store&device_platform=iphone&idfa=B265DA9C-569C-4B55-BE8E-3D2EC5310A7A&live_sdk_version=1.7.3&vid=AD78E6CD-4827-4D52-932A-3E74AD30F5CB&openudid=82d61456516d047fbdb667fea5ceb6d87be15bfc&device_type=iPhone8,2&version_code=2.2.1&ac=WIFI&screen_width=1242&device_id=35199776125&aid=1115&action=refresh&live_source=live_small_picture";
+    
+    
+       NSString *apiString = @"https://api-hl.huoshan.com/hotsoon/feed/?type=video&iid=56693189339&ac=WIFI&ab_version=391711,501253,592609,662547,671134,384501,663932,612165,681210,674736,654193,557631,678843,681232,680055,637814,666872,681693,661943,681616,374104,378844,682009,665355,446763,638535,681229,299910,632485,671292,651646,598627,641184,457535,493546,677944&os_api=18&app_name=live_stream&channel=App%20Store&idfa=59E6123C-45AE-4F64-9192-FD9B0E982923&device_platform=iphone&live_sdk_version=5.4.0&vid=DD5987BE-4451-43E1-B234-68525808A52F&mccmnc=&device_type=iPhone7,1&openudid=62948e3983ef2572b9acc1b524998172d40f5f73&version_code=5.4.0&os_version=12.0&screen_width=1125&aid=1112&device_id=36177005663&req_from=feed_refresh&action=refresh&diff_stream=1&mas=00f6d48a97d7aaa909e3451f22676861b28a07d5ae901270dbe287&as=a2b5c403499e6cf3806834&ts=1546666985";
+    
+    
     
     AFHTTPSessionManager* afManager = [AFHTTPSessionManager manager];
     afManager.requestSerializer.timeoutInterval = 30;

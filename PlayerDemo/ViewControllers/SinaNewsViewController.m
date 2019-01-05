@@ -166,7 +166,7 @@
     if (orientation ==UIInterfaceOrientationPortrait) {
         [self.currentCell.backgroundIV addSubview:self.wmPlayer];
         self.wmPlayer.isFullscreen = NO;
-        self.wmPlayer.backBtnStyle = BackBtnStyleNone;
+        self.wmPlayer.backBtnStyle = BackBtnStyleClose;
         [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(self.wmPlayer.superview);
         }];
@@ -175,7 +175,6 @@
         [[UIApplication sharedApplication].keyWindow addSubview:self.wmPlayer];
         self.wmPlayer.isFullscreen = YES;
         self.wmPlayer.backBtnStyle = BackBtnStylePop;
-        
         if(currentOrientation ==UIInterfaceOrientationPortrait){
             if (self.wmPlayer.playerModel.verticalVideo) {
                 [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {

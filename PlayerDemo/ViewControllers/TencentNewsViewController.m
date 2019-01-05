@@ -124,6 +124,7 @@
     VideoDataModel *videoModel = self.videoDataAry[indexPath.row];
     WMPlayerModel *playerModel = [WMPlayerModel new];
     playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+//    playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
     playerModel.title = videoModel.nickname;
     WNPlayerDetailViewController* wnDetailVC = [[WNPlayerDetailViewController alloc] init];
     wnDetailVC.playerModel = playerModel;

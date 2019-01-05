@@ -144,6 +144,7 @@
 		18745E22211D61B40010E46F /* LFGPUImageEmptyFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18745E20211D61B40010E46F /* LFGPUImageEmptyFilter.mm */; };
 		1895B6E82196CDBA00D18675 /* WNPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1895B6E72196CDB900D18675 /* WNPlayer.bundle */; };
 		1895B6EB2196EA1100D18675 /* WNPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895B6EA2196EA1100D18675 /* WNPlayerModel.m */; };
+		18A54BFA21C3AFED0052670A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A54BF921C3AFED0052670A /* DetailViewController.m */; };
 		507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */; };
 		700C1531217A1119004717EE /* WNPlayerDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 700C14AE217A1118004717EE /* WNPlayerDecoder.m */; };
 		700C1532217A1119004717EE /* WNAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 700C14AF217A1118004717EE /* WNAudioManager.m */; };
@@ -192,7 +193,6 @@
 		BF1624AA1DF50011006209D1 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF16244D1DF50011006209D1 /* VideoCell.xib */; };
 		BF1624AB1DF50011006209D1 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624501DF50011006209D1 /* BaseNavigationController.m */; };
 		BF1624AC1DF50011006209D1 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624521DF50011006209D1 /* BaseViewController.m */; };
-		BF1624AD1DF50011006209D1 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624541DF50011006209D1 /* DetailViewController.m */; };
 		BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624581DF50011006209D1 /* SinaNewsViewController.m */; };
 		BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF16245B1DF50011006209D1 /* TencentNewsViewController.m */; };
 		C4EC7F411DF4FCD2006E9820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EC7F401DF4FCD2006E9820 /* main.m */; };
@@ -353,6 +353,7 @@
 		1895B6E72196CDB900D18675 /* WNPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WNPlayer.bundle; sourceTree = "<group>"; };
 		1895B6E92196EA1100D18675 /* WNPlayerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WNPlayerModel.h; sourceTree = "<group>"; };
 		1895B6EA2196EA1100D18675 /* WNPlayerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WNPlayerModel.m; sourceTree = "<group>"; };
+		18A54BF921C3AFED0052670A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		700C142A217A1118004717EE /* WNPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNPlayerManager.h; sourceTree = "<group>"; };
 		700C142E217A1118004717EE /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
@@ -626,7 +627,6 @@
 		BF1624511DF50011006209D1 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		BF1624521DF50011006209D1 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		BF1624531DF50011006209D1 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		BF1624541DF50011006209D1 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		BF1624571DF50011006209D1 /* SinaNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaNewsViewController.h; sourceTree = "<group>"; };
 		BF1624581DF50011006209D1 /* SinaNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaNewsViewController.m; sourceTree = "<group>"; };
 		BF16245A1DF50011006209D1 /* TencentNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentNewsViewController.h; sourceTree = "<group>"; };
@@ -1521,7 +1521,7 @@
 				BF1624571DF50011006209D1 /* SinaNewsViewController.h */,
 				BF1624581DF50011006209D1 /* SinaNewsViewController.m */,
 				BF1624531DF50011006209D1 /* DetailViewController.h */,
-				BF1624541DF50011006209D1 /* DetailViewController.m */,
+				18A54BF921C3AFED0052670A /* DetailViewController.m */,
 				700C1548217A119D004717EE /* WNPlayerDetailViewController.h */,
 				700C1547217A119D004717EE /* WNPlayerDetailViewController.m */,
 			);
@@ -1829,6 +1829,7 @@
 				70763CD820CD5C9700DCB7BE /* FastForwardView.m in Sources */,
 				BF1624A91DF50011006209D1 /* VideoCell.m in Sources */,
 				700C1531217A1119004717EE /* WNPlayerDecoder.m in Sources */,
+				18A54BFA21C3AFED0052670A /* DetailViewController.m in Sources */,
 				18745DF3211D60450010E46F /* SDAVAssetExportSession.mm in Sources */,
 				18745D01211D283B0010E46F /* HomeVideoCollectionViewCell.m in Sources */,
 				18745E21211D61B40010E46F /* GPUImageBeautifyFilter.mm in Sources */,
@@ -1839,7 +1840,6 @@
 				70763CD720CD5C9700DCB7BE /* WMLightView.m in Sources */,
 				18745DF2211D60450010E46F /* MusicItemCollectionViewCell.mm in Sources */,
 				BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */,
-				BF1624AD1DF50011006209D1 /* DetailViewController.m in Sources */,
 				BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */,
 				18745DB8211D60440010E46F /* EditingPublishingDynamicViewController.mm in Sources */,
 				700C153F217A1119004717EE /* WNPlayerManager.m in Sources */,
