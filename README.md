@@ -32,7 +32,14 @@ $(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
 $(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/lib
 $(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
 
-
+3、添加iOS系统的依赖库
+- MediaPlayer.framework
+- AudioToolBox.framework
+- VideoToolBox.framework
+- OpenGLES.framework
+- libiconv.tbd
+- libbz2.tbd
+- libz.tbd
 
 ---pod使用的问题总结-----
 
