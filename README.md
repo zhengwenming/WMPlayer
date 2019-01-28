@@ -1,5 +1,5 @@
 ## 功能
-- [x] 支持几乎所有视频格式avi、flv、m3u8、3gp、RTMP、MKV、rmvb、wmv、mp4、mov等。
+- [x] 支持几乎所有视频格式avi、flv、m3u8、3gp、RTMP、RTSP、MKV、rmvb、wmv、mp4、mov等。
 - [x] 支持cocoapods
 - [x] 支持旋转屏：全屏模式和小屏模式切换，自动感应旋转
 - [x] 支持网络和本地视频资源播放
