@@ -14,6 +14,7 @@
 @interface WNPlayerDetailViewController ()<WNPlayerDelegate>
 @property(nonatomic,strong)WNPlayer *wnPlayer;
 @property(nonatomic,strong)UIView *blackView;
+@property(nonatomic,strong)UIImageView *snapShotImageView;
 
 
 @end
@@ -147,6 +148,11 @@
     self.wnPlayer.repeat = YES;
     self.wnPlayer.title = self.playerModel.title;
     self.wnPlayer.urlString = self.playerModel.videoURL.absoluteString;
+    
+//    self.wnPlayer.urlString = @"rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
+
+    
+    
     [self.view addSubview:self.wnPlayer];
     
     [self.wnPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -158,6 +164,22 @@
     
     [self.wnPlayer open];
     [self.wnPlayer play];
+    [self.view addSubview:self.snapShotImageView];
+}
+-(UIImageView *)snapShotImageView{
+    if (_snapShotImageView==nil) {
+        _snapShotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
+        self.snapShotImageView.backgroundColor = [UIColor magentaColor];
+        _snapShotImageView.center = self.view.center;
+    }
+    return _snapShotImageView;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    UIImage *image = [self.wnPlayer snapshot:self.wnPlayer.frame.size];
+    NSLog(@"%@",image);
+    self.snapShotImageView.image = image;
 }
 - (void)dealloc
 {

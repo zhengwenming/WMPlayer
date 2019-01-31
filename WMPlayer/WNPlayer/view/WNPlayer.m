@@ -53,6 +53,9 @@ typedef enum : NSUInteger {
     }
     return _dateFormatter;
 }
+- (UIImage*)snapshot:(CGSize)viewSize{
+    return [WNDisplayView glToUIImage:self.contentView.frame.size];
+}
 - (instancetype)init{
     self = [super init];
     if (self) {

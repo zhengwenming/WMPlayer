@@ -17,6 +17,7 @@
 #import "MJRefresh.h"
 #import "HomeVideoCollectionViewCell.h"
 #import "WMPlayerModel.h"
+#import "TestFFmpegViewController.h"
 
 @interface TencentNewsViewController ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>{
     
@@ -34,10 +35,18 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
+-(void)testFFmpeng:(UIBarButtonItem *)sender{
+    TestFFmpegViewController *testVC = [TestFFmpegViewController new];
+    [self.navigationController pushViewController:testVC animated:YES];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"视频推荐";
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"测试转码" style:UIBarButtonItemStylePlain target:self action:@selector(testFFmpeng:)];
+    
+    
     UICollectionViewFlowLayout* videoFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [videoFlowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//垂直滚动
     self.videoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height) collectionViewLayout:videoFlowLayout];

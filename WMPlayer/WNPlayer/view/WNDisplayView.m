@@ -347,7 +347,47 @@
     [_context presentRenderbuffer:GL_RENDERBUFFER];
     
     if (_keepLastFrame) self.lastFrame = frame;
+}
+
++ (UIImage *)glToUIImage:(CGSize)size {
+    CGSize viewSize = size;
+    
+    NSInteger myDataLength = viewSize.width * viewSize.height * 4;
+    
+    // allocate array and read pixels into it.
+    
+    GLubyte *buffer = (GLubyte *) malloc(myDataLength);
+    glReadPixels(0, 0, viewSize.width, viewSize.height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+    
+    // gl renders "upside down" so swap top to bottom into new array.
+    // there's gotta be a better way, but this works.
+    
+    GLubyte *buffer2 = (GLubyte *) malloc(myDataLength);
+    
+    for(int y = 0; y < viewSize.height; y++) {
+        for(int x = 0; x < viewSize.width* 4; x++) {
+            buffer2[(int)((viewSize.height-1 - y) * viewSize.width * 4 + x)] = buffer[(int)(y * 4 * viewSize.width + x)];
         }
+    }
+    // make data provider with data.
+    
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, buffer2, myDataLength, NULL);
+    
+    // prep the ingredients
+    
+    int bitsPerComponent = 8;
+    int bitsPerPixel = 32;
+    int bytesPerRow = 4 * viewSize.width;
+    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
+    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+    // make the cgimage
+    CGImageRef imageRef = CGImageCreate(viewSize.width , viewSize.height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
+    
+    // then make the uiimage from that
+    UIImage *myImage = [UIImage imageWithCGImage:imageRef];
+    return myImage;
+}
 
 #pragma mark - Utils
 + (GLuint)loadShader:(GLenum)type withString:(NSString *)shaderString {

@@ -26,7 +26,25 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-   
+    
+    
+//    < !DOCTYPE html>
+//    <html>
+//    <head>
+//    <meta charset="UTF-8">
+//    <title></title>
+//    </head>
+//
+//    <body>
+//    <p class="title top-space" style="font-size: 50; text-align: center; top:200 ;"> MXFootBall</p >
+//    <p class=" download_ content top-space" style-"text-align: center;">
+//    <a class="download_ btn" style="font-size: 45; text-align: center; color: blue; text-decoration :none;" href= " itms - services ://?actiondownload-manifest&url=https://1gitee. com/DevYoung/MXFootBall/raw/master /manifest . plist">下载安装 </a >
+//    </p >
+//    </body>
+//    </html>
+//
+    
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

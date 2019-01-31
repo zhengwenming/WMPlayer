@@ -62,7 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL preventFromScreenLock;
 @property (nonatomic,assign) BOOL restorePlayAfterAppEnterForeground;
 @property (nonatomic,readonly) WNPlayerStatus status;
-
+//获取当前视频播放帧的截图UIImage
+- (UIImage*)snapshot:(CGSize)viewSize;
 - (void)open;
 - (void)close;
 - (void)play;
