@@ -43,7 +43,7 @@
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    //对于present出来的控制器，要主动的（强制的）选择VC，让wmPlayer全屏
+    //对于present出来的控制器，要主动的（强制的）旋转VC，让wmPlayer全屏
 //    UIInterfaceOrientationLandscapeLeft或UIInterfaceOrientationLandscapeRight
     [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeRight) forKey:@"orientation"];
     return UIInterfaceOrientationLandscapeRight;

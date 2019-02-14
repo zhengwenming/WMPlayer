@@ -929,7 +929,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     /* AVPlayerItem "status" property value observer. */
     if (context == PlayViewStatusObservationContext){
         if ([keyPath isEqualToString:@"status"]) {
-            AVPlayerStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
+            AVPlayerItemStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
             switch (status){
                 case AVPlayerItemStatusUnknown:{
                     [self.loadingProgress setProgress:0.0 animated:NO];

@@ -147,9 +147,10 @@
     self.wnPlayer.delegate = self;
     self.wnPlayer.repeat = YES;
     self.wnPlayer.title = self.playerModel.title;
-    self.wnPlayer.urlString = self.playerModel.videoURL.absoluteString;
-    
+//    self.wnPlayer.urlString = self.playerModel.videoURL.absoluteString;
+//
 //    self.wnPlayer.urlString = @"rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
+    self.wnPlayer.urlString = @"http://185.134.22.15:8080/2493496367/xrhJ1Dgy9U/50032";
 
     
     
