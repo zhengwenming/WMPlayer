@@ -27,20 +27,20 @@ typedef enum : NSUInteger {
 }
 //格式化时间（懒加载防止多次重复初始化）
 @property (nonatomic,strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic,strong) UIView *contentView;
 @property (nonatomic,strong) UIActivityIndicatorView *loadingView;
-@property (nonatomic, strong) UIImageView *topView,*bottomView;
+@property (nonatomic,strong) UIImageView *topView,*bottomView;
 //显示播放时间的UILabel+加载失败的UILabel+播放视频的title
 @property (nonatomic,strong) UILabel   *leftTimeLabel,*rightTimeLabel,*titleLabel,*loadFailedLabel;
-@property (nonatomic, strong) UISlider *progressSlider;
+@property (nonatomic,strong) UISlider *progressSlider;
 //控制全屏和播放暂停按钮
 @property (nonatomic,strong) UIButton  *fullScreenBtn,*playOrPauseBtn,*lockBtn,*backBtn,*rateBtn;
 @property (nonatomic) UITapGestureRecognizer *singleTap;
 @property (nonatomic) dispatch_source_t timer;
-@property (nonatomic) BOOL updateHUD;
+@property (nonatomic,assign) BOOL updateHUD;
+@property (nonatomic,assign) BOOL usesTCP;
 @property (nonatomic) NSTimer *timerForHUD;
-
-@property (nonatomic, readwrite) WNPlayerStatus status;
+@property (nonatomic,readwrite) WNPlayerStatus status;
 @property (nonatomic) WNPlayerOperation nextOperation;
 
 @end
@@ -298,7 +298,8 @@ typedef enum : NSUInteger {
     }
     return [[self dateFormatter] stringFromDate:d];
 }
-- (void)open {
+- (void)openWithTCP:(BOOL)usesTCP{
+    self.usesTCP = usesTCP;
     if (self.status == WNPlayerStatusClosing) {
         self.nextOperation = WNPlayerOperationOpen;
         return;
@@ -310,7 +311,7 @@ typedef enum : NSUInteger {
     self.status = WNPlayerStatusOpening;
     self.loadingView.hidden = NO;
     [self.loadingView startAnimating];
-    [self.playerManager open:self.urlString];
+    [self.playerManager open:self.urlString usesTCP:self.usesTCP];
 }
 
 - (void)close {
@@ -327,7 +328,7 @@ typedef enum : NSUInteger {
 - (void)play {
     if (self.status == WNPlayerStatusNone ||
         self.status == WNPlayerStatusClosed) {
-        [self open];
+        [self openWithTCP:self.usesTCP];
         self.nextOperation = WNPlayerOperationPlay;
     }
     if (self.status != WNPlayerStatusOpened &&
@@ -362,7 +363,7 @@ typedef enum : NSUInteger {
     if (self.nextOperation == WNPlayerOperationNone) return NO;
     switch (self.nextOperation) {
         case WNPlayerOperationOpen:
-            [self open];
+            [self openWithTCP:self.usesTCP];
             break;
         case WNPlayerOperationPlay:
             [self play];

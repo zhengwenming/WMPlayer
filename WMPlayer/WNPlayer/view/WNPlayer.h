@@ -49,7 +49,6 @@ typedef enum : NSUInteger {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WNPlayer : UIView
-
 @property (nonatomic, strong) WNPlayerManager *playerManager;
 @property (nonatomic,copy) NSString *urlString;
 @property (nonatomic,copy) NSString *title;
@@ -64,7 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,readonly) WNPlayerStatus status;
 //获取当前视频播放帧的截图UIImage
 - (UIImage*)snapshot:(CGSize)viewSize;
-- (void)open;
+///默认是UDP，如有需要用TCP，请传YES
+- (void)openWithTCP:(BOOL)usesTCP;
 - (void)close;
 - (void)play;
 - (void)pause;

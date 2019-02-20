@@ -142,6 +142,15 @@
 		1895B6EB2196EA1100D18675 /* WNPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895B6EA2196EA1100D18675 /* WNPlayerModel.m */; };
 		18962F0521E34F9300466918 /* avi.avi in Resources */ = {isa = PBXBuildFile; fileRef = 18962F0421E34F9300466918 /* avi.avi */; };
 		18A54BFA21C3AFED0052670A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A54BF921C3AFED0052670A /* DetailViewController.m */; };
+		18A66868221CFD760098AB89 /* google-vr.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 18A66867221CFD760098AB89 /* google-vr.mp4 */; };
+		18DEC3E822154AE300AECB76 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E022154AE200AECB76 /* libavfilter.a */; };
+		18DEC3E922154AE300AECB76 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E122154AE200AECB76 /* libavcodec.a */; };
+		18DEC3EA22154AE300AECB76 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E222154AE200AECB76 /* libavutil.a */; };
+		18DEC3EB22154AE300AECB76 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E322154AE200AECB76 /* libavdevice.a */; };
+		18DEC3EC22154AE300AECB76 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E422154AE200AECB76 /* libavformat.a */; };
+		18DEC3ED22154AE300AECB76 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E522154AE200AECB76 /* libswresample.a */; };
+		18DEC3EE22154AE300AECB76 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E622154AE200AECB76 /* libswscale.a */; };
+		18DEC3EF22154AE300AECB76 /* libFFmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DEC3E722154AE300AECB76 /* libFFmpeg.a */; };
 		507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */; };
 		700C1531217A1119004717EE /* WNPlayerDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 700C14AE217A1118004717EE /* WNPlayerDecoder.m */; };
 		700C1532217A1119004717EE /* WNAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 700C14AF217A1118004717EE /* WNAudioManager.m */; };
@@ -349,6 +358,15 @@
 		1895B6EA2196EA1100D18675 /* WNPlayerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WNPlayerModel.m; sourceTree = "<group>"; };
 		18962F0421E34F9300466918 /* avi.avi */ = {isa = PBXFileReference; lastKnownFileType = video.avi; path = avi.avi; sourceTree = "<group>"; };
 		18A54BF921C3AFED0052670A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		18A66867221CFD760098AB89 /* google-vr.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "google-vr.mp4"; sourceTree = "<group>"; };
+		18DEC3E022154AE200AECB76 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavfilter.a; sourceTree = "<group>"; };
+		18DEC3E122154AE200AECB76 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
+		18DEC3E222154AE200AECB76 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
+		18DEC3E322154AE200AECB76 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavdevice.a; sourceTree = "<group>"; };
+		18DEC3E422154AE200AECB76 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavformat.a; sourceTree = "<group>"; };
+		18DEC3E522154AE200AECB76 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
+		18DEC3E622154AE200AECB76 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
+		18DEC3E722154AE300AECB76 /* libFFmpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFFmpeg.a; sourceTree = "<group>"; };
 		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		700C142A217A1118004717EE /* WNPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNPlayerManager.h; sourceTree = "<group>"; };
 		700C142E217A1118004717EE /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
@@ -639,14 +657,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18DEC3E822154AE300AECB76 /* libavfilter.a in Frameworks */,
 				700C1554217A137F004717EE /* libz.tbd in Frameworks */,
 				700C1553217A135F004717EE /* VideoToolbox.framework in Frameworks */,
+				18DEC3EC22154AE300AECB76 /* libavformat.a in Frameworks */,
+				18DEC3E922154AE300AECB76 /* libavcodec.a in Frameworks */,
+				18DEC3EA22154AE300AECB76 /* libavutil.a in Frameworks */,
+				18DEC3EE22154AE300AECB76 /* libswscale.a in Frameworks */,
 				700C1551217A1353004717EE /* libiconv.tbd in Frameworks */,
 				700C154F217A1344004717EE /* libbz2.tbd in Frameworks */,
 				700C154B217A132B004717EE /* OpenGLES.framework in Frameworks */,
 				700C1543217A1119004717EE /* libcrypto.a in Frameworks */,
 				700C1544217A1119004717EE /* libssl-tvOS.a in Frameworks */,
+				18DEC3ED22154AE300AECB76 /* libswresample.a in Frameworks */,
+				18DEC3EB22154AE300AECB76 /* libavdevice.a in Frameworks */,
 				700C1545217A1119004717EE /* libssl.a in Frameworks */,
+				18DEC3EF22154AE300AECB76 /* libFFmpeg.a in Frameworks */,
 				700C1546217A1119004717EE /* libcrypto-tvOS.a in Frameworks */,
 				70763CC620CD4A5400DCB7BE /* MediaPlayer.framework in Frameworks */,
 				507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */,
@@ -1208,6 +1234,14 @@
 		700C14A3217A1118004717EE /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				18DEC3E122154AE200AECB76 /* libavcodec.a */,
+				18DEC3E322154AE200AECB76 /* libavdevice.a */,
+				18DEC3E022154AE200AECB76 /* libavfilter.a */,
+				18DEC3E422154AE200AECB76 /* libavformat.a */,
+				18DEC3E222154AE200AECB76 /* libavutil.a */,
+				18DEC3E722154AE300AECB76 /* libFFmpeg.a */,
+				18DEC3E522154AE200AECB76 /* libswresample.a */,
+				18DEC3E622154AE200AECB76 /* libswscale.a */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -1558,6 +1592,7 @@
 			children = (
 				188F791F21E725E700AD1792 /* ff.jpg */,
 				18962F0421E34F9300466918 /* avi.avi */,
+				18A66867221CFD760098AB89 /* google-vr.mp4 */,
 				188F793D21E73ED600AD1792 /* 1.mp4 */,
 				701DCC8E1F52FD27003ACAB6 /* gzh.jpg */,
 				701C24691E0844C600232AAB /* WMPlayer.gif */,
@@ -1648,6 +1683,7 @@
 				18745DA7211D60440010E46F /* beautyOFF@2x.png in Resources */,
 				18745DCC211D60440010E46F /* audio531.mp3 in Resources */,
 				18745DA8211D60440010E46F /* beautyOFF@3x.png in Resources */,
+				18A66868221CFD760098AB89 /* google-vr.mp4 in Resources */,
 				18745DF0211D60450010E46F /* audio532.mp3 in Resources */,
 				18745DEB211D60450010E46F /* icon545.png in Resources */,
 				18745E06211D60450010E46F /* stickers546.jpg in Resources */,

@@ -68,9 +68,15 @@ static int interruptCallback(void *context) {
     // 1. Init
     avformat_network_init();
     
+
     // 2. Open Input
     AVFormatContext *fmtctx = NULL;
-    int ret = avformat_open_input(&fmtctx, [url UTF8String], NULL, NULL);
+    AVDictionary* options = NULL;
+    //默认为UDP连接，如果需要，请开发者手动切换为tcp连接（一般播放RTSP协议的摄像头数据需要TCP连接）
+    if (self.usesTCP) {
+        av_dict_set(&options, "rtsp_transport", "tcp", 0);
+    }
+    int ret = avformat_open_input(&fmtctx, [url UTF8String], NULL, &options);
     if (ret != 0) {
         if (fmtctx != NULL) avformat_free_context(fmtctx);
         [WNPlayerUtils createError:error

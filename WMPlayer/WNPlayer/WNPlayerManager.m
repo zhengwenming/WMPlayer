@@ -86,8 +86,10 @@
     [self.displayView clear];
 }
 
-- (void)open:(NSString *)url {
-    __weak typeof(self)weakSelf = self;    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+- (void)open:(NSString *)url usesTCP:(BOOL)usesTCP {
+    __weak typeof(self)weakSelf = self;
+    self.decoder.usesTCP = usesTCP;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __strong typeof(weakSelf)strongSelf = weakSelf;
         if (!strongSelf) {
             return;
@@ -114,7 +116,6 @@
             strongSelf.displayView.rotation = strongSelf.decoder.rotation;
             strongSelf.displayView.contentSize = CGSizeMake([strongSelf.decoder videoWidth], [strongSelf.decoder videoHeight]);
             strongSelf.displayView.contentMode = UIViewContentModeScaleAspectFit;
-            
             strongSelf.duration = strongSelf.decoder.duration;
             strongSelf.metadata = strongSelf.decoder.metadata;
             strongSelf.opening = NO;

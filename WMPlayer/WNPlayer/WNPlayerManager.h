@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL buffering;
 @property (nonatomic, strong) NSDictionary *metadata;
 
-- (void)open:(NSString *)url;
+- (void)open:(NSString *)url usesTCP:(BOOL)usesTCP;
 - (void)close;
 - (void)play;
 - (void)pause;
