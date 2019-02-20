@@ -69,6 +69,8 @@ $(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
 #### Version-4.2.0 (适配iOS 11、适配iPhone X)---------2017.10.15
 #### Version-5.0.0 (添加n个新功能)---------2018.05.22
 #### Version-5.1.0 (添加万能播放器-WNPlayer，支持几乎所有频格式，比如avi、flv、m3u8、3gp、RTMP、MKV、rmvb、wmv、mp4、mov)
+#### Version-5.1.1 (播放RTSP协议的摄像头数据的同学请注意，请切换到TCP连接，默认为UDP，在WNPlayerDecoder.m中加入代码av_dict_set(&options, "rtsp_transport", "tcp", 0);
+
 ---
 
 感谢阳眼的熊的代码（视频拍摄和编辑）https://github.com/doubleYang1020/DYVideoCamera
