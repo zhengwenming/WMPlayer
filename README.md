@@ -68,7 +68,7 @@ $(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
 #### Version-4.1.0 (修复present出来WMPlayer无法全屏显示的bug)
 #### Version-4.2.0 (适配iOS 11、适配iPhone X)---------2017.10.15
 #### Version-5.0.0 (添加n个新功能)---------2018.05.22
-#### Version-5.1.0 (添加万能播放器-WNPlayer，支持几乎所有频格式，比如avi、flv、m3u8、3gp、RTMP、MKV、rmvb、wmv、mp4、mov)
+#### Version-5.1.0 (添加万能播放器-WNPlayer，支持几乎所有频格式，比如avi、flv、m3u8、3gp、RTMP、RTSP、MKV、rmvb、wmv、mp4、mov)
 
 ---
 
