@@ -86,9 +86,11 @@
     [self.displayView clear];
 }
 
-- (void)open:(NSString *)url usesTCP:(BOOL)usesTCP {
+- (void)open:(NSString *)url usesTCP:(BOOL)usesTCP optionDic:(NSDictionary *)optionDic{
     __weak typeof(self)weakSelf = self;
     self.decoder.usesTCP = usesTCP;
+    self.decoder.optionDic = optionDic;
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __strong typeof(weakSelf)strongSelf = weakSelf;
         if (!strongSelf) {
@@ -220,7 +222,9 @@
         self.frameReaderThread = nil;
     }
 }
-
+- (void)seek:(double)position{
+    
+}
 - (void)readFrame {
     self.buffering = YES;
     

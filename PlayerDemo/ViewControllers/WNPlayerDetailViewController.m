@@ -147,15 +147,20 @@
     self.wnPlayer.delegate = self;
     self.wnPlayer.repeat = YES;
     self.wnPlayer.title = self.playerModel.title;
+    
+    self.wnPlayer.urlString = @"http://hkwb.cskin.net/TestPlayUrl.aspx?id=4";
+//    self.wnPlayer.urlString = @"http://updatedown.heikeyun.net/WMV%E6%96%87%E4%BB%B6%E8%A7%86%E9%A2%91%E6%B5%8B%E8%AF%95.wmv";
+
+
 //    self.wnPlayer.urlString = self.playerModel.videoURL.absoluteString;
 //
-    self.wnPlayer.urlString = @"rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
+//    self.wnPlayer.urlString = @"rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
 //    self.wnPlayer.urlString = @"http://185.134.22.15:8080/2493496367/xrhJ1Dgy9U/50032";
 //      self.wnPlayer.urlString = @"http://reezee.com.cn/b75d943a767b4c7c962c1c24a8f0ff2d/c7cf6212a55e4b56b66bb1be5d09ba95-435c9cccf64dda7c34248e884413eb3f-ld.mp4";
 
     
     
-//    NSURL *URL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"google-vr" ofType:@"mp4"]];
+//    NSURL *URL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"1" ofType:@"mp4"]];
 //    self.wnPlayer.urlString = [URL absoluteString];
     
     
@@ -167,9 +172,12 @@
         make.height.mas_equalTo(self.wnPlayer.mas_width).multipliedBy(9.0/16);
     }];
     
-    
-    [self.wnPlayer openWithTCP:YES];
+
+    [self.wnPlayer openWithTCP:YES optionDic:@{@"headers":@"Cookie:FTN5K=f44da28b"}];
     [self.wnPlayer play];
+    
+//    self.wnPlayer.playerManager.position = 3;
+    
     [self.view addSubview:self.snapShotImageView];
 }
 -(UIImageView *)snapShotImageView{

@@ -39,6 +39,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) dispatch_source_t timer;
 @property (nonatomic,assign) BOOL updateHUD;
 @property (nonatomic,assign) BOOL usesTCP;
+@property (nonatomic,strong) NSDictionary *optionDic;
 @property (nonatomic) NSTimer *timerForHUD;
 @property (nonatomic,readwrite) WNPlayerStatus status;
 @property (nonatomic) WNPlayerOperation nextOperation;
@@ -298,8 +299,9 @@ typedef enum : NSUInteger {
     }
     return [[self dateFormatter] stringFromDate:d];
 }
-- (void)openWithTCP:(BOOL)usesTCP{
+- (void)openWithTCP:(BOOL)usesTCP optionDic:(NSDictionary *)optionDic{
     self.usesTCP = usesTCP;
+    self.optionDic = optionDic;
     if (self.status == WNPlayerStatusClosing) {
         self.nextOperation = WNPlayerOperationOpen;
         return;
@@ -311,7 +313,7 @@ typedef enum : NSUInteger {
     self.status = WNPlayerStatusOpening;
     self.loadingView.hidden = NO;
     [self.loadingView startAnimating];
-    [self.playerManager open:self.urlString usesTCP:self.usesTCP];
+    [self.playerManager open:self.urlString usesTCP:self.usesTCP optionDic:optionDic];
 }
 
 - (void)close {
@@ -328,7 +330,7 @@ typedef enum : NSUInteger {
 - (void)play {
     if (self.status == WNPlayerStatusNone ||
         self.status == WNPlayerStatusClosed) {
-        [self openWithTCP:self.usesTCP];
+        [self openWithTCP:self.usesTCP optionDic:self.optionDic];
         self.nextOperation = WNPlayerOperationPlay;
     }
     if (self.status != WNPlayerStatusOpened &&
@@ -363,7 +365,7 @@ typedef enum : NSUInteger {
     if (self.nextOperation == WNPlayerOperationNone) return NO;
     switch (self.nextOperation) {
         case WNPlayerOperationOpen:
-            [self openWithTCP:self.usesTCP];
+            [self openWithTCP:self.usesTCP optionDic:self.optionDic];
             break;
         case WNPlayerOperationPlay:
             [self play];

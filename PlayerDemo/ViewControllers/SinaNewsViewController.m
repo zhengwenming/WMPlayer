@@ -259,6 +259,9 @@
         WMPlayerModel *playerModel = [WMPlayerModel new];
         playerModel.title = videoModel.nickname;
         playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+//        playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+
+        
         playerModel.indexPath = indexPath;
         weakSelf.wmPlayer = [[WMPlayer alloc] init];
         weakSelf.wmPlayer.delegate = weakSelf;

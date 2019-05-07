@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double rotation;
 @property (nonatomic) double duration;
 @property (nonatomic, strong) NSDictionary *metadata;
+@property (nonatomic, strong) NSDictionary *optionDic;
 
 @property (nonatomic) UInt32 audioChannels;
 @property (nonatomic) float audioSampleRate;

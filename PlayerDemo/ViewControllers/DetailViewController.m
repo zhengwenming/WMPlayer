@@ -33,9 +33,9 @@
     if (self.forbidRotate) {
         return NO;
     }
-    if (self.wmPlayer.playerModel.verticalVideo) {
-        return NO;
-    }
+//    if (self.wmPlayer.playerModel.verticalVideo) {
+//        return NO;
+//    }
      return !self.wmPlayer.isLockScreen;
 }
 //viewController所支持的全部旋转方向
@@ -53,7 +53,7 @@
     if (wmplayer.isFullscreen) {
         [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
         //刷新
-        [UIViewController attemptRotationToDeviceOrientation];
+//        [UIViewController attemptRotationToDeviceOrientation];
     }else{
         if (self.presentingViewController) {
             [self dismissViewControllerAnimated:YES completion:^{
@@ -243,6 +243,7 @@
     self.gestureEndedBlock = ^(UIViewController *viewController) {
         weakSelf.forbidRotate = NO;
     };
+//        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeRight) forKey:@"orientation"];
 }
 -(void)nextVideo:(UIButton *)sender{
     [self.wmPlayer resetWMPlayer];

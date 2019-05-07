@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1830D349222619D300ED92B1 /* TestFFmpegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830D345222619D300ED92B1 /* TestFFmpegViewController.m */; };
+		1830D34A222619D300ED92B1 /* TestListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830D347222619D300ED92B1 /* TestListViewController.m */; };
+		1830D34B222619D300ED92B1 /* TestListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1830D348222619D300ED92B1 /* TestListViewController.xib */; };
 		18745CFE211D20E80010E46F /* VideoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745CFD211D20E80010E46F /* VideoDataModel.m */; };
 		18745D01211D283B0010E46F /* HomeVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745D00211D283B0010E46F /* HomeVideoCollectionViewCell.m */; };
 		18745D04211D3ADC0010E46F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745D03211D3ADC0010E46F /* CameraViewController.m */; };
@@ -135,7 +138,6 @@
 		18745E1B211D60450010E46F /* VideoRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745DA1211D60440010E46F /* VideoRecordViewController.m */; };
 		18745E21211D61B40010E46F /* GPUImageBeautifyFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18745E1E211D61B40010E46F /* GPUImageBeautifyFilter.mm */; };
 		18745E22211D61B40010E46F /* LFGPUImageEmptyFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18745E20211D61B40010E46F /* LFGPUImageEmptyFilter.mm */; };
-		188F790721E6ED8E00AD1792 /* TestFFmpegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F790621E6ED8E00AD1792 /* TestFFmpegViewController.m */; };
 		188F792021E725E800AD1792 /* ff.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188F791F21E725E700AD1792 /* ff.jpg */; };
 		188F793E21E73ED700AD1792 /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 188F793D21E73ED600AD1792 /* 1.mp4 */; };
 		1895B6E82196CDBA00D18675 /* WNPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1895B6E72196CDB900D18675 /* WNPlayer.bundle */; };
@@ -208,6 +210,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1830D344222619D300ED92B1 /* TestFFmpegViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFFmpegViewController.h; sourceTree = "<group>"; };
+		1830D345222619D300ED92B1 /* TestFFmpegViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestFFmpegViewController.m; sourceTree = "<group>"; };
+		1830D346222619D300ED92B1 /* TestListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestListViewController.h; sourceTree = "<group>"; };
+		1830D347222619D300ED92B1 /* TestListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestListViewController.m; sourceTree = "<group>"; };
+		1830D348222619D300ED92B1 /* TestListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestListViewController.xib; sourceTree = "<group>"; };
 		18745CFC211D20E80010E46F /* VideoDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoDataModel.h; sourceTree = "<group>"; };
 		18745CFD211D20E80010E46F /* VideoDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoDataModel.m; sourceTree = "<group>"; };
 		18745CFF211D283B0010E46F /* HomeVideoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVideoCollectionViewCell.h; sourceTree = "<group>"; };
@@ -349,8 +356,6 @@
 		18745E1E211D61B40010E46F /* GPUImageBeautifyFilter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GPUImageBeautifyFilter.mm; sourceTree = "<group>"; };
 		18745E1F211D61B40010E46F /* LFGPUImageEmptyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFGPUImageEmptyFilter.h; sourceTree = "<group>"; };
 		18745E20211D61B40010E46F /* LFGPUImageEmptyFilter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LFGPUImageEmptyFilter.mm; sourceTree = "<group>"; };
-		188F790521E6ED8E00AD1792 /* TestFFmpegViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFFmpegViewController.h; sourceTree = "<group>"; };
-		188F790621E6ED8E00AD1792 /* TestFFmpegViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestFFmpegViewController.m; sourceTree = "<group>"; };
 		188F791F21E725E700AD1792 /* ff.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ff.jpg; sourceTree = "<group>"; };
 		188F793D21E73ED600AD1792 /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = "<group>"; };
 		1895B6E72196CDB900D18675 /* WNPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WNPlayer.bundle; sourceTree = "<group>"; };
@@ -682,6 +687,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1830D343222619D300ED92B1 /* TestViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1830D344222619D300ED92B1 /* TestFFmpegViewController.h */,
+				1830D345222619D300ED92B1 /* TestFFmpegViewController.m */,
+				1830D346222619D300ED92B1 /* TestListViewController.h */,
+				1830D347222619D300ED92B1 /* TestListViewController.m */,
+				1830D348222619D300ED92B1 /* TestListViewController.xib */,
+			);
+			path = TestViewController;
+			sourceTree = "<group>";
+		};
 		18745D08211D60440010E46F /* CustomVideoCamera */ = {
 			isa = PBXGroup;
 			children = (
@@ -1020,15 +1037,6 @@
 				18745E20211D61B40010E46F /* LFGPUImageEmptyFilter.mm */,
 			);
 			path = Filters;
-			sourceTree = "<group>";
-		};
-		188F790421E6ED6000AD1792 /* TestFFmpeg */ = {
-			isa = PBXGroup;
-			children = (
-				188F790521E6ED8E00AD1792 /* TestFFmpegViewController.h */,
-				188F790621E6ED8E00AD1792 /* TestFFmpegViewController.m */,
-			);
-			path = TestFFmpeg;
 			sourceTree = "<group>";
 		};
 		700C1429217A1118004717EE /* WNPlayer */ = {
@@ -1540,9 +1548,9 @@
 				BF1624521DF50011006209D1 /* BaseViewController.m */,
 				BF16245A1DF50011006209D1 /* TencentNewsViewController.h */,
 				BF16245B1DF50011006209D1 /* TencentNewsViewController.m */,
-				188F790421E6ED6000AD1792 /* TestFFmpeg */,
 				18745D02211D3ADC0010E46F /* CameraViewController.h */,
 				18745D03211D3ADC0010E46F /* CameraViewController.m */,
+				1830D343222619D300ED92B1 /* TestViewController */,
 				BF1624571DF50011006209D1 /* SinaNewsViewController.h */,
 				BF1624581DF50011006209D1 /* SinaNewsViewController.m */,
 				BF1624531DF50011006209D1 /* DetailViewController.h */,
@@ -1789,6 +1797,7 @@
 				18745DD2211D60450010E46F /* music1.json in Resources */,
 				18745DE1211D60450010E46F /* icon538.png in Resources */,
 				18745DFA211D60450010E46F /* stickers534.jpg in Resources */,
+				1830D34B222619D300ED92B1 /* TestListViewController.xib in Resources */,
 				701DCC8F1F52FD27003ACAB6 /* gzh.jpg in Resources */,
 				18745DE9211D60450010E46F /* icon544.png in Resources */,
 				18962F0521E34F9300466918 /* avi.avi in Resources */,
@@ -1860,7 +1869,7 @@
 				BF1624991DF50011006209D1 /* ScreenShotView.m in Sources */,
 				700C1534217A1119004717EE /* WNPlayerVideoFrame.m in Sources */,
 				70763CD820CD5C9700DCB7BE /* FastForwardView.m in Sources */,
-				188F790721E6ED8E00AD1792 /* TestFFmpegViewController.m in Sources */,
+				1830D349222619D300ED92B1 /* TestFFmpegViewController.m in Sources */,
 				BF1624A91DF50011006209D1 /* VideoCell.m in Sources */,
 				700C1531217A1119004717EE /* WNPlayerDecoder.m in Sources */,
 				18A54BFA21C3AFED0052670A /* DetailViewController.m in Sources */,
@@ -1897,6 +1906,7 @@
 				700C1532217A1119004717EE /* WNAudioManager.m in Sources */,
 				C4EC7F411DF4FCD2006E9820 /* main.m in Sources */,
 				18745DB9211D60440010E46F /* EditVideoViewController.m in Sources */,
+				1830D34A222619D300ED92B1 /* TestListViewController.m in Sources */,
 				1895B6EB2196EA1100D18675 /* WNPlayerModel.m in Sources */,
 				18745E1B211D60450010E46F /* VideoRecordViewController.m in Sources */,
 				18745E1A211D60450010E46F /* VideoCameraView.m in Sources */,

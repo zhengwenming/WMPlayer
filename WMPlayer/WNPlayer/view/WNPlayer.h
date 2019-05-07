@@ -49,10 +49,11 @@ typedef enum : NSUInteger {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WNPlayer : UIView
-@property (nonatomic, strong) WNPlayerManager *playerManager;
 @property (nonatomic,copy) NSString *urlString;
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic, weak)id <WNPlayerDelegate> delegate;
+@property (nonatomic, strong) WNPlayerManager *playerManager;
+
 // 播放器着色
 @property (nonatomic,strong) UIColor *tintColor;
 @property (nonatomic,assign) BOOL autoplay;
@@ -63,8 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,readonly) WNPlayerStatus status;
 //获取当前视频播放帧的截图UIImage
 - (UIImage*)snapshot:(CGSize)viewSize;
-///默认是UDP，如有需要用TCP，请传YES
-- (void)openWithTCP:(BOOL)usesTCP;
+///默认是UDP，如有需要用TCP，请传YES,optionDic里面可以设置key-value，比如headers-cookie：xxxx
+- (void)openWithTCP:(BOOL)usesTCP optionDic:(NSDictionary *)optionDic;
 - (void)close;
 - (void)play;
 - (void)pause;
