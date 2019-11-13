@@ -153,4 +153,7 @@ cell中播放视频，全屏小屏切换自如。
 依赖库为Masonry。
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
 
-欢迎加入iOS开发技术支持群，479259423，（付费群，手机端可以加，电脑加不了。慎入！）进群必须改名，群名片格式：城市-iOS-名字，例如：北京-iOS-文明。
+欢迎加入WMPlayer+WNPlayer开发交流群
+
+![image](https://user-images.githubusercontent.com/8285047/68748672-cb2e5280-0637-11ea-9c45-708d3c2dab35.jpeg)
+
