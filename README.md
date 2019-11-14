@@ -21,8 +21,7 @@
 
 ## FFmpeg4.0.2最新版本的编译文件，请到下面👇的百度云网盘下载，也可以自行编译
 
-链接: https://pan.baidu.com/s/1BVRHB5WiVO4WHf4_xL8u2Q 提取码: zkqq
-
+链接：https://pan.baidu.com/s/12gsIyw_HCt-eOVJH8UKWLA 提取码：TI4l
 下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下后，去项目系统Setting里面
 
 1、设置Header Search Paths为
