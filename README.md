@@ -155,5 +155,4 @@ cell中播放视频，全屏小屏切换自如。
 
 欢迎加入WMPlayer+WNPlayer开发交流群
 
-![image](https://user-images.githubusercontent.com/8285047/68748672-cb2e5280-0637-11ea-9c45-708d3c2dab35.jpeg)
-
+加本人微信18824905363，备注WMPlayer，我会拉你入群
