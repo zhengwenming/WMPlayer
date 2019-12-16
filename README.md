@@ -1,5 +1,4 @@
 ## 功能
-- [x] 支持几乎所有视频格式avi、flv、m3u8、3gp、RTMP、RTSP、MKV、rmvb、wmv、mp4、mov等。
 - [x] 支持cocoapods
 - [x] 支持旋转屏：全屏模式和小屏模式切换，自动感应旋转
 - [x] 支持网络和本地视频资源播放
@@ -19,28 +18,6 @@
 - [x] 支持动态改变播放器的填充模式
 
 
-## FFmpeg4.0.2最新版本的编译文件，请到下面👇的百度云网盘下载，也可以自行编译
-
-链接：https://pan.baidu.com/s/1BZIZpgBCUUkxA2WxHp7TbA 提取码：V9Xg
-
-下载后拖进项目中的/WMPlayer/WNPlayer/FFmpeg路径下后，去项目系统Setting里面
-
-1、设置Header Search Paths为
-$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/include
-
-2、设置Library Search Paths为
-$(PROJECT_DIR)/WMPlayer/WNPlayer/FFmpeg/lib
-$(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
-
-3、添加iOS系统的依赖库
-- MediaPlayer.framework
-- AudioToolBox.framework
-- VideoToolBox.framework
-- OpenGLES.framework
-- libiconv.tbd
-- libbz2.tbd
-- libz.tbd
-
 ## pod使用的问题总结
 
 1、pod search WMPlayer
@@ -58,7 +35,6 @@ $(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
 
     pod 'WMPlayer',  :git => 'https://github.com/zhengwenming/WMPlayer.git'
     
-6、如果需要使用WMPlayer里面的WNPlayer万能播放器组件播放mkv、avi、flv、rtmp等视频格式文件，请使用手动集成，目前WNPlayer不支持pod集成；
 
 ---
 
@@ -69,6 +45,7 @@ $(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
 #### Version-4.2.0 (适配iOS 11、适配iPhone X)---------2017.10.15
 #### Version-5.0.0 (添加n个新功能)---------2018.05.22
 #### Version-5.1.0 (添加万能播放器-WNPlayer，支持几乎所有频格式，比如avi、flv、m3u8、3gp、RTMP、RTSP、MKV、rmvb、wmv、mp4、mov)
+####  删除WNPlayer组件，另开了仓库管理WNPlayer，地址为https://github.com/zhengwenming/WNPlayer.git
 
 ---
 
@@ -83,8 +60,6 @@ $(PROJECT_DIR)/WMPlayer/WNPlayer/openssl/lib
 
 ---
 
-WMPlayer视频播放器，继承UIView，内部封装了AVPlayer和FFmpeg最新版本（4.0.2），WMPlayer和新增加的万能播放器WNPlayer完全解耦。开发者可以任意选择适合自己的播放器进行编码，或者选择性的导入其中的一个播放器。
-cell中播放视频，全屏小屏切换自如。
 
 ![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/WMPlayer.gif)   
 
