@@ -182,9 +182,7 @@
                 }];
             }else{
                 [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(@([UIScreen mainScreen].bounds.size.height));
-                    make.height.equalTo(@([UIScreen mainScreen].bounds.size.width));
-                    make.center.equalTo(self.wmPlayer.superview);
+                    make.edges.equalTo(self.wmPlayer.superview);
                 }];
             }
            
@@ -258,8 +256,8 @@
         weakSelf.currentCell = (VideoCell *)backgroundIV.superview.superview;
         WMPlayerModel *playerModel = [WMPlayerModel new];
         playerModel.title = videoModel.nickname;
-        playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
-//        playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+//        playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+        playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
 
         
         playerModel.indexPath = indexPath;
