@@ -249,7 +249,7 @@
     [self.wmPlayer resetWMPlayer];
     WMPlayerModel *newModel = [WMPlayerModel new];
     newModel.title = @"这个是新视频的标题";
-    newModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+    newModel.videoURL = [NSURL URLWithString:@"http://sz-ctfs.ftn.qq.com/%E6%97%A0%E8%80%BB%E5%AE%B6%E5%BA%ADS10E07cut.mp4?ver=5199&rkey=f8f7130a5c956907f4fb5d1a8141eaf883a412a8ed6935b719fe54af077d961c66c7c2a9cb94a74991cd71f53a79c081876dc6cf2f8248ccd5db9a0fc0ed0b25"];
     self.wmPlayer.playerModel = newModel;
     [self.wmPlayer play];
 }

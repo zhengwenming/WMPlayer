@@ -732,7 +732,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     //ios10新添加的属性，如果播放不了，可以试试打开这个代码
     if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
-        self.player.automaticallyWaitsToMinimizeStalling = YES;
+        self.player.automaticallyWaitsToMinimizeStalling = NO;
     }
     self.player.usesExternalPlaybackWhileExternalScreenIsActive=YES;
     //AVPlayerLayer

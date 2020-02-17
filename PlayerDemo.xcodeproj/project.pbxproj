@@ -859,6 +859,8 @@
 		C4EC7F3E1DF4FCD2006E9820 /* PlayerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C4EC7F421DF4FCD2006E9820 /* AppDelegate.h */,
+				C4EC7F431DF4FCD2006E9820 /* AppDelegate.m */,
 				70763CC720CD5C9700DCB7BE /* WMPlayer */,
 				BF1623B61DF50011006209D1 /* DataManager */,
 				BF1623DA1DF50011006209D1 /* ThirdLib */,
@@ -870,8 +872,6 @@
 				18745CFF211D283B0010E46F /* HomeVideoCollectionViewCell.h */,
 				18745D00211D283B0010E46F /* HomeVideoCollectionViewCell.m */,
 				BF16244E1DF50011006209D1 /* ViewControllers */,
-				C4EC7F421DF4FCD2006E9820 /* AppDelegate.h */,
-				C4EC7F431DF4FCD2006E9820 /* AppDelegate.m */,
 				C4EC7F4B1DF4FCD3006E9820 /* Assets.xcassets */,
 				C4EC7F4D1DF4FCD3006E9820 /* LaunchScreen.storyboard */,
 				C4EC7F501DF4FCD3006E9820 /* Info.plist */,
