@@ -8,11 +8,11 @@
 
 #import "DetailViewController.h"
 #import "Masonry.h"
-
+#import <AVKit/AVKit.h>
 @interface DetailViewController ()<WMPlayerDelegate>
 @property(nonatomic,strong)    UIButton *nextBtn;
 @property(nonatomic,strong)    UIView *blackView;
-
+@property(nonatomic,strong)  MPVolumeView *View_airplay;
 
 @property(nonatomic,assign)    BOOL  forbidRotate;//手势返回的时候禁止旋转VC
 @end
@@ -206,6 +206,7 @@
     self.wmPlayer.loopPlay = YES;//设置是否循环播放
     self.wmPlayer.tintColor = [UIColor orangeColor];//改变播放器着色
     self.wmPlayer.enableBackgroundMode = YES;//开启后台播放模式
+    self.wmPlayer.enableAirPlay  = YES;
     self.wmPlayer.delegate = self;
     [self.view addSubview:self.wmPlayer];
     [self.wmPlayer play];
@@ -214,6 +215,15 @@
         make.top.equalTo(self.blackView.mas_bottom);
         make.height.mas_equalTo(self.wmPlayer.mas_width).multipliedBy(9.0/16);
     }];
+    
+    
+    
+    
+   
+    
+    
+   
+    
     
     
     self.nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];

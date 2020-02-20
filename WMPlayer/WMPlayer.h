@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVKit/AVKit.h>
 #import "WMPlayerModel.h"
 #import "FastForwardView.h"
 #import "WMLightView.h"
@@ -114,6 +115,10 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  是否开启后台播放模式
  */
 @property (nonatomic,assign) BOOL  enableBackgroundMode;
+/**
+ 是否开启AirPlay投屏功能
+ */
+@property (nonatomic,assign) BOOL  enableAirPlay;
 /**
  是否开启快进手势
  */

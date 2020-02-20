@@ -38,6 +38,22 @@
     }
     return NO;
 }
+- (BOOL)shouldAutorotate{
+    if (!self.wmPlayer) {
+        return NO;
+    }
+//        if (self.wmPlayer.playerModel.verticalVideo) {
+//            return NO;
+//        }else{
+//            return YES;
+//        }
+    return !self.wmPlayer.isLockScreen;
+
+}
+//viewController所支持的全部旋转方向
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
 -(NSMutableArray *)dataSource{
     if (_dataSource==nil) {
         _dataSource = [NSMutableArray array];
@@ -46,10 +62,11 @@
 }
 -(UITableView *)table{
     if(_table==nil){
-        _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height)];
+        _table = [[UITableView alloc] init];
         _table.showsVerticalScrollIndicator = NO;
         _table.delegate = self;
         _table.dataSource = self;
+        _table.rowHeight = 274.f;
         _table.separatorStyle=UITableViewCellSeparatorStyleNone;
         if (@available(ios 11.0,*)) {
             UITableView.appearance.estimatedRowHeight = 0;
@@ -57,12 +74,15 @@
             UITableView.appearance.estimatedSectionHeaderHeight = 0;
         }
         [self.view addSubview:_table];
+        
+        [_table mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.leading.trailing.equalTo(self.view);
+        }];
     }
     return _table;
 }
 ///播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
-    NSLog(@"didClickedCloseButton");
         if (wmplayer.isFullscreen) {
             [self toOrientation:UIInterfaceOrientationPortrait];
         }else{
@@ -73,8 +93,10 @@
 }
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
     if (self.wmPlayer.isFullscreen) {//全屏
+         [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
         [self toOrientation:UIInterfaceOrientationPortrait];
     }else{//非全屏
+         [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
         [self toOrientation:UIInterfaceOrientationLandscapeRight];
     }
 }
@@ -100,7 +122,6 @@
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
     NSLog(@"didDoubleTaped");
 }
-
 ///播放状态
 -(void)wmplayerFailedPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
     NSLog(@"wmplayerDidFailedPlay");
@@ -122,7 +143,7 @@
  *  旋转屏幕通知
  */
 - (void)onDeviceOrientationChange:(NSNotification *)notification{
-    if (self.wmPlayer==nil){
+    if (!self.wmPlayer) {
         return;
     }
     if (self.wmPlayer.playerModel.verticalVideo) {
@@ -175,46 +196,58 @@
         [[UIApplication sharedApplication].keyWindow addSubview:self.wmPlayer];
         self.wmPlayer.isFullscreen = YES;
         self.wmPlayer.backBtnStyle = BackBtnStylePop;
-        if(currentOrientation ==UIInterfaceOrientationPortrait){
-            if (self.wmPlayer.playerModel.verticalVideo) {
-                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self.wmPlayer.superview);
-                }];
-            }else{
-                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self.wmPlayer.superview);
-                }];
-            }
-           
+        
+        if (self.wmPlayer.playerModel.verticalVideo) {
+            [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.wmPlayer.superview);
+            }];
         }else{
-            if (self.wmPlayer.playerModel.verticalVideo) {
-                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self.wmPlayer.superview);
-                }];
-            }else{
-                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(@([UIScreen mainScreen].bounds.size.width));
-                    make.height.equalTo(@([UIScreen mainScreen].bounds.size.height));
-                    make.center.equalTo(self.wmPlayer.superview);
-                }];
-            }
-           
+            [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@([UIScreen mainScreen].bounds.size.width));
+                make.height.equalTo(@([UIScreen mainScreen].bounds.size.height));
+                make.center.equalTo(self.wmPlayer.superview);
+            }];
         }
+        
+//        if(currentOrientation ==UIInterfaceOrientationPortrait){
+//            if (self.wmPlayer.playerModel.verticalVideo) {
+//                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                    make.edges.equalTo(self.wmPlayer.superview);
+//                }];
+//            }else{
+//                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                    make.edges.equalTo(self.wmPlayer.superview);
+//                }];
+//            }
+//        }else{
+//            if (self.wmPlayer.playerModel.verticalVideo) {
+//                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                    make.edges.equalTo(self.wmPlayer.superview);
+//                }];
+//            }else{
+//                [self.wmPlayer mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                    make.width.equalTo(@([UIScreen mainScreen].bounds.size.width));
+//                    make.height.equalTo(@([UIScreen mainScreen].bounds.size.height));
+//                    make.center.equalTo(self.wmPlayer.superview);
+//                }];
+//            }
+//
+//        }
     }
     //iOS6.0之后,设置状态条的方法能使用的前提是shouldAutorotate为NO,也就是说这个视图控制器内,旋转要关掉;
     //也就是说在实现这个方法的时候-(BOOL)shouldAutorotate返回值要为NO
     if (self.wmPlayer.playerModel.verticalVideo) {
-        [self setNeedsStatusBarAppearanceUpdate];
+//        [self setNeedsStatusBarAppearanceUpdate];
     }else{
-        [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:NO];
+//        [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:NO];
         //更改了状态条的方向,但是设备方向UIInterfaceOrientation还是正方向的,这就要设置给你播放视频的视图的方向设置旋转
         //给你的播放视频的view视图设置旋转
-        [UIView animateWithDuration:0.4 animations:^{
-            self.wmPlayer.transform = CGAffineTransformIdentity;
-            self.wmPlayer.transform = [WMPlayer getCurrentDeviceOrientation];
-            [self.wmPlayer layoutIfNeeded];
-            [self setNeedsStatusBarAppearanceUpdate];
-        }];
+//        [UIView animateWithDuration:0.4 animations:^{
+//            self.wmPlayer.transform = CGAffineTransformIdentity;
+//            self.wmPlayer.transform = [WMPlayer getCurrentDeviceOrientation];
+//            [self.wmPlayer layoutIfNeeded];
+//            [self setNeedsStatusBarAppearanceUpdate];
+//        }];
     }
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -243,9 +276,6 @@
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 274;
-}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     VideoCell *cell = (VideoCell *)[tableView dequeueReusableCellWithIdentifier:@"VideoCell"];
     cell.videoModel = [self.dataSource objectAtIndex:indexPath.row];
@@ -258,8 +288,6 @@
         playerModel.title = videoModel.nickname;
 //        playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
         playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-
-        
         playerModel.indexPath = indexPath;
         weakSelf.wmPlayer = [[WMPlayer alloc] init];
         weakSelf.wmPlayer.delegate = weakSelf;
@@ -293,7 +321,6 @@
             CGRect rectInTableView = [self.table rectForRowAtIndexPath:self.currentCell.videoModel.indexPath];
             CGRect rectInSuperview = [self.table convertRect:rectInTableView toView:[self.table superview]];
             if (rectInSuperview.origin.y<-self.currentCell.backgroundIV.frame.size.height||rectInSuperview.origin.y>[UIScreen mainScreen].bounds.size.height-([WMPlayer IsiPhoneX]?88:64)-([WMPlayer IsiPhoneX]?83:49)) {//拖动
-                [self releaseWMPlayer];
                 [self.currentCell.playBtn.superview bringSubviewToFront:self.currentCell.playBtn];
             }
         }
@@ -308,6 +335,7 @@
 }
 -(void)dealloc{
     NSLog(@"%@ dealloc",[self class]);
+    [self releaseWMPlayer];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

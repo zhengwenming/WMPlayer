@@ -14,7 +14,6 @@
 
 #import "WMPlayer.h"
 #import "Masonry.h"
-
 //****************************宏*********************************
 #define WMPlayerSrcName(file) [@"WMPlayer.bundle" stringByAppendingPathComponent:file]
 #define WMPlayerFrameworkSrcName(file) [@"Frameworks/WMPlayer.framework/WMPlayer.bundle" stringByAppendingPathComponent:file]
@@ -29,7 +28,7 @@
 static void *PlayViewCMTimeValue = &PlayViewCMTimeValue;
 static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContext;
 
-@interface WMPlayer () <UIGestureRecognizerDelegate>
+@interface WMPlayer () <UIGestureRecognizerDelegate,AVRoutePickerViewDelegate>
 //顶部&底部操作工具栏
 @property (nonatomic,retain) UIImageView *topView,*bottomView;
 //是否初始化了播放器
@@ -94,6 +93,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @property (nonatomic,assign) double    seekTime;
 //视频填充模式
 @property (nonatomic, copy) NSString   *videoGravity;
+@property (nonatomic,strong) UIView *airPlayView;
+
+
 @end
 
 
@@ -270,6 +272,25 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.topView addSubview:self.rateBtn];
     self.rateBtn.hidden = YES;
 
+      if (@available(iOS 11.0, *)) {
+        AVRoutePickerView  *airPlayView = [[AVRoutePickerView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+          //活跃状态颜色
+          airPlayView.activeTintColor = [UIColor whiteColor];
+          //设置代理
+          airPlayView.delegate = self;
+          [self.topView addSubview:airPlayView];
+          self.airPlayView = airPlayView;
+      } else {
+         MPVolumeView  *airplay = [[MPVolumeView alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+             airplay.showsVolumeSlider = NO;
+             airplay.backgroundColor = [UIColor whiteColor];
+             [self.topView addSubview:airplay];
+          self.airPlayView = airplay;
+      }
+    
+    self.enableAirPlay = YES;
+    
+    
     //titleLabel
     self.titleLabel = [UILabel new];
     self.titleLabel.textColor = [UIColor whiteColor];
@@ -372,6 +393,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         make.trailing.equalTo(self.topView).offset(-10);
         make.size.mas_equalTo(CGSizeMake(60, 30));
     }];
+    
+    [self.airPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.centerY.equalTo(self.topView);
+           make.trailing.equalTo(self.topView).offset(-10);
+           make.size.mas_equalTo(CGSizeMake(35, 35));
+       }];
+    
+    
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.topView).offset(8);
         make.size.mas_equalTo(CGSizeMake(self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4));
@@ -491,6 +520,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.player play];
     }
 }
+//AirPlay界面弹出时回调
+- (void)routePickerViewWillBeginPresentingRoutes:(AVRoutePickerView *)routePickerView API_AVAILABLE(ios(11.0)){
+    NSLog(@"AirPlay界面弹出时回调 %@",[routePickerView valueForKey:@"airPlayActive"]);
+}
+//AirPlay界面结束时回调
+- (void)routePickerViewDidEndPresentingRoutes:(AVRoutePickerView *)routePickerView API_AVAILABLE(ios(11.0)){
+    NSLog(@"AirPlay界面结束时回调  %@",[routePickerView valueForKey:@"airPlayActive"]);
+    
+}
 #pragma mark
 #pragma mark - 点击锁定🔒屏幕旋转
 -(void)lockAction:(UIButton *)sender{
@@ -572,6 +610,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     [self.player pause];
     self.playOrPauseBtn.selected = YES;
+}
+-(void)setEnableAirPlay:(BOOL)enableAirPlay{
+    _enableAirPlay = enableAirPlay;
+    self.airPlayView.hidden= !enableAirPlay;
 }
 -(void)setPrefersStatusBarHidden:(BOOL)prefersStatusBarHidden{
     _prefersStatusBarHidden = prefersStatusBarHidden;
@@ -761,8 +803,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //是否全屏
 -(void)setIsFullscreen:(BOOL)isFullscreen{
     _isFullscreen = isFullscreen;
-    self.rateBtn.hidden =  self.lockBtn.hidden = !isFullscreen;
-    
+//    self.rateBtn.hidden =  self.lockBtn.hidden = !isFullscreen;
+    self.rateBtn.hidden = YES;
+
     if (isFullscreen) {
         self.lockBtn.hidden = self.playerModel.verticalVideo;
     }
@@ -1063,26 +1106,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }];
 }
 - (void)syncScrubber{
-
     CMTime playerDuration = [self playerItemDuration];
     CGFloat totalTime = (CGFloat)CMTimeGetSeconds(playerDuration);
-
-   
     long long nowTime = self.currentItem.currentTime.value/self.currentItem.currentTime.timescale;
     self.leftTimeLabel.text = [self convertTime:nowTime];
     self.rightTimeLabel.text = [self convertTime:self.totalTime];
-    
     
     if (isnan(totalTime)) {
         self.rightTimeLabel.text = @"";
         NSLog(@"NaN");
     }
-    if (CMTIME_IS_INVALID(playerDuration)){
-
-        
-    }
-    
-    
         if (self.isDragingSlider==YES) {//拖拽slider中，不更新slider的值
             
         }else if(self.isDragingSlider==NO){
@@ -1103,10 +1136,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //        int32_t timeScale = self.player.currentItem.asset.duration.timescale;
         //currentItem.asset.duration.timescale计算的时候严重堵塞主线程，慎用
         /* A timescale of 1 means you can only specify whole seconds to seek to. The timescale is the number of parts per second. Use 600 for video, as Apple recommends, since it is a product of the common video frame rates like 50, 60, 25 and 24 frames per second*/
-        __weak typeof(self) weakSelf = self;
-
         [self.player seekToTime:CMTimeMakeWithSeconds(seekTime, self.currentItem.currentTime.timescale) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
-            weakSelf.seekTime = 0;
+            self.seekTime = 0;
         }];
     }
 }
