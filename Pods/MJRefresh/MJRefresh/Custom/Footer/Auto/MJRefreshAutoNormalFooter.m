@@ -17,7 +17,7 @@
 - (UIActivityIndicatorView *)loadingView
 {
     if (!_loadingView) {
-        UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorViewStyle];
+        UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:_activityIndicatorViewStyle];
         loadingView.hidesWhenStopped = YES;
         [self addSubview:_loadingView = loadingView];
     }
@@ -28,6 +28,7 @@
 {
     _activityIndicatorViewStyle = activityIndicatorViewStyle;
     
+    [self.loadingView removeFromSuperview];
     self.loadingView = nil;
     [self setNeedsLayout];
 }
@@ -36,7 +37,14 @@
 {
     [super prepare];
     
-    self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    if (@available(iOS 13.0, *)) {
+        _activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+        return;
+    }
+#endif
+        
+    _activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
 }
 
 - (void)placeSubviews
@@ -48,7 +56,7 @@
     // 圈圈
     CGFloat loadingCenterX = self.mj_w * 0.5;
     if (!self.isRefreshingTitleHidden) {
-        loadingCenterX -= self.stateLabel.mj_textWith * 0.5 + self.labelLeftInset;
+        loadingCenterX -= self.stateLabel.mj_textWidth * 0.5 + self.labelLeftInset;
     }
     CGFloat loadingCenterY = self.mj_h * 0.5;
     self.loadingView.center = CGPointMake(loadingCenterX, loadingCenterY);

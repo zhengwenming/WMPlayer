@@ -14,7 +14,7 @@
 #endif
 
 // 过期提醒
-#define MJRefreshDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
+#define MJRefreshDeprecated(DESCRIPTION) __attribute__((deprecated(DESCRIPTION)))
 
 // 运行时objc_msgSend
 #define MJRefreshMsgSend(...) ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
@@ -65,3 +65,11 @@ UIKIT_EXTERN NSString *const MJRefreshHeaderNoneLastDateText;
 MJRefreshState oldState = self.state; \
 if (state == oldState) return; \
 [super setState:state];
+
+// 异步主线程执行，不强持有Self
+#define MJRefreshDispatchAsyncOnMainQueue(x) \
+__weak typeof(self) weakSelf = self; \
+dispatch_async(dispatch_get_main_queue(), ^{ \
+typeof(weakSelf) self = weakSelf; \
+{x} \
+});

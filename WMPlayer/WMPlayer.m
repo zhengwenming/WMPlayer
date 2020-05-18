@@ -288,7 +288,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
           self.airPlayView = airplay;
       }
     
-    self.enableAirPlay = YES;
+    self.enableAirPlay = NO;
     
     
     //titleLabel
@@ -475,7 +475,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.progressSlider.minimumTrackTintColor = self.tintColor;
     self.bottomProgress.progressTintColor = self.tintColor;
 }
-#pragma mark 
+#pragma mark
 #pragma mark 进入前台
 - (void)appWillEnterForeground:(NSNotification*)note{
         if (self.state==WMPlayerStateFinished) {
@@ -735,7 +735,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
 }
 //重写playerModel的setter方法，处理自己的逻辑
--(void)setPlayerModel:(WMPlayerModel *)playerModel{    
+-(void)setPlayerModel:(WMPlayerModel *)playerModel{
     if (_playerModel==playerModel) {
         return;
     }
@@ -1166,7 +1166,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     NSTimeInterval result     = startSeconds + durationSeconds;// 计算缓冲总进度
     return result;
 }
-#pragma mark 
+#pragma mark
 #pragma mark - touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     //这个是用来判断, 如果有多个手指点击则不做出响应

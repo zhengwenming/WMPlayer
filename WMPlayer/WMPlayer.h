@@ -116,7 +116,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  */
 @property (nonatomic,assign) BOOL  enableBackgroundMode;
 /**
- 是否开启AirPlay投屏功能
+ 是否开启AirPlay投屏功能，默认关闭
  */
 @property (nonatomic,assign) BOOL  enableAirPlay;
 /**

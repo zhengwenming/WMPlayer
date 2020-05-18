@@ -4,7 +4,7 @@
 //
 //  Created by 谭真 on 15/12/24.
 //  Copyright © 2015年 谭真. All rights reserved.
-//  version 2.1.6 - 2018.06.12
+//  version 2.1.9 - 2018.07.12
 //  更多信息，请前往项目的github地址：https://github.com/banchichen/TZImagePickerController
 
 #import "TZImagePickerController.h"
@@ -118,7 +118,7 @@
 
 - (void)configBarButtonItemAppearance {
     UIBarButtonItem *barItem;
-    if (iOS9Later) {
+    if (@available(iOS 9, *)) {
         barItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[TZImagePickerController class]]];
     } else {
         barItem = [UIBarButtonItem appearanceWhenContainedIn:[TZImagePickerController class], nil];
@@ -271,6 +271,7 @@
     self.barItemTextFont = [UIFont systemFontOfSize:15];
     self.barItemTextColor = [UIColor whiteColor];
     self.allowPreview = YES;
+    self.notScaleImage = NO;
     self.statusBarStyle = UIStatusBarStyleLightContent;
     self.cannotSelectLayerColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
     self.allowCameraLocation = YES;
@@ -352,6 +353,11 @@
 - (void)setShowPhotoCannotSelectLayer:(BOOL)showPhotoCannotSelectLayer {
     _showPhotoCannotSelectLayer = showPhotoCannotSelectLayer;
     [TZImagePickerConfig sharedInstance].showPhotoCannotSelectLayer = showPhotoCannotSelectLayer;
+}
+
+- (void)setNotScaleImage:(BOOL)notScaleImage {
+    _notScaleImage = notScaleImage;
+    [TZImagePickerConfig sharedInstance].notScaleImage = notScaleImage;
 }
 
 - (void)observeAuthrizationStatusChange {

@@ -16,11 +16,11 @@ PODS:
     - AFNetworking/NSURLSession
   - GPUImage (0.1.7)
   - Masonry (1.1.0)
-  - MJRefresh (3.1.15.3)
-  - SDWebImage (4.4.1):
-    - SDWebImage/Core (= 4.4.1)
-  - SDWebImage/Core (4.4.1)
-  - TZImagePickerController (2.1.6)
+  - MJRefresh (3.4.3)
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
+  - TZImagePickerController (2.1.9)
 
 DEPENDENCIES:
   - AFNetworking
@@ -31,7 +31,7 @@ DEPENDENCIES:
   - TZImagePickerController (~> 2.1.6)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - GPUImage
     - Masonry
@@ -43,10 +43,10 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
-  TZImagePickerController: bc25e933c9d970a622d052f0d4de16202bbcd863
+  MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  TZImagePickerController: 6c9721783063edafc9ad42cd95acc82f1b648485
 
 PODFILE CHECKSUM: 230106280bbf77204dfab38c4d8f4b65d9851ac5
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

@@ -10,7 +10,7 @@ inhibit_all_warnings!
 target 'PlayerDemo' do
     pod 'Masonry'
     pod 'GPUImage'
-    pod 'AFNetworking'
+    pod 'AFNetworking', '~> 4.0.1'
     pod 'MJRefresh'
     pod 'SDWebImage'
     pod 'TZImagePickerController', '~> 2.1.6'

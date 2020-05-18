@@ -61,7 +61,7 @@ static CGFloat itemMargin = 5;
         }
         _imagePickerVc.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
         UIBarButtonItem *tzBarItem, *BarItem;
-        if (iOS9Later) {
+        if (@available(iOS 9, *)) {
             tzBarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[TZImagePickerController class]]];
             BarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIImagePickerController class]]];
         } else {
@@ -386,7 +386,9 @@ static CGFloat itemMargin = 5;
             [[TZImageManager manager] getPhotoWithAsset:model.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
                 if (isDegraded) return;
                 if (photo) {
-                    photo = [[TZImageManager manager] scaleImage:photo toSize:CGSizeMake(tzImagePickerVc.photoWidth, (int)(tzImagePickerVc.photoWidth * photo.size.height / photo.size.width))];
+                    if (![TZImagePickerConfig sharedInstance].notScaleImage) {
+                        photo = [[TZImageManager manager] scaleImage:photo toSize:CGSizeMake(tzImagePickerVc.photoWidth, (int)(tzImagePickerVc.photoWidth * photo.size.height / photo.size.width))];
+                    }
                     [photos replaceObjectAtIndex:i withObject:photo];
                 }
                 if (info)  [infoArr replaceObjectAtIndex:i withObject:info];
