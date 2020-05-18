@@ -203,10 +203,8 @@
         self.wmPlayer = [[WMPlayer alloc] initPlayerModel:self.playerModel];
     }
     self.wmPlayer.backBtnStyle = BackBtnStylePop;
-    self.wmPlayer.loopPlay = YES;//设置是否循环播放
+//    self.wmPlayer.loopPlay = YES;//设置是否循环播放
     self.wmPlayer.tintColor = [UIColor orangeColor];//改变播放器着色
-    self.wmPlayer.enableBackgroundMode = YES;//开启后台播放模式
-    self.wmPlayer.enableAirPlay  = YES;
     self.wmPlayer.delegate = self;
     [self.view addSubview:self.wmPlayer];
     [self.wmPlayer play];

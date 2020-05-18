@@ -112,11 +112,11 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  */
 @property (nonatomic,assign) BOOL  enableVolumeGesture;
 /**
- 是否开启后台播放模式
+ 是否开启后台播放模式，default NO，关闭
  */
 @property (nonatomic,assign) BOOL  enableBackgroundMode;
 /**
- 是否开启AirPlay投屏功能，默认关闭
+ 是否开启AirPlay投屏功能，default NO，关闭
  */
 @property (nonatomic,assign) BOOL  enableAirPlay;
 /**
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  */
 @property (nonatomic,assign) BOOL  muted;
 /**
- 是否循环播放（不循环则意味着需要手动触发第二次播放）
+ 是否循环播放（不循环则意味着需要手动触发第二次播放），default NO
  */
 @property (nonatomic,assign) BOOL  loopPlay;
 
