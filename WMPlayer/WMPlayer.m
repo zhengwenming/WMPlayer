@@ -803,13 +803,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //是否全屏
 -(void)setIsFullscreen:(BOOL)isFullscreen{
     _isFullscreen = isFullscreen;
-//    self.rateBtn.hidden =  self.lockBtn.hidden = !isFullscreen;
     self.rateBtn.hidden = YES;
+    self.lockBtn.hidden = !isFullscreen;
 
-    if (isFullscreen) {
-        self.lockBtn.hidden = self.playerModel.verticalVideo;
-    }
-    
     self.fullScreenBtn.selected= isFullscreen;
     if (!isFullscreen) {
         self.bottomProgress.alpha = 0.0;
@@ -817,11 +813,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if ([WMPlayer IsiPhoneX]) {
         if (self.isFullscreen) {
             [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                if (self.playerModel.verticalVideo) {
-                    make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 0));
-                }else{
-                    make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
-                }
+//                if (self.playerModel.verticalVideo) {
+//                    make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 0));
+//                }else{
+//                    make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
+//                }
+                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
+
             }];
             [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.leading.trailing.bottom.equalTo(self.contentView);

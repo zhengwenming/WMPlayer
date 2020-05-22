@@ -194,4 +194,34 @@
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
+-(BOOL)prefersStatusBarHidden{
+    if(self.topViewController.prefersStatusBarHidden){
+        return self.topViewController.prefersStatusBarHidden;
+    }
+    return NO;
+}
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation{
+    if(self.topViewController.preferredStatusBarUpdateAnimation){
+           return self.topViewController.preferredStatusBarUpdateAnimation;
+       }
+    return UIStatusBarAnimationNone;
+}
+-(BOOL)shouldAutorotate{
+    if(self.topViewController.shouldAutorotate){
+        return self.topViewController.shouldAutorotate;
+    }
+    return YES;
+}
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if(self.topViewController.supportedInterfaceOrientations){
+        return self.topViewController.supportedInterfaceOrientations;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    if(self.topViewController.preferredInterfaceOrientationForPresentation){
+        return self.topViewController.preferredInterfaceOrientationForPresentation;
+    }
+    return UIInterfaceOrientationPortrait;
+}
 @end

@@ -111,7 +111,6 @@
                 NSDictionary* authorDic = [videoInfo objectForKey:@"author"];
                 self.nickname = [authorDic objectForKey:@"nickname"];
                 self.avatar_thumb = [[[authorDic objectForKey:@"avatar_thumb"] objectForKey:@"url_list"] objectAtIndex:0];
-                NSLog(@"avatar_thumb %@",self.avatar_thumb);
             }
             
             if ([videoInfo objectForKey:@"video"] && ![[videoInfo objectForKey:@"video"] isKindOfClass:[NSNull class]]) {

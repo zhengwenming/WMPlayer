@@ -24,8 +24,6 @@
         self.startPlayVideoBlcok(self.backgroundIV,self.videoModel);
     }
 }
-
-
 -(void)setVideoModel:(VideoDataModel *)videoModel{
     _videoModel = videoModel;
     self.selectionStyle = UITableViewCellSelectionStyleNone;

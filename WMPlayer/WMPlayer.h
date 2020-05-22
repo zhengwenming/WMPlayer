@@ -81,6 +81,9 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 
 
 @interface WMPlayer : UIView
+@property(nonatomic,strong)UIView *parentView;
+@property(nonatomic,assign)CGRect beforeBounds;
+@property(nonatomic,assign)CGPoint beforeCenter;
 /**
  播放器对应的model
  */
@@ -132,14 +135,12 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  */
 @property (nonatomic,assign) BOOL  loopPlay;
 
-
 /**
  设置playerLayer的填充模式
  */
 @property (nonatomic, assign) WMPlayerLayerGravity    playerLayerGravity;
 //是否是锁定屏幕旋转状态
 @property (nonatomic,assign,readonly) BOOL isLockScreen;
-
 
 /**
  自定义实例化方法初始化方式（-方法）

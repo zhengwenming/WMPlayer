@@ -46,7 +46,10 @@
     self.delegate = self;
     [self setupTabBarBackgroundImage];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.view.frame = UIScreen.mainScreen.bounds;
+}
 - (void)setupTabBarBackgroundImage {
     //    //隐藏阴影线
     [[UITabBar appearance] setShadowImage:[UIImage new]];
@@ -70,5 +73,36 @@
 }
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
     
+}
+
+-(BOOL)prefersStatusBarHidden{
+    if(self.selectedViewController.prefersStatusBarHidden){
+        return self.selectedViewController.prefersStatusBarHidden;
+    }
+    return NO;
+}
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation{
+    if(self.selectedViewController.preferredStatusBarUpdateAnimation){
+           return self.selectedViewController.preferredStatusBarUpdateAnimation;
+       }
+    return UIStatusBarAnimationNone;
+}
+-(BOOL)shouldAutorotate{
+    if(self.selectedViewController.shouldAutorotate){
+        return self.selectedViewController.shouldAutorotate;
+    }
+    return YES;
+}
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if(self.selectedViewController.supportedInterfaceOrientations){
+        return self.selectedViewController.supportedInterfaceOrientations;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    if(self.selectedViewController.preferredInterfaceOrientationForPresentation){
+        return self.selectedViewController.preferredInterfaceOrientationForPresentation;
+    }
+    return UIInterfaceOrientationPortrait;
 }
 @end
