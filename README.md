@@ -49,10 +49,6 @@
 
 ---
 
-感谢阳眼的熊的代码（视频拍摄和编辑）https://github.com/doubleYang1020/DYVideoCamera
-
-感谢DeviLeo的代码（视频播放）https://github.com/DeviLeo/DLGPlayer
-
 微信扫码关注文明的iOS开发公众号
 或者微信搜索“iOS开发by文明”
 
@@ -62,6 +58,7 @@
 
 
 ![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/WMPlayer.gif)   
+
 
 ## Usage
 
@@ -111,19 +108,17 @@
     bug：通知栏的方向不是横屏模式；键盘和UIAlertView的弹出方向还是竖屏模式。
  
  
-    2、旋转状态栏
-    思路：状态栏可以单独旋转，旋转状态栏，造成旋转VC的假象。（记住项目设置里面勾选☑️其他三个屏幕方向）
-    案例：今日头条、新浪新闻
-    代码：详见demo中的新浪tab对应的SinaNewsViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
-    bug：键盘和UIAlertView的弹出方向还是竖屏模式。
-    
-    
-    3、旋转ViewController
+    2、旋转ViewController
     思路：真正意义上去旋转VC，然后更新视频播放器的约束。（记住项目设置里面勾选☑️其他三个屏幕方向）
     案例：腾讯视频
-    代码：详见demo中的新浪tab对应的DetailViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
-    bug：无
-  
+   
+    
+    
+    3、自定义转场动画
+    思路：present出一个全屏的VC，同时WMPlayer做动画到全屏VC上。具体可以参考demo代码
+    案例：爱奇艺客户端
+    代码：详见demo中的新浪tab对应的DetailViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
+  
 
 依赖库为Masonry。
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
