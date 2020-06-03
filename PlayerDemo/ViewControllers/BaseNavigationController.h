@@ -15,9 +15,5 @@
 #import "BaseViewController.h"
 
 @interface BaseNavigationController : UINavigationController
-@property (strong ,nonatomic) NSMutableArray *arrayScreenshot;
-
-@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
-
 
 @end

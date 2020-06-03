@@ -82,6 +82,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 
 @interface WMPlayer : UIView
 @property(nonatomic,strong)UIView *parentView;
+@property(nonatomic,assign)CGRect originFrame;
 @property(nonatomic,assign)CGRect beforeBounds;
 @property(nonatomic,assign)CGPoint beforeCenter;
 /**

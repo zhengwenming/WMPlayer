@@ -1,6 +1,6 @@
-source 'https://github.com/CocoaPods/Specs.git'
+#source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/Artsy/Specs.git'
-
+source 'https://cdn.cocoapods.org/'
 platform :ios, '8.0'
 # 引用框架
 use_frameworks!

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181BB50A2487FD73003C1FEE /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181BB5092487FD73003C1FEE /* DemoViewController.m */; };
 		18745CFE211D20E80010E46F /* VideoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745CFD211D20E80010E46F /* VideoDataModel.m */; };
 		18745D01211D283B0010E46F /* HomeVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745D00211D283B0010E46F /* HomeVideoCollectionViewCell.m */; };
 		18745D04211D3ADC0010E46F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18745D03211D3ADC0010E46F /* CameraViewController.m */; };
@@ -32,11 +33,9 @@
 		70763CD820CD5C9700DCB7BE /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70763CD120CD5C9700DCB7BE /* FastForwardView.m */; };
 		70763CD920CD5C9700DCB7BE /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 70763CD220CD5C9700DCB7BE /* WMPlayer.m */; };
 		70763CDE20CD5D0200DCB7BE /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 70763CDA20CD5D0200DCB7BE /* WMPlayer.bundle */; };
-		70B3301D1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */; };
 		BF1624831DF50011006209D1 /* MBProgressHUD+Show.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623F51DF50011006209D1 /* MBProgressHUD+Show.m */; };
 		BF1624841DF50011006209D1 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF1623F61DF50011006209D1 /* MBProgressHUD.bundle */; };
 		BF1624851DF50011006209D1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1623F81DF50011006209D1 /* MBProgressHUD.m */; };
-		BF1624991DF50011006209D1 /* ScreenShotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1624291DF50011006209D1 /* ScreenShotView.m */; };
 		BF1624A81DF50011006209D1 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF16244A1DF50011006209D1 /* RootTabBarController.m */; };
 		BF1624A91DF50011006209D1 /* VideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF16244C1DF50011006209D1 /* VideoCell.m */; };
 		BF1624AA1DF50011006209D1 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF16244D1DF50011006209D1 /* VideoCell.xib */; };
@@ -51,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181BB5082487FD73003C1FEE /* DemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		181BB5092487FD73003C1FEE /* DemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 		18745CFC211D20E80010E46F /* VideoDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoDataModel.h; sourceTree = "<group>"; };
 		18745CFD211D20E80010E46F /* VideoDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoDataModel.m; sourceTree = "<group>"; };
 		18745CFF211D283B0010E46F /* HomeVideoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVideoCollectionViewCell.h; sourceTree = "<group>"; };
@@ -91,8 +92,6 @@
 		70763CD120CD5C9700DCB7BE /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
 		70763CD220CD5C9700DCB7BE /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
 		70763CDA20CD5D0200DCB7BE /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
-		70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GestureStateBlock.h"; sourceTree = "<group>"; };
-		70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+GestureStateBlock.m"; sourceTree = "<group>"; };
 		A41F0B6E980617F314AD7227 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		AD4E1C1A77CA0A18F1DFB6AE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BF1623F41DF50011006209D1 /* MBProgressHUD+Show.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Show.h"; sourceTree = "<group>"; };
@@ -100,8 +99,6 @@
 		BF1623F61DF50011006209D1 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		BF1623F71DF50011006209D1 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		BF1623F81DF50011006209D1 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		BF1624281DF50011006209D1 /* ScreenShotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShotView.h; sourceTree = "<group>"; };
-		BF1624291DF50011006209D1 /* ScreenShotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShotView.m; sourceTree = "<group>"; };
 		BF1624491DF50011006209D1 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
 		BF16244A1DF50011006209D1 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		BF16244B1DF50011006209D1 /* VideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCell.h; sourceTree = "<group>"; };
@@ -214,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				BF1623F31DF50011006209D1 /* MBprogressHUD */,
-				BF1624261DF50011006209D1 /* ScreenShotBack */,
 			);
 			path = ThirdLib;
 			sourceTree = "<group>";
@@ -229,17 +225,6 @@
 				BF1623F81DF50011006209D1 /* MBProgressHUD.m */,
 			);
 			path = MBprogressHUD;
-			sourceTree = "<group>";
-		};
-		BF1624261DF50011006209D1 /* ScreenShotBack */ = {
-			isa = PBXGroup;
-			children = (
-				70B3301B1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.h */,
-				70B3301C1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m */,
-				BF1624281DF50011006209D1 /* ScreenShotView.h */,
-				BF1624291DF50011006209D1 /* ScreenShotView.m */,
-			);
-			path = ScreenShotBack;
 			sourceTree = "<group>";
 		};
 		BF1624481DF50011006209D1 /* UITabBarController */ = {
@@ -268,6 +253,8 @@
 				BF1624581DF50011006209D1 /* SinaNewsViewController.m */,
 				BF1624531DF50011006209D1 /* DetailViewController.h */,
 				18A54BF921C3AFED0052670A /* DetailViewController.m */,
+				181BB5082487FD73003C1FEE /* DemoViewController.h */,
+				181BB5092487FD73003C1FEE /* DemoViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -446,7 +433,6 @@
 				BF1624A81DF50011006209D1 /* RootTabBarController.m in Sources */,
 				1885A1032475490900059B3E /* EnterFullScreenTransition.m in Sources */,
 				18745CFE211D20E80010E46F /* VideoDataModel.m in Sources */,
-				BF1624991DF50011006209D1 /* ScreenShotView.m in Sources */,
 				1885A1062475492E00059B3E /* ExitFullScreenTransition.m in Sources */,
 				70763CD820CD5C9700DCB7BE /* FastForwardView.m in Sources */,
 				BF1624A91DF50011006209D1 /* VideoCell.m in Sources */,
@@ -459,9 +445,9 @@
 				BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */,
 				1885A16924781A9200059B3E /* LandscapeRightViewController.m in Sources */,
 				BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */,
-				70B3301D1F1FC1FF006395D6 /* UIViewController+GestureStateBlock.m in Sources */,
 				1885A16824781A9200059B3E /* LandscapeLeftViewController.m in Sources */,
 				70763CD920CD5C9700DCB7BE /* WMPlayer.m in Sources */,
+				181BB50A2487FD73003C1FEE /* DemoViewController.m in Sources */,
 				18745D04211D3ADC0010E46F /* CameraViewController.m in Sources */,
 				C4EC7F441DF4FCD2006E9820 /* AppDelegate.m in Sources */,
 				BF1624AB1DF50011006209D1 /* BaseNavigationController.m in Sources */,

@@ -159,7 +159,6 @@
         default:
             break;
     }
-    self.enablePanGesture = !self.wmPlayer.isFullscreen;
     self.nextBtn.hidden = self.wmPlayer.isFullscreen;
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -204,23 +203,6 @@
         make.centerY.equalTo(self.view).offset(280);
         make.size.mas_equalTo(CGSizeMake(100, 40));
     }];
-    
-    
-    __weak __typeof(&*self) weakSelf = self;
-    ///手势开始时刻回调block
-    self.gestureBeganBlock = ^(UIViewController *viewController) {
-        weakSelf.forbidRotate = YES;
-    };
-    
-    ///手势作用期间回调block
-    self.gestureChangedBlock = ^(UIViewController *viewController) {
-
-    };
-    
-    ///手势结束时刻回调block
-    self.gestureEndedBlock = ^(UIViewController *viewController) {
-        weakSelf.forbidRotate = NO;
-    };
 }
 -(void)nextVideo:(UIButton *)sender{
     [self.wmPlayer resetWMPlayer];

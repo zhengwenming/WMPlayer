@@ -138,7 +138,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     return _videoGravity;
 }
-
+- (void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    if (!self.isFullscreen) {
+        self.originFrame = frame;
+    }
+}
 -(void)initWMPlayer{
     [UIApplication sharedApplication].idleTimerDisabled=YES;
     NSError *setCategoryErr = nil;
@@ -218,7 +223,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.bottomView addSubview:self.progressSlider];
     
     self.bottomProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    self.bottomProgress.trackTintColor    = [UIColor clearColor];
+    self.bottomProgress.trackTintColor    = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
     self.bottomProgress.progressTintColor = self.tintColor?self.tintColor:[UIColor greenColor];
     self.bottomProgress.alpha = 0;
     [self.contentView addSubview:self.bottomProgress];
@@ -267,9 +272,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //rateBtn
     self.rateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.rateBtn addTarget:self action:@selector(switchRate:) forControlEvents:UIControlEventTouchUpInside];
-    [self.rateBtn setTitle:@"1.0X" forState:UIControlStateNormal];
-    [self.rateBtn setTitle:@"1.0X" forState:UIControlStateSelected];
-    [self.topView addSubview:self.rateBtn];
+    [self.rateBtn setTitle:@"倍速" forState:UIControlStateNormal];
+    [self.rateBtn setTitle:@"倍速" forState:UIControlStateSelected];
+    self.rateBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    self.rateBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    [self.bottomView addSubview:self.rateBtn];
     self.rateBtn.hidden = YES;
 
       if (@available(iOS 11.0, *)) {
@@ -304,9 +311,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.loadFailedLabel.text = @"视频加载失败";
     self.loadFailedLabel.hidden = YES;
     [self.contentView addSubview:self.loadFailedLabel];
-    
+    [self.loadFailedLabel sizeToFit];
     //添加子控件的默认约束
-    [self addUIControlConstraints];
+//    [self addUIControlConstraints];
     
     // 单击的 Recognizer
     self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
@@ -425,13 +432,22 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateNormal];
         [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateSelected];
     }else{
-        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateNormal];
-        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
+        if (rate==1.0) {
+            [self.rateBtn setTitle:@"倍速" forState:UIControlStateNormal];
+            [self.rateBtn setTitle:@"倍速" forState:UIControlStateSelected];
+        }else{
+            [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateNormal];
+            [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
+        }
+        
     }
 }
 //切换速度
 -(void)switchRate:(UIButton *)rateBtn{
-    CGFloat rate = [rateBtn.currentTitle floatValue];
+    CGFloat rate = 1.0f;
+    if (![rateBtn.currentTitle isEqualToString:@"倍速"]) {
+        rate = [rateBtn.currentTitle floatValue];
+    }
     if(rate==0.5){
         rate+=0.5;
     }else if(rate==1.0){
@@ -449,7 +465,44 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark - layoutSubviews
 -(void)layoutSubviews{
     [super layoutSubviews];
+    self.contentView.frame = self.bounds;
     self.playerLayer.frame = self.contentView.bounds;
+    CGFloat iphoneX_margin  = [WMPlayer IsiPhoneX]?60:20;
+    self.FF_View.frame = CGRectMake(0, 0, 120, 70);
+    self.FF_View.center = self.contentView.center;
+    self.loadingView.center = self.contentView.center;
+    self.topView.frame = CGRectMake(0, 0, self.contentView.frame.size.width, 70);
+    self.backBtn.frame = CGRectMake(self.isFullscreen?([WMPlayer IsiPhoneX]?60:30):10, self.topView.frame.size.height/2-(self.backBtn.currentImage.size.height+4)/2, self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4);
+    self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.backBtn.frame)+5, 0, self.topView.frame.size.width-CGRectGetMaxX(self.backBtn.frame)-20-50, self.topView.frame.size.height);
+//    self.bottomView.backgroundColor = [UIColor orangeColor];
+//    self.leftTimeLabel.backgroundColor = [UIColor redColor];
+//    self.rightTimeLabel.backgroundColor = [UIColor cyanColor];
+
+    
+    if (self.isFullscreen) {
+        self.bottomView.frame = CGRectMake(self.topView.frame.origin.x, self.contentView.frame.size.height-105, self.topView.frame.size.width, 105);
+        self.leftTimeLabel.frame = CGRectMake(iphoneX_margin, 0, 100, 20);
+        self.rightTimeLabel.frame = CGRectMake(self.bottomView.frame.size.width-iphoneX_margin-self.leftTimeLabel.frame.size.width, self.leftTimeLabel.frame.origin.y, self.leftTimeLabel.frame.size.width, self.leftTimeLabel.frame.size.height);
+        self.loadingProgress.frame = CGRectMake(self.leftTimeLabel.frame.origin.x, self.bottomView.frame.size.height/2-25, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2, 1);
+        self.progressSlider.frame = CGRectMake(self.loadingProgress.frame.origin.x-3, self.loadingProgress.frame.origin.y, self.bottomView.frame.size.width-(self.loadingProgress.frame.origin.x)*2+6, 1);
+        self.playOrPauseBtn.frame = CGRectMake(iphoneX_margin, self.progressSlider.frame.origin.y+15, self.playOrPauseBtn.currentImage.size.width, self.playOrPauseBtn.currentImage.size.height);
+        self.rateBtn.frame = CGRectMake(self.bottomView.frame.size.width-iphoneX_margin-45, self.playOrPauseBtn.frame.origin.y, 45, 30);
+    }else{
+        self.bottomView.frame = CGRectMake(self.topView.frame.origin.x, self.contentView.frame.size.height-70, self.topView.frame.size.width, 70);
+        self.playOrPauseBtn.frame = CGRectMake(10, self.bottomView.frame.size.height/2-self.playOrPauseBtn.currentImage.size.height/2, self.playOrPauseBtn.currentImage.size.width, self.playOrPauseBtn.currentImage.size.height);
+        self.leftTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.playOrPauseBtn.frame)+5, self.bottomView.frame.size.height/2+8, 100, 20);
+        self.rightTimeLabel.frame = CGRectMake(self.bottomView.frame.size.width-self.leftTimeLabel.frame.origin.x-self.leftTimeLabel.frame.size.width, self.bottomView.frame.size.height/2+8, self.leftTimeLabel.frame.size.width, self.leftTimeLabel.frame.size.height);
+        self.loadingProgress.frame = CGRectMake(self.leftTimeLabel.frame.origin.x, self.bottomView.frame.size.height/2, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2, 1);
+        self.progressSlider.frame = CGRectMake(self.leftTimeLabel.frame.origin.x-3, self.bottomView.frame.size.height/2, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2+6, 1);
+        self.rateBtn.frame = CGRectMake(self.bottomView.frame.size.width-self.playOrPauseBtn.frame.origin.x, self.playOrPauseBtn.frame.origin.y, 45, 30);
+    }
+    self.lockBtn.frame = CGRectMake(iphoneX_margin, self.contentView.frame.size.height/2-self.lockBtn.frame.size.height/2, self.lockBtn.currentImage.size.width, self.lockBtn.currentImage.size.height);
+    
+    self.fullScreenBtn.frame = CGRectMake(self.bottomView.frame.size.width-10-self.fullScreenBtn.currentImage.size.width, self.playOrPauseBtn.frame.origin.y, self.fullScreenBtn.currentImage.size.width, self.fullScreenBtn.currentImage.size.height);
+    
+    
+    self.bottomProgress.frame = CGRectMake(iphoneX_margin, self.contentView.frame.size.height-2, self.bottomView.frame.size.width-iphoneX_margin*2, 1);
+    self.loadFailedLabel.center = self.contentView.center;
 }
 #pragma mark
 #pragma mark 进入后台
@@ -462,7 +515,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             if (self.enableBackgroundMode) {
                 self.playerLayer.player = nil;
                 [self.playerLayer removeFromSuperlayer];
-                self.rate = [self.rateBtn.currentTitle floatValue];
+                if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
+                    self.rate = [self.rateBtn.currentTitle floatValue];
+                }
             }else{
                 self.isPauseBySystem = YES;
                 [self pause];
@@ -501,7 +556,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                 self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
                 [self.contentView.layer insertSublayer:self.playerLayer atIndex:0];
                 [self.player play];
-                self.rate = [self.rateBtn.currentTitle floatValue];
+                if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
+                    self.rate = [self.rateBtn.currentTitle floatValue];
+                }
             }else{
                 return;
             }
@@ -575,14 +632,19 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 - (void)playOrPause:(UIButton *)sender{
     if (self.state==WMPlayerStateStopped||self.state==WMPlayerStateFailed) {
         [self play];
-        self.rate = [self.rateBtn.currentTitle floatValue];
+        if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
+            self.rate = [self.rateBtn.currentTitle floatValue];
+        }
     } else if(self.state==WMPlayerStatePlaying){
         [self pause];
     }else if(self.state ==WMPlayerStateFinished){
-        self.rate = [self.rateBtn.currentTitle floatValue];
+        if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
+            self.rate = [self.rateBtn.currentTitle floatValue];
+        }
     }else if(self.state==WMPlayerStatePause){
-
-        self.rate = [self.rateBtn.currentTitle floatValue];
+        if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
+            self.rate = [self.rateBtn.currentTitle floatValue];
+        }
     }
     if ([self.delegate respondsToSelector:@selector(wmplayer:clickedPlayOrPauseButton:)]) {
         [self.delegate wmplayer:self clickedPlayOrPauseButton:sender];
@@ -803,38 +865,40 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //是否全屏
 -(void)setIsFullscreen:(BOOL)isFullscreen{
     _isFullscreen = isFullscreen;
-    self.rateBtn.hidden = YES;
-    self.lockBtn.hidden = !isFullscreen;
-
-    self.fullScreenBtn.selected= isFullscreen;
+   self.rateBtn.hidden = self.lockBtn.hidden = !isFullscreen;
+   self.fullScreenBtn.hidden = self.fullScreenBtn.selected= isFullscreen;
     if (!isFullscreen) {
         self.bottomProgress.alpha = 0.0;
+        self.frame = self.originFrame;
+    }else{
+        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     }
-    if ([WMPlayer IsiPhoneX]) {
-        if (self.isFullscreen) {
-            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                if (self.playerModel.verticalVideo) {
-//                    make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 0));
-//                }else{
-//                    make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
-//                }
-                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
-
-            }];
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.leading.trailing.bottom.equalTo(self.contentView);
-                make.height.mas_equalTo(90);
-            }];
-        }else{
-            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-            }];
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.leading.trailing.bottom.equalTo(self.contentView);
-                make.height.mas_equalTo(50);
-            }];
-        }
-    }
+    
+//    if ([WMPlayer IsiPhoneX]) {
+//        if (self.isFullscreen) {
+//            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+////                if (self.playerModel.verticalVideo) {
+////                    make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 0));
+////                }else{
+////                    make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
+////                }
+//                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
+//
+//            }];
+//            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.leading.trailing.bottom.equalTo(self.contentView);
+//                make.height.mas_equalTo(90);
+//            }];
+//        }else{
+//            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+//            }];
+//            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.leading.trailing.bottom.equalTo(self.contentView);
+//                make.height.mas_equalTo(50);
+//            }];
+//        }
+//    }
 }
 -(void)setBackBtnStyle:(BackBtnStyle)backBtnStyle{
     _backBtnStyle = backBtnStyle;
@@ -1002,7 +1066,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                     if (self.state==WMPlayerStateStopped||self.state==WMPlayerStatePause) {
                         
                     }else{
-                        self.rate = [self.rateBtn.currentTitle floatValue];
+                        if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
+                            self.rate = [self.rateBtn.currentTitle floatValue];
+                        }
                     }
                 }
                     break;

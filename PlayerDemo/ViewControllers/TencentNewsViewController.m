@@ -17,6 +17,7 @@
 #import "HomeVideoCollectionViewCell.h"
 #import "WMPlayerModel.h"
 #import "DetailViewController.h"
+#import "DemoViewController.h"
 
 @interface TencentNewsViewController ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>{
     
@@ -133,14 +134,19 @@
 
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    VideoDataModel *videoModel = self.videoDataAry[indexPath.row];
-    WMPlayerModel *playerModel = [WMPlayerModel new];
-    playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
-//    playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-    playerModel.title = videoModel.nickname;
-    DetailViewController *detailVC = [DetailViewController new];
-           detailVC.playerModel = playerModel;
-    [self.navigationController pushViewController:detailVC animated:YES];
+    if (indexPath.row%2==0) {
+        DemoViewController *demoVC = [DemoViewController new];
+        [self.navigationController pushViewController:demoVC animated:YES];
+    }else{
+        VideoDataModel *videoModel = self.videoDataAry[indexPath.row];
+            WMPlayerModel *playerModel = [WMPlayerModel new];
+            playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+        //    playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+            playerModel.title = videoModel.nickname;
+            DetailViewController *detailVC = [DetailViewController new];
+                   detailVC.playerModel = playerModel;
+            [self.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 
 -(void)dealloc{
