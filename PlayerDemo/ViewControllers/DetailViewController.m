@@ -212,14 +212,10 @@
     self.wmPlayer.playerModel = newModel;
     [self.wmPlayer play];
 }
-- (void)releaseWMPlayer{
+- (void)dealloc{
     [self.wmPlayer pause];
     [self.wmPlayer removeFromSuperview];
-    self.wmPlayer = nil;
-}
-- (void)dealloc{
-    [self releaseWMPlayer];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.wmPlayer = nil;    [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"DetailViewController dealloc");
 }
 @end

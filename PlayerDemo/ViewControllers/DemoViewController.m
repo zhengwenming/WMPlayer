@@ -69,10 +69,6 @@
         }
     }
 }
-///播放暂停
--(void)wmplayer:(WMPlayer *)wmplayer clickedPlayOrPauseButton:(UIButton *)playOrPauseBtn{
-    NSLog(@"clickedPlayOrPauseButton");
-}
 ///全屏按钮
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
     if (self.wmPlayer.isFullscreen) {//全屏-->非全屏
