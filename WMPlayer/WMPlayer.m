@@ -13,7 +13,6 @@
 
 
 #import "WMPlayer.h"
-#import "Masonry.h"
 //****************************宏*********************************
 #define WMPlayerSrcName(file) [@"WMPlayer.bundle" stringByAppendingPathComponent:file]
 #define WMPlayerFrameworkSrcName(file) [@"Frameworks/WMPlayer.framework/WMPlayer.bundle" stringByAppendingPathComponent:file]
@@ -264,8 +263,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //backBtn
     self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backBtn.showsTouchWhenHighlighted = YES;
-    [self.backBtn setImage:WMPlayerImage(@"close.png") forState:UIControlStateNormal];
-    [self.backBtn setImage:WMPlayerImage(@"close.png") forState:UIControlStateSelected];
+    [self.backBtn setImage:WMPlayerImage(@"player_icon_nav_back.png") forState:UIControlStateNormal];
+    [self.backBtn setImage:WMPlayerImage(@"player_icon_nav_back.png") forState:UIControlStateSelected];
     [self.backBtn addTarget:self action:@selector(colseTheVideo:) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.backBtn];
     
@@ -304,7 +303,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.topView addSubview:self.titleLabel];
     
-    //加载失败的提示label
+    //加载失败的提示
     self.loadFailedLabel = [UILabel new];
     self.loadFailedLabel.textColor = [UIColor lightGrayColor];
     self.loadFailedLabel.textAlignment = NSTextAlignmentCenter;
@@ -312,8 +311,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.loadFailedLabel.hidden = YES;
     [self.contentView addSubview:self.loadFailedLabel];
     [self.loadFailedLabel sizeToFit];
-    //添加子控件的默认约束
-//    [self addUIControlConstraints];
     
     // 单击的 Recognizer
     self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
@@ -340,89 +337,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         }
     return YES;
 }
-//添加控件的约束
--(void)addUIControlConstraints{
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-    }];
-    [self.FF_View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.contentView);
-        make.size.mas_equalTo(CGSizeMake(120, 70));
-    }];
-    [self.loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.contentView);
-    }];
-    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.top.equalTo(self.contentView);
-        make.height.mas_equalTo([WMPlayer IsiPhoneX]?50:90);
-    }];
-    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.bottom.equalTo(self.contentView);
-        make.height.mas_equalTo(50);
-    }];
-    [self.lockBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.contentView).offset(15);
-        make.centerY.mas_equalTo(self.contentView);
-    }];
-    [self.playOrPauseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.bottomView);
-        make.leading.equalTo(self.bottomView).offset(10);
-    }];
-    [self.leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.bottomView).offset(50);
-        make.top.equalTo(self.bottomView.mas_centerY).with.offset(8);
-    }];
-    [self.rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.bottomView).offset(-50);
-        make.top.equalTo(self.bottomView.mas_centerY).with.offset(8);
-    }];
-    [self.loadingProgress mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.leftTimeLabel.mas_leading).offset(4);
-        make.trailing.equalTo(self.rightTimeLabel.mas_trailing).offset(-4);
-        make.centerY.equalTo(self.bottomView);
-    }];
-    [self.progressSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.leftTimeLabel.mas_leading).offset(4);
-        make.trailing.equalTo(self.rightTimeLabel.mas_trailing).offset(-4);
-        make.centerY.equalTo(self.bottomView).offset(-1);
-        make.height.mas_equalTo(30);
-    }];
-    [self.bottomProgress mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.mas_offset(0);
-        make.bottom.mas_offset(0);
-    }];
-    [self.fullScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.bottomView);
-        make.trailing.equalTo(self.bottomView).offset(-10);
-    }];
-    [self.rateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.topView);
-        make.trailing.equalTo(self.topView).offset(-10);
-        make.size.mas_equalTo(CGSizeMake(60, 30));
-    }];
-    
-    [self.airPlayView mas_makeConstraints:^(MASConstraintMaker *make) {
-           make.centerY.equalTo(self.topView);
-           make.trailing.equalTo(self.topView).offset(-10);
-           make.size.mas_equalTo(CGSizeMake(35, 35));
-       }];
-    
-    
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.topView).offset(8);
-        make.size.mas_equalTo(CGSizeMake(self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4));
-        make.centerY.equalTo(self.titleLabel);
-    }];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.mas_equalTo(self.backBtn.mas_trailing).offset(50);
-        make.trailing.equalTo(self.topView).offset(-50);
-        make.center.equalTo(self.topView);
-        make.top.equalTo(self.topView);
-    }];
-    [self.loadFailedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.contentView);
-    }];
-}
 -(void)setRate:(CGFloat)rate{
     _rate = rate;
     self.player.rate = rate;
@@ -439,7 +353,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateNormal];
             [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
         }
-        
     }
 }
 //切换速度
@@ -474,10 +387,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.topView.frame = CGRectMake(0, 0, self.contentView.frame.size.width, 70);
     self.backBtn.frame = CGRectMake(self.isFullscreen?([WMPlayer IsiPhoneX]?60:30):10, self.topView.frame.size.height/2-(self.backBtn.currentImage.size.height+4)/2, self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4);
     self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.backBtn.frame)+5, 0, self.topView.frame.size.width-CGRectGetMaxX(self.backBtn.frame)-20-50, self.topView.frame.size.height);
-//    self.bottomView.backgroundColor = [UIColor orangeColor];
-//    self.leftTimeLabel.backgroundColor = [UIColor redColor];
-//    self.rightTimeLabel.backgroundColor = [UIColor cyanColor];
-
     
     if (self.isFullscreen) {
         self.bottomView.frame = CGRectMake(self.topView.frame.origin.x, self.contentView.frame.size.height-105, self.topView.frame.size.width, 105);
@@ -751,9 +660,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [_currentItem addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew context:PlayViewStatusObservationContext];
         
         [_currentItem addObserver:self forKeyPath:@"presentationSize" options:NSKeyValueObservingOptionNew context:PlayViewStatusObservationContext];
-
-        
-        
         
         [self.player replaceCurrentItemWithPlayerItem:_currentItem];
         // 添加视频播放结束通知
@@ -867,38 +773,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     _isFullscreen = isFullscreen;
    self.rateBtn.hidden = self.lockBtn.hidden = !isFullscreen;
    self.fullScreenBtn.hidden = self.fullScreenBtn.selected= isFullscreen;
-    if (!isFullscreen) {
+    if (isFullscreen) {
+        CGFloat w = [UIScreen mainScreen].bounds.size.width;
+        CGFloat h = [UIScreen mainScreen].bounds.size.height;
+        self.frame = CGRectMake(0, 0, MAX(w, h), MIN(w, h));
+        self.bottomProgress.alpha = self.isLockScreen?1.0f:0.f;
+    }else{
         self.bottomProgress.alpha = 0.0;
         self.frame = self.originFrame;
-    }else{
-        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     }
-    
-//    if ([WMPlayer IsiPhoneX]) {
-//        if (self.isFullscreen) {
-//            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-////                if (self.playerModel.verticalVideo) {
-////                    make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 0));
-////                }else{
-////                    make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
-////                }
-//                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 70, 0, 70));
-//
-//            }];
-//            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.leading.trailing.bottom.equalTo(self.contentView);
-//                make.height.mas_equalTo(90);
-//            }];
-//        }else{
-//            [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-//            }];
-//            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.leading.trailing.bottom.equalTo(self.contentView);
-//                make.height.mas_equalTo(50);
-//            }];
-//        }
-//    }
 }
 -(void)setBackBtnStyle:(BackBtnStyle)backBtnStyle{
     _backBtnStyle = backBtnStyle;
@@ -992,19 +875,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [UIView animateWithDuration:0.5 animations:^{
         self.bottomView.alpha = 0.0;
         self.topView.alpha = 0.0;
-        if (self.isFullscreen) {
-            self.bottomProgress.alpha = 1.0;
-        }else{
-            self.bottomProgress.alpha = 0.f;
-        }
+      
         if (self.isLockScreen) {
+            self.bottomProgress.alpha = 1.0;
             //5s hiddenLockBtn
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenLockBtn) object:nil];
             [self performSelector:@selector(hiddenLockBtn) withObject:nil afterDelay:5.0];
         }else{
             self.lockBtn.alpha = 0.0;
+            self.bottomProgress.alpha = 0.f;
         }
-
         self.isHiddenTopAndBottomView = YES;
         if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:isHiddenTopAndBottomView:)]) {
             [self.delegate wmplayer:self isHiddenTopAndBottomView:self.isHiddenTopAndBottomView];

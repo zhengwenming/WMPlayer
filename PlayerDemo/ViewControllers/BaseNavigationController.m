@@ -12,12 +12,8 @@
  */
 
 #import "BaseNavigationController.h"
-#import "AppDelegate.h"
 
-// 打开边界多少距离才触发pop
-#define DISTANCE_TO_POP 80
-
-@interface BaseNavigationController ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
+@interface BaseNavigationController ()<UINavigationControllerDelegate>
 
 @end
 
@@ -49,46 +45,5 @@
         frame.origin.y = [UIScreen mainScreen].bounds.size.height - frame.size.height;
         self.tabBarController.tabBar.frame = frame;
     }
-}
-
-
-
-
-/**
- *  导航控制器 统一管理状态栏颜色
- *  @return 状态栏颜色
- */
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
--(BOOL)prefersStatusBarHidden{
-    if(self.topViewController.prefersStatusBarHidden){
-        return self.topViewController.prefersStatusBarHidden;
-    }
-    return NO;
-}
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation{
-    if(self.topViewController.preferredStatusBarUpdateAnimation){
-           return self.topViewController.preferredStatusBarUpdateAnimation;
-       }
-    return UIStatusBarAnimationNone;
-}
--(BOOL)shouldAutorotate{
-    if(self.topViewController.shouldAutorotate){
-        return self.topViewController.shouldAutorotate;
-    }
-    return YES;
-}
--(UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    if(self.topViewController.supportedInterfaceOrientations){
-        return self.topViewController.supportedInterfaceOrientations;
-    }
-    return UIInterfaceOrientationMaskPortrait;
-}
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    if(self.topViewController.preferredInterfaceOrientationForPresentation){
-        return self.topViewController.preferredInterfaceOrientationForPresentation;
-    }
-    return UIInterfaceOrientationPortrait;
 }
 @end

@@ -39,15 +39,6 @@
 -(BOOL)prefersStatusBarHidden{
     return NO;
 }
--(BOOL)shouldAutorotate{
-    return YES;
-}
--(UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskPortrait;
-}
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    return UIInterfaceOrientationPortrait;
-}
 -(NSMutableArray *)dataSource{
     if (_dataSource==nil) {
         _dataSource = [NSMutableArray array];
@@ -224,6 +215,7 @@
         weakSelf.wmPlayer.delegate = weakSelf;
         weakSelf.wmPlayer.playerModel = playerModel;
         [backgroundIV addSubview:weakSelf.wmPlayer];
+        weakSelf.wmPlayer.backBtnStyle = BackBtnStyleClose;
         [backgroundIV bringSubviewToFront:weakSelf.wmPlayer];
         [weakSelf.wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(backgroundIV);

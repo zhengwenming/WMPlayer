@@ -17,7 +17,7 @@
 #import "HomeVideoCollectionViewCell.h"
 #import "WMPlayerModel.h"
 #import "DetailViewController.h"
-#import "DemoViewController.h"
+#import "VCRotateViewController.h"
 
 @interface TencentNewsViewController ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>{
     
@@ -34,16 +34,6 @@
 -(BOOL)prefersStatusBarHidden{
     return NO;
 }
--(BOOL)shouldAutorotate{
-    return YES;
-}
--(UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskPortrait;
-}
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    return UIInterfaceOrientationPortrait;
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -135,8 +125,8 @@
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row%2==0) {
-        DemoViewController *demoVC = [DemoViewController new];
-        [self.navigationController pushViewController:demoVC animated:YES];
+        VCRotateViewController *VCRotate = [VCRotateViewController new];
+        [self.navigationController pushViewController:VCRotate animated:YES];
     }else{
         VideoDataModel *videoModel = self.videoDataAry[indexPath.row];
             WMPlayerModel *playerModel = [WMPlayerModel new];

@@ -8,15 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (ShouldAutorotate)
-
-@end
-
 @interface UITabBarController (ShouldAutorotate)
 
 @end
 
-@interface UINavigationController (ShouldAutorotate)<UIGestureRecognizerDelegate>
+@interface UINavigationController (ShouldAutorotate)
 
 @end
 

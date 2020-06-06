@@ -18,45 +18,20 @@
     self.view.backgroundColor = [UIColor  whiteColor];
     
 }
-
-- (void)addHud
-{
-    if (!_hud) {
-        _hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
-}
-- (void)addHudWithMessage:(NSString*)message
-{
-    if (!_hud)
-    {
-        _hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        _hud.labelText=message;
-    }
-    
-}
-- (void)removeHud
-{
-    if (_hud) {
-        [_hud removeFromSuperview];
-        _hud=nil;
-    }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 -(BOOL)prefersStatusBarHidden{
     return NO;
 }
--(BOOL)shouldAutorotate{
-    return YES;
+- (BOOL)shouldAutorotate{
+        return NO;
 }
--(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskPortrait;
 }
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
     return UIInterfaceOrientationPortrait;
 }
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
 @end
