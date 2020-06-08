@@ -11,6 +11,7 @@ target 'PlayerDemo' do
     pod 'Masonry'
     pod 'GPUImage'
     pod 'AFNetworking', '~> 4.0.1'
+    pod 'FDFullscreenPopGesture'
     pod 'MJRefresh'
     pod 'SDWebImage'
     pod 'TZImagePickerController', '~> 2.1.6'
