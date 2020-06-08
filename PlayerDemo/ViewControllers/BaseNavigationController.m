@@ -30,11 +30,9 @@
     self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:17.0],NSFontAttributeName ,nil];
 }
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    if (self.viewControllers.count == 0){
-        return [super pushViewController:viewController animated:animated];
-    }else if (self.viewControllers.count>=1) {
-        viewController.hidesBottomBarWhenPushed = YES;//隐藏二级页面的tabbar
-    }
+    if (self.childViewControllers.count>=1) {
+           viewController.hidesBottomBarWhenPushed = YES;
+       }
     
     [super pushViewController:viewController animated:animated];
     
@@ -45,5 +43,35 @@
         frame.origin.y = [UIScreen mainScreen].bounds.size.height - frame.size.height;
         self.tabBarController.tabBar.frame = frame;
     }
+}
+-(BOOL)prefersStatusBarHidden{
+    if(self.topViewController.prefersStatusBarHidden){
+        return self.topViewController.prefersStatusBarHidden;
+    }
+    return NO;
+}
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation{
+    if(self.topViewController.preferredStatusBarUpdateAnimation){
+           return self.topViewController.preferredStatusBarUpdateAnimation;
+       }
+    return UIStatusBarAnimationNone;
+}
+-(BOOL)shouldAutorotate{
+    if(self.topViewController.shouldAutorotate){
+        return self.topViewController.shouldAutorotate;
+    }
+    return YES;
+}
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if(self.topViewController.supportedInterfaceOrientations){
+        return self.topViewController.supportedInterfaceOrientations;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    if(self.topViewController.preferredInterfaceOrientationForPresentation){
+        return self.topViewController.preferredInterfaceOrientationForPresentation;
+    }
+    return UIInterfaceOrientationPortrait;
 }
 @end

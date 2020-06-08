@@ -14,7 +14,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-@interface SinaNewsViewController : BaseViewController
+@interface SinaNewsViewController : UIViewController
 @property (strong, nonatomic) UITableView *table;
 
 @end

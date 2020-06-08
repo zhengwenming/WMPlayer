@@ -13,13 +13,13 @@
 @end
 
 @implementation LandscapeLeftViewController
--(BOOL)shouldAutorotate{
-    return YES;
-}
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
     return UIInterfaceOrientationLandscapeLeft;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+- (void)dealloc{
+    NSLog(@"LandscapeLeftViewController dealloc");
 }
 @end

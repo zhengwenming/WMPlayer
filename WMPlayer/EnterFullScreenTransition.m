@@ -10,6 +10,8 @@
 #import "Masonry.h"
 @interface EnterFullScreenTransition ()
 @property(nonatomic,strong)WMPlayer *wmplayer;
+
+
 @end
 
 @implementation EnterFullScreenTransition
@@ -28,22 +30,28 @@
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
         UIView *containerView = [transitionContext containerView];
         UIViewController  *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+//        UIViewController  *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
-        toViewController.view.frame = containerView.bounds;
-        [containerView addSubview:toViewController.view];
-        [toView addSubview:self.wmplayer];
         toView.backgroundColor = [UIColor clearColor];
-    
-    if ([toViewController isKindOfClass:[NSClassFromString(@"LandscapeLeftViewController") class]]) {
-       toView.transform = CGAffineTransformMakeRotation(M_PI_2);
-    }else{
-        toView.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    }
 
-    [self.wmplayer mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(@(containerView.frame.size));
-        make.center.equalTo(self.wmplayer.superview);
-    }];
+        CGPoint initialCenter = [containerView convertPoint:self.wmplayer.beforeCenter fromView:self.wmplayer];
+
+        [containerView addSubview:toView];
+
+        [toView addSubview:self.wmplayer];
+
+        toView.bounds = self.wmplayer.beforeBounds;
+        toView.center = initialCenter;
+
+    
+    
+        if ([toViewController isKindOfClass:[NSClassFromString(@"LandscapeLeftViewController") class]]) {
+           toView.transform = CGAffineTransformMakeRotation(M_PI_2);
+        }else{
+            toView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+        }
+
+   
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         toView.transform = CGAffineTransformIdentity;

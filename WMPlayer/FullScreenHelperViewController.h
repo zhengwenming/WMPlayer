@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMPlayer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FullScreenHelperViewController : UIViewController
+@property(nonatomic,strong)WMPlayer *wmPlayer;
 
 @end
 

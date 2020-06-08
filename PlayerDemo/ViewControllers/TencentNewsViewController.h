@@ -14,6 +14,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-@interface TencentNewsViewController : BaseViewController
+@interface TencentNewsViewController : UIViewController
 
 @end

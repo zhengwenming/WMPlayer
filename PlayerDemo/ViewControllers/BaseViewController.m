@@ -17,7 +17,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor  whiteColor];
     
-}
+} 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -26,7 +26,7 @@
     return NO;
 }
 - (BOOL)shouldAutorotate{
-        return NO;
+        return YES;
 }
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskPortrait;

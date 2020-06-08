@@ -19,8 +19,8 @@
 #import "MJRefresh.h"
 #import "Masonry.h"
 #import "FullScreenHelperViewController.h"
-#import "LandscapeLeftViewController.h"
 #import "LandscapeRightViewController.h"
+#import "LandscapeLeftViewController.h"
 #import "EnterFullScreenTransition.h"
 #import "ExitFullScreenTransition.h"
 
@@ -38,6 +38,15 @@
 }
 -(BOOL)prefersStatusBarHidden{
     return NO;
+}
+-(BOOL)shouldAutorotate{
+    return YES;
+}
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationPortrait;
 }
 -(NSMutableArray *)dataSource{
     if (_dataSource==nil) {
@@ -77,65 +86,50 @@
         }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
-    if (self.wmPlayer.isFullscreen) {//全屏-->非全屏
-        [self exitFullScreen];
-    }else{//非全屏-->全屏
-        [self enterFullScreen:[LandscapeRightViewController new]];
-    }
+   if (self.wmPlayer.viewState==PlayerViewStateSmall) {
+            [self enterFullScreen];
+       }
 }
--(void)enterFullScreen:(FullScreenHelperViewController *)aHelperVC{
-    self.wmPlayer.isFullscreen = YES;
-    self.wmPlayer.beforeBounds = self.wmPlayer.bounds;
-    self.wmPlayer.beforeCenter = self.wmPlayer.center;
-    self.wmPlayer.parentView = self.wmPlayer.superview;
-    self.wmPlayer.backBtnStyle = BackBtnStylePop;
+-(void)enterFullScreen{
+    if (self.wmPlayer.viewState!=PlayerViewStateSmall) {
+           return;
+       }
+       LandscapeRightViewController *rightVC = [[LandscapeRightViewController alloc] init];
+       [self presentToVC:rightVC];
+}
+-(void)presentToVC:(FullScreenHelperViewController *)aHelperVC{
+     self.wmPlayer.viewState = PlayerViewStateAnimating;
+       self.wmPlayer.beforeBounds = self.wmPlayer.bounds;
+       self.wmPlayer.beforeCenter = self.wmPlayer.center;
+       self.wmPlayer.parentView = self.wmPlayer.superview;
+       self.wmPlayer.isFullscreen = YES;
+        self.wmPlayer.backBtnStyle = BackBtnStylePop;
 
-    aHelperVC.transitioningDelegate = self;
-    aHelperVC.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:aHelperVC animated:YES completion:^{
-
-    }];
+       aHelperVC.wmPlayer = self.wmPlayer;
+        aHelperVC.modalPresentationStyle = UIModalPresentationFullScreen;
+       aHelperVC.transitioningDelegate = self;
+       [self presentViewController:aHelperVC animated:YES completion:^{
+           self.wmPlayer.viewState = PlayerViewStateFullScreen;
+       }];
 }
 -(void)exitFullScreen{
-    self.wmPlayer.isFullscreen = NO;
-    self.wmPlayer.backBtnStyle = BackBtnStyleClose;
-    [self dismissViewControllerAnimated:YES completion:^{
-    }];
-}
-- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
-    return [[EnterFullScreenTransition alloc] initWithPlayer:self.wmPlayer];
-}
-
-- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
-    return [[ExitFullScreenTransition alloc] initWithPlayer:self.wmPlayer];
-}
--(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
-
-}
--(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
-    NSLog(@"didDoubleTaped");
-}
-///播放状态
--(void)wmplayerFailedPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
-    NSLog(@"wmplayerDidFailedPlay");
-}
--(void)wmplayerReadyToPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
-    NSLog(@"wmplayerDidReadyToPlay");
-}
--(void)wmplayerGotVideoSize:(WMPlayer *)wmplayer videoSize:(CGSize )presentationSize{
-
-}
--(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
-    NSLog(@"wmplayerDidFinishedPlay");
-}
-//操作栏隐藏或者显示都会调用此方法
--(void)wmplayer:(WMPlayer *)wmplayer isHiddenTopAndBottomView:(BOOL)isHidden{
-    [self setNeedsStatusBarAppearanceUpdate];
+    if (self.wmPlayer.viewState!=PlayerViewStateFullScreen) {
+                 return;
+             }
+       self.wmPlayer.isFullscreen = NO;
+        self.wmPlayer.backBtnStyle = BackBtnStyleClose;
+       self.wmPlayer.viewState = PlayerViewStateAnimating;
+       [self dismissViewControllerAnimated:YES completion:^{
+          self.wmPlayer.viewState  = PlayerViewStateSmall;
+       }];
 }
 /**
  *  旋转屏幕通知
  */
 - (void)onDeviceOrientationChange:(NSNotification *)notification{
+    if (self.wmPlayer.viewState!=PlayerViewStateSmall) {
+           return;
+       }
    if (self.wmPlayer.isLockScreen){
         return;
     }
@@ -148,26 +142,18 @@
             break;
         case UIInterfaceOrientationPortrait:{
             NSLog(@"第0个旋转方向---电池栏在上");
-             if (self.wmPlayer.isFullscreen==NO) {
-                return;
-             }
-            [self exitFullScreen];
         }
             break;
         case UIInterfaceOrientationLandscapeLeft:{
             NSLog(@"第2个旋转方向---电池栏在左");
-            if (self.wmPlayer.isFullscreen) {
-                return;
-            }
-            [self enterFullScreen:[LandscapeLeftViewController new]];
+              LandscapeLeftViewController *leftVC = [[LandscapeLeftViewController alloc] init];
+            [self presentToVC:leftVC];
         }
             break;
         case UIInterfaceOrientationLandscapeRight:{
             NSLog(@"第1个旋转方向---电池栏在右");
-            if (self.wmPlayer.isFullscreen) {
-                return;
-            }
-            [self enterFullScreen:[LandscapeRightViewController new]];
+            LandscapeRightViewController *rightVC = [[LandscapeRightViewController alloc] init];
+            [self presentToVC:rightVC];
         }
             break;
         default:
@@ -177,7 +163,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.view.frame = UIScreen.mainScreen.bounds;
     self.navigationController.navigationBarHidden = NO;
+    self.wmPlayer.delegate = self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -211,15 +199,12 @@
         playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
 //        playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
         playerModel.indexPath = indexPath;
-        weakSelf.wmPlayer = [[WMPlayer alloc] init];
+        weakSelf.wmPlayer = [[WMPlayer alloc] initWithFrame:backgroundIV.bounds];
         weakSelf.wmPlayer.delegate = weakSelf;
         weakSelf.wmPlayer.playerModel = playerModel;
         [backgroundIV addSubview:weakSelf.wmPlayer];
         weakSelf.wmPlayer.backBtnStyle = BackBtnStyleClose;
         [backgroundIV bringSubviewToFront:weakSelf.wmPlayer];
-        [weakSelf.wmPlayer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(backgroundIV);
-        }];
         [weakSelf.wmPlayer play];
         [weakSelf.table reloadData];
     };
@@ -257,6 +242,13 @@
 -(void)releaseWMPlayer{
     [self.wmPlayer removeFromSuperview];
     self.wmPlayer = nil;
+}
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
+    return [[EnterFullScreenTransition alloc] initWithPlayer:self.wmPlayer];
+}
+
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
+    return [[ExitFullScreenTransition alloc] initWithPlayer:self.wmPlayer];
 }
 -(void)dealloc{
     NSLog(@"%@ dealloc",[self class]);

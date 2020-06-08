@@ -15,10 +15,9 @@
 		1885A0F72472CF2200059B3E /* FullScreenHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885A0F62472CF2200059B3E /* FullScreenHelperViewController.m */; };
 		1885A1032475490900059B3E /* EnterFullScreenTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885A1022475490900059B3E /* EnterFullScreenTransition.m */; };
 		1885A1062475492E00059B3E /* ExitFullScreenTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885A1052475492E00059B3E /* ExitFullScreenTransition.m */; };
-		1885A16824781A9200059B3E /* LandscapeLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885A16424781A9200059B3E /* LandscapeLeftViewController.m */; };
-		1885A16924781A9200059B3E /* LandscapeRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885A16624781A9200059B3E /* LandscapeRightViewController.m */; };
-		1885A16C24781E7500059B3E /* UIViewController+ShouldAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885A16B24781E7500059B3E /* UIViewController+ShouldAutorotate.m */; };
 		18A54BFA21C3AFED0052670A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A54BF921C3AFED0052670A /* DetailViewController.m */; };
+		18B862FD248BFC2900795947 /* LandscapeRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B862F9248BFC2900795947 /* LandscapeRightViewController.m */; };
+		18B862FE248BFC2900795947 /* LandscapeLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B862FA248BFC2900795947 /* LandscapeLeftViewController.m */; };
 		507D9D100C07A70640F9F52A /* Pods_PlayerDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */; };
 		700C154B217A132B004717EE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 700C154A217A132B004717EE /* OpenGLES.framework */; };
 		700C154F217A1344004717EE /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 700C154E217A1344004717EE /* libbz2.tbd */; };
@@ -62,13 +61,11 @@
 		1885A1022475490900059B3E /* EnterFullScreenTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnterFullScreenTransition.m; sourceTree = "<group>"; };
 		1885A1042475492E00059B3E /* ExitFullScreenTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExitFullScreenTransition.h; sourceTree = "<group>"; };
 		1885A1052475492E00059B3E /* ExitFullScreenTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExitFullScreenTransition.m; sourceTree = "<group>"; };
-		1885A16424781A9200059B3E /* LandscapeLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandscapeLeftViewController.m; sourceTree = "<group>"; };
-		1885A16524781A9200059B3E /* LandscapeLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandscapeLeftViewController.h; sourceTree = "<group>"; };
-		1885A16624781A9200059B3E /* LandscapeRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandscapeRightViewController.m; sourceTree = "<group>"; };
-		1885A16724781A9200059B3E /* LandscapeRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandscapeRightViewController.h; sourceTree = "<group>"; };
-		1885A16A24781E7400059B3E /* UIViewController+ShouldAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ShouldAutorotate.h"; sourceTree = "<group>"; };
-		1885A16B24781E7500059B3E /* UIViewController+ShouldAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ShouldAutorotate.m"; sourceTree = "<group>"; };
 		18A54BF921C3AFED0052670A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		18B862F9248BFC2900795947 /* LandscapeRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandscapeRightViewController.m; sourceTree = "<group>"; };
+		18B862FA248BFC2900795947 /* LandscapeLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandscapeLeftViewController.m; sourceTree = "<group>"; };
+		18B862FB248BFC2900795947 /* LandscapeLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandscapeLeftViewController.h; sourceTree = "<group>"; };
+		18B862FC248BFC2900795947 /* LandscapeRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandscapeRightViewController.h; sourceTree = "<group>"; };
 		3CDD1E457181DFCA30210454 /* Pods_PlayerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		700C154A217A132B004717EE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		700C154C217A133D004717EE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -132,7 +129,6 @@
 		70763CC720CD5C9700DCB7BE /* WMPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				70763CDB20CD5D0200DCB7BE /* Category */,
 				70763CDA20CD5D0200DCB7BE /* WMPlayer.bundle */,
 				70763CCF20CD5C9700DCB7BE /* WMPlayerModel.h */,
 				70763CC920CD5C9700DCB7BE /* WMPlayerModel.m */,
@@ -144,10 +140,10 @@
 				70763CD120CD5C9700DCB7BE /* FastForwardView.m */,
 				1885A0F52472CF2200059B3E /* FullScreenHelperViewController.h */,
 				1885A0F62472CF2200059B3E /* FullScreenHelperViewController.m */,
-				1885A16524781A9200059B3E /* LandscapeLeftViewController.h */,
-				1885A16424781A9200059B3E /* LandscapeLeftViewController.m */,
-				1885A16724781A9200059B3E /* LandscapeRightViewController.h */,
-				1885A16624781A9200059B3E /* LandscapeRightViewController.m */,
+				18B862FB248BFC2900795947 /* LandscapeLeftViewController.h */,
+				18B862FA248BFC2900795947 /* LandscapeLeftViewController.m */,
+				18B862FC248BFC2900795947 /* LandscapeRightViewController.h */,
+				18B862F9248BFC2900795947 /* LandscapeRightViewController.m */,
 				1885A1012475490900059B3E /* EnterFullScreenTransition.h */,
 				1885A1022475490900059B3E /* EnterFullScreenTransition.m */,
 				1885A1042475492E00059B3E /* ExitFullScreenTransition.h */,
@@ -155,15 +151,6 @@
 			);
 			path = WMPlayer;
 			sourceTree = SOURCE_ROOT;
-		};
-		70763CDB20CD5D0200DCB7BE /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				1885A16A24781E7400059B3E /* UIViewController+ShouldAutorotate.h */,
-				1885A16B24781E7500059B3E /* UIViewController+ShouldAutorotate.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
 		};
 		8AAEEC1312C0C3531902D027 /* Pods */ = {
 			isa = PBXGroup;
@@ -401,16 +388,14 @@
 				18745CFE211D20E80010E46F /* VideoDataModel.m in Sources */,
 				1885A1062475492E00059B3E /* ExitFullScreenTransition.m in Sources */,
 				70763CD820CD5C9700DCB7BE /* FastForwardView.m in Sources */,
+				18B862FE248BFC2900795947 /* LandscapeLeftViewController.m in Sources */,
 				BF1624A91DF50011006209D1 /* VideoCell.m in Sources */,
 				18A54BFA21C3AFED0052670A /* DetailViewController.m in Sources */,
 				18745D01211D283B0010E46F /* HomeVideoCollectionViewCell.m in Sources */,
-				1885A16C24781E7500059B3E /* UIViewController+ShouldAutorotate.m in Sources */,
 				BF1624AC1DF50011006209D1 /* BaseViewController.m in Sources */,
 				70763CD720CD5C9700DCB7BE /* WMLightView.m in Sources */,
 				BF1624B11DF50011006209D1 /* TencentNewsViewController.m in Sources */,
-				1885A16924781A9200059B3E /* LandscapeRightViewController.m in Sources */,
 				BF1624AF1DF50011006209D1 /* SinaNewsViewController.m in Sources */,
-				1885A16824781A9200059B3E /* LandscapeLeftViewController.m in Sources */,
 				70763CD920CD5C9700DCB7BE /* WMPlayer.m in Sources */,
 				181BB50A2487FD73003C1FEE /* VCRotateViewController.m in Sources */,
 				18745D04211D3ADC0010E46F /* CameraViewController.m in Sources */,
@@ -419,6 +404,7 @@
 				18745D07211D57020010E46F /* WMTabBar.m in Sources */,
 				70763CD420CD5C9700DCB7BE /* WMPlayerModel.m in Sources */,
 				1885A0F72472CF2200059B3E /* FullScreenHelperViewController.m in Sources */,
+				18B862FD248BFC2900795947 /* LandscapeRightViewController.m in Sources */,
 				C4EC7F411DF4FCD2006E9820 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

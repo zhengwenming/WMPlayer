@@ -15,8 +15,6 @@
 @property (copy, nonatomic) NSArray *videoArray;
 @property (strong, nonatomic) RootTabBarController *tabbar;
 
-+(AppDelegate *)shareAppDelegate;
-
 @end
 
 

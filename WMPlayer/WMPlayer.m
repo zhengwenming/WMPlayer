@@ -774,6 +774,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
    self.rateBtn.hidden = self.lockBtn.hidden = !isFullscreen;
    self.fullScreenBtn.hidden = self.fullScreenBtn.selected= isFullscreen;
     if (isFullscreen) {
+        self.backBtnStyle = BackBtnStylePop;
         CGFloat w = [UIScreen mainScreen].bounds.size.width;
         CGFloat h = [UIScreen mainScreen].bounds.size.height;
         self.frame = CGRectMake(0, 0, MAX(w, h), MIN(w, h));
@@ -892,6 +893,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     } completion:^(BOOL finish){
         
     }];
+}
+-(void)addSubview:(UIView *)view{
+    [super addSubview:view];
+    self.parentView = view;
 }
 #pragma mark
 #pragma mark--开始拖曳sidle
