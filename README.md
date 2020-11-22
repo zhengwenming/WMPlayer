@@ -120,7 +120,6 @@
     代码：详见demo中的新浪tab对应的DetailViewController.m里面，一定要添加全屏按钮的点击事件，并添加了代码才能有全屏的效果，不然就是一个普通的Button，点击没反应的。
   
 
-依赖库为Masonry。
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
 
 欢迎加入WMPlayer+WNPlayer开发交流群
