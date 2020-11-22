@@ -140,7 +140,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor lightGrayColor];
 
-    self.wmPlayer = [[WMPlayer alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 233)];
+    self.wmPlayer = [[WMPlayer alloc] initWithFrame:CGRectMake(0, [WMPlayer IsiPhoneX]?34:0, self.view.frame.size.width, self.view.frame.size.width*(9.0/16))];
     self.wmPlayer.delegate = self;
     self.wmPlayer.playerModel = self.playerModel;
     [self.view addSubview:self.wmPlayer];

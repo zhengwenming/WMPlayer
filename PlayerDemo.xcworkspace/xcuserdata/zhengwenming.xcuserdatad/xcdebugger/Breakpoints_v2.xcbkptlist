@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "800E5736-FBAD-41E0-86CF-58096932A072"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB426EE7-48AD-4974-8E03-E3AFB939DDEF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WMPlayer/ExitFullScreenTransition.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-animateTransition:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BB426EE7-48AD-4974-8E03-E3AFB939DDEF - 8cb59e1bdfd71328"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ExitFullScreenTransition animateTransition:]"
+                  moduleName = "PlayerDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Github/WMPlayer/WMPlayer/ExitFullScreenTransition.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "972">
+               </Location>
+               <Location
+                  uuid = "BB426EE7-48AD-4974-8E03-E3AFB939DDEF - e9abe63e6a51e5d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__46-[ExitFullScreenTransition animateTransition:]_block_invoke.47"
+                  moduleName = "PlayerDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Github/WMPlayer/WMPlayer/ExitFullScreenTransition.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

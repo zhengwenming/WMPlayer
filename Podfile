@@ -1,5 +1,7 @@
 #source 'https://github.com/CocoaPods/Specs.git'
-source 'https://github.com/Artsy/Specs.git'
+#source 'https://github.com/Artsy/Specs.git'
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+
 source 'https://cdn.cocoapods.org/'
 platform :ios, '8.0'
 # 引用框架

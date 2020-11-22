@@ -138,12 +138,14 @@
         [self.navigationController pushViewController:VCRotate animated:YES];
     }else{
         VideoDataModel *videoModel = self.videoDataAry[indexPath.row];
-            WMPlayerModel *playerModel = [WMPlayerModel new];
-            playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+        WMPlayerModel *playerModel = [WMPlayerModel new];
+//            playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+        playerModel.videoURL = [NSURL URLWithString:@"http://img.zhuoqi.tech/test_h264_level30_480_360.mp4"];
+        
         //    playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
             playerModel.title = videoModel.nickname;
             DetailViewController *detailVC = [DetailViewController new];
-                   detailVC.playerModel = playerModel;
+            detailVC.playerModel = playerModel;
             [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
