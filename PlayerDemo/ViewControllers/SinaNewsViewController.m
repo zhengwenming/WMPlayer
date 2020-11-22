@@ -207,6 +207,7 @@
         [backgroundIV bringSubviewToFront:weakSelf.wmPlayer];
         [weakSelf.wmPlayer play];
         [weakSelf.table reloadData];
+        weakSelf.wmPlayer.oldFrameToWindow = [weakSelf.wmPlayer convertRect:weakSelf.wmPlayer.bounds toView:[UIApplication sharedApplication].keyWindow];
     };
     
     if (self.wmPlayer&&self.wmPlayer.superview) {

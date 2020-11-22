@@ -37,14 +37,17 @@
     CGPoint initialCenter = [containerView convertPoint:self.player.beforeCenter fromView:nil];
 
     [containerView insertSubview:toView belowSubview:fromView];
-    
-    
+   
     if ([self.player.parentView isKindOfClass:[UIImageView class]]) {
+        self.player.frame = CGRectMake(self.player.oldFrameToWindow.origin.x, self.player.oldFrameToWindow.origin.y, self.player.frame.size.width, self.player.frame.size.height);
+        [[UIApplication sharedApplication].keyWindow addSubview:self.player];
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
             fromView.transform = CGAffineTransformIdentity;
             fromView.center = initialCenter;
             fromView.bounds = self.player.beforeBounds;
         } completion:^(BOOL finished) {
+            [self.player removeFromSuperview];
+            self.player.frame = self.player.parentView.bounds;
             [self.player.parentView addSubview:self.player];
             [fromView removeFromSuperview];
             [transitionContext completeTransition:YES];
