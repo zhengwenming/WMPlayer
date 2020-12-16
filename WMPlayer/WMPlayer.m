@@ -27,7 +27,8 @@
 static void *PlayViewCMTimeValue = &PlayViewCMTimeValue;
 static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContext;
 
-@interface WMPlayer () <UIGestureRecognizerDelegate,AVRoutePickerViewDelegate>
+@interface WMPlayer () <UIGestureRecognizerDelegate,AVRoutePickerViewDelegate,AVPictureInPictureControllerDelegate>
+@property(nonatomic, strong)AVPictureInPictureController *AVPictureInPictureController;
 //顶部&底部操作工具栏
 @property (nonatomic,retain) UIImageView *topView,*bottomView;
 //是否初始化了播放器
@@ -71,7 +72,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //显示播放时间的UILabel+加载失败的UILabel+播放视频的title
 @property (nonatomic,strong) UILabel   *leftTimeLabel,*rightTimeLabel,*titleLabel,*loadFailedLabel;
 //控制全屏和播放暂停按钮
-@property (nonatomic,strong) UIButton  *fullScreenBtn,*playOrPauseBtn,*lockBtn,*backBtn,*rateBtn;
+@property (nonatomic,strong) UIButton  *fullScreenBtn,*playOrPauseBtn,*lockBtn,*pipBtn,*backBtn,*rateBtn;
 //进度滑块&声音滑块
 @property (nonatomic,strong) UISlider   *progressSlider,*volumeSlider;
 //显示缓冲进度和底部的播放进度
@@ -244,6 +245,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.lockBtn.hidden = YES;
     [self.contentView addSubview:self.lockBtn];
     
+    //PictureInPicture简称PIP，pipBtn为开启画中画的功能按钮
+    self.pipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.pipBtn.showsTouchWhenHighlighted = YES;
+    [self.pipBtn addTarget:self action:@selector(pipAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.pipBtn setImage:WMPlayerImage(@"pip.jpg") forState:UIControlStateNormal];
+    [self.pipBtn setImage:WMPlayerImage(@"pip.jpg") forState:UIControlStateSelected];
+    self.pipBtn.hidden = NO;
+    [self.contentView addSubview:self.pipBtn];
+    
     //leftTimeLabel显示左边的时间进度
     self.leftTimeLabel = [UILabel new];
     self.leftTimeLabel.textAlignment = NSTextAlignmentLeft;
@@ -406,7 +416,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.rateBtn.frame = CGRectMake(self.bottomView.frame.size.width-self.playOrPauseBtn.frame.origin.x, self.playOrPauseBtn.frame.origin.y, 45, 30);
     }
     self.lockBtn.frame = CGRectMake(iphoneX_margin, self.contentView.frame.size.height/2-self.lockBtn.frame.size.height/2, self.lockBtn.currentImage.size.width, self.lockBtn.currentImage.size.height);
-    
+    self.pipBtn.frame = CGRectMake(self.contentView.frame.size.width-40, self.contentView.frame.size.height/2-self.lockBtn.frame.size.height/2, self.lockBtn.currentImage.size.width, self.lockBtn.currentImage.size.height);
     self.fullScreenBtn.frame = CGRectMake(self.bottomView.frame.size.width-10-self.fullScreenBtn.currentImage.size.width, self.playOrPauseBtn.frame.origin.y, self.fullScreenBtn.currentImage.size.width, self.fullScreenBtn.currentImage.size.height);
     
     
@@ -494,6 +504,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 - (void)routePickerViewDidEndPresentingRoutes:(AVRoutePickerView *)routePickerView API_AVAILABLE(ios(11.0)){
     NSLog(@"AirPlay界面结束时回调  %@",[routePickerView valueForKey:@"airPlayActive"]);
     
+}
+-(void)pipAction:(UIButton *)sender{
+    if (_AVPictureInPictureController.pictureInPictureActive) {
+        [_AVPictureInPictureController stopPictureInPicture];
+    } else {
+        [_AVPictureInPictureController startPictureInPicture];
+    }
 }
 #pragma mark
 #pragma mark - 点击锁定🔒屏幕旋转
@@ -665,6 +682,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         // 添加视频播放结束通知
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_currentItem];
     }
+   
+}
+-(void)setupSuport {
+    if([AVPictureInPictureController isPictureInPictureSupported]) {
+        _AVPictureInPictureController =  [[AVPictureInPictureController alloc] initWithPlayerLayer:self.playerLayer];
+        _AVPictureInPictureController.delegate = self;
+    } else {
+        // not supported PIP start button desable here
+    }
 }
 //设置静音
 - (void)setMuted:(BOOL)muted{
@@ -755,6 +781,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //监听播放状态
     [self initTimer];
     [self.player play];
+    //添加画中画相关代码
+    [self setupSuport];
 }
 +(BOOL)IsiPhoneX{
     BOOL iPhoneXSeries = NO;
