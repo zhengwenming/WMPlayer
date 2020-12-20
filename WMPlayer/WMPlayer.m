@@ -287,7 +287,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.rateBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     [self.bottomView addSubview:self.rateBtn];
     self.rateBtn.hidden = YES;
-
+    self.rate = 1.0;//默认值
       if (@available(iOS 11.0, *)) {
         AVRoutePickerView  *airPlayView = [[AVRoutePickerView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
           //活跃状态颜色
@@ -560,16 +560,23 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self play];
         if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
             self.rate = [self.rateBtn.currentTitle floatValue];
+        }else{
+            self.rate = 1.0f;
         }
     } else if(self.state==WMPlayerStatePlaying){
         [self pause];
     }else if(self.state ==WMPlayerStateFinished){
         if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
             self.rate = [self.rateBtn.currentTitle floatValue];
+        }else{
+            self.rate = 1.0f;
         }
+
     }else if(self.state==WMPlayerStatePause){
         if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
             self.rate = [self.rateBtn.currentTitle floatValue];
+        }else{
+            self.rate = 1.0f;
         }
     }
     if ([self.delegate respondsToSelector:@selector(wmplayer:clickedPlayOrPauseButton:)]) {
