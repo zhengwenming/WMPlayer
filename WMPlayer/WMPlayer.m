@@ -268,7 +268,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.rightTimeLabel.textColor = [UIColor whiteColor];
     self.rightTimeLabel.font = [UIFont systemFontOfSize:11];
     [self.bottomView addSubview:self.rightTimeLabel];
-    self.rightTimeLabel.text = [self convertTime:0.0];//设置默认值
 
     //backBtn
     self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -397,14 +396,13 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.topView.frame = CGRectMake(0, 0, self.contentView.frame.size.width, 70);
     self.backBtn.frame = CGRectMake(self.isFullscreen?([WMPlayer IsiPhoneX]?60:30):10, self.topView.frame.size.height/2-(self.backBtn.currentImage.size.height+4)/2, self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4);
     self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.backBtn.frame)+5, 0, self.topView.frame.size.width-CGRectGetMaxX(self.backBtn.frame)-20-50, self.topView.frame.size.height);
-    
     if (self.isFullscreen) {
         self.bottomView.frame = CGRectMake(self.topView.frame.origin.x, self.contentView.frame.size.height-105, self.topView.frame.size.width, 105);
-        self.leftTimeLabel.frame = CGRectMake(iphoneX_margin, 0, 100, 20);
-        self.rightTimeLabel.frame = CGRectMake(self.bottomView.frame.size.width-iphoneX_margin-self.leftTimeLabel.frame.size.width, self.leftTimeLabel.frame.origin.y, self.leftTimeLabel.frame.size.width, self.leftTimeLabel.frame.size.height);
-        self.loadingProgress.frame = CGRectMake(self.leftTimeLabel.frame.origin.x, self.bottomView.frame.size.height/2-25, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2, 1);
-        self.progressSlider.frame = CGRectMake(self.loadingProgress.frame.origin.x-3, self.loadingProgress.frame.origin.y+2, self.bottomView.frame.size.width-(self.loadingProgress.frame.origin.x)*2+6, 1);
-        self.playOrPauseBtn.frame = CGRectMake(iphoneX_margin, self.progressSlider.frame.origin.y+15, self.playOrPauseBtn.currentImage.size.width, self.playOrPauseBtn.currentImage.size.height);
+        self.progressSlider.frame = CGRectMake(iphoneX_margin, 0, self.bottomView.frame.size.width-iphoneX_margin*2, 30);
+        self.loadingProgress.frame = CGRectMake(iphoneX_margin+2, CGRectGetMaxY(self.progressSlider.frame)-30/2-2, self.bottomView.frame.size.width-iphoneX_margin*2-2, 1);
+        self.playOrPauseBtn.frame = CGRectMake(iphoneX_margin, CGRectGetMaxY(self.progressSlider.frame)+15, self.playOrPauseBtn.currentImage.size.width, self.playOrPauseBtn.currentImage.size.height);
+        self.leftTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.playOrPauseBtn.frame)+10, CGRectGetMaxY(self.playOrPauseBtn.frame)-self.playOrPauseBtn.frame.size.height/2-20/2, 100, 20);
+        self.rightTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.leftTimeLabel.frame)+1, self.leftTimeLabel.frame.origin.y, self.leftTimeLabel.frame.size.width, self.leftTimeLabel.frame.size.height);
         self.rateBtn.frame = CGRectMake(self.bottomView.frame.size.width-iphoneX_margin-45, self.playOrPauseBtn.frame.origin.y, 45, 30);
     }else{
         self.bottomView.frame = CGRectMake(self.topView.frame.origin.x, self.contentView.frame.size.height-70, self.topView.frame.size.width, 70);
@@ -412,7 +410,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.leftTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.playOrPauseBtn.frame)+5, self.bottomView.frame.size.height/2+8, 100, 20);
         self.rightTimeLabel.frame = CGRectMake(self.bottomView.frame.size.width-self.leftTimeLabel.frame.origin.x-self.leftTimeLabel.frame.size.width, self.bottomView.frame.size.height/2+8, self.leftTimeLabel.frame.size.width, self.leftTimeLabel.frame.size.height);
         self.loadingProgress.frame = CGRectMake(self.leftTimeLabel.frame.origin.x, self.bottomView.frame.size.height/2-2, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2, 1);
-        self.progressSlider.frame = CGRectMake(self.leftTimeLabel.frame.origin.x-3, self.bottomView.frame.size.height/2, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2+6, 1);
+        self.progressSlider.frame = CGRectMake(self.leftTimeLabel.frame.origin.x-3, self.bottomView.frame.size.height/2-30/2, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2+6, 30);
         self.rateBtn.frame = CGRectMake(self.bottomView.frame.size.width-self.playOrPauseBtn.frame.origin.x, self.playOrPauseBtn.frame.origin.y, 45, 30);
     }
     self.lockBtn.frame = CGRectMake(iphoneX_margin, self.contentView.frame.size.height/2-self.lockBtn.frame.size.height/2, self.lockBtn.currentImage.size.width, self.lockBtn.currentImage.size.height);
@@ -1093,8 +1091,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     CMTime playerDuration = [self playerItemDuration];
     CGFloat totalTime = (CGFloat)CMTimeGetSeconds(playerDuration);
     long long nowTime = self.currentItem.currentTime.value/self.currentItem.currentTime.timescale;
-    self.leftTimeLabel.text = [self convertTime:nowTime];
-    self.rightTimeLabel.text = [self convertTime:self.totalTime];
+    
+    if (self.isFullscreen) {
+        self.leftTimeLabel.text = [NSString stringWithFormat:@"%@/%@",[self convertTime:nowTime],[self convertTime:self.totalTime]];
+        self.rightTimeLabel.text = @"";
+    }else{
+        self.leftTimeLabel.text  = [self convertTime:nowTime];
+        self.rightTimeLabel.text = ([self convertTime:self.totalTime]);
+    }
     
     if (isnan(totalTime)) {
         self.rightTimeLabel.text = @"";
@@ -1337,7 +1341,16 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     self.progressSlider.value = 0;
     self.bottomProgress.progress = 0;
     self.loadingProgress.progress = 0;
-    self.leftTimeLabel.text = self.rightTimeLabel.text = [self convertTime:0.0];//设置默认值
+    
+    if (self.isFullscreen) {
+        self.leftTimeLabel.text = [NSString stringWithFormat:@"%@/%@",[self convertTime:0.0],[self convertTime:0.0]];
+        self.rightTimeLabel.text = @"";
+    }else{
+        self.leftTimeLabel.text  = [self convertTime:0.0];//设置默认值
+        self.rightTimeLabel.text = ([self convertTime:self.totalTime]);
+    }
+    
+    self.leftTimeLabel.text = self.isFullscreen?([NSString stringWithFormat:@"/%@",[self convertTime:self.totalTime]]):([self convertTime:self.totalTime]);
     // 移除原来的layer
     [self.playerLayer removeFromSuperlayer];
     // 替换PlayerItem为nil

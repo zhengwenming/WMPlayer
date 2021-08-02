@@ -46,7 +46,6 @@
     playerModel.title = @"这是视频标题";
     playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
 
-
     self.wmPlayer = [[WMPlayer alloc] initWithFrame:CGRectMake(0, [WMPlayer IsiPhoneX]?34:0, self.view.frame.size.width, self.view.frame.size.width*(9.0/16))];
     self.wmPlayer.delegate = self;
     self.wmPlayer.playerModel =playerModel;
