@@ -50,10 +50,9 @@
 
 ---
 
-微信扫码关注文明的iOS开发公众号
-或者微信搜索“iOS开发by文明”
+本人开发的小程序--账户密码管理（专门管理个人账户信息），采用腾讯云开发模式，信息加密后存储腾讯云，安全，免费，永不丢失密码！欢迎试用
 
-![image](https://github.com/zhengwenming/WMPlayer/blob/master/PlayerDemo/gzh.jpg)
+![34011649649201_ pic](https://user-images.githubusercontent.com/8285047/162709316-0e069ed7-8a01-4eb5-941d-3aa897507f8e.jpg)
 
 ---
 
