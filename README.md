@@ -36,18 +36,6 @@
 
     pod 'WMPlayer',  :git => 'https://github.com/zhengwenming/WMPlayer.git'
     
-
----
-
-# WMPlayer更新日志
-
-#### Version-4.0.0 (修复视频全屏的bug,具体表现为键盘和状态栏方向不一致)
-#### Version-4.1.0 (修复present出来WMPlayer无法全屏显示的bug)
-#### Version-4.2.0 (适配iOS 11、适配iPhone X)---------2017.10.15
-#### Version-5.0.0 (添加n个新功能)---------2018.05.22
-#### Version-5.1.0 (添加万能播放器-WNPlayer，支持几乎所有频格式，比如avi、flv、m3u8、3gp、RTMP、RTSP、MKV、rmvb、wmv、mp4、mov)
-####  删除WNPlayer组件，另开了仓库管理WNPlayer，地址为https://github.com/zhengwenming/WNPlayer.git
-
 ---
 
 本人开发的小程序--账户密码管理（专门管理个人账户信息），采用腾讯云开发模式，信息加密后存储腾讯云，安全，免费，永不丢失密码！欢迎试用
