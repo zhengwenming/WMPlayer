@@ -110,6 +110,8 @@
 
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
 
+有关视频缓存到本地的第三方库，请移步唱吧开源的项目https://github.com/ChangbaDevs/KTVHTTPCache
+
 欢迎加入WMPlayer+WNPlayer开发交流群
 
 加本人微信18824905363，备注WMPlayer，我会拉你入群
