@@ -18,6 +18,8 @@
 - [x] 支持列表跳转详情页播放同一个视频资源，达到无缝播放效果，类似今日头条的列表到详情页。
 - [x] 支持动态改变播放器的填充模式
 
+备注：有关视频缓存到本地的第三方库，请移步唱吧开源的项目https://github.com/ChangbaDevs/KTVHTTPCache
+
 
 ## pod使用的问题总结
 
@@ -109,8 +111,6 @@
   
 
 使用过程中有bug，请联系我，我会及时修复。谢谢大家的支持。
-
-有关视频缓存到本地的第三方库，请移步唱吧开源的项目https://github.com/ChangbaDevs/KTVHTTPCache
 
 欢迎加入WMPlayer+WNPlayer开发交流群
 
