@@ -67,6 +67,13 @@
             UITableView.appearance.estimatedSectionFooterHeight = 0;
             UITableView.appearance.estimatedSectionHeaderHeight = 0;
         }
+        if (@available(iOS 15.0, *)) {
+            _table.sectionHeaderTopPadding = 0;
+                //iOS 刷新机制改变，关闭预取
+            _table.prefetchingEnabled = NO;
+            } else {
+                // Fallback on earlier versions
+            }
         [self.view addSubview:_table];
         
         [_table mas_makeConstraints:^(MASConstraintMaker *make) {

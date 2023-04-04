@@ -55,8 +55,8 @@
 ///播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
     if (wmplayer.isFullscreen) {
-         [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
-         [UIViewController attemptRotationToDeviceOrientation];
+        [self.wmPlayer setIsFullscreen:NO];
+        [self changeInterfaceOrientation:UIInterfaceOrientationPortrait];
     }else{
         if (self.presentingViewController) {
             [self dismissViewControllerAnimated:YES completion:^{
@@ -67,12 +67,76 @@
         }
     }
 }
+- (void)changeInterfaceOrientation:(UIInterfaceOrientation)ori {
+    @try {
+            // ios16使用新的api
+            if (@available(iOS 16.0, *)) {
+                UIInterfaceOrientationMask oriMask = UIInterfaceOrientationMaskPortrait;
+                if (ori == UIDeviceOrientationPortrait) {
+                    oriMask = UIInterfaceOrientationMaskPortrait;
+                } else if (ori == UIDeviceOrientationLandscapeLeft) {
+                    oriMask = UIInterfaceOrientationMaskLandscapeRight;
+                } else if (ori == UIDeviceOrientationLandscapeRight) {
+                    oriMask = UIInterfaceOrientationMaskLandscapeLeft;
+                } else {
+                    return;
+                }
+                // 防止appDelegate supportedInterfaceOrientationsForWindow方法不调用
+                UINavigationController *nav = self.navigationController;
+                SEL selUpdateSupportedMethod = NSSelectorFromString(@"setNeedsUpdateOfSupportedInterfaceOrientations");
+                if ([nav respondsToSelector:selUpdateSupportedMethod]) {
+                    (((void (*)(id, SEL))[nav methodForSelector:selUpdateSupportedMethod])(nav, selUpdateSupportedMethod));
+                }
+                
+                NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+                UIWindowScene *ws = (UIWindowScene *)array.firstObject;
+                Class GeometryPreferences = NSClassFromString(@"UIWindowSceneGeometryPreferencesIOS");
+                id geometryPreferences = [[GeometryPreferences alloc] init];
+                [geometryPreferences setValue:@(oriMask) forKey:@"interfaceOrientations"];
+                SEL selGeometryUpdateMethod = NSSelectorFromString(@"requestGeometryUpdateWithPreferences:errorHandler:");
+                void (^ErrorBlock)(NSError *error) = ^(NSError *error){
+                      NSLog(@"iOS 16 转屏Error: %@",error);
+                };
+                if ([ws respondsToSelector:selGeometryUpdateMethod]) {
+                    (((void (*)(id, SEL,id,id))[ws methodForSelector:selGeometryUpdateMethod])(ws, selGeometryUpdateMethod,geometryPreferences,ErrorBlock));
+                }
+//                [self onDeviceOrientationChange:nil];
+            } else {
+                
+                if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+                    SEL selector = NSSelectorFromString(@"setOrientation:");
+
+                    if ([UIDevice currentDevice].orientation == ori) {
+                        NSInvocation *invocationUnknow = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+                        [invocationUnknow setSelector:selector];
+                        [invocationUnknow setTarget:[UIDevice currentDevice]];
+                        UIDeviceOrientation unKnowVal = UIDeviceOrientationUnknown;
+                        [invocationUnknow setArgument:&unKnowVal atIndex:2];
+                        [invocationUnknow invoke];
+                    }
+                    
+                    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+                    [invocation setSelector:selector];
+                    [invocation setTarget:[UIDevice currentDevice]];
+                    UIDeviceOrientation val = ori;
+                    [invocation setArgument:&val atIndex:2];
+                    [invocation invoke];
+                }
+            }
+
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+}
 ///全屏按钮
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
     if (self.wmPlayer.isFullscreen) {//全屏-->非全屏
         [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
     }else{//非全屏-->全屏
-        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeRight) forKey:@"orientation"];
+        [self.wmPlayer setIsFullscreen:YES];
+        [self changeInterfaceOrientation:UIInterfaceOrientationLandscapeRight];
     }
     [UIViewController attemptRotationToDeviceOrientation];
 }
