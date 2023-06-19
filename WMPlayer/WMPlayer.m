@@ -54,7 +54,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 //视频进度条的单击手势&播放器的单击手势
 @property (nonatomic,strong) UITapGestureRecognizer *progressTap,*singleTap;
 //是否正在拖曳进度条
-@property (nonatomic,assign) BOOL isDragingSlider;
+@property (nonatomic,assign) NSInteger dragingSliderStatus;//0默认无操作，1拖曳中，2拖曳后释放（之后恢复默认0）
 //BOOL值判断操作栏是否隐藏
 @property (nonatomic,assign) BOOL isHiddenTopAndBottomView;
 //BOOL值判断操作栏是否隐藏
@@ -934,13 +934,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark
 #pragma mark--开始拖曳sidle
 - (void)stratDragSlide:(UISlider *)slider{
-    self.isDragingSlider = YES;
+    self.dragingSliderStatus = 1;
 }
 #pragma mark
 #pragma mark - 播放进度
 - (void)updateProgress:(UISlider *)slider{
-    self.isDragingSlider = NO;
+    //放手的那一刻，立即更新播放器的实际进度为slider的进度
     [self.player seekToTime:CMTimeMakeWithSeconds(slider.value, self.currentItem.currentTime.timescale)];
+    self.dragingSliderStatus = 2;
 }
 -(void)dismissControlView{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoDismissControlView) object:nil];
@@ -1104,9 +1105,15 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.rightTimeLabel.text = @"";
         NSLog(@"NaN");
     }
-        if (self.isDragingSlider==YES) {//拖拽slider中，不更新slider的值
-            
-        }else if(self.isDragingSlider==NO){
+        if (self.dragingSliderStatus==1) {//拖拽slider中，不更新slider的值
+
+        }else if(self.dragingSliderStatus==2){
+            nowTime = self.progressSlider.value;
+            CGFloat value = (self.progressSlider.maximumValue - self.progressSlider.minimumValue) * nowTime / self.totalTime + self.progressSlider.minimumValue;
+            self.progressSlider.value = value;
+            [self.bottomProgress setProgress:nowTime/(self.totalTime) animated:NO];
+            self.dragingSliderStatus = 0;
+        }else if(self.dragingSliderStatus==0){
             CGFloat value = (self.progressSlider.maximumValue - self.progressSlider.minimumValue) * nowTime / self.totalTime + self.progressSlider.minimumValue;
             self.progressSlider.value = value;
             [self.bottomProgress setProgress:nowTime/(self.totalTime) animated:YES];
