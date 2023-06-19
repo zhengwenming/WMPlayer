@@ -940,8 +940,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark - 播放进度
 - (void)updateProgress:(UISlider *)slider{
     //放手的那一刻，立即更新播放器的实际进度为slider的进度
-    [self.player seekToTime:CMTimeMakeWithSeconds(slider.value, self.currentItem.currentTime.timescale)];
-    self.dragingSliderStatus = 2;
+    [self.player seekToTime:CMTimeMakeWithSeconds(slider.value, self.currentItem.currentTime.timescale) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
+        self.dragingSliderStatus = 2;
+    }];
 }
 -(void)dismissControlView{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoDismissControlView) object:nil];
