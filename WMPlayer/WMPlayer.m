@@ -794,10 +794,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
         return iPhoneXSeries;
     }
-    if (@available(iOS 11.0, *)) {//x系列的系统从iOS11开始
-        if(UIApplication.sharedApplication.delegate.window.safeAreaInsets.bottom > 0.0) {
-            iPhoneXSeries = YES;
-        }
+    if((ABS(MAX(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds)) / MIN(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds)) - 896 / 414.0) < 0.01)||(ABS(MAX(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds)) / MIN(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds)) - 812 / 375.0) < 0.01))
+    {
+        return iPhoneXSeries = YES;
     }
     return iPhoneXSeries;
 }
