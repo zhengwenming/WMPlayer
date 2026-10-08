@@ -50,6 +50,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"视频推荐";
+    WMPlayerModel *playerModel = [WMPlayerModel new];
+//            playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+    playerModel.videoURL = [NSURL URLWithString:@"https://live-1300462515.cos.ap-guangzhou.myqcloud.com/live/94373420/94373420.m3u8"];
+    
+    //    playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
+        playerModel.title = @"test";
+        DetailViewController *detailVC = [DetailViewController new];
+        detailVC.playerModel = playerModel;
+        [self.navigationController pushViewController:detailVC animated:YES];
     UICollectionViewFlowLayout* videoFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [videoFlowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//垂直滚动
     self.videoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height) collectionViewLayout:videoFlowLayout];
@@ -139,11 +148,8 @@
     }else{
         VideoDataModel *videoModel = self.videoDataAry[indexPath.row];
         WMPlayerModel *playerModel = [WMPlayerModel new];
-//            playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
-        playerModel.videoURL = [NSURL URLWithString:@"http://img.zhuoqi.tech/test_h264_level30_480_360.mp4"];
-        
-        //    playerModel.videoURL = [NSURL URLWithString:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-            playerModel.title = videoModel.nickname;
+        playerModel.videoURL = [NSURL URLWithString:videoModel.video_url];
+        playerModel.title = videoModel.nickname;
             DetailViewController *detailVC = [DetailViewController new];
             detailVC.playerModel = playerModel;
             [self.navigationController pushViewController:detailVC animated:YES];

@@ -138,6 +138,18 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  */
 @property (nonatomic,assign) BOOL  enableFastForwardGesture;
 /**
+ 是否开启双指捏合缩放视频画面的手势，default YES（仅全屏时生效）
+ */
+@property (nonatomic,assign) BOOL  enablePinchZoom;
+/**
+ 视频画面缩放的最大倍数，default 3.0
+ */
+@property (nonatomic,assign) CGFloat  maxScale;
+/**
+ 视频画面缩放的最小倍数，default 0.5（小于1.0即缩小画面）
+ */
+@property (nonatomic,assign) CGFloat  minScale;
+/**
  是否静音
  */
 @property (nonatomic,assign) BOOL  muted;

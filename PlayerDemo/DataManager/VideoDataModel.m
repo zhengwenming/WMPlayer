@@ -134,41 +134,71 @@
 
 +(void)getHomePageVideoDataWithBlock:(void (^)(NSArray* dateAry, NSError* error))block
 {
-    //    NSString *apiString = @"https://api.huoshan.com/hotsoon/feed/?type=video&iid=8257698093&os_version=9.3.2&os_api=18&app_name=live_stream_pro&channel=App%20Store&device_platform=iphone&idfa=B265DA9C-569C-4B55-BE8E-3D2EC5310A7A&live_sdk_version=1.7.3&vid=AD78E6CD-4827-4D52-932A-3E74AD30F5CB&openudid=82d61456516d047fbdb667fea5ceb6d87be15bfc&device_type=iPhone8,2&version_code=1.7.3&ac=WIFI&screen_width=1242&device_id=35199776125&aid=1115&action=refresh&live_source=live_small_picture";
-    
-    
-//    NSString *apiString = @"https://api.huoshan.com/hotsoon/feed/?type=video&iid=8257698093&os_version=9.3.2&os_api=18&app_name=live_stream_pro&channel=App%20Store&device_platform=iphone&idfa=B265DA9C-569C-4B55-BE8E-3D2EC5310A7A&live_sdk_version=1.7.3&vid=AD78E6CD-4827-4D52-932A-3E74AD30F5CB&openudid=82d61456516d047fbdb667fea5ceb6d87be15bfc&device_type=iPhone8,2&version_code=2.2.1&ac=WIFI&screen_width=1242&device_id=35199776125&aid=1115&action=refresh&live_source=live_small_picture";
-    
-    
-       NSString *apiString = @"https://api-hl.huoshan.com/hotsoon/feed/?type=video&iid=56693189339&ac=WIFI&ab_version=391711,501253,592609,662547,671134,384501,663932,612165,681210,674736,654193,557631,678843,681232,680055,637814,666872,681693,661943,681616,374104,378844,682009,665355,446763,638535,681229,299910,632485,671292,651646,598627,641184,457535,493546,677944&os_api=18&app_name=live_stream&channel=App%20Store&idfa=59E6123C-45AE-4F64-9192-FD9B0E982923&device_platform=iphone&live_sdk_version=5.4.0&vid=DD5987BE-4451-43E1-B234-68525808A52F&mccmnc=&device_type=iPhone7,1&openudid=62948e3983ef2572b9acc1b524998172d40f5f73&version_code=5.4.0&os_version=12.0&screen_width=1125&aid=1112&device_id=36177005663&req_from=feed_refresh&action=refresh&diff_stream=1&mas=00f6d48a97d7aaa909e3451f22676861b28a07d5ae901270dbe287&as=a2b5c403499e6cf3806834&ts=1546666985";
-    
-    
-    
-    AFHTTPSessionManager* afManager = [AFHTTPSessionManager manager];
-    afManager.requestSerializer.timeoutInterval = 30;
-    [afManager GET:apiString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if([[responseObject objectForKey:@"status_code"] intValue] != 0){
-            return ;
-        }else
-        {
-            NSArray* getFromResponse = [responseObject objectForKey:@"data"];
-            NSMutableArray* mutablePosts = [NSMutableArray arrayWithCapacity:[getFromResponse count]];
-            for (NSDictionary* attributes in getFromResponse) {
-                VideoDataModel* dataModel = [[VideoDataModel alloc] initVideoDataWithDic:attributes];
-                [mutablePosts addObject:dataModel];
-            }
-            if (block) {
-                block([NSArray arrayWithArray:mutablePosts],nil);
-            }
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (block) {
-            block([NSArray array],error);
-        }
-        
-    }];
+    // 原火山小视频接口已下线，此处改为返回一组固定的公开测试视频
+    NSArray *videos = @[
+        @{@"title" : @"Apple BipBop 高级示例（HLS）",
+          @"nickname" : @"BipBop",
+          @"location" : @"苹果官方示例",
+          @"video_url" : @"https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8",
+          @"cover_url" : @"https://picsum.photos/seed/bipbop/400/600",
+          @"avatar_thumb" : @"https://picsum.photos/seed/bipbop/100/100",
+          @"play_count" : @"128000",
+          @"comment_count" : @"3200"},
+        @{@"title" : @"Apple BipBop 4:3（HLS）",
+          @"nickname" : @"BipBop 4:3",
+          @"location" : @"苹果官方示例",
+          @"video_url" : @"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8",
+          @"cover_url" : @"https://picsum.photos/seed/bipbop43/400/600",
+          @"avatar_thumb" : @"https://picsum.photos/seed/bipbop43/100/100",
+          @"play_count" : @"96000",
+          @"comment_count" : @"2100"},
+        @{@"title" : @"Sintel 预告片",
+          @"nickname" : @"Sintel",
+          @"location" : @"W3C 媒体测试",
+          @"video_url" : @"https://media.w3.org/2010/05/sintel/trailer.mp4",
+          @"cover_url" : @"https://media.w3.org/2010/05/sintel/poster.png",
+          @"avatar_thumb" : @"https://picsum.photos/seed/sintel/100/100",
+          @"play_count" : @"215000",
+          @"comment_count" : @"5400"},
+        @{@"title" : @"Big Buck Bunny 预告片",
+          @"nickname" : @"Big Buck Bunny",
+          @"location" : @"W3C 媒体测试",
+          @"video_url" : @"https://media.w3.org/2010/05/bunny/trailer.mp4",
+          @"cover_url" : @"https://picsum.photos/seed/bunny/400/600",
+          @"avatar_thumb" : @"https://picsum.photos/seed/bunny/100/100",
+          @"play_count" : @"302000",
+          @"comment_count" : @"6800"},
+        @{@"title" : @"Oceans",
+          @"nickname" : @"Oceans",
+          @"location" : @"Video.js 示例",
+          @"video_url" : @"https://vjs.zencdn.net/v/oceans.mp4",
+          @"cover_url" : @"https://picsum.photos/seed/oceans/400/600",
+          @"avatar_thumb" : @"https://picsum.photos/seed/oceans/100/100",
+          @"play_count" : @"180000",
+          @"comment_count" : @"4100"},
+    ];
+
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:videos.count];
+    for (NSDictionary *info in videos) {
+        VideoDataModel *model = [[VideoDataModel alloc] init];
+        model.title = info[@"title"];
+        model.nickname = info[@"nickname"];
+        model.location = info[@"location"];
+        model.video_url = info[@"video_url"];
+        model.cover_url = info[@"cover_url"];
+        model.avatar_thumb = info[@"avatar_thumb"];
+        model.play_count = info[@"play_count"];
+        model.comment_count = info[@"comment_count"];
+        model.digg_count = @"0";
+        model.share_count = @"0";
+        [result addObject:model];
+    }
+
+    if (block) {
+        block([NSArray arrayWithArray:result], nil);
+    }
 }
+
 
 
 @end

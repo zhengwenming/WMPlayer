@@ -53,6 +53,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @property (nonatomic,strong) id playbackTimeObserver;
 //视频进度条的单击手势&播放器的单击手势
 @property (nonatomic,strong) UITapGestureRecognizer *progressTap,*singleTap;
+//双指捏合缩放手势
+@property (nonatomic,strong) UIPinchGestureRecognizer *pinchGesture;
+//当前累计的缩放倍数
+@property (nonatomic,assign) CGFloat currentScale;
+//记录每次捏合手势开始时的累计缩放倍数
+@property (nonatomic,assign) CGFloat lastScale;
 //是否正在拖曳进度条
 @property (nonatomic,assign) NSInteger dragingSliderStatus;//0默认无操作，1拖曳中，2拖曳后释放（之后恢复默认0）
 //BOOL值判断操作栏是否隐藏
@@ -73,6 +79,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 @property (nonatomic,strong) UILabel   *leftTimeLabel,*rightTimeLabel,*titleLabel,*loadFailedLabel;
 //控制全屏和播放暂停按钮
 @property (nonatomic,strong) UIButton  *fullScreenBtn,*playOrPauseBtn,*lockBtn,*pipBtn,*backBtn,*rateBtn;
+//缩放模式下显示的“恢复”按钮
+@property (nonatomic,strong) UIButton  *resetPinchBtn;
 //进度滑块&声音滑块
 @property (nonatomic,strong) UISlider   *progressSlider,*volumeSlider;
 //显示缓冲进度和底部的播放进度
@@ -153,6 +161,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //wmplayer内部的一个view，用来管理子视图
     self.contentView = [UIView new];
     self.contentView.backgroundColor = [UIColor blackColor];
+    //裁剪溢出内容，保证放大的视频画面不超出播放器边界
+    self.contentView.layer.masksToBounds = YES;
     [self addSubview:self.contentView];
     self.backgroundColor = [UIColor blackColor];
 
@@ -165,6 +175,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //设置默认值
     self.enableVolumeGesture = YES;
     self.enableFastForwardGesture = YES;
+    self.enablePinchZoom = YES;
+    self.minScale = 0.5;
+    self.maxScale = 3.0;
+    self.currentScale = 1.0;
+    self.lastScale = 1.0;
     
     //小菊花
     self.loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -251,8 +266,20 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [self.pipBtn addTarget:self action:@selector(pipAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.pipBtn setImage:WMPlayerImage(@"pip.jpg") forState:UIControlStateNormal];
     [self.pipBtn setImage:WMPlayerImage(@"pip.jpg") forState:UIControlStateSelected];
-    self.pipBtn.hidden = NO;
+    self.pipBtn.hidden = YES;
     [self.contentView addSubview:self.pipBtn];
+    
+    //缩放模式下显示的“恢复”按钮（捏合放大/缩小后隐藏其它控件，仅保留此按钮）
+    self.resetPinchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.resetPinchBtn addTarget:self action:@selector(resetPinchAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.resetPinchBtn setTitle:@"恢复" forState:UIControlStateNormal];
+    [self.resetPinchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.resetPinchBtn.titleLabel.font = [UIFont systemFontOfSize:14.f];
+    self.resetPinchBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    self.resetPinchBtn.layer.cornerRadius = 18.0;
+    self.resetPinchBtn.layer.masksToBounds = YES;
+    self.resetPinchBtn.hidden = YES;
+    [self.contentView addSubview:self.resetPinchBtn];
     
     //leftTimeLabel显示左边的时间进度
     self.leftTimeLabel = [UILabel new];
@@ -338,6 +365,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     [doubleTap setDelaysTouchesBegan:YES];
     [self.singleTap requireGestureRecognizerToFail:doubleTap];//如果双击成立，则取消单击手势（双击的时候不会走单击事件）
     [self.contentView addGestureRecognizer:doubleTap];
+    
+    // 双指捏合缩放手势
+    self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+    self.pinchGesture.delegate = self;
+    [self.contentView addGestureRecognizer:self.pinchGesture];
 }
 #pragma mark - Gesture Delegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -349,8 +381,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)setRate:(CGFloat)rate{
     _rate = rate;
     self.player.rate = rate;
-    self.state = WMPlayerStatePlaying;
-    self.playOrPauseBtn.selected = NO;
     if(rate==1.25){
         [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateNormal];
         [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateSelected];
@@ -393,6 +423,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.FF_View.frame = CGRectMake(0, 0, 120, 70);
     self.FF_View.center = self.contentView.center;
     self.loadingView.center = self.contentView.center;
+    self.resetPinchBtn.frame = CGRectMake(0, 0, 72, 36);
+    self.resetPinchBtn.center = self.contentView.center;
     self.topView.frame = CGRectMake(0, 0, self.contentView.frame.size.width, 70);
     self.backBtn.frame = CGRectMake(self.isFullscreen?([WMPlayer IsiPhoneX]?60:30):10, self.topView.frame.size.height/2-(self.backBtn.currentImage.size.height+4)/2, self.backBtn.currentImage.size.width+6, self.backBtn.currentImage.size.height+4);
     self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.backBtn.frame)+5, 0, self.topView.frame.size.width-CGRectGetMaxX(self.backBtn.frame)-20-50, self.topView.frame.size.height);
@@ -413,8 +445,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.progressSlider.frame = CGRectMake(self.leftTimeLabel.frame.origin.x-3, self.bottomView.frame.size.height/2-30/2, self.bottomView.frame.size.width-(self.leftTimeLabel.frame.origin.x)*2+6, 30);
         self.rateBtn.frame = CGRectMake(self.bottomView.frame.size.width-self.playOrPauseBtn.frame.origin.x, self.playOrPauseBtn.frame.origin.y, 45, 30);
     }
-    self.lockBtn.frame = CGRectMake(iphoneX_margin, self.contentView.frame.size.height/2-self.lockBtn.frame.size.height/2, self.lockBtn.currentImage.size.width, self.lockBtn.currentImage.size.height);
-    self.pipBtn.frame = CGRectMake(self.contentView.frame.size.width-40, self.contentView.frame.size.height/2-self.lockBtn.frame.size.height/2, self.lockBtn.currentImage.size.width, self.lockBtn.currentImage.size.height);
+    //lock/pip 图标按钮统一使用 lock 图片的逻辑尺寸（pip.jpg 为 208x168 非规范图，直接取 currentImage.size 会被放大）
+    CGFloat iconSize = self.lockBtn.currentImage.size.width;
+    self.lockBtn.frame = CGRectMake(iphoneX_margin, self.contentView.frame.size.height/2-iconSize/2, iconSize, iconSize);
+    //画中画按钮贴边靠右：右边距用较小固定值，离屏幕更近
+    self.pipBtn.frame = CGRectMake(self.contentView.frame.size.width-20-iconSize, self.contentView.frame.size.height/2-iconSize/2, iconSize, iconSize);
     self.fullScreenBtn.frame = CGRectMake(self.bottomView.frame.size.width-10-self.fullScreenBtn.currentImage.size.width, self.playOrPauseBtn.frame.origin.y, self.fullScreenBtn.currentImage.size.width, self.fullScreenBtn.currentImage.size.height);
     
     
@@ -494,14 +529,11 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         [self.player play];
     }
 }
-//AirPlay界面弹出时回调
+//AirPlay界面弹出时回调（预留）
 - (void)routePickerViewWillBeginPresentingRoutes:(AVRoutePickerView *)routePickerView API_AVAILABLE(ios(11.0)){
-    NSLog(@"AirPlay界面弹出时回调 %@",[routePickerView valueForKey:@"airPlayActive"]);
 }
-//AirPlay界面结束时回调
+//AirPlay界面结束时回调（预留）
 - (void)routePickerViewDidEndPresentingRoutes:(AVRoutePickerView *)routePickerView API_AVAILABLE(ios(11.0)){
-    NSLog(@"AirPlay界面结束时回调  %@",[routePickerView valueForKey:@"airPlayActive"]);
-    
 }
 -(void)pipAction:(UIButton *)sender{
     if (_AVPictureInPictureController.pictureInPictureActive) {
@@ -591,8 +623,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             self.state = WMPlayerStatePlaying;
             self.playOrPauseBtn.selected = NO;
             [self.player play];
-        }else if(self.state ==WMPlayerStateFinished){
-            NSLog(@"fffff");
         }
     }
 }
@@ -614,6 +644,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 #pragma mark
 #pragma mark - 单击手势方法
 - (void)handleSingleTap:(UITapGestureRecognizer *)sender{
+    //缩放模式下单击不切换操作栏（此时只保留“恢复”按钮）
+    if (fabs(self.currentScale - 1.0) > 0.01) {
+        return;
+    }
     if (self.isLockScreen) {
         if (self.lockBtn.alpha) {
             self.lockBtn.alpha = 0.0;
@@ -624,8 +658,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenLockBtn) object:nil];
             [self performSelector:@selector(hiddenLockBtn) withObject:nil afterDelay:5.0];
         }
-    }else{
-        
     }
     if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:singleTaped:)]) {
         [self.delegate wmplayer:self singleTaped:sender];
@@ -650,6 +682,84 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:doubleTaped:)]) {
         [self.delegate wmplayer:self doubleTaped:doubleTap];
     }
+}
+#pragma mark
+#pragma mark - 双指捏合缩放视频画面
+- (void)handlePinch:(UIPinchGestureRecognizer *)pinch{
+    //仅在开启且全屏时生效（小屏嵌在列表里，捏合易与列表滚动冲突）
+    if (!self.enablePinchZoom || !self.isFullscreen) {
+        return;
+    }
+    switch (pinch.state) {
+        case UIGestureRecognizerStateBegan:{
+            //记录捏合开始时的累计缩放，避免多次捏合间出现跳变
+            self.lastScale = self.currentScale;
+        }
+            break;
+        case UIGestureRecognizerStateChanged:{
+            CGFloat newScale = self.lastScale * pinch.scale;
+            //钳制在最小/最大倍数之间（防御外部把 min/max 设反的情况）
+            CGFloat minScale = MIN(self.minScale, self.maxScale);
+            CGFloat maxScale = MAX(self.minScale, self.maxScale);
+            newScale = MIN(MAX(newScale, minScale), maxScale);
+            self.currentScale = newScale;
+            self.playerLayer.transform = CATransform3DMakeScale(newScale, newScale, 1.0);
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:{
+            self.lastScale = self.currentScale;
+            //捏合结束后，若缩放倍数偏离 1.0 则进入缩放模式（隐藏操作栏、只留“恢复”按钮），否则恢复操作栏
+            if (fabs(self.currentScale - 1.0) > 0.01) {
+                [self enterZoomMode];
+            } else {
+                [self exitZoomMode];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+//重置缩放状态（切换全屏/小屏、重置播放器时调用）
+- (void)resetPinchZoom{
+    self.currentScale = 1.0;
+    self.lastScale = 1.0;
+    self.playerLayer.transform = CATransform3DIdentity;
+    self.resetPinchBtn.hidden = YES;
+}
+//进入缩放模式：隐藏所有操作控件，只显示“恢复”按钮
+- (void)enterZoomMode{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoDismissControlView) object:nil];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.topView.alpha = 0.0;
+        self.bottomView.alpha = 0.0;
+        self.lockBtn.alpha = 0.0;
+        self.pipBtn.alpha = 0.0;
+        self.bottomProgress.alpha = 0.0;
+    }];
+    self.resetPinchBtn.hidden = NO;
+    self.isHiddenTopAndBottomView = YES;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(wmplayer:isHiddenTopAndBottomView:)]) {
+        [self.delegate wmplayer:self isHiddenTopAndBottomView:self.isHiddenTopAndBottomView];
+    }
+}
+//退出缩放模式：隐藏“恢复”按钮，恢复操作栏
+- (void)exitZoomMode{
+    self.resetPinchBtn.hidden = YES;
+    self.pipBtn.alpha = 1.0;
+    [self showControlView];
+}
+//点击“恢复”按钮：缩放平滑回到 1.0 并恢复操作栏
+- (void)resetPinchAction:(UIButton *)sender{
+    self.currentScale = 1.0;
+    self.lastScale = 1.0;
+    self.resetPinchBtn.hidden = YES;
+    [UIView animateWithDuration:0.25 animations:^{
+        self.playerLayer.transform = CATransform3DIdentity;
+    }];
+    [self exitZoomMode];
 }
 
 -(void)setCurrentItem:(AVPlayerItem *)playerItem{
@@ -804,6 +914,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 -(void)setIsFullscreen:(BOOL)isFullscreen{
     _isFullscreen = isFullscreen;
    self.rateBtn.hidden = self.lockBtn.hidden = !isFullscreen;
+   //画中画按钮默认隐藏，仅在横屏全屏时显示（“如果出现”时贴边靠右）
+   self.pipBtn.hidden = !isFullscreen;
    self.fullScreenBtn.hidden = self.fullScreenBtn.selected= isFullscreen;
     if (isFullscreen) {
         self.backBtnStyle = BackBtnStylePop;
@@ -815,6 +927,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.bottomProgress.alpha = 0.0;
         self.frame = self.originFrame;
     }
+    //切换全屏/小屏时重置缩放
+    [self resetPinchZoom];
 }
 -(void)setBackBtnStyle:(BackBtnStyle)backBtnStyle{
     _backBtnStyle = backBtnStyle;
@@ -842,6 +956,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             self.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
         }
     }
+}
+//是否处于用户主动暂停/停止的状态
+- (BOOL)isPausedByUser{
+    return self.state == WMPlayerStateStopped || self.state == WMPlayerStatePause;
 }
 //设置播放的状态
 - (void)setState:(WMPlayerState)state{
@@ -897,11 +1015,8 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 
 -(void)hiddenLockBtn{
-     self.lockBtn.alpha = 0.0;
+    self.lockBtn.alpha = 0.0;
     self.prefersStatusBarHidden = self.hiddenStatusBar = YES;
-    if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:singleTaped:)]) {
-        [self.delegate wmplayer:self singleTaped:self.singleTap];
-    }
 }
 //隐藏操作栏view
 -(void)hiddenControlView{
@@ -925,10 +1040,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     } completion:^(BOOL finish){
         
     }];
-}
--(void)addSubview:(UIView *)view{
-    [super addSubview:view];
-    self.parentView = view;
 }
 #pragma mark
 #pragma mark--开始拖曳sidle
@@ -965,9 +1076,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                       /* Once the AVPlayerItem becomes ready to play, i.e.
                      [playerItem status] == AVPlayerItemStatusReadyToPlay,
                      its duration can be fetched from the item. */
-                    if (self.state==WMPlayerStateStopped||self.state==WMPlayerStatePause) {
-                      
-                    }else{
+                    if (![self isPausedByUser]) {
                         //5s dismiss controlView
                         [self dismissControlView];
                         self.state=WMPlayerStatePlaying;
@@ -982,9 +1091,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                     if (self.muted) {
                         self.player.muted = self.muted;
                     }
-                    if (self.state==WMPlayerStateStopped||self.state==WMPlayerStatePause) {
-                        
-                    }else{
+                    if (![self isPausedByUser]) {
                         if(![self.rateBtn.currentTitle isEqualToString:@"倍速"]){
                             self.rate = [self.rateBtn.currentTitle floatValue];
                         }
@@ -1001,10 +1108,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
                     if (error) {
                         self.loadFailedLabel.hidden = NO;
                         [self bringSubviewToFront:self.loadFailedLabel];
-                        //here
                         [self.loadingView stopAnimating];
+                        NSLog(@"视频加载失败===%@", error.localizedDescription);
                     }
-                    NSLog(@"视频加载失败===%@",error.description);
                 }
                     break;
             }
@@ -1012,14 +1118,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             if ((CGFloat)CMTimeGetSeconds(self.currentItem.duration) != self.totalTime) {
                 self.totalTime = (CGFloat) CMTimeGetSeconds(self.currentItem.asset.duration);
                 
-                if (!isnan(self.totalTime)) {
-                    self.progressSlider.maximumValue = self.totalTime;
-                }else{
-                    self.totalTime = MAXFLOAT;
+                if (isnan(self.totalTime)) {
+                    //时长为非法值时跳过本次更新，避免污染进度条
+                    return;
                 }
-                if (self.state==WMPlayerStateStopped||self.state==WMPlayerStatePause) {
-                   
-                }else{
+                self.progressSlider.maximumValue = self.totalTime;
+                if (![self isPausedByUser]) {
                     self.state = WMPlayerStatePlaying;
                 }
             }
@@ -1040,7 +1144,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [self.loadingView startAnimating];
             // 当缓冲是空的时候
             if (self.currentItem.playbackBufferEmpty) {
-                NSLog(@"%s WMPlayerStateBuffering",__FUNCTION__);
                 [self loadedTimeRanges];
             }
         }else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
@@ -1048,27 +1151,20 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
             [self.loadingView stopAnimating];
             // 当缓冲好的时候
             if (self.currentItem.playbackLikelyToKeepUp && self.state == WMPlayerStateBuffering){
-                NSLog(@"55555%s WMPlayerStatePlaying",__FUNCTION__);
-                if (self.state==WMPlayerStateStopped||self.state==WMPlayerStatePause) {
-                    
-                }else{
+                if (![self isPausedByUser]) {
                     self.state = WMPlayerStatePlaying;
                 }
             }
         }
     }
 }
-//缓冲回调
+//缓冲为空时的兜底重试：5秒后若仍未进入播放/结束状态，则尝试重新播放
 - (void)loadedTimeRanges{
-    if (self.state==WMPlayerStatePause) {
-        
-    }else{
+    if (self.state != WMPlayerStatePause) {
         self.state = WMPlayerStateBuffering;
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.state==WMPlayerStatePlaying||self.state==WMPlayerStateFinished) {
-            
-        }else{
+        if (self.state != WMPlayerStatePlaying && self.state != WMPlayerStateFinished) {
             [self play];
         }
         [self.loadingView stopAnimating];
@@ -1101,13 +1197,14 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.rightTimeLabel.text = ([self convertTime:self.totalTime]);
     }
     
-    if (isnan(totalTime)) {
+    //视频时长尚未就绪时直接返回，避免除零产生 NaN/inf
+    if (self.totalTime <= 0 || isnan(self.totalTime) || isnan(totalTime)) {
         self.rightTimeLabel.text = @"";
-        NSLog(@"NaN");
+        return;
     }
-        if (self.dragingSliderStatus==1) {//拖拽slider中，不更新slider的值
+    if (self.dragingSliderStatus==1) {//拖拽slider中，不更新slider的值
 
-        }else if(self.dragingSliderStatus==2){
+    }else if(self.dragingSliderStatus==2){
             nowTime = self.progressSlider.value;
             CGFloat value = (self.progressSlider.maximumValue - self.progressSlider.minimumValue) * nowTime / self.totalTime + self.progressSlider.minimumValue;
             self.progressSlider.value = value;
@@ -1341,6 +1438,8 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     self.bottomProgress.progress = 0;
     _playerModel = nil;
     self.seekTime = 0;
+    //重置缩放
+    [self resetPinchZoom];
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     // 暂停
@@ -1362,6 +1461,11 @@ NSString * calculateTimeWithTimeFormatter(long long timeSecond){
     [self.playerLayer removeFromSuperlayer];
     // 替换PlayerItem为nil
     [self.player replaceCurrentItemWithPlayerItem:nil];
+    // 移除进度观察者
+    if (self.playbackTimeObserver) {
+        [self.player removeTimeObserver:self.playbackTimeObserver];
+        self.playbackTimeObserver = nil;
+    }
     // 把player置为nil
     self.player = nil;
 }

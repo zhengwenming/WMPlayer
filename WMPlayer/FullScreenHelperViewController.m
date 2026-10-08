@@ -49,8 +49,15 @@
     
 }
 -(void)exitFullScreen{
-    self.wmPlayer.isFullscreen = NO;
+    self.wmPlayer.viewState = PlayerViewStateAnimating;
+    //isFullscreen 延后到转场动画完成后再置 NO，避免动画开始前 player.frame 被提前改成小屏导致画面跳变
     [self dismissViewControllerAnimated:YES completion:^{
+        //兜底：用进入全屏前记录的小屏 bounds/center 重建 originFrame，确保首次退出也能还原原始尺寸与位置
+        self.wmPlayer.originFrame = CGRectMake(self.wmPlayer.beforeCenter.x - self.wmPlayer.beforeBounds.size.width/2,
+                                               self.wmPlayer.beforeCenter.y - self.wmPlayer.beforeBounds.size.height/2,
+                                               self.wmPlayer.beforeBounds.size.width,
+                                               self.wmPlayer.beforeBounds.size.height);
+        self.wmPlayer.isFullscreen = NO;
         self.wmPlayer.viewState = PlayerViewStateSmall;
     }];
 }
@@ -94,7 +101,6 @@
 }
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSLog(@"FullScreenHelperViewController dealloc");
 }
 @end
 
