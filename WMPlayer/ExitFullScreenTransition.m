@@ -8,6 +8,7 @@
 
 #import "ExitFullScreenTransition.h"
 #import "Masonry.h"
+#import "WMPlayer+Private.h"
 
 @interface ExitFullScreenTransition ()
 @property(nonatomic,strong)WMPlayer *player;
@@ -45,12 +46,17 @@
     [containerView insertSubview:toView belowSubview:fromView];
    
     if ([self.player.parentView isKindOfClass:[UIImageView class]]) {
-        self.player.frame = CGRectMake(self.player.oldFrameToWindow.origin.x, self.player.oldFrameToWindow.origin.y, self.player.frame.size.width, self.player.frame.size.height);
+        // 小屏在 window 中的目标 frame（进入全屏前已记录）
+        CGRect targetFrame = self.player.oldFrameToWindow;
+        // 先把 player 从全屏容器移到 keyWindow，并用全屏尺寸初始化，确保动画从全屏平滑缩到小屏
+        self.player.frame = fromView.bounds;
         [[UIApplication sharedApplication].keyWindow addSubview:self.player];
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
             fromView.transform = CGAffineTransformIdentity;
             fromView.center = initialCenter;
             fromView.bounds = self.player.beforeBounds;
+            // 关键：同时把 player 从全屏尺寸动画缩放到小屏尺寸，避免 player 静止在错误位置导致卡顿跳变
+            self.player.frame = targetFrame;
         } completion:^(BOOL finished) {
             [self.player removeFromSuperview];
             self.player.frame = self.player.parentView.bounds;

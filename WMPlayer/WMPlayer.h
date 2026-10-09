@@ -29,11 +29,6 @@ typedef NS_ENUM(NSInteger, WMPlayerState) {
     WMPlayerStateFinished,      //完成播放
     WMPlayerStatePause,         // 打断播放
 };
-typedef NS_ENUM(NSUInteger, WMPlayerViewState) {
-    PlayerViewStateSmall,
-    PlayerViewStateFullScreen,
-    PlayerViewStateAnimating,
-};
 // playerLayer的填充模式（默认：等比例填充，直到一个维度到达区域边界）
 typedef NS_ENUM(NSInteger, WMPlayerLayerGravity) {
     WMPlayerLayerGravityResize,           // 非均匀模式。两个维度完全填充至整个视图区域
@@ -89,12 +84,6 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
 
 
 @interface WMPlayer : UIView
-@property(nonatomic,strong)UIView *parentView;
-@property(nonatomic,assign)CGRect originFrame;
-@property(nonatomic,assign)CGRect oldFrameToWindow;
-@property(nonatomic,assign)CGRect beforeBounds;
-@property(nonatomic,assign)CGPoint beforeCenter;
-@property (nonatomic, assign) WMPlayerViewState  viewState;
 /**
  播放器对应的model
  */
@@ -104,7 +93,7 @@ typedef NS_ENUM(NSUInteger,WMControlType) {
  */
 @property (nonatomic, assign) BackBtnStyle backBtnStyle;
 /**
- BOOL值判断当前的状态，开发者要自己维护次BOOL值
+ 当前是否处于全屏（由播放器在进入/退出全屏时自动维护）
  */
 @property (nonatomic,assign) BOOL    isFullscreen;
 /**

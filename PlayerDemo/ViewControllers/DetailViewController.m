@@ -8,11 +8,11 @@
 
 #import "DetailViewController.h"
 #import "Masonry.h"
-#import "FullScreenHelperViewController.h"
 #import "LandscapeRightViewController.h"
 #import "LandscapeLeftViewController.h"
 #import "EnterFullScreenTransition.h"
 #import "ExitFullScreenTransition.h"
+#import "WMPlayer+Private.h"
 
 @interface DetailViewController ()<WMPlayerDelegate,UIViewControllerTransitioningDelegate>
 @property(nonatomic,strong)    UIButton *nextBtn;
@@ -28,6 +28,9 @@
 }
 -(BOOL)prefersStatusBarHidden{
     return self.wmPlayer.prefersStatusBarHidden;
+}
+-(UIStatusBarAnimation)preferredStatusBarUpdateAnimation{
+    return UIStatusBarAnimationFade;
 }
 //视图控制器实现的方法
 - (BOOL)shouldAutorotate{
@@ -55,51 +58,14 @@
 }
 ///全屏按钮
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
-    if (self.wmPlayer.viewState==PlayerViewStateSmall) {
-         [self enterFullScreen];
-    }
+    [self enterFullScreen];
 }
 -(void)enterFullScreen{
-    if (self.wmPlayer.viewState!=PlayerViewStateSmall) {
-        return;
-    }
-    LandscapeRightViewController *rightVC = [[LandscapeRightViewController alloc] init];
-    [self presentToVC:rightVC];
+    [self.wmPlayer enterFullScreenFromViewController:self helperViewController:[[LandscapeRightViewController alloc] init]];
 }
 -(void)exitFullScreen{
-    if (self.wmPlayer.viewState!=PlayerViewStateFullScreen) {
-              return;
-          }
-    self.wmPlayer.viewState = PlayerViewStateAnimating;
-    //isFullscreen 延后到转场动画完成后再置 NO，避免动画开始前 player.frame 被提前改成小屏导致画面跳变
-    [self dismissViewControllerAnimated:YES completion:^{
-       //兜底：用进入全屏前记录的小屏 bounds/center 重建 originFrame，确保首次退出也能还原原始尺寸与位置
-       self.wmPlayer.originFrame = CGRectMake(self.wmPlayer.beforeCenter.x - self.wmPlayer.beforeBounds.size.width/2,
-                                              self.wmPlayer.beforeCenter.y - self.wmPlayer.beforeBounds.size.height/2,
-                                              self.wmPlayer.beforeBounds.size.width,
-                                              self.wmPlayer.beforeBounds.size.height);
-       self.wmPlayer.isFullscreen = NO;
-       self.wmPlayer.viewState  = PlayerViewStateSmall;
-    }];
+    [self.wmPlayer exitFullScreenFromViewController:self];
 }
--(void)presentToVC:(FullScreenHelperViewController *)aHelperVC{
-     self.wmPlayer.viewState = PlayerViewStateAnimating;
-       //显式记录小屏 frame，避免 originFrame 被 isFullscreen 置 YES 前的任何布局事件污染
-       self.wmPlayer.originFrame = self.wmPlayer.frame;
-       self.wmPlayer.beforeBounds = self.wmPlayer.bounds;
-       self.wmPlayer.beforeCenter = self.wmPlayer.center;
-       self.wmPlayer.parentView = self.wmPlayer.superview;
-       self.wmPlayer.isFullscreen = YES;
-
-       aHelperVC.wmPlayer = self.wmPlayer;
-        aHelperVC.modalPresentationStyle = UIModalPresentationFullScreen;
-       aHelperVC.transitioningDelegate = self;
-       [self presentViewController:aHelperVC animated:YES completion:^{
-           self.wmPlayer.viewState = PlayerViewStateFullScreen;
-       }];
-}
-
-
 /**
  *  旋转屏幕通知
  */
@@ -121,11 +87,11 @@
         }
             break;
         case UIInterfaceOrientationLandscapeLeft:{
-            [self presentToVC:[LandscapeLeftViewController new]];
+            [self.wmPlayer enterFullScreenFromViewController:self helperViewController:[LandscapeLeftViewController new]];
         }
             break;
         case UIInterfaceOrientationLandscapeRight:{
-            [self presentToVC:[LandscapeRightViewController new]];
+            [self.wmPlayer enterFullScreenFromViewController:self helperViewController:[LandscapeRightViewController new]];
         }
             break;
         default:

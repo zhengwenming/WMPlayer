@@ -18,11 +18,11 @@
 #import "AppDelegate.h"
 #import "MJRefresh.h"
 #import "Masonry.h"
-#import "FullScreenHelperViewController.h"
 #import "LandscapeRightViewController.h"
 #import "LandscapeLeftViewController.h"
 #import "EnterFullScreenTransition.h"
 #import "ExitFullScreenTransition.h"
+#import "WMPlayer+Private.h"
 
 @interface SinaNewsViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,WMPlayerDelegate,UIViewControllerTransitioningDelegate>{
 
@@ -37,7 +37,17 @@
     return UIStatusBarStyleLightContent;
 }
 -(BOOL)prefersStatusBarHidden{
-    return NO;
+    // 全屏期间（含退出转场过程中）保持状态栏隐藏，dismiss 完成后再淡入，
+    // 避免旋转回竖屏时状态栏“啪”地闪现、连带把导航栏和页面往下顶一下。
+    return self.wmPlayer.isFullscreen;
+}
+//全屏的时候hidden底部homeIndicator
+-(BOOL)prefersHomeIndicatorAutoHidden{
+    return self.wmPlayer.isFullscreen;
+}
+//状态栏用淡入淡出，避免全屏→小屏时状态栏“啪”地闪现、连带页面往下跳一下
+-(UIStatusBarAnimation)preferredStatusBarUpdateAnimation{
+    return UIStatusBarAnimationFade;
 }
 -(BOOL)shouldAutorotate{
     return YES;
@@ -93,42 +103,15 @@
         }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
-   if (self.wmPlayer.viewState==PlayerViewStateSmall) {
-            [self enterFullScreen];
-       }
+    [self enterFullScreen];
 }
 -(void)enterFullScreen{
-    if (self.wmPlayer.viewState!=PlayerViewStateSmall) {
-           return;
-       }
-       LandscapeRightViewController *rightVC = [[LandscapeRightViewController alloc] init];
-       [self presentToVC:rightVC];
-}
--(void)presentToVC:(FullScreenHelperViewController *)aHelperVC{
-     self.wmPlayer.viewState = PlayerViewStateAnimating;
-       self.wmPlayer.beforeBounds = self.wmPlayer.bounds;
-       self.wmPlayer.beforeCenter = self.wmPlayer.center;
-       self.wmPlayer.parentView = self.wmPlayer.superview;
-       self.wmPlayer.isFullscreen = YES;
-        self.wmPlayer.backBtnStyle = BackBtnStylePop;
-
-       aHelperVC.wmPlayer = self.wmPlayer;
-        aHelperVC.modalPresentationStyle = UIModalPresentationFullScreen;
-       aHelperVC.transitioningDelegate = self;
-       [self presentViewController:aHelperVC animated:YES completion:^{
-           self.wmPlayer.viewState = PlayerViewStateFullScreen;
-       }];
+    self.wmPlayer.backBtnStyle = BackBtnStylePop;
+    [self.wmPlayer enterFullScreenFromViewController:self helperViewController:[[LandscapeRightViewController alloc] init]];
 }
 -(void)exitFullScreen{
-    if (self.wmPlayer.viewState!=PlayerViewStateFullScreen) {
-                 return;
-             }
-       self.wmPlayer.isFullscreen = NO;
-        self.wmPlayer.backBtnStyle = BackBtnStyleClose;
-       self.wmPlayer.viewState = PlayerViewStateAnimating;
-       [self dismissViewControllerAnimated:YES completion:^{
-          self.wmPlayer.viewState  = PlayerViewStateSmall;
-       }];
+    self.wmPlayer.backBtnStyle = BackBtnStyleClose;
+    [self.wmPlayer exitFullScreenFromViewController:self];
 }
 /**
  *  旋转屏幕通知
@@ -153,14 +136,14 @@
             break;
         case UIInterfaceOrientationLandscapeLeft:{
             NSLog(@"第2个旋转方向---电池栏在左");
-              LandscapeLeftViewController *leftVC = [[LandscapeLeftViewController alloc] init];
-            [self presentToVC:leftVC];
+            self.wmPlayer.backBtnStyle = BackBtnStylePop;
+            [self.wmPlayer enterFullScreenFromViewController:self helperViewController:[LandscapeLeftViewController new]];
         }
             break;
         case UIInterfaceOrientationLandscapeRight:{
             NSLog(@"第1个旋转方向---电池栏在右");
-            LandscapeRightViewController *rightVC = [[LandscapeRightViewController alloc] init];
-            [self presentToVC:rightVC];
+            self.wmPlayer.backBtnStyle = BackBtnStylePop;
+            [self.wmPlayer enterFullScreenFromViewController:self helperViewController:[LandscapeRightViewController new]];
         }
             break;
         default:

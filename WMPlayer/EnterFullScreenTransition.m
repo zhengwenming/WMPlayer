@@ -8,6 +8,7 @@
 
 #import "EnterFullScreenTransition.h"
 #import "Masonry.h"
+#import "WMPlayer+Private.h"
 @interface EnterFullScreenTransition ()
 @property(nonatomic,strong)WMPlayer *wmplayer;
 
