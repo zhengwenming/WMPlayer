@@ -105,7 +105,7 @@
      self.wmPlayer.delegate = self;
 }
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 #pragma mark

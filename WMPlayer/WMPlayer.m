@@ -308,7 +308,9 @@ void *WMPlayerStatusObservationContext = &WMPlayerStatusObservationContext;
 }
 
 -(void)dealloc{
+#ifdef DEBUG
     NSLog(@"WMPlayer dealloc");
+#endif
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.player.currentItem cancelPendingSeeks];
     [self.player.currentItem.asset cancelLoading];

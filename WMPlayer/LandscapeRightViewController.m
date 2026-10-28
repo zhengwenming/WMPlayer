@@ -21,6 +21,8 @@
     [super viewDidLoad];
 }
 - (void)dealloc{
+#ifdef DEBUG
     NSLog(@"LandscapeRightViewController dealloc");
+#endif
 }
 @end

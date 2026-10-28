@@ -41,7 +41,9 @@
 }
 ///播放器CloseButton
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
+#ifdef DEBUG
     NSLog(@"[WMPlayer-FullScreen] close tapped, isFullscreen=%d, viewState=%lu", wmplayer.isFullscreen, (unsigned long)wmplayer.viewState);
+#endif
     if (wmplayer.isFullscreen) {
         [self exitFullScreen];
     }else{
@@ -77,21 +79,29 @@
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
     switch (interfaceOrientation) {
         case UIInterfaceOrientationPortraitUpsideDown:{
+#ifdef DEBUG
             NSLog(@"第3个旋转方向---电池栏在下");
+#endif
         }
             break;
         case UIInterfaceOrientationPortrait:{
+#ifdef DEBUG
             NSLog(@"第0个旋转方向---电池栏在上");
+#endif
             self.wmPlayer.viewState = PlayerViewStateAnimating;
             [self exitFullScreen];
         }
             break;
         case UIInterfaceOrientationLandscapeLeft:{
+#ifdef DEBUG
             NSLog(@"第2个旋转方向---电池栏在左");
+#endif
         }
             break;
         case UIInterfaceOrientationLandscapeRight:{
+#ifdef DEBUG
             NSLog(@"第1个旋转方向---电池栏在右");
+#endif
         }
             break;
         default:

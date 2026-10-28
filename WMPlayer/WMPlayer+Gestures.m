@@ -216,7 +216,9 @@
             //        控制亮度的方法
             [UIScreen mainScreen].brightness = tempLightValue;
             //        实时改变现实亮度进度的view
+#ifdef DEBUG
             NSLog(@"亮度调节 = %f",tempLightValue);
+#endif
             [self.contentView bringSubviewToFront:self.lightView];
         }else{
             

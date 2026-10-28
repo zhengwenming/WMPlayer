@@ -144,6 +144,10 @@
     self.state = WMPlayerStateBuffering;
     //监听播放状态
     [self initTimer];
+    //应用播放前设置的倍速（setRate: 在 player 创建前调用时会被丢失）
+    if (self.rate > 0 && self.rate != 1.0) {
+        self.player.rate = self.rate;
+    }
     [self.player play];
     //添加画中画相关代码
     [self setupSuport];
@@ -221,7 +225,9 @@
                         self.loadFailedLabel.hidden = NO;
                         [self bringSubviewToFront:self.loadFailedLabel];
                         [self.loadingView stopAnimating];
+#ifdef DEBUG
                         NSLog(@"视频加载失败===%@", error.localizedDescription);
+#endif
                     }
                 }
                     break;

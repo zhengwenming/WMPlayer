@@ -20,6 +20,8 @@
     [super viewDidLoad];
 }
 - (void)dealloc{
+#ifdef DEBUG
     NSLog(@"LandscapeLeftViewController dealloc");
+#endif
 }
 @end

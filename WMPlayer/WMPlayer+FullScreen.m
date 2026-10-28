@@ -31,7 +31,9 @@
     }
     [sourceVC presentViewController:helperVC animated:YES completion:^{
         self.viewState = PlayerViewStateFullScreen;
+#ifdef DEBUG
         NSLog(@"[WMPlayer-FullScreen] enter completion -> viewState=FullScreen");
+#endif
     }];
 }
 
@@ -46,7 +48,9 @@
     // 真正 present 全屏 VC 的“小屏 VC”：dismiss 后由它负责状态栏显示，
     // 用它来触发状态栏淡入（sourceVC 可能是全屏容器 VC，其 presentingViewController 才是小屏 VC）。
     UIViewController *presentingVC = sourceVC.presentingViewController ?: sourceVC;
+#ifdef DEBUG
     NSLog(@"[WMPlayer-FullScreen] exit begin, viewState=%lu, sourceVC=%@", (unsigned long)self.viewState, sourceVC);
+#endif
     // isFullscreen 延后到转场动画完成后再置 NO，避免动画开始前 player.frame 被提前改成小屏导致画面跳变
     [dismissingVC dismissViewControllerAnimated:YES completion:^{
         // 兜底：用进入全屏前记录的小屏 bounds/center 重建 originFrame，确保首次退出也能还原原始尺寸与位置
@@ -59,7 +63,9 @@
         // 全屏期间状态栏是隐藏的；转场/旋转全部完成后再让状态栏淡入，
         // 避免旋转过程中状态栏闪现并把页面往下顶导致卡顿。
         [presentingVC setNeedsStatusBarAppearanceUpdate];
+#ifdef DEBUG
         NSLog(@"[WMPlayer-FullScreen] exit completion -> viewState=Small");
+#endif
     }];
 }
 

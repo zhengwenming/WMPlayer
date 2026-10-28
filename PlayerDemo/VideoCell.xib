@@ -50,7 +50,6 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEd-9K-NaK">
                         <rect key="frame" x="36" y="243.5" width="42" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="xEd-9K-NaK" secondAttribute="height" multiplier="21:10" id="CcP-9c-Axs"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -59,7 +58,6 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.22万" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJZ-ZF-MEW">
                         <rect key="frame" x="117" y="243.5" width="51.5" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="yJZ-ZF-MEW" secondAttribute="height" multiplier="51:20" id="TT3-sj-93r"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
